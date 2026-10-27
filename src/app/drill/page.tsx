@@ -21,6 +21,15 @@ import {
   Copy,
   Check,
   Zap,
+  Clock,
+  Briefcase,
+  UserX,
+  Package,
+  Truck,
+  Smartphone,
+  HeartCrack,
+  Crown,
+  Trophy,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import scenariosData from "@/data/scenarios.json";
@@ -35,7 +44,7 @@ interface StageDefinition {
   subtitle: string;
   scenarioId: string;
   tier: "Alpha" | "Beta" | "Omega";
-  icon: string;
+  icon: React.ComponentType<{ className?: string }>;
   color: string;
 }
 
@@ -47,7 +56,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus ancaman rekening bank dibekukan",
     scenarioId: "phishing_bank_account_freeze",
     tier: "Alpha",
-    icon: "⏱️",
+    icon: Clock,
     color: "#10B981", // emerald
   },
   {
@@ -57,7 +66,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus lowongan admin WFH bayar seragam",
     scenarioId: "wfh_admin_fee",
     tier: "Alpha",
-    icon: "💼",
+    icon: Briefcase,
     color: "#10B981",
   },
   {
@@ -67,7 +76,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus kerabat ganti nomor minta transfer",
     scenarioId: "impersonate_new_number",
     tier: "Alpha",
-    icon: "🎭",
+    icon: UserX,
     color: "#10B981",
   },
   {
@@ -77,7 +86,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus undangan pernikahan & surat tilang",
     scenarioId: "apk_wedding_invitation",
     tier: "Beta",
-    icon: "📦",
+    icon: Package,
     color: "#8B5CF6", // purple
   },
   {
@@ -87,7 +96,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus tagihan paket di depan rumah",
     scenarioId: "marketplace_cod_scam",
     tier: "Beta",
-    icon: "🚚",
+    icon: Truck,
     color: "#8B5CF6",
   },
   {
@@ -97,7 +106,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus misi berbayar grup Telegram",
     scenarioId: "task_scam_review_maps",
     tier: "Beta",
-    icon: "📱",
+    icon: Smartphone,
     color: "#8B5CF6",
   },
   {
@@ -107,7 +116,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Modus kenalan dating app Pig Butchering",
     scenarioId: "romance_investment_pigbutchering",
     tier: "Beta",
-    icon: "💔",
+    icon: HeartCrack,
     color: "#8B5CF6",
   },
   {
@@ -117,7 +126,7 @@ const STAGES: StageDefinition[] = [
     subtitle: "Ujian Kelayakan Refleks Penjaga Digital",
     scenarioId: "generic_emergency",
     tier: "Omega",
-    icon: "👑",
+    icon: Crown,
     color: "#F59E0B", // amber gold
   },
 ];
@@ -362,7 +371,10 @@ export default function DrillPage() {
                       : "bg-[#161B22] border-2 border-white/10 text-white/30 cursor-not-allowed opacity-60"
                   )}
                 >
-                  <span className="text-2xl">{stage.icon}</span>
+                  {(() => {
+                    const StageIcon = stage.icon;
+                    return <StageIcon className="w-7 h-7" />;
+                  })()}
 
                   {isCompleted && (
                     <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-400 text-black flex items-center justify-center shadow-md">
@@ -551,9 +563,9 @@ export default function DrillPage() {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ type: "spring", stiffness: 300, damping: 15 }}
-                  className="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.3)] text-4xl"
+                  className="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-400 flex items-center justify-center shadow-[0_0_40px_rgba(16,185,129,0.3)] text-slate-950"
                 >
-                  🎉
+                  <Trophy className="w-12 h-12" />
                 </motion.div>
 
                 <div className="space-y-2">

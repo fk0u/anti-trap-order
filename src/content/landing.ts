@@ -220,7 +220,7 @@ export const landingContent: LandingContent = {
     chatSender: "Admin HR Rekrutmen (Fiktif)",
     chatTime: "14:02",
     chatMessage:
-      "Halo kak, ada lowongan admin online, gaji Rp500rb/hari, cukup bayar Rp150rb buat seragam kerja 🙏",
+      "Halo kak, ada lowongan admin online, gaji Rp500rb/hari, cukup bayar Rp150rb buat seragam kerja.",
     typingText: "mengetik pesan...",
     victimModeLabel: "Mode: Sasaran",
     attackerModeLabel: "Mode: Pelaku",

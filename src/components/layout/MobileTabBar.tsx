@@ -5,14 +5,16 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
+import { Compass, Zap, ShieldCheck, BookOpen } from "lucide-react";
+
 export function MobileTabBar() {
   const pathname = usePathname();
 
   const tabs = [
-    { label: "Latihan", href: "/drill", icon: "🧭" },
-    { label: "A20 Lite", href: "/lite", icon: "⚡" },
-    { label: "A20 Soul", href: "/soul", icon: "💜" },
-    { label: "Docs", href: "/docs", icon: "📖" },
+    { label: "Latihan", href: "/drill", icon: Compass },
+    { label: "A20 Lite", href: "/lite", icon: Zap },
+    { label: "A20 Soul", href: "/soul", icon: ShieldCheck },
+    { label: "Docs", href: "/docs", icon: BookOpen },
   ];
 
   return (
@@ -20,6 +22,7 @@ export function MobileTabBar() {
       <div className="max-w-md mx-auto grid grid-cols-4 gap-1 text-center font-mono text-[10px]">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
+          const Icon = tab.icon;
           return (
             <Link
               key={tab.href}
@@ -31,7 +34,7 @@ export function MobileTabBar() {
                   : "text-text-muted hover:text-white"
               )}
             >
-              <span className="text-base">{tab.icon}</span>
+              <Icon className="w-4 h-4" />
               <span>{tab.label}</span>
             </Link>
           );

@@ -238,8 +238,8 @@ export function HeroConsole() {
                       <span className="absolute -bottom-5 left-0 px-1 py-0.2 rounded bg-[#F59E0B] text-black font-mono text-[9px] font-bold tracking-tight uppercase whitespace-nowrap shadow-sm">
                         pungutan di depan
                       </span>
-                    </span>{" "}
-                    🙏
+                    </span>
+                    .
                   </p>
                 )}
               </motion.div>

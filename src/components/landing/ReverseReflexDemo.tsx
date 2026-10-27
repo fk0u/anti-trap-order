@@ -541,8 +541,9 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Mandatory Disclaimer */}
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] font-mono text-text-muted text-center">
-                  ⚠️ Ini alat bantu berpikir mandiri (decision support), bukan deteksi kepastian 100%. Selalu konfirmasi ke kanal resmi institusi terkait.
+                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] font-mono text-text-muted flex items-center justify-center gap-2 text-center">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                  <span>Ini alat bantu berpikir mandiri (decision support), bukan deteksi kepastian 100%. Selalu konfirmasi ke kanal resmi institusi terkait.</span>
                 </div>
 
                 {/* Reset & Navigation Buttons */}
