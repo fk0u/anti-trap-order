@@ -10,10 +10,87 @@ import {
 
 const scenarios: Scenario[] = scenariosData as Scenario[];
 
-interface ScoredScenario {
-  scenario: Scenario;
-  score: number;
-}
+const IndonesianSlangMap: Record<string, string> = {
+  tf: "transfer",
+  trf: "transfer",
+  trsf: "transfer",
+  rek: "rekening",
+  rekk: "rekening",
+  norek: "rekening",
+  depo: "deposit",
+  topup: "deposit",
+  byr: "bayar",
+  dp: "uang_muka",
+  pinjol: "pinjaman_online",
+  pnjm: "pinjam",
+  cair: "pencairan_dana",
+  bunga: "bunga_pinjaman",
+  loker: "lowongan_kerja",
+  lwngan: "lowongan_kerja",
+  krja: "kerja",
+  parttime: "paruh_waktu",
+  freelance: "paruh_waktu",
+  komisi: "komisi",
+  gaji: "komisi",
+  sub: "subscribe",
+  subs: "subscribe",
+  skrg: "sekarang",
+  skrng: "sekarang",
+  segera: "segera",
+  buruan: "segera",
+  hangus: "hangus_kedaluwarsa",
+  urgent: "darurat",
+  wa: "whatsapp",
+  tele: "telegram",
+  apk: "unduh_aplikasi",
+  link: "tautan_link",
+  klik: "tautan_link",
+  mng: "menang",
+  giveaway: "giveaway_hadiah",
+  hadiah: "giveaway_hadiah",
+  kk: "kakak",
+  kak: "kakak",
+  bca: "bank_bca",
+  bri: "bank_bri",
+  bni: "bank_bni",
+  mandiri: "bank_mandiri",
+  dana: "ewallet_dana",
+  gopay: "ewallet_gopay",
+  ovo: "ewallet_ovo",
+};
+
+const vectorPatterns: Record<string, string[]> = {
+  urgency: [
+    "sebelum hangus",
+    "kuota terbatas",
+    "hanya hari ini",
+    "sekarang juga",
+    "segera konfirmasi",
+    "1x24 jam",
+    "batas waktu",
+  ],
+  upfront_fee: [
+    "transfer deposit",
+    "biaya pendaftaran",
+    "biaya aktivasi",
+    "biaya admin",
+    "modal awal",
+    "transfer dulu",
+  ],
+  impersonation: [
+    "ini nomor baru",
+    "hp ku hilang",
+    "pinjam nomor rekening",
+    "customer service resmi",
+    "dari pihak shopee",
+  ],
+  too_good_to_be_true: [
+    "gaji jutaan per hari",
+    "kerja santai modal like",
+    "hanya like dan subscribe",
+    "tanpa jaminan langsung cair",
+  ],
+};
 
 function normalize(s: string): string {
   return s
@@ -21,6 +98,23 @@ function normalize(s: string): string {
     .replace(/[^\p{L}\p{N}\s]/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function tokenizeNLP(text: string): string[] {
+  const norm = normalize(text);
+  const words = norm.split(" ");
+  return words.map((w) => IndonesianSlangMap[w] || w);
+}
+
+function detectVectors(text: string): string[] {
+  const norm = normalize(text);
+  const detected: string[] = [];
+  for (const [vec, patterns] of Object.entries(vectorPatterns)) {
+    if (patterns.some((p) => norm.includes(p))) {
+      detected.push(vec);
+    }
+  }
+  return detected;
 }
 
 function resolveScenario(req: ReflectRequest): Scenario {
@@ -31,7 +125,9 @@ function resolveScenario(req: ReflectRequest): Scenario {
 
   if (req.free_text && req.free_text.trim().length > 0) {
     const normText = normalize(req.free_text);
-    const words = new Set(normText.split(" "));
+    const tokens = tokenizeNLP(req.free_text);
+    const tokenSet = new Set(tokens);
+    const vectors = detectVectors(req.free_text);
 
     let bestScore = 0;
     let bestScenario: Scenario | null = null;
@@ -45,10 +141,17 @@ function resolveScenario(req: ReflectRequest): Scenario {
           if (normText.includes(normKw)) {
             score += 3;
           }
-        } else if (words.has(normKw)) {
+        } else if (tokenSet.has(normKw)) {
           score += 2;
         }
       }
+
+      // Vector boost
+      if (sc.category === "job_scam" && vectors.includes("upfront_fee")) score += 4;
+      if (sc.category === "impersonation" && vectors.includes("impersonation")) score += 5;
+      if (sc.category === "giveaway" && vectors.includes("too_good_to_be_true")) score += 4;
+      if (sc.category === "loan" && vectors.includes("too_good_to_be_true")) score += 3;
+
       if (score > bestScore) {
         bestScore = score;
         bestScenario = sc;
@@ -67,7 +170,7 @@ function resolveScenario(req: ReflectRequest): Scenario {
 export function reflectLocal(req: ReflectRequest): ReflectResponse {
   const sc = resolveScenario(req);
 
-  // 1. Collect tags from answers and free_text keywords
+  // 1. Collect tags from answers and free_text keywords & vectors
   const tagCounts = new Map<string, number>();
   const userOptionLabels: string[] = [];
 
@@ -86,13 +189,11 @@ export function reflectLocal(req: ReflectRequest): ReflectResponse {
     }
   }
 
-  if (req.free_text) {
-    const normText = normalize(req.free_text);
-    for (const kw of sc.keywords) {
-      if (normText.includes(normalize(kw))) {
-        tagCounts.set("keyword_match", (tagCounts.get("keyword_match") || 0) + 1);
-      }
-    }
+  const detectedVectors = req.free_text ? detectVectors(req.free_text) : [];
+  for (const v of detectedVectors) {
+    if (v === "urgency") tagCounts.set("urgensi", (tagCounts.get("urgensi") || 0) + 1);
+    if (v === "upfront_fee") tagCounts.set("uang_muka", (tagCounts.get("uang_muka") || 0) + 1);
+    if (v === "impersonation") tagCounts.set("rekayasa_identitas", (tagCounts.get("rekayasa_identitas") || 0) + 1);
   }
 
   // 2. Rank flaws
@@ -119,7 +220,7 @@ export function reflectLocal(req: ReflectRequest): ReflectResponse {
   let dominantTag = "";
   let maxTagCount = 0;
   tagCounts.forEach((count, tag) => {
-    if (count > maxTagCount && tag !== "keyword_match") {
+    if (count > maxTagCount) {
       maxTagCount = count;
       dominantTag = tag;
     }
@@ -170,12 +271,16 @@ export function reflectLocal(req: ReflectRequest): ReflectResponse {
     };
   });
 
-  const perspectiveSummary =
+  let perspectiveSummary =
     userOptionLabels.length > 0
       ? `Melalui sudut pandang pelaku, kamu menandai fokus pada: ${userOptionLabels.join(
           "; "
         )}. Ini membuka celah manipulasi berikut:`
       : `Melalui sudut pandang pelaku, pola manipulasi berikut berhasil dipetakan:`;
+
+  if (detectedVectors.length > 0) {
+    perspectiveSummary += ` [NLP Tokenizer mendeteksi vektor manipulasi: ${detectedVectors.join(", ")}]`;
+  }
 
   return {
     scenario_id: sc.id,

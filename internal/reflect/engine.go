@@ -31,33 +31,81 @@ func NormalizeText(text string) string {
 
 func (e *Engine) MatchScenarioByKeyword(freeText string) model.Scenario {
 	normalized := NormalizeText(freeText)
-	words := strings.Fields(normalized)
-	wordSet := make(map[string]struct{}, len(words))
-	for _, w := range words {
-		wordSet[w] = struct{}{}
+	canonicalTokens := NLPTokenize(freeText)
+	canonicalSet := make(map[string]struct{}, len(canonicalTokens))
+	for _, t := range canonicalTokens {
+		canonicalSet[t] = struct{}{}
+	}
+
+	vectors := DetectManipulationVectors(freeText)
+	vectorSet := make(map[ManipulationVector]struct{}, len(vectors))
+	for _, v := range vectors {
+		vectorSet[v] = struct{}{}
 	}
 
 	var bestScenario model.Scenario
 	var highestScore int
 
-	// Prefer specific scenarios first (indices 0..4)
+	// Prefer specific scenarios first
 	for _, s := range e.scenarios {
 		if s.ID == "generic_emergency" {
 			continue
 		}
 		score := 0
+
+		// Keyword matching with raw text and canonical tokens
 		for _, kw := range s.Keywords {
 			kwNorm := NormalizeText(kw)
 			if strings.Contains(normalized, kwNorm) {
 				score += 3
 			} else {
 				for _, part := range strings.Fields(kwNorm) {
-					if _, ok := wordSet[part]; ok {
-						score += 1
+					if _, ok := canonicalSet[part]; ok {
+						score += 2
 					}
 				}
 			}
 		}
+
+		// Psychological vector alignment bonus
+		switch s.Category {
+		case "job_scam":
+			if _, ok := vectorSet[VectorUpfrontFee]; ok {
+				score += 4
+			}
+			if _, ok := vectorSet[VectorTooGood]; ok {
+				score += 3
+			}
+		case "giveaway":
+			if _, ok := vectorSet[VectorTooGood]; ok {
+				score += 4
+			}
+			if _, ok := vectorSet[VectorUpfrontFee]; ok {
+				score += 2
+			}
+		case "impersonation":
+			if _, ok := vectorSet[VectorImpersonation]; ok {
+				score += 5
+			}
+			if _, ok := vectorSet[VectorUrgency]; ok {
+				score += 2
+			}
+		case "phishing":
+			if _, ok := vectorSet[VectorUrgency]; ok {
+				score += 3
+			}
+			if _, ok := vectorSet[VectorImpersonation]; ok {
+				score += 3
+			}
+		case "loan":
+			if _, ok := vectorSet[VectorTooGood]; ok {
+				score += 3
+			}
+			if _, ok := vectorSet[VectorUrgency]; ok {
+				score += 2
+			}
+		}
+
 		if score > highestScore {
 			highestScore = score
 			bestScenario = s
@@ -123,6 +171,27 @@ func (e *Engine) ProcessReflection(req model.ReflectRequest) (model.ReflectRespo
 		}
 	}
 
+	// Also boost tags if free text triggers manipulation vectors
+	detectedVectors := []string{}
+	if req.FreeText != "" {
+		vectors := DetectManipulationVectors(req.FreeText)
+		for _, v := range vectors {
+			detectedVectors = append(detectedVectors, string(v))
+			switch v {
+			case VectorUrgency:
+				selectedTagsMap["urgensi"]++
+			case VectorUpfrontFee:
+				selectedTagsMap["uang_muka"]++
+			case VectorImpersonation:
+				selectedTagsMap["rekayasa_identitas"]++
+			case VectorIsolation:
+				selectedTagsMap["isolasi"]++
+			case VectorTooGood:
+				selectedTagsMap["imbalan_berlebih"]++
+			}
+		}
+	}
+
 	// Rank flaws based on tag match and severity
 	type scoredFlaw struct {
 		flaw  model.Flaw
@@ -179,38 +248,33 @@ func (e *Engine) ProcessReflection(req model.ReflectRequest) (model.ReflectRespo
 	// Warning templates
 	casualText := ""
 	firmText := ""
-	for _, wt := range scenario.WarningTemplates {
-		if wt.Tone == model.ToneCasual && casualText == "" {
-			casualText = wt.Text
+	for _, tpl := range scenario.WarningTemplates {
+		if tpl.Tone == "casual" && casualText == "" {
+			casualText = tpl.Text
 		}
-		if wt.Tone == model.ToneFirm && firmText == "" {
-			firmText = wt.Text
+		if tpl.Tone == "firm" && firmText == "" {
+			firmText = tpl.Text
 		}
-	}
-	if casualText == "" && len(scenario.WarningTemplates) > 0 {
-		casualText = scenario.WarningTemplates[0].Text
-	}
-	if firmText == "" && len(scenario.WarningTemplates) > 0 {
-		firmText = scenario.WarningTemplates[0].Text
 	}
 
-	summaryReason := "Kamu membongkar skenario ini dengan memeriksa celah psikologis yang sengaja disamarkan pelaku."
+	perspectiveSummary := "Berdasarkan sudut pandang pelaku yang kamu telaah, manipulasi ini sengaja membatasi waktu verifikasi korban."
 	if len(perspectiveReasons) > 0 {
-		summaryReason = fmt.Sprintf("Dengan mengidentifikasi taktik '%s', kamu mematahkan ilusi manipulasi sebelum terjadi kerugian.", perspectiveReasons[0])
+		perspectiveSummary = fmt.Sprintf("Melalui sudut pandang pelaku, kamu mengidentifikasi fokus pada: %s.", strings.Join(perspectiveReasons, "; "))
 	}
-
-	confidenceNote := "Hasil analisis ini didasarkan pada kecocokan indikator taktik manipulasi dan bukti linguistik dari skenario, sebagai panduan nalar kritis mandiri (bukan skor pasti)."
+	if len(detectedVectors) > 0 {
+		perspectiveSummary += fmt.Sprintf(" NLP Engine mendeteksi indikator manipulasi psikologis: %s.", strings.Join(detectedVectors, ", "))
+	}
 
 	return model.ReflectResponse{
-		ScenarioID:        scenario.ID,
-		MatchedCategory:   scenario.Category,
-		UserDetectedFlaws: flawResults,
-		SafeSteps:         safeSteps,
+		ScenarioID:         scenario.ID,
+		MatchedCategory:    scenario.Category,
+		UserDetectedFlaws:  flawResults,
+		SafeSteps:          safeSteps,
 		WarningTemplates: model.WarningTemplatesResponse{
 			Casual: casualText,
 			Firm:   firmText,
 		},
-		ConfidenceNote:     confidenceNote,
-		PerspectiveSummary: summaryReason,
+		ConfidenceNote:     "Ini alat bantu berpikir dan analisa rekayasa sosial, bukan deteksi pasti.",
+		PerspectiveSummary: perspectiveSummary,
 	}, nil
 }
