@@ -1,5 +1,11 @@
 import { Navbar } from "@/components/landing/Navbar";
 import { Hero } from "@/components/landing/Hero";
+import { Problem } from "@/components/landing/Problem";
+import { A20System } from "@/components/landing/A20System";
+import { ReverseReflexDemo } from "@/components/landing/ReverseReflexDemo";
+import { Trust } from "@/components/landing/Trust";
+import { FinalCTA } from "@/components/landing/FinalCTA";
+import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
   return (
@@ -10,11 +16,23 @@ export default function Home() {
       {/* Hero Shell with Aurora, Spotlight, HeroConsole, and Marquee */}
       <Hero />
 
-      {/* Target anchor points for Fase 2 & Fase 3 sections */}
-      <div id="masalah" className="scroll-mt-28" />
-      <div id="cara-kerja" className="scroll-mt-28" />
-      <div id="reverse-reflex" className="scroll-mt-28" />
-      <div id="tentang" className="scroll-mt-28" />
+      {/* 01: Problem Bento Section (Light Surface) */}
+      <Problem />
+
+      {/* 02: A20 Culture Technology System (Dark Sticky Showcase) */}
+      <A20System />
+
+      {/* Core Interactive Demo: Reverse Reflex Simulator */}
+      <ReverseReflexDemo />
+
+      {/* 03: Trust, Privacy, & Radical Honesty (Light Surface) */}
+      <Trust />
+
+      {/* Final Bookend CTA */}
+      <FinalCTA />
+
+      {/* Footer */}
+      <Footer />
     </main>
   );
 }

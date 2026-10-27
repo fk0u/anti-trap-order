@@ -37,6 +37,38 @@ export interface HeroConsoleContent {
   };
 }
 
+export interface ProblemCard {
+  id: string;
+  size: "large" | "small";
+  category: string;
+  title: string;
+  chatBubble: {
+    sender: string;
+    message: string;
+    suspiciousHighlight: string;
+  };
+  theDoubtQuestion: string;
+  explanation: string;
+}
+
+export interface A20Step {
+  number: string;
+  codeName: string;
+  stage: string;
+  title: string;
+  tagline: string;
+  description: string;
+  features: string[];
+  badge?: string;
+}
+
+export interface TrustCard {
+  title: string;
+  tagline: string;
+  description: string;
+  iconType: "shield" | "database" | "help";
+}
+
 export interface LandingContent {
   nav: {
     brandName: string;
@@ -79,21 +111,38 @@ export interface LandingContent {
     tag: string;
     title: string;
     description: string;
+    cards: ProblemCard[];
     closingHeadline: string;
   };
   a20System: {
     sectionNumber: string;
     tag: string;
     title: string;
+    subtitle: string;
     description: string;
+    inversionCallout: {
+      title: string;
+      description: string;
+      nodeUser: string;
+      nodeAttacker: string;
+      reverseActionText: string;
+    };
+    steps: A20Step[];
   };
   trust: {
     sectionNumber: string;
     tag: string;
     title: string;
     description: string;
+    cards: TrustCard[];
+    limitations: {
+      title: string;
+      description: string;
+      points: string[];
+    };
   };
   finalCta: {
+    tag: string;
     title: string;
     description: string;
     ctaLabel: string;
@@ -209,6 +258,60 @@ export const landingContent: LandingContent = {
     title: "Mengapa Informasi Keamanan Saja Tidak Pernah Cukup?",
     description:
       "Sebagian besar anak muda sudah tahu bahwa penipuan itu ada. Namun saat pesan masuk di jam sibuk dengan nada meyakinkan, otak manusia bekerja dengan bias cepat.",
+    cards: [
+      {
+        id: "p1",
+        size: "large",
+        category: "Lowongan Kerja Palsu",
+        title: "Keserakahan Ditutup Rasa Butuh",
+        chatBubble: {
+          sender: "HRD Rekrutmen Fiktif",
+          message: "Gaji 450rb/hari cukup input data 2 jam. Transfer 125rb buat ID card & seragam ya, nanti di-refund.",
+          suspiciousHighlight: "Transfer 125rb buat ID card & seragam",
+        },
+        theDoubtQuestion: "Ada yang aneh: kenapa kerjaan enteng gajinya segede ini, tapi disuruh bayar duluan?",
+        explanation: "Pelaku memanfaatkan impian kerja fleksibel mahasiswa. Nominal 125rb sengaja dibuat kecil agar korban merasa risikonya sepele.",
+      },
+      {
+        id: "p2",
+        size: "small",
+        category: "Impersonasi Kontak",
+        title: "Empati yang Disandera",
+        chatBubble: {
+          sender: "Nomor Asing",
+          message: "Halo, HP-ku jatuh layarnya retak. Ini nomor baruku, boleh pinjem 300rb buat bayar bengkel?",
+          suspiciousHighlight: "Ini nomor baruku, boleh pinjem 300rb",
+        },
+        theDoubtQuestion: "Ada yang aneh: beneran teman dekat atau orang lain yang nyomot foto profil?",
+        explanation: "Pelaku menyandera rasa sungkan kita untuk menolak bantuan kerabat yang sedang terkena musibah mendadak.",
+      },
+      {
+        id: "p3",
+        size: "small",
+        category: "Rekayasa Teror",
+        title: "Kepanikan Melumpuhkan Nalar",
+        chatBubble: {
+          sender: "Notifikasi Sistem Palsu",
+          message: "Aktivitas mencurigakan terdeteksi! Akses m-banking akan DIBEKUKAN dalam 1x24 jam. Klik tautan:",
+          suspiciousHighlight: "DIBEKUKAN dalam 1x24 jam",
+        },
+        theDoubtQuestion: "Ada yang aneh: bank resmi mana yang ngasih ancaman blokir lewat nomor SMS biasa?",
+        explanation: "Ancaman pembekuan rekening menciptakan adrenalin tinggi, memicu korban mengklik link phishing sebelum sempat berpikir jernih.",
+      },
+      {
+        id: "p4",
+        size: "large",
+        category: "Giveaway Berkedok Tebus Hadiah",
+        title: "Euforia Menang yang Menjebak",
+        chatBubble: {
+          sender: "Kreator Akun Tiruan",
+          message: "Selamat! Kamu menang iPhone 16 Pro Max. Cukup bayar ongkir asuransi resmi 75rb dalam 30 menit.",
+          suspiciousHighlight: "Cukup bayar ongkir asuransi resmi 75rb",
+        },
+        theDoubtQuestion: "Ada yang aneh: masa menang hadiah jutaan tapi pemenang masih dimintai duit ongkir?",
+        explanation: "Akun peniru dibuat sangat mirip dengan kreator asli. Batas 30 menit dirancang agar korban takut hadiah hangus.",
+      },
+    ],
     closingHeadline:
       "Masalahnya bukan kamu kurang pintar. Kamu belum punya cara mikir-nya.",
   },
@@ -216,21 +319,96 @@ export const landingContent: LandingContent = {
     sectionNumber: "02 / SISTEM A20",
     tag: "Culture Technology for Guardians",
     title: "Dua Lapisan Pembentukan: Dari Refleks Menuju Identitas",
+    subtitle: "Alpha to Omega",
     description:
-      "Terinspirasi dari pendekatan sistematis Culture Technology Lee Soo-man: manusia bukan korban pasif yang perlu dikasihani, melainkan agen yang dilatih instingnya hingga matang.",
+      "Terinspirasi dari pendekatan Culture Technology Lee Soo-man: manusia bukan korban pasif yang perlu dikasihani, melainkan agen yang dilatih instingnya hingga matang.",
+    inversionCallout: {
+      title: "Prinsip Utama: Perspective Inversion",
+      description: "Jangan memposisikan dirimu sebagai korban yang pasif menebak. Masuklah ke kepala pelaku dalam 30 detik: celah apa yang ingin kamu mangsa?",
+      nodeUser: "Kamu (Calon Penjaga)",
+      nodeAttacker: "Pelaku Manipulasi",
+      reverseActionText: "Balik Sudut Pandang 180°",
+    },
+    steps: [
+      {
+        number: "01",
+        codeName: "A20 Lite",
+        stage: "Alpha (The Reflex)",
+        title: "The Reflex — Deteksi & Pembedahan Cepat",
+        tagline: "Dipakai saat sedang ragu di situasi nyata.",
+        description:
+          "Masukkan situasi mencurigakan. Sistem memaksamu menjawab 3 pertanyaan taktis dari kacamata pelaku. Celah terkuak, Action Card keluar, pesan peringatan siap kirim ke grup keluarga.",
+        features: [
+          "Selesai dalam < 90 detik",
+          "Membongkar teknik urgensi & rekayasa sosial",
+          "Menghasilkan Action Card checklist & kalimat siap copy",
+          "Tanpa login & tanpa simpan riwayat chat",
+        ],
+      },
+      {
+        number: "02",
+        codeName: "A20 Soul",
+        stage: "Omega (The Guardian Arc)",
+        title: "The Guardian Arc — Simulasi Tanggung Jawab Nyata",
+        tagline: "Dipakai saat santai untuk membentuk mental pelindung.",
+        description:
+          "Pilih orang terdekat yang ingin kamu lindungi (adik kandung, teman kuliah, orang tua). Jalankan misi cerita interaktif di mana setiap responsmu berdampak langsung pada nasib finansial dan rasa percaya mereka.",
+        features: [
+          "Cerita bersambung dengan konsekuensi nyata",
+          "Membentuk empati dan insting diplomasi penjaga",
+          "Graf narasi bercabang tanpa jalur generik",
+          "Refleksi filosofi kepenjagaan di akhir misi",
+        ],
+        badge: "Segera Hadir",
+      },
+    ],
   },
   trust: {
     sectionNumber: "03 / PRINSIP & BATASAN",
     tag: "Kejujuran Radikal",
     title: "Dibangun untuk Melindungi, Bukan Menghisap Privasi",
     description:
-      "Kami percaya alat edukasi yang kredibel harus berani transparan atas apa yang bisa dan tidak bisa ia lakukan.",
+      "Kami percaya alat edukasi siber yang kredibel harus berani jujur atas apa yang bisa dan tidak bisa ia lakukan.",
+    cards: [
+      {
+        title: "Tanpa Registrasi & Login",
+        tagline: "Zero Credential Barrier",
+        description:
+          "Gunakan seluruh fitur inti ATO secara langsung tanpa membuat akun, tanpa nomor telepon, dan tanpa login pihak ketiga.",
+        iconType: "shield",
+      },
+      {
+        title: "Tidak Menyimpan Data Pribadi",
+        tagline: "Stateless Privacy by Design",
+        description:
+          "Input teks situasi hanya diproses di memori runtime browser dan server tanpa database persisten atau body logging.",
+        iconType: "database",
+      },
+      {
+        title: "Bukan Deteksi Kepastian 100%",
+        tagline: "Decision Support, Not Magic",
+        description:
+          "ATO adalah instrumen pelatihan nalar kritis (alat bantu berpikir), bukan jaminan deteksi mutlak. Konfirmasi resmi tetap nomor satu.",
+        iconType: "help",
+      },
+    ],
+    limitations: {
+      title: "Yang ATO Tidak Bisa (dan Tidak Boleh) Lakukan",
+      description: "Kami menolak klaim palsu keamanan yang membodohi publik:",
+      points: [
+        "ATO TIDAK BISA memulihkan uang yang sudah terlanjur kamu transfer ke penipu.",
+        "ATO TIDAK BISA menggantikan verifikasi resmi call center bank atau kontak resmi OJK.",
+        "ATO TIDAK MENGELUARKAN skor angka seperti '89% aman' karena manipulasi psikologis manusia dinamis dan tidak bisa direduksi jadi angka tebakan.",
+        "ATO TIDAK MENJUAL atau membagikan rekaman teks situasi ke pihak pengiklan mana pun.",
+      ],
+    },
   },
   finalCta: {
-    title: "Sedang dapat pesan atau tawaran yang bikin ragu?",
+    tag: "Langkah Pertama Seorang Penjaga",
+    title: "Sedang dapat pesan atau tawaran yang bikin kamu ragu?",
     description:
-      "Uji situasimu sekarang dalam 2 menit. Balik sudut pandangnya, temukan celahnya, dan amankan langkahmu.",
-    ctaLabel: "Coba dengan situasi yang lagi bikin kamu ragu",
+      "Uji situasimu sekarang dalam 90 detik. Balik sudut pandangnya ke kepala pelaku, temukan celahnya sendiri, dan amankan langkahmu.",
+    ctaLabel: "Coba dengan situasi yang bikin ragu",
     ctaHref: "#reverse-reflex",
   },
   footer: {
@@ -241,9 +419,9 @@ export const landingContent: LandingContent = {
     credit: "MIT-Week 2026 · Guardians of the Digital Space",
     links: [
       { label: "Reverse Reflex (Lite)", href: "#reverse-reflex" },
-      { label: "Guardian Arc (Soul)", href: "#a20-system", badge: "Segera Hadir" },
-      { label: "Batasan & Privasi", href: "#trust" },
-      { label: "Tentang A20", href: "#a20-system" },
+      { label: "Guardian Arc (Soul)", href: "#cara-kerja", badge: "Segera Hadir" },
+      { label: "Batasan & Privasi", href: "#tentang" },
+      { label: "Tentang A20", href: "#cara-kerja" },
     ],
   },
 };
