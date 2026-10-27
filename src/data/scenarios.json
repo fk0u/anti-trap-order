@@ -1,0 +1,910 @@
+[
+  {
+    "id": "wfh_admin_fee",
+    "title": "Lowongan Kerja Admin WFH Bayar Seragam",
+    "category": "job_scam",
+    "difficulty": 1,
+    "victim_view": [
+      {
+        "from": "HRD Rekrutmen Online (Fiktif)",
+        "text": "Selamat siang kak! Kami dari tim rekrutmen membuka posisi Admin Data Entry WFH. Gaji Rp450.000/hari, jam fleksibel 2-3 jam saja. Kuota terbatas sisa 2 orang untuk batch ini."
+      },
+      {
+        "from": "HRD Rekrutmen Online (Fiktif)",
+        "text": "Untuk registrasi akun sistem kerja dan pengiriman ID card/seragam kerja, silakan transfer biaya komitmen Rp125.000 ke rekening bendahara kami. Uang akan di-refund di gaji pertama."
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "q1",
+        "prompt": "Kalau kamu penipunya, apa umpan utama yang sengaja kamu pasang agar korban langsung tergiur?",
+        "options": [
+          {
+            "id": "q1_opt1",
+            "label": "Gaji sangat tinggi untuk kerjaan yang sangat enteng",
+            "tags": ["umpan_imbalan", "gaji_tidak_masuk_akal"]
+          },
+          {
+            "id": "q1_opt2",
+            "label": "Batas kuota 'sisa 2 slot' agar korban buru-buru transfer tanpa mikir",
+            "tags": ["urgensi_palsu", "scarcity_taktik"]
+          },
+          {
+            "id": "q1_opt3",
+            "label": "Janji manis 'uang administrasi akan di-refund saat gajian'",
+            "tags": ["refund_palsu", "pungutan_di_depan"]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "prompt": "Sebagai pelaku, apa alasanmu meminta uang kecil (Rp125rb) daripada langsung minta jutaan?",
+        "options": [
+          {
+            "id": "q2_opt1",
+            "label": "Nominal kecil bikin korban mikir 'ruginya dikit kalaupun meleset'",
+            "tags": ["nominal_rendah_penjebak", "pungutan_di_depan"]
+          },
+          {
+            "id": "q2_opt2",
+            "label": "Setelah korban transfer Rp125rb, lebih mudah memeras nominal lebih besar",
+            "tags": ["sunk_cost_trap", "eskalasi_deposit"]
+          },
+          {
+            "id": "q2_opt3",
+            "label": "Menyamarkan pungutan sebagai 'biaya seragam/ID card' agar terkesan resmi",
+            "tags": ["kamuflase_administrasi", "otoritas_palsu"]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "prompt": "Hal paling berbahaya apa yang pasti kamu sembunyikan dari korban agar kedokmu tidak terbongkar?",
+        "options": [
+          {
+            "id": "q3_opt1",
+            "label": "Tidak adanya surat kontrak legal dan alamat kantor fisik yang jelas",
+            "tags": ["identitas_anonim", "tanpa_kontrak"]
+          },
+          {
+            "id": "q3_opt2",
+            "label": "Bahwa perusahaan asli tidak pernah memungut biaya apa pun ke pelamar",
+            "tags": ["aturan_rekrutmen_dilanggar", "pungutan_di_depan"]
+          },
+          {
+            "id": "q3_opt3",
+            "label": "Nama rekening tujuan transfer adalah rekening bank digital perorangan",
+            "tags": ["rekening_pribadi", "kamuflase_administrasi"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_upfront_fee",
+        "tag": "pungutan_di_depan",
+        "title": "Pungutan Biaya di Muka (Pay-to-Work)",
+        "explanation": "Prinsip dasar rekrutmen: perusahaan mempekerjakan orang untuk membayar mereka, bukan meminta uang dari pelamar dengan alasan seragam, modul, atau ID card.",
+        "evidence_phrases": ["transfer biaya komitmen Rp125.000", "pengiriman ID card/seragam kerja"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_unrealistic_wage",
+        "tag": "umpan_imbalan",
+        "title": "Gaji Sangat Tidak Proporsional",
+        "explanation": "Upah Rp450.000 untuk 2 jam kerja entry data setara Rp6,7 juta/minggu, sangat jauh di atas standar pasar, dirancang untuk melumpuhkan akal kritis.",
+        "evidence_phrases": ["Gaji Rp450.000/hari", "jam fleksibel 2-3 jam saja"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_fake_urgency",
+        "tag": "urgensi_palsu",
+        "title": "Tekanan Kelangkaan Palsu (Scarcity Urgency)",
+        "explanation": "Klaim 'sisa 2 slot' adalah manipulasi psikologis agar korban mengambil keputusan sebelum sempat mencari tahu kebenaran profil perusahaan.",
+        "evidence_phrases": ["Kuota terbatas sisa 2 orang untuk batch ini"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_personal_account",
+        "tag": "rekening_pribadi",
+        "title": "Rekening Penampung Perorangan",
+        "explanation": "Perusahaan legal menggunakan akun korporat berbadan hukum, bukan rekening perorangan atau e-wallet atas nama individu tak dikenal.",
+        "evidence_phrases": ["rekening bendahara kami", "Uang akan di-refund"],
+        "severity": 3
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "step_stop_payment",
+        "text": "Tolak mentah-mentah transfer uang sepeser pun. Begitu ada biaya registrasi, tinggalkan obrolan.",
+        "applies_to_tags": ["pungutan_di_depan", "nominal_rendah_penjebak"]
+      },
+      {
+        "id": "step_check_official",
+        "text": "Cari website karier resmi atau LinkedIn resmi perusahaan untuk memastikan apakah lowongan tersebut benar-benar ada.",
+        "applies_to_tags": ["tanpa_kontrak", "identitas_anonim"]
+      },
+      {
+        "id": "step_verify_rekening",
+        "text": "Jika sudah terlanjur diberi nomor rekening, laporkan nomor tersebut ke layanan lapor rekening penipuan kominfo/bank.",
+        "applies_to_tags": ["rekening_pribadi"]
+      },
+      {
+        "id": "step_protect_ward",
+        "text": "Bagikan pola pesan ini ke grup chat teman/adik yang sedang aktif mencari pekerjaan sampingan.",
+        "applies_to_tags": ["umpan_imbalan", "urgensi_palsu"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "warn_casual",
+        "text": "Guys ati-ati ya, kalau dapet chat tawaran kerja admin WFH yang minta transfer duluan buat 'seragam/ID card' Rp100-150rb itu trik penipuan. Kerja beneran nggak pernah minta duit di muka.",
+        "tone": "casual",
+        "applies_to_tags": ["pungutan_di_depan", "umpan_imbalan"]
+      },
+      {
+        "id": "warn_firm",
+        "text": "Pemberitahuan: Sedang marak rekrutmen fiktif mengatasnamakan admin WFH dengan iming-iming gaji tinggi dan meminta biaya seragam di depan. Jangan pernah mentransfer dana ke rekening perorangan dalam proses lamaran kerja.",
+        "tone": "firm",
+        "applies_to_tags": ["pungutan_di_depan", "rekening_pribadi"]
+      }
+    ],
+    "keywords": ["admin", "wfh", "lowongan", "seragam", "refund", "rekrutmen", "biaya", "harian", "komitmen"]
+  },
+  {
+    "id": "giveaway_fake_verified",
+    "title": "Giveaway Akun Centang Biru Palsu di Medsos",
+    "category": "giveaway",
+    "difficulty": 1,
+    "victim_view": [
+      {
+        "from": "Kreator Konten Terkenal (Akun Kloning)",
+        "text": "SELAMAT! Akun kamu terpilih memenangkan iPhone 16 Pro Max dari event berbagi berkah akhir bulan! 🎁🔥"
+      },
+      {
+        "from": "Kreator Konten Terkenal (Akun Kloning)",
+        "text": "Hadiah segera dikirim via ekspedisi kilat. Kamu hanya perlu menanggung ongkos asuransi pengiriman resmi sebesar Rp75.000 dalam waktu 30 menit. Klik tautan: konfirmasi-hadiah-resmi[.]id"
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "g_q1",
+        "prompt": "Kalau kamu yang membuat akun kloning ini, emosi apa yang ingin kamu picu pada korban?",
+        "options": [
+          {
+            "id": "g_q1_opt1",
+            "label": "Rasa menang undian mendadak (euforia) agar logika kritis korban drop",
+            "tags": ["euforia_hadiah", "umpan_imbalan"]
+          },
+          {
+            "id": "g_q1_opt2",
+            "label": "Kepanikan batas waktu 30 menit agar takut hadiahnya hangus",
+            "tags": ["urgensi_palsu", "countdown_pressure"]
+          },
+          {
+            "id": "g_q1_opt3",
+            "label": "Rasa percaya karena melihat foto profil figur publik yang dipasang",
+            "tags": ["impersonasi_figur", "otoritas_palsu"]
+          }
+        ]
+      },
+      {
+        "id": "g_q2",
+        "prompt": "Sebagai penipu, kenapa kamu meminta korban mengklik tautan eksternal daripada chat langsung?",
+        "options": [
+          {
+            "id": "g_q2_opt1",
+            "label": "Untuk mencuri data akun/password medsos via halaman login palsu",
+            "tags": ["phishing_credential", "link_jebakan"]
+          },
+          {
+            "id": "g_q2_opt2",
+            "label": "Menjauhkan korban dari pantauan tim moderasi platform medsos",
+            "tags": ["isolasi_korban", "luar_platform"]
+          },
+          {
+            "id": "g_q2_opt3",
+            "label": "Menampilkan formulir transfer pembayaran yang meniru gateway asli",
+            "tags": ["halaman_pembayaran_palsu", "pungutan_di_depan"]
+          }
+        ]
+      },
+      {
+        "id": "g_q3",
+        "prompt": "Celah teknis mana yang kamu harap korban tidak menyadarinya sama sekali?",
+        "options": [
+          {
+            "id": "g_q3_opt1",
+            "label": "Username akun ada karakter tipuan (misal: @kreator_officiall_id ada huruf ganda)",
+            "tags": ["typosquatting", "akun_tiruan"]
+          },
+          {
+            "id": "g_q3_opt2",
+            "label": "Giveaway resmi dari kreator besar tidak pernah membebankan ongkir kepada pemenang",
+            "tags": ["ongkir_hadiah_palsu", "aturan_rekrutmen_dilanggar"]
+          },
+          {
+            "id": "g_q3_opt3",
+            "label": "Domain website bukan domain resmi ekspedisi atau portal verified",
+            "tags": ["domain_palsu", "link_jebakan"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_giveaway_fee",
+        "tag": "ongkir_hadiah_palsu",
+        "title": "Biaya Tebus Hadiah / Ongkos Kirim",
+        "explanation": "Pemenang giveaway resmi tidak dibebani biaya pengiriman atau uang tebusan. Meminta uang untuk klaim hadiah adalah tanda mutlak penipuan.",
+        "evidence_phrases": ["hanya perlu menanggung ongkos asuransi", "Rp75.000 dalam waktu 30 menit"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_typosquatting",
+        "tag": "typosquatting",
+        "title": "Akun Kloning Peniru Figur Publik",
+        "explanation": "Pelaku membuat akun baru yang mirip dengan menambahkan tanda baca, angka, atau huruf ganda pada handle medsos.",
+        "evidence_phrases": ["Kreator Konten Terkenal (Akun Kloning)", "SELAMAT! Akun kamu terpilih"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_phishing_link",
+        "tag": "link_jebakan",
+        "title": "Tautan Phishing Tidak Resmi",
+        "explanation": "Domain acak dibuat khusus untuk mencuri data kartu atau kredensial akun media sosial korban.",
+        "evidence_phrases": ["konfirmasi-hadiah-resmi[.]id"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_time_limit",
+        "tag": "urgensi_palsu",
+        "title": "Tenggat Waktu Palsu (30 Menit)",
+        "explanation": "Membatasi waktu klaim memaksa korban bertindak terburu-buru sebelum sempat memverifikasi akun utama kreator.",
+        "evidence_phrases": ["dalam waktu 30 menit"],
+        "severity": 2
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "g_step_check_profile",
+        "text": "Buka akun asli sang kreator lewat pencarian mandiri, cek tab pengumuman giveaway resmi.",
+        "applies_to_tags": ["typosquatting", "akun_tiruan"]
+      },
+      {
+        "id": "g_step_no_click",
+        "text": "Jangan pernah mengklik tautan di bio atau DM akun peniru hadiah.",
+        "applies_to_tags": ["link_jebakan", "phishing_credential"]
+      },
+      {
+        "id": "g_step_zero_transfer",
+        "text": "Ingat prinsip: kalau harus bayar buat dapet hadiah, itu bukan menang, itu beli barang bodong.",
+        "applies_to_tags": ["ongkir_hadiah_palsu", "pungutan_di_depan"]
+      },
+      {
+        "id": "g_step_report_account",
+        "text": "Laporkan akun kloning tersebut ke platform sebagai 'Impersonation' agar segera ditindak.",
+        "applies_to_tags": ["impersonasi_figur"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "g_warn_casual",
+        "text": "Kalo dapet DM dapet iPhone/giveaway dari akun mirip selebgram tapi disuruh bayar ongkir 75rb, jangan direspons ya. Itu akun palsu kloningan, modusnya minta duit ongkir abis itu kabur.",
+        "tone": "casual",
+        "applies_to_tags": ["ongkir_hadiah_palsu", "akun_tiruan"]
+      },
+      {
+        "id": "g_warn_firm",
+        "text": "Waspada modus kloning akun publik figur yang menyebarkan tautan undian palsu. Penyelenggara resmi tidak pernah meminta transfer biaya pengiriman atau asuransi kepada pemenang.",
+        "tone": "firm",
+        "applies_to_tags": ["ongkir_hadiah_palsu", "link_jebakan"]
+      }
+    ],
+    "keywords": ["giveaway", "iphone", "hadiah", "ongkir", "asuransi", "menang", "berkah", "klaim", "terpilih"]
+  },
+  {
+    "id": "impersonate_new_number",
+    "title": "Pesan Kerabat Ganti Nomor HP & Minta Tolong",
+    "category": "impersonation",
+    "difficulty": 2,
+    "victim_view": [
+      {
+        "from": "+62 813-9911-XXXX",
+        "text": "Halo kak/bang, ini aku ganti nomor sementara ya. HP lamaku layarnya retak habis jatuh tadi siang, nomor lama belum sempat urus kartu SIM."
+      },
+      {
+        "from": "+62 813-9911-XXXX",
+        "text": "Boleh minta tolong banget gak? M-bankingku belum aktif di nomor ini, ada perlu transfer mendesak Rp400rb buat bayar obat/bengkel. Nanti sore langsung kuganti pas ketemu di rumah."
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "imp_q1",
+        "prompt": "Kalau kamu pelakunya, apa alasanmu memanfaatkan hubungan pertemanan/keluarga?",
+        "options": [
+          {
+            "id": "imp_q1_opt1",
+            "label": "Korban merasa sungkan untuk menolak atau banyak bertanya karena kenal baik",
+            "tags": ["social_engineering_relasi", "rasa_sungkan"]
+          },
+          {
+            "id": "imp_q1_opt2",
+            "label": "Memanfaatkan rasa panik mendengar alasan 'kena musibah obat/bengkel'",
+            "tags": ["urgensi_emosional", "musibah_fiktif"]
+          },
+          {
+            "id": "imp_q1_opt3",
+            "label": "Menjanjikan uang diganti cepat di hari yang sama agar korban tenang",
+            "tags": ["janji_palsu_ganti", "nominal_rendah_penjebak"]
+          }
+        ]
+      },
+      {
+        "id": "imp_q2",
+        "prompt": "Sebagai pelaku, apa skenario yang kamu susun agar korban tidak langsung menelponmu?",
+        "options": [
+          {
+            "id": "imp_q2_opt1",
+            "label": "Beralasan mic HP rusak atau sinyal jelek sehingga hanya bisa chat teks",
+            "tags": ["penolakan_panggilan", "isolasi_komunikasi"]
+          },
+          {
+            "id": "imp_q2_opt2",
+            "label": "Membuat situasi terburu-buru 'tolong sekarang banget, orang bengkelnya nungguin'",
+            "tags": ["urgensi_palsu", "pressure_waktu"]
+          },
+          {
+            "id": "imp_q2_opt3",
+            "label": "Memakai foto profil curian dari akun media sosial orang aslinya",
+            "tags": ["pencurian_identitas", "foto_profil_palsu"]
+          }
+        ]
+      },
+      {
+        "id": "imp_q3",
+        "prompt": "Satu-satunya tindakan korban yang paling kamu takuti adalah...?",
+        "options": [
+          {
+            "id": "imp_q3_opt1",
+            "label": "Korban langsung menelepon nomor lama orang yang bersangkutan atau menelpon rumah",
+            "tags": ["verifikasi_jalur_dua", "jalur_resmi"]
+          },
+          {
+            "id": "imp_q3_opt2",
+            "label": "Korban mengajukan pertanyaan jebakan tentang rahasia masa kecil/fakta pribadi",
+            "tags": ["challenge_fakta_pribadi", "identitas_anonim"]
+          },
+          {
+            "id": "imp_q3_opt3",
+            "label": "Korban mengecek nomor rekening tujuan transfer yang jelas bukan nama temannya",
+            "tags": ["rekening_beda_nama", "rekening_pribadi"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_new_number_urgency",
+        "tag": "social_engineering_relasi",
+        "title": "Nomor Baru Mendadak Butuh Dana Darurat",
+        "explanation": "Kombinasi klasik: nomor baru + alasan HP rusak + kebutuhan uang mendesak. Ini adalah pola teratas rekayasa sosial manipulasi empati.",
+        "evidence_phrases": ["ini aku ganti nomor sementara ya", "m-bankingku belum aktif di nomor ini"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_emotional_urgency",
+        "tag": "musibah_fiktif",
+        "title": "Urgensi Emosional Musibah",
+        "explanation": "Mengaitkan permintaan dana dengan situasi darurat kesehatan atau bengkel agar empati mengalahkan akal sehat.",
+        "evidence_phrases": ["transfer mendesak Rp400rb buat bayar obat/bengkel"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_voice_evasion",
+        "tag": "penolakan_panggilan",
+        "title": "Menghindari Panggilan Suara/Video Langsung",
+        "explanation": "Pelaku tidak berani menerima panggilan telepon atau video karena suara dan wajah aslinya akan langsung membongkar penipuan.",
+        "evidence_phrases": ["layarnya retak habis jatuh", "hanya bisa chat"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_different_account_name",
+        "tag": "rekening_beda_nama",
+        "title": "Nama Pemilik Rekening Tidak Sesuai",
+        "explanation": "Rekening tujuan transfer biasanya atas nama pihak ketiga (mule account) dengan alasan 'rekening montir bengkel / apotek'.",
+        "evidence_phrases": ["transfer mendesak", "Nanti sore langsung kuganti"],
+        "severity": 3
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "imp_step_call_old_number",
+        "text": "Telepon nomor lama orang yang bersangkutan atau hubungi anggota keluarga serumah untuk konfirmasi.",
+        "applies_to_tags": ["verifikasi_jalur_dua", "social_engineering_relasi"]
+      },
+      {
+        "id": "imp_step_video_call",
+        "text": "Paksa lakukan video call. Jika ditolak dengan alasan apa pun, tahan transfer.",
+        "applies_to_tags": ["penolakan_panggilan", "isolasi_komunikasi"]
+      },
+      {
+        "id": "imp_step_secret_question",
+        "text": "Tanyakan satu hal yang hanya diketahui kalian berdua (misal: 'Dulu pas nongkrong terakhir makan apa?').",
+        "applies_to_tags": ["challenge_fakta_pribadi"]
+      },
+      {
+        "id": "imp_step_check_name",
+        "text": "Bila nama pemilik rekening tujuan bukan nama temanmu, langsung hentikan komunikasi.",
+        "applies_to_tags": ["rekening_beda_nama", "rekening_pribadi"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "imp_warn_casual",
+        "text": "Kalo ada nomor WA baru ngeklaim temen/saudara terus langsung minjem duit pake alesan HP rusak, jangan langsung percaya ya. Wajib telepon biasa dulu atau tes tanya hal pribadi.",
+        "tone": "casual",
+        "applies_to_tags": ["social_engineering_relasi", "verifikasi_jalur_dua"]
+      },
+      {
+        "id": "imp_warn_firm",
+        "text": "Peringatan: Modus pembajakan identitas nomor baru marak terjadi. Jangan pernah mentransfer uang sebelum memverifikasi langsung suara dan wajah pemilik kontak yang bersangkutan.",
+        "tone": "firm",
+        "applies_to_tags": ["social_engineering_relasi", "rekening_beda_nama"]
+      }
+    ],
+    "keywords": ["nomor baru", "ganti nomor", "pinjam", "layar retak", "bengkel", "m-banking", "sementara", "tolong", "darurat"]
+  },
+  {
+    "id": "phishing_bank_account_freeze",
+    "title": "Notifikasi Rekening Dibekukan / Pembaruan Tarif",
+    "category": "phishing",
+    "difficulty": 2,
+    "victim_view": [
+      {
+        "from": "Layanan Nasabah Prioritas (Palsu)",
+        "text": "PENTING: Sistem keamanan kami mendeteksi aktivitas mencurigakan pada rekening/e-wallet Anda. Akses transaksi akan DIBEKUKAN dalam 1x24 jam."
+      },
+      {
+        "from": "Layanan Nasabah Prioritas (Palsu)",
+        "text": "Untuk membatalkan pemblokiran dan mempertahankan tarif lama, segera lakukan verifikasi identitas resmi di: perbankan-pemulihan-keamanan[.]com"
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "phish_q1",
+        "prompt": "Kalau kamu peretasnya, mengapa ancaman 'rekening dibekukan' sangat efektif?",
+        "options": [
+          {
+            "id": "phish_q1_opt1",
+            "label": "Ketakutan kehilangan akses uang tabungan membuat korban langsung panik",
+            "tags": ["teror_finansial", "urgensi_palsu"]
+          },
+          {
+            "id": "phish_q1_opt2",
+            "label": "Membawa nama 'nasabah prioritas' untuk menipu logika otoritas bank",
+            "tags": ["otoritas_palsu", "simulasi_institusi"]
+          },
+          {
+            "id": "phish_q1_opt3",
+            "label": "Memberi solusi instan berupa link sekali klik agar korban tidak telepon CS resmi",
+            "tags": ["link_palsu", "isolasi_cs_resmi"]
+          }
+        ]
+      },
+      {
+        "id": "phish_q2",
+        "prompt": "Di dalam website palsu tersebut, data apa yang paling krusial ingin kamu sedot?",
+        "options": [
+          {
+            "id": "phish_q2_opt1",
+            "label": "Kode OTP dan PIN transaksi yang dimasukkan korban di formulir web",
+            "tags": ["pencurian_otp", "akses_rekening_penuh"]
+          },
+          {
+            "id": "phish_q2_opt2",
+            "label": "Nomor kartu debit dan 3 digit CVV di belakang kartu",
+            "tags": ["pencurian_cvv", "data_kartu"]
+          },
+          {
+            "id": "phish_q2_opt3",
+            "label": "Username dan password m-banking untuk login dari perangkat pelaku",
+            "tags": ["kredensial_login", "akses_rekening_penuh"]
+          }
+        ]
+      },
+      {
+        "id": "phish_q3",
+        "prompt": "Ciri khas penipuan apa yang sengaja kamu tutup-tutupi agar website terlihat asli?",
+        "options": [
+          {
+            "id": "phish_q3_opt1",
+            "label": "Domain web menggunakan ekstensi aneh (.com/.xyz gratisan) bukan domain resmi bank (.co.id / .id)",
+            "tags": ["domain_bukan_resmi", "link_palsu"]
+          },
+          {
+            "id": "phish_q3_opt2",
+            "label": "Bank resmi tidak pernah mengirim tautan pembatalan blokir lewat SMS/WhatsApp biasa",
+            "tags": ["sop_bank_dilanggar", "otoritas_palsu"]
+          },
+          {
+            "id": "phish_q3_opt3",
+            "label": "Bank resmi tidak pernah meminta nasabah memasukkan kode OTP di halaman web umum",
+            "tags": ["larangan_minta_otp", "pencurian_otp"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_panic_freeze",
+        "tag": "teror_finansial",
+        "title": "Ancaman Pemblokiran Sepihak (Panic Inducer)",
+        "explanation": "Bank tidak pernah mengirim pesan tergesa-gesa dengan tenggat waktu ancaman pemblokiran akun melalui nomor seluler biasa.",
+        "evidence_phrases": ["Akses transaksi akan DIBEKUKAN dalam 1x24 jam"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_spoofed_domain",
+        "tag": "domain_bukan_resmi",
+        "title": "Alamat Tautan Bukan Domain Resmi Bank",
+        "explanation": "Institusi perbankan Indonesia menggunakan domain kredibel berbadan hukum (.co.id atau .id terdaftar). Domain tiruan menggunakan nama panjang dan mencurigakan.",
+        "evidence_phrases": ["perbankan-pemulihan-keamanan[.]com"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_otp_solicitation",
+        "tag": "larangan_minta_otp",
+        "title": "Permintaan Data Kredensial Rahasia",
+        "explanation": "Tujuan tautan verifikasi palsu adalah memancing nasabah memasukkan username, PIN, dan OTP di halaman tiruan.",
+        "evidence_phrases": ["segera lakukan verifikasi identitas resmi"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_unofficial_channel",
+        "tag": "sop_bank_dilanggar",
+        "title": "Pesan Bukan dari Kanal Resmi Terverifikasi",
+        "explanation": "Pesan dikirim dari nomor GSM umum atau akun tanpa centang hijau resmi bank.",
+        "evidence_phrases": ["Layanan Nasabah Prioritas (Palsu)"],
+        "severity": 2
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "phish_step_no_click",
+        "text": "Jangan pernah klik tautan apa pun di dalam pesan ancaman pemblokiran.",
+        "applies_to_tags": ["domain_bukan_resmi", "link_palsu"]
+      },
+      {
+        "id": "phish_step_never_share_otp",
+        "text": "Jaga kerahasiaan OTP dan PIN. Petugas bank resmi tidak pernah meminta kode OTP nasabah.",
+        "applies_to_tags": ["larangan_minta_otp", "pencurian_otp"]
+      },
+      {
+        "id": "phish_step_open_app",
+        "text": "Buka aplikasi mobile banking resmi langsung dari smartphone untuk mengecek status rekening asli.",
+        "applies_to_tags": ["teror_finansial"]
+      },
+      {
+        "id": "phish_step_call_callcenter",
+        "text": "Hubungi hotline call center resmi bank yang tertera di balik kartu ATM fisikmu.",
+        "applies_to_tags": ["sop_bank_dilanggar"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "phish_warn_casual",
+        "text": "Kalo dapet WA/SMS ngaku dari bank bilang rekening mau dibekukan terus ada link-nya, jangan diklik ya! Itu phising buat nyolong PIN sama OTP. Bank asli gak pernah ngirim link begitu.",
+        "tone": "casual",
+        "applies_to_tags": ["teror_finansial", "domain_bukan_resmi"]
+      },
+      {
+        "id": "phish_warn_firm",
+        "text": "Peringatan Keamanan: Waspada pesan ancaman pemblokiran rekening dari nomor tidak dikenal. Jangan klik tautan yang disertakan dan jangan pernah membagikan kode OTP kepada siapa pun.",
+        "tone": "firm",
+        "applies_to_tags": ["domain_bukan_resmi", "larangan_minta_otp"]
+      }
+    ],
+    "keywords": ["dibekukan", "blokir", "tarif", "nasabah", "verifikasi", "otp", "pin", "rekening", "link", "bank"]
+  },
+  {
+    "id": "loan_fast_no_check",
+    "title": "Pinjol Kilat Tanpa Syarat & Tanpa BI Checking",
+    "category": "loan",
+    "difficulty": 2,
+    "victim_view": [
+      {
+        "from": "Koperasi Dana Kilat Mandiri (Ilegal)",
+        "text": "Butuh dana mendesak langsung cair 5 menit? Pinjaman resmi tanpa BI checking / SLIK OJK! Plafon Rp5.000.000 - Rp50.000.000 cukup KTP saja bunga 0%."
+      },
+      {
+        "from": "Koperasi Dana Kilat Mandiri (Ilegal)",
+        "text": "Pengajuan Anda disetujui Rp10.000.000. Untuk mencairkan dana ke rekening, wajib membayar biaya meterai dan aktivasi sistem sebesar Rp250.000 terlebih dahulu."
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "loan_q1",
+        "prompt": "Kalau kamu penyedia pinjol bodong ini, apa jebakan utama yang kamu pasang di awal?",
+        "options": [
+          {
+            "id": "loan_q1_opt1",
+            "label": "Klaim 'tanpa BI checking dan bunga 0%' untuk memancing orang yang sedang kepepet uang",
+            "tags": ["bunga_tidak_masuk_akal", "target_rentan"]
+          },
+          {
+            "id": "loan_q1_opt2",
+            "label": "Pemberitahuan instan bahwa pinjaman sudah 'disetujui' agar korban merasa sayang kalau batal",
+            "tags": ["persetujuan_semu", "sunk_cost_trap"]
+          },
+          {
+            "id": "loan_q1_opt3",
+            "label": "Mencantumkan kata 'Koperasi Mandiri' agar terkesan lembaga keuangan berizin",
+            "tags": ["nama_koperasi_palsu", "otoritas_palsu"]
+          }
+        ]
+      },
+      {
+        "id": "loan_q2",
+        "prompt": "Mengapa kamu menuntut biaya aktivasi Rp250rb sebelum uang pinjaman dicairkan?",
+        "options": [
+          {
+            "id": "loan_q2_opt1",
+            "label": "Karena dana pinjaman itu memang fiktif; pendapatan pelaku murni dari uang muka korban",
+            "tags": ["pungutan_di_depan", "pinjaman_fiktif"]
+          },
+          {
+            "id": "loan_q2_opt2",
+            "label": "Setelah korban bayar Rp250rb, pelaku akan meminta biaya pajak/asuransi tambahan",
+            "tags": ["pemerasan_berantai", "eskalasi_deposit"]
+          },
+          {
+            "id": "loan_q2_opt3",
+            "label": "Memanfaatkan rasa malu korban bila pengajuannya gagal",
+            "tags": ["tekanan_psikologis", "target_rentan"]
+          }
+        ]
+      },
+      {
+        "id": "loan_q3",
+        "prompt": "Fakta hukum apa yang paling kamu sembunyikan dari korban pinjol ini?",
+        "options": [
+          {
+            "id": "loan_q3_opt1",
+            "label": "Pinjaman legal tidak pernah memotong atau meminta biaya transfer di depan secara terpisah",
+            "tags": ["aturan_ojk_dilanggar", "pungutan_di_depan"]
+          },
+          {
+            "id": "loan_q3_opt2",
+            "label": "Nomor WhatsApp dan rekening tidak terdaftar di daftar fintech lending resmi OJK",
+            "tags": ["ilegal_tanpa_izin", "rekening_pribadi"]
+          },
+          {
+            "id": "loan_q3_opt3",
+            "label": "Data foto KTP korban akan dipakai untuk kejahatan impersonasi di tempat lain",
+            "tags": ["penyalahgunaan_ktp", "data_kartu"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_loan_upfront",
+        "tag": "pungutan_di_depan",
+        "title": "Biaya Pencairan di Muka (Advance-Fee Loan)",
+        "explanation": "Pinjaman legal memotong biaya administrasi langsung dari total pencairan, bukan meminta calon peminjam mentransfer uang muka terlebih dahulu.",
+        "evidence_phrases": ["wajib membayar biaya meterai dan aktivasi sistem sebesar Rp250.000"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_unrealistic_terms",
+        "tag": "bunga_tidak_masuk_akal",
+        "title": "Syarat Terlalu Mudah & Bunga 0% Fiktif",
+        "explanation": "Plafon puluhan juta cair 5 menit tanpa verifikasi riwayat kredit adalah umpan khas sindikat penipuan uang muka.",
+        "evidence_phrases": ["tanpa BI checking / SLIK OJK", "bunga 0%"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_unlicensed_lender",
+        "tag": "ilegal_tanpa_izin",
+        "title": "Lembaga Pinjaman Ilegal Tak Berizin OJK",
+        "explanation": "Penawaran pinjaman lewat pesan pribadi WhatsApp/SMS dilarang keras oleh regulasi OJK bagi fintech berizin.",
+        "evidence_phrases": ["Koperasi Dana Kilat Mandiri (Ilegal)", "cukup KTP saja"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_id_exploitation",
+        "tag": "penyalahgunaan_ktp",
+        "title": "Risiko Eksploitasi Data Identitas Pribadi",
+        "explanation": "Foto KTP yang dikirim ke pinjol bodong sering disalahgunakan untuk pinjaman di aplikasi lain atas nama korban.",
+        "evidence_phrases": ["Pengajuan Anda disetujui Rp10.000.000"],
+        "severity": 3
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "loan_step_no_transfer",
+        "text": "Jangan pernah mentransfer biaya 'meterai / aktivasi' pinjaman. Pinjaman asli tidak minta uang di muka.",
+        "applies_to_tags": ["pungutan_di_depan", "pinjaman_fiktif"]
+      },
+      {
+        "id": "loan_step_check_ojk",
+        "text": "Cek legalitas entitas pinjol di WhatsApp resmi Kontak OJK 157 (081-157-157-157).",
+        "applies_to_tags": ["ilegal_tanpa_izin", "aturan_ojk_dilanggar"]
+      },
+      {
+        "id": "loan_step_protect_ktp",
+        "text": "Jika mengirim foto KTP, selalu berikan watermark teks digital tebal dengan tanggal dan tujuan spesifik.",
+        "applies_to_tags": ["penyalahgunaan_ktp"]
+      },
+      {
+        "id": "loan_step_block_report",
+        "text": "Blokir nomor pengirim dan laporkan ke platform lapor OJK / Kominfo.",
+        "applies_to_tags": ["bunga_tidak_masuk_akal"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "loan_warn_casual",
+        "text": "Hati-hati ya, pinjol yang nawarin dana cair instan tapi minta bayar biaya aktivasi/meterai 200-300rb dulu itu 100% nipu. Uangnya gak bakal cair, malah diperas terus.",
+        "tone": "casual",
+        "applies_to_tags": ["pungutan_di_depan", "pinjaman_fiktif"]
+      },
+      {
+        "id": "loan_warn_firm",
+        "text": "Peringatan: Modus penipuan pinjaman dana kilat dengan syarat uang muka (advance fee). Lembaga berizin OJK tidak pernah memungut biaya sebelum pencairan dana pinjaman.",
+        "tone": "firm",
+        "applies_to_tags": ["pungutan_di_depan", "ilegal_tanpa_izin"]
+      }
+    ],
+    "keywords": ["pinjol", "pinjaman", "cair", "bi checking", "slik", "dana kilat", "meterai", "aktivasi", "bunga 0%"]
+  },
+  {
+    "id": "generic_emergency",
+    "title": "Deteksi Mandiri Situasi Janggal (Skenario Umum)",
+    "category": "generic",
+    "difficulty": 1,
+    "victim_view": [
+      {
+        "from": "Pengirim Tidak Dikenal",
+        "text": "Situasi mencurigakan yang kamu terima: Pesan mendesak meminta uang, klik link, atau data pribadi secara tidak biasa."
+      }
+    ],
+    "perspective_questions": [
+      {
+        "id": "gen_q1",
+        "prompt": "Kalau kamu yang merancang jebakan ini, apa hal pertama yang ingin kamu manfaatkan dari target?",
+        "options": [
+          {
+            "id": "gen_q1_opt1",
+            "label": "Rasa takut/kepanikan target agar segera mengambil tindakan tanpa verifikasi",
+            "tags": ["urgensi_palsu", "teror_finansial"]
+          },
+          {
+            "id": "gen_q1_opt2",
+            "label": "Iming-iming keuntungan/hadiah cepat agar mengabaikan kejanggalan",
+            "tags": ["umpan_imbalan", "euforia_hadiah"]
+          },
+          {
+            "id": "gen_q1_opt3",
+            "label": "Rasa percaya dan sungkan terhadap figur atau institusi yang dicatut",
+            "tags": ["otoritas_palsu", "social_engineering_relasi"]
+          }
+        ]
+      },
+      {
+        "id": "gen_q2",
+        "prompt": "Sebagai pelaku, apa hal yang paling kamu hindari agar tipuanmu tidak gagal?",
+        "options": [
+          {
+            "id": "gen_q2_opt1",
+            "label": "Target menelpon kanal resmi perusahaan/keluarga secara langsung",
+            "tags": ["verifikasi_jalur_dua", "isolasi_korban"]
+          },
+          {
+            "id": "gen_q2_opt2",
+            "label": "Target menunggu beberapa jam dan menceritakan situasi ini ke teman lain",
+            "tags": ["penundaan_tindakan", "diskusi_sebaya"]
+          },
+          {
+            "id": "gen_q2_opt3",
+            "label": "Target memeriksa nama dan kredibilitas rekening sebelum transfer",
+            "tags": ["rekening_pribadi", "pungutan_di_depan"]
+          }
+        ]
+      },
+      {
+        "id": "gen_q3",
+        "prompt": "Apa celah manipulasi terbesar yang baru saja kamu sadari setelah membalik peran?",
+        "options": [
+          {
+            "id": "gen_q3_opt1",
+            "label": "Ada desakan waktu buatan yang tidak masuk akal dalam prosedur normal",
+            "tags": ["urgensi_palsu", "scarcity_taktik"]
+          },
+          {
+            "id": "gen_q3_opt2",
+            "label": "Ada permintaan uang atau data pribadi sensitif yang tidak pada tempatnya",
+            "tags": ["pungutan_di_depan", "larangan_minta_otp"]
+          },
+          {
+            "id": "gen_q3_opt3",
+            "label": "Kanal komunikasi yang dipakai tidak resmi dan menolak verifikasi suara/video",
+            "tags": ["identitas_anonim", "penolakan_panggilan"]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_gen_urgency",
+        "tag": "urgensi_palsu",
+        "title": "Eksploitasi Waktu Mendesak (Artificial Urgency)",
+        "explanation": "Semua rekayasa sosial menuntut korban bertindak cepat agar bagian otak kritis tidak sempat mencerna kejanggalan.",
+        "evidence_phrases": ["Pesan mendesak", "tindakan segera"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_gen_fee",
+        "tag": "pungutan_di_depan",
+        "title": "Permintaan Transfer atau Data Tanpa Jaminan",
+        "explanation": "Pelaku selalu berupaya mengekstrak nilai di awal: baik berupa uang komitmen, data kredensial, maupun kode OTP.",
+        "evidence_phrases": ["meminta uang, klik link, atau data pribadi"],
+        "severity": 3
+      },
+      {
+        "id": "flaw_gen_impersonate",
+        "tag": "otoritas_palsu",
+        "title": "Pencatutan Identitas Resmi atau Orang Dekat",
+        "explanation": "Manipulasi dibangun di atas ilusi otoritas atau kedekatan emosional untuk melemahkan rasa curiga alami.",
+        "evidence_phrases": ["Pengirim Tidak Dikenal", "tidak biasa"],
+        "severity": 2
+      },
+      {
+        "id": "flaw_gen_isolation",
+        "tag": "isolasi_korban",
+        "title": "Isolasi dari Kanal Verifikasi Resmi",
+        "explanation": "Pelaku mengarahkan interaksi ke jalur pribadi yang tertutup agar korban tidak sempat berkonsultasi dengan orang lain.",
+        "evidence_phrases": ["tidak pada tempatnya", "menolak verifikasi"],
+        "severity": 2
+      }
+    ],
+    "safe_steps": [
+      {
+        "id": "gen_step_pause",
+        "text": "Terapkan aturan jeda 10 menit. Jangan lakukan transfer atau klik tautan dalam kondisi terburu-buru.",
+        "applies_to_tags": ["urgensi_palsu", "teror_finansial"]
+      },
+      {
+        "id": "gen_step_second_channel",
+        "text": "Verifikasi lewat kanal kedua yang independen (telepon langsung, aplikasi resmi, atau cek lapor.go.id).",
+        "applies_to_tags": ["verifikasi_jalur_dua", "otoritas_palsu"]
+      },
+      {
+        "id": "gen_step_consult_friend",
+        "text": "Ceritakan pesan ini kepada satu orang terdekat untuk meminta 'second opinion' yang berkepala dingin.",
+        "applies_to_tags": ["isolasi_korban", "diskusi_sebaya"]
+      },
+      {
+        "id": "gen_step_protect_privacy",
+        "text": "Jangan pernah berikan OTP, PIN, password, atau foto dokumen identitas tanpa konfirmasi tatap muka.",
+        "applies_to_tags": ["pungutan_di_depan", "larangan_minta_otp"]
+      }
+    ],
+    "warning_templates": [
+      {
+        "id": "gen_warn_casual",
+        "text": "Temen-temen kalo dapet pesan aneh yang nadanya buru-buru minta transfer atau minta klik link, mending diemkan dulu. Trik manipulasi selalu mainin rasa panik biar kita gak sempet mikir.",
+        "tone": "casual",
+        "applies_to_tags": ["urgensi_palsu", "pungutan_di_depan"]
+      },
+      {
+        "id": "gen_warn_firm",
+        "text": "Peringatan: Selalu waspadai instruksi finansial yang menuntut respons mendesak. Hentikan transaksi dan lakukan verifikasi mandiri melalui saluran komunikasi resmi institusi terkait.",
+        "tone": "firm",
+        "applies_to_tags": ["urgensi_palsu", "otoritas_palsu"]
+      }
+    ],
+    "keywords": ["darurat", "cepat", "sekarang", "transfer", "link", "verifikasi", "tolong", "bantuan", "segera"]
+  }
+]

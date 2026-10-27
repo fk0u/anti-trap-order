@@ -1,0 +1,218 @@
+[
+  {
+    "id": "arc_dian_parttime",
+    "title": "Misi Sampingan Dian",
+    "ward": {
+      "name": "Dian",
+      "relationship": "Adik tingkat satu jurusan",
+      "age": 19,
+      "context": "Mahasiswa semester dua di perantauan yang sedang berusaha mandiri bayar uang buku dan enggan merepotkan orang tua."
+    },
+    "initial_node_id": "arc1_n1",
+    "initial_state": {
+      "trust": 60,
+      "awareness": 30,
+      "empathy": 50
+    },
+    "nodes": [
+      {
+        "id": "arc1_n1",
+        "speaker": "Dian",
+        "narration": "Dian menyodorkan layar HP-nya di meja kantin. Layarnya menampilkan grup Telegram 'Tugas Review Google Maps VIP'. Matanya berbinar kecil.",
+        "victim_evidence": "Kak, tadi aku coba klik 3 bintang di maps, beneran ditransfer Rp30.000 ke e-wallet-ku! Sekarang adminnya bilang ada 'misi komisi emas', tapi harus deposit Rp200.000 dulu biar dapet komisi Rp550.000. Lumayan banget buat nambah uang kosan kan?",
+        "choices": [
+          {
+            "id": "c1_hard_stop",
+            "label": "Dian, jangan bodoh! Itu skema tugas deposit penipuan. Keluar dari grup sekarang juga!",
+            "next_node_id": "arc1_n2_defensive",
+            "effects": {
+              "trust": -15,
+              "awareness": 25,
+              "empathy": -10
+            },
+            "perspective_hint": "Teguran keras langsung melukai rasa percaya diri Dian."
+          },
+          {
+            "id": "c1_inversion_prompt",
+            "label": "Dian, Rp30 ribu tadi beneran cair kan? Sekarang coba pikir dari sisi yang punya grup: kenapa mereka rela bagi-bagi duit gratis ke orang asing tanpa syarat?",
+            "next_node_id": "arc1_n2_investigative",
+            "effects": {
+              "trust": 15,
+              "awareness": 25,
+              "empathy": 15
+            },
+            "perspective_hint": "Mengajak Dian memposisikan diri sebagai pihak yang mengeluarkan uang."
+          },
+          {
+            "id": "c1_lenient",
+            "label": "Ya kalau uang tabunganmu ada sisa, coba aja dulu Rp200rb. Asal jangan pinjam sana-sini ya.",
+            "next_node_id": "arc1_n2_vulnerable",
+            "effects": {
+              "trust": 10,
+              "awareness": -15,
+              "empathy": 5
+            },
+            "perspective_hint": "Memberi celah toleransi pada skema ponzi tugas online."
+          }
+        ]
+      },
+      {
+        "id": "arc1_n2_defensive",
+        "speaker": "Dian",
+        "narration": "Dian menarik kembali HP-nya dengan cepat. Pipinya memerah. Ia meletakkan HP menghadap ke bawah di atas meja dan menghindari kontak mata.",
+        "victim_evidence": "Aku bukan anak kecil yang gampang dibodoh-bodohi, Kak. Di grup itu banyak yang kirim bukti mutasi rekening cair puluhan juta kok. Mereka orang asli.",
+        "choices": [
+          {
+            "id": "c2_soften_listen",
+            "label": "Maaf, aku tadi kaget aja karena pernah liat temenku kena hal serupa. Kamu perhatiin gak, orang-orang yang posting mutasi itu ngomongnya polanya mirip semua?",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": 15,
+              "awareness": 20,
+              "empathy": 15
+            },
+            "perspective_hint": "Memperbaiki hubungan sambil menunjukkan taktik bot/komplotan palsu di grup."
+          },
+          {
+            "id": "c2_double_down",
+            "label": "Terserah deh kalau gak mau dengerin. Nanti kalau duitmu ludes, jangan nangis ke aku ya.",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": -25,
+              "awareness": 10,
+              "empathy": -20
+            },
+            "perspective_hint": "Memutus jembatan komunikasi di momen genting."
+          }
+        ]
+      },
+      {
+        "id": "arc1_n2_investigative",
+        "speaker": "Dian",
+        "narration": "Dian terdiam. Ia menatap cangkir tehnya, lalu jarinya mengetuk-ngetuk layar ponsel secara perlahan.",
+        "victim_evidence": "Iya juga ya... mereka gak kenal aku sama sekali. Kenapa ngasih Rp30.000 cuma buat pencet bintang 5 yang gak sampai semenit? Jangan-jangan 30 ribu itu cuma umpan pancingan?",
+        "choices": [
+          {
+            "id": "c2_affirm_logic",
+            "label": "Tepat. Itu umpan pancingan (chumming). Korban dikasih untung receh biar rela nyetor ratusan ribu sampai jutaan pas deposit berikutnya.",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": 20,
+              "awareness": 30,
+              "empathy": 15
+            },
+            "perspective_hint": "Memperkuat kesimpulan yang ditemukan sendiri oleh Dian."
+          },
+          {
+            "id": "c2_deep_dive",
+            "label": "Kalau kamu jadi yang punya grup itu, apa langkahmu berikutnya setelah korbannya transfer Rp200rb?",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": 15,
+              "awareness": 35,
+              "empathy": 10
+            },
+            "perspective_hint": "Melatih Dian memprediksi eskalasi pemerasan lanjutan."
+          }
+        ]
+      },
+      {
+        "id": "arc1_n2_vulnerable",
+        "speaker": "Dian",
+        "narration": "Dian tersenyum lega. Matanya kembali menatap layar chat Telegram. Jarinya bersiap mengetik konfirmasi nomor rekening.",
+        "victim_evidence": "Adminnya udah kirim nomor rekening bank digital kak. Katanya harus transfer sebelum 10 menit ini biar komisinya gak dilempar ke anggota lain.",
+        "choices": [
+          {
+            "id": "c2_intercept_now",
+            "label": "Tunggu sebentar Dian! Liat nama pemilik rekeningnya: itu nama perorangan bukan perusahaan agen review. Tahan dulu!",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": 5,
+              "awareness": 25,
+              "empathy": 10
+            },
+            "perspective_hint": "Intervensi mendadak sebelum uang sempat terkirim."
+          },
+          {
+            "id": "c2_hesitate",
+            "label": "Coba transfer Rp50rb aja bisa gak? Jangan langsung Rp200rb.",
+            "next_node_id": "arc1_n3_climax",
+            "effects": {
+              "trust": 5,
+              "awareness": -15,
+              "empathy": -5
+            },
+            "perspective_hint": "Negosiasi dengan penipu yang tidak akan pernah berhasil."
+          }
+        ]
+      },
+      {
+        "id": "arc1_n3_climax",
+        "speaker": "Dian",
+        "narration": "Ponsel Dian bergetar kencang. Pesan beruntun masuk dari sang admin Telegram dengan tanda seru merah.",
+        "victim_evidence": "Kak! Adminnya nge-tag namaku di grup: 'Sisa waktu 2 menit! Jika slot deposit tidak diambil, penalti akun dibekukan dan bonus awal Rp30.000 ditarik paksa via data pribadi!' Dia tahu nama lengkap sama kampusku kak...",
+        "choices": [
+          {
+            "id": "c3_decode_bluff",
+            "label": "Tenang Dian, tarik nafas. Itu gertak sambal (bluffing). Mereka gak punya wewenang hukum apa pun buat narik uang atau ngebekukan rekeningmu. Blokir dan keluar grup sekarang.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 20,
+              "awareness": 30,
+              "empathy": 20
+            },
+            "perspective_hint": "Menghancurkan ilusi kekuatan pelaku dengan logika hukum yang tenang."
+          },
+          {
+            "id": "c3_panic_surrender",
+            "label": "Aduh kok bisa bocor data kampusmu? Mending transfer Rp200rb aja daripada namamu dicemarkan...",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": -15,
+              "awareness": -25,
+              "empathy": -10
+            },
+            "perspective_hint": "Tunduk pada ancaman pelaku yang justru memperburuk pemerasan."
+          },
+          {
+            "id": "c3_capture_evidence",
+            "label": "Screenshot semua chat dan nomor rekeningnya sekarang. Kita laporin ke bank mereka dan kontak pengaduan kampus bareng-bareng.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 25,
+              "awareness": 25,
+              "empathy": 25
+            },
+            "perspective_hint": "Mengubah kepanikan menjadi tindakan proaktif sebagai penjaga."
+          }
+        ]
+      }
+    ],
+    "endings": [
+      {
+        "id": "ending_guardian_partnership",
+        "title": "Penjaga yang Setara (The Peer Guardian)",
+        "summary": "Dian memblokir akun pelaku tanpa kehilangan uang sepeser pun. Yang lebih penting: Dian paham taktik umpan pancingan dan gertakan waktu.",
+        "reflection": "Kamu berhasil menjaganya bukan dengan melarangnya secara sepihak, melainkan karena kamu sempat melatihnya berpikir seperti orang yang mencoba menjebaknya.",
+        "guardian_archetype": "Empathetic Strategist",
+        "condition_note": "Trust >= 55 dan Awareness >= 55"
+      },
+      {
+        "id": "ending_overprotective_silence",
+        "title": "Pelindung Sepihak (The Silencing Shield)",
+        "summary": "Uang tabungan Dian terselamatkan dari transfer, namun Dian merasa dihakimi dan dianggap naif. Ia memilih memendam masalah finansialnya di masa depan.",
+        "reflection": "Uang berhasil kamu selamatkan, namun jembatan percakapan tertutup. Menjadi penjaga bukan sekadar tentang membuktikan dirimu benar, melainkan memastikan mereka tidak bersembunyi saat keraguan berikutnya muncul.",
+        "guardian_archetype": "Strict Sentinel",
+        "condition_note": "Awareness >= 55 tetapi Trust < 55"
+      },
+      {
+        "id": "ending_delayed_intervention",
+        "title": "Jeda yang Terlambat (The Costly Lesson)",
+        "summary": "Dian terlanjur mentransfer dana komitmen dan baru menyadari jebakannya saat pelaku menuntut setoran lanjutan yang lebih besar.",
+        "reflection": "Keramahan tanpa ketajaman sering kali membiarkan manipulasi bekerja mulus. Dari pengalaman Dian, kamu menyadari bahwa membalik sudut pandang pelaku harus dilakukan pada detik pertama rasa janggal itu hadir.",
+        "guardian_archetype": "Reluctant Witness",
+        "condition_note": "Awareness < 55"
+      }
+    ]
+  }
+]
