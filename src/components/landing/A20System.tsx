@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   RotateCcw,
@@ -230,14 +231,20 @@ export function A20System() {
                     </div>
                   </div>
 
-                  <div className="pt-2">
+                  <div className="pt-2 flex flex-wrap gap-2">
                     <a
                       href="#reverse-reflex"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-brand-teal text-surface-base hover:bg-brand-teal/90 transition-all"
+                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 text-white hover:bg-white/15 transition-all"
                     >
-                      <span>Coba Sekarang di Bawah</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
+                      <span>Demo Singkat di Bawah</span>
                     </a>
+                    <Link
+                      href="/lite"
+                      className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-semibold bg-brand-teal text-surface-base hover:bg-brand-teal/90 transition-all font-bold shadow-md"
+                    >
+                      <span>Buka Halaman A20 Lite</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 </motion.div>
               ) : (
@@ -258,7 +265,7 @@ export function A20System() {
                       </span>
                     </div>
                     <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-400/20 text-purple-300 border border-purple-400/30">
-                      Preview Narasi
+                      Live Interactive Route
                     </span>
                   </div>
 
@@ -288,9 +295,18 @@ export function A20System() {
                     </div>
                   </div>
 
-                  <p className="text-[11px] text-text-muted italic">
-                    Setiap pilihan mempengaruhi Trust dan Awareness Dian menuju salah satu dari 3 ending berbeda.
-                  </p>
+                  <div className="flex items-center justify-between pt-2">
+                    <p className="text-[11px] text-text-muted italic">
+                      Setiap pilihan mempengaruhi Trust dan Awareness Dian menuju salah satu dari 3 ending berbeda.
+                    </p>
+                    <Link
+                      href="/soul"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all shadow-md active:scale-95"
+                    >
+                      <span>Mulai Mainkan Cerita</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>
