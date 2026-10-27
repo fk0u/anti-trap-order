@@ -167,7 +167,8 @@ export const landingContent: LandingContent = {
       { id: "reverse-reflex", label: "Simulator", href: "#reverse-reflex" },
       { id: "lite", label: "A20 Lite", href: "/lite" },
       { id: "soul", label: "A20 Soul", href: "/soul" },
-      { id: "docs", label: "Docs & Repo", href: "/docs" },
+      { id: "tentang", label: "Tentang", href: "/tentang" },
+      { id: "docs", label: "Docs", href: "/docs" },
     ],
     cta: {
       label: "Mulai A20 Lite",
@@ -422,8 +423,8 @@ export const landingContent: LandingContent = {
     links: [
       { label: "A20 Lite (The Reflex)", href: "/lite" },
       { label: "A20 Soul (The Guardian Arc)", href: "/soul" },
+      { label: "Filosofi & Batasan", href: "/tentang" },
       { label: "Dokumentasi & Codebase", href: "/docs" },
-      { label: "Prinsip Privasi & Batasan", href: "#tentang" },
     ],
   },
 };

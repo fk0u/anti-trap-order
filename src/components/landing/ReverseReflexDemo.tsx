@@ -13,8 +13,10 @@ import {
   CheckCircle2,
   Sparkles,
 } from "lucide-react";
+import Link from "next/link";
 import scenariosData from "@/data/scenarios.json";
-import type { Scenario, PerspectiveOption, Flaw, WarningTone } from "@/types/api";
+import type { Scenario, PerspectiveOption, Flaw, WarningTone, ReflectResponse } from "@/types/api";
+import { reflect } from "@/lib/api";
 import { BorderBeam } from "@/components/ui/BorderBeam";
 import { GradientText } from "@/components/ui/GradientText";
 import { Kbd } from "@/components/ui/Kbd";
@@ -29,6 +31,9 @@ export function ReverseReflexDemo() {
   const [answers, setAnswers] = useState<Record<string, PerspectiveOption>>({});
   const [warningTone, setWarningTone] = useState<WarningTone>("casual");
   const [copied, setCopied] = useState<boolean>(false);
+  const [engineResult, setEngineResult] = useState<ReflectResponse | null>(null);
+  const [isEngineOffline, setIsEngineOffline] = useState<boolean>(false);
+  const [isProcessing, setIsProcessing] = useState<boolean>(false);
 
   // Active scenario
   const activeScenario =
@@ -61,6 +66,30 @@ export function ReverseReflexDemo() {
     }
   };
 
+  const executeReflect = async (updatedAnswers: Record<string, PerspectiveOption>) => {
+    setIsProcessing(true);
+    setCurrentStep(3);
+
+    const answersList = Object.entries(updatedAnswers).map(([qid, opt]) => ({
+      question_id: qid,
+      selected_option_id: opt.id,
+    }));
+
+    try {
+      const res = await reflect({
+        scenario_id: customText.trim() ? undefined : activeScenario.id,
+        free_text: customText.trim() || undefined,
+        answers: answersList,
+      });
+      setEngineResult(res.response);
+      setIsEngineOffline(res.isOffline);
+    } catch (e) {
+      console.error("Reflect failed:", e);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   // Keyboard shortcut listener for option selection (1, 2, 3) and Enter
   useEffect(() => {
     if (currentStep !== 2) return;
@@ -71,7 +100,7 @@ export function ReverseReflexDemo() {
       const answeredCount = Object.keys(answers).length;
       if (answeredCount >= currentQuestions.length) {
         if (e.key === "Enter") {
-          setCurrentStep(3);
+          executeReflect(answers);
         }
         return;
       }
@@ -82,11 +111,12 @@ export function ReverseReflexDemo() {
       if (optIndex >= 0 && optIndex < activeQ.options.length) {
         e.preventDefault();
         const selectedOpt = activeQ.options[optIndex];
-        setAnswers((prev) => ({ ...prev, [activeQ.id]: selectedOpt }));
+        const nextAnswers = { ...answers, [activeQ.id]: selectedOpt };
+        setAnswers(nextAnswers);
 
-        // If this was the last question, auto advance or ready
+        // If this was the last question, auto advance
         if (answeredCount + 1 >= currentQuestions.length) {
-          setTimeout(() => setCurrentStep(3), 300);
+          setTimeout(() => executeReflect(nextAnswers), 300);
         }
       }
     };
@@ -95,23 +125,35 @@ export function ReverseReflexDemo() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentStep, activeScenario, answers]);
 
-  // Dynamic ranking of flaws based on accumulated tags
+  // Dynamic ranking of flaws based on accumulated tags or engine result
   const selectedTags = Object.values(answers).flatMap((opt) => opt.tags);
 
-  const rankedFlaws: Flaw[] = [...activeScenario.flaws]
-    .map((flaw) => {
-      let score = flaw.severity * 2;
-      if (selectedTags.includes(flaw.tag)) score += 10;
-      return { flaw, score };
-    })
-    .sort((a, b) => b.score - a.score)
-    .map((item) => item.flaw)
-    .slice(0, 3);
+  const flawsToRender = engineResult
+    ? engineResult.user_detected_flaws.map((f) => ({
+        id: f.id,
+        tag: "",
+        title: f.title,
+        explanation: f.explanation,
+        evidence_phrases: f.evidence_phrases,
+        severity: f.severity,
+      }))
+    : [...activeScenario.flaws]
+        .map((flaw) => {
+          let score = flaw.severity * 2;
+          if (selectedTags.includes(flaw.tag)) score += 10;
+          return { flaw, score };
+        })
+        .sort((a, b) => b.score - a.score)
+        .map((item) => item.flaw)
+        .slice(0, 3);
 
   // Active warning template based on selected tone
-  const activeWarningTemplate =
-    activeScenario.warning_templates.find((w) => w.tone === warningTone)?.text ||
-    activeScenario.warning_templates[0].text;
+  const activeWarningTemplate = engineResult
+    ? warningTone === "casual"
+      ? engineResult.warning_templates.casual
+      : engineResult.warning_templates.firm
+    : activeScenario.warning_templates.find((w) => w.tone === warningTone)?.text ||
+      activeScenario.warning_templates[0].text;
 
   const handleCopyWarning = () => {
     navigator.clipboard?.writeText(activeWarningTemplate);
@@ -121,6 +163,7 @@ export function ReverseReflexDemo() {
 
   const handleReset = () => {
     setAnswers({});
+    setEngineResult(null);
     setCurrentStep(1);
     setCustomText("");
   };
@@ -329,7 +372,7 @@ export function ReverseReflexDemo() {
 
                   <button
                     type="button"
-                    onClick={() => setCurrentStep(3)}
+                    onClick={() => executeReflect(answers)}
                     disabled={
                       Object.keys(answers).length <
                       activeScenario.perspective_questions.length
@@ -361,16 +404,21 @@ export function ReverseReflexDemo() {
                 aria-live="polite"
               >
                 {/* Result Top Badge */}
-                <div className="p-4 rounded-2xl bg-brand-teal/[0.08] border border-brand-teal/30 flex items-center justify-between">
+                <div className="p-4 rounded-2xl bg-brand-teal/[0.08] border border-brand-teal/30 flex flex-wrap items-center justify-between gap-2">
                   <div className="flex items-center gap-2.5">
                     <Shield className="w-5 h-5 text-brand-teal" />
                     <span className="text-xs sm:text-sm font-bold text-text-primary">
-                      Refleks Aktif: {rankedFlaws.length} Celah Manipulasi Berhasil Kamu Bongkar
+                      Refleks Aktif: {flawsToRender.length} Celah Manipulasi Berhasil Kamu Bongkar
                     </span>
                   </div>
-                  <span className="text-[11px] font-mono text-brand-teal">
-                    Kategori: {activeScenario.category}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-[11px] font-mono text-brand-teal">
+                      Kategori: {activeScenario.category}
+                    </span>
+                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                      {isEngineOffline ? "Local Engine" : "Go API Live"}
+                    </span>
+                  </div>
                 </div>
 
                 {/* Ranked Flaws */}
@@ -379,7 +427,7 @@ export function ReverseReflexDemo() {
                     Celah Taktik yang Kamu Temukan Sendiri:
                   </span>
                   <div className="grid grid-cols-1 gap-3">
-                    {rankedFlaws.map((flaw, i) => (
+                    {flawsToRender.map((flaw, i) => (
                       <div
                         key={flaw.id}
                         className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1.5"
@@ -497,8 +545,8 @@ export function ReverseReflexDemo() {
                   ⚠️ Ini alat bantu berpikir mandiri (decision support), bukan deteksi kepastian 100%. Selalu konfirmasi ke kanal resmi institusi terkait.
                 </div>
 
-                {/* Reset Button */}
-                <div className="pt-2 flex justify-center">
+                {/* Reset & Navigation Buttons */}
+                <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
                   <button
                     type="button"
                     onClick={handleReset}
@@ -507,6 +555,14 @@ export function ReverseReflexDemo() {
                     <RotateCcw className="w-3.5 h-3.5" />
                     <span>Uji Skenario Lain</span>
                   </button>
+
+                  <Link
+                    href="/lite"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white transition-all shadow-sm"
+                  >
+                    <span>Buka Mode Taktis Lengkap di /lite</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
               </motion.div>
             )}
