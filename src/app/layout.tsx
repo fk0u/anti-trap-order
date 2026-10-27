@@ -25,6 +25,8 @@ export const metadata: Metadata = {
   authors: [{ name: "Hipster — Web Development Lead" }],
 };
 
+import { MobileTabBar } from "@/components/layout/MobileTabBar";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -37,6 +39,7 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-surface-base font-sans text-text-primary antialiased selection:bg-brand-teal/20 selection:text-brand-cyan">
         {children}
+        <MobileTabBar />
       </body>
     </html>
   );
