@@ -34,7 +34,7 @@ ssh -i "$KEY" -o StrictHostKeyChecking=accept-new "$SERVER" "bash -c '
     python3 -m venv venv
     venv/bin/pip install --upgrade pip httpx
   fi
-  pm2 describe ato-gemini-web2api > /dev/null 2>&1 && pm2 reload ato-gemini-web2api || pm2 start \"venv/bin/python3 gemini_web2api.py --config config.json\" --name ato-gemini-web2api
+  pm2 describe ato-gemini-web2api > /dev/null 2>&1 && pm2 reload ato-gemini-web2api || pm2 start gemini_web2api.py --name ato-gemini-web2api --interpreter ./venv/bin/python3 -- --config config.json
   cd $APP_DIR
 
   pm2 reload anti-trap-order || pm2 restart anti-trap-order

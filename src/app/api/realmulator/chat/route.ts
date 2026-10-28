@@ -69,8 +69,12 @@ Taktik psikologismu:
 
 export async function POST(req: NextRequest) {
   try {
-    const body: RealmulatorRequest = await req.json();
-    const { scenarioId, messages } = body;
+    const body: any = await req.json();
+    const scenarioId = body.scenarioId || "job_scam";
+    let messages: ChatMessage[] = Array.isArray(body.messages) ? body.messages : [];
+    if (messages.length === 0 && body.message) {
+      messages = [{ role: "user", content: String(body.message) }];
+    }
 
     const scenario = SCENARIO_PROMPTS[scenarioId] || SCENARIO_PROMPTS.job_scam;
 
