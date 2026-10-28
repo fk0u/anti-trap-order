@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0E131F"/>
+      <stop offset="100%" stop-color="#07090D"/>
+    </linearGradient>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#10B981"/>
+      <stop offset="50%" stop-color="#059669"/>
+      <stop offset="100%" stop-color="#047857"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#34D399" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="16" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" stroke="#1F2937" stroke-width="4"/>
+
+  <!-- Subtle grid pattern in background -->
+  <circle cx="256" cy="256" r="180" fill="none" stroke="#10B981" stroke-opacity="0.08" stroke-width="1.5"/>
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#10B981" stroke-opacity="0.04" stroke-width="1"/>
+
+  <!-- Shield Base Outer Glow -->
+  <path d="M256 96 L376 144 V264 C376 348 256 416 256 416 C256 416 136 348 136 264 V144 Z" 
+        fill="none" 
+        stroke="url(#glowGrad)" 
+        stroke-width="12" 
+        stroke-linejoin="round"
+        filter="url(#glow)" />
+
+  <!-- Shield Base Body -->
+  <path d="M256 108 L364 152 V260 C364 336 256 398 256 398 C256 398 148 336 148 260 V152 Z" 
+        fill="#0B0F17" 
+        stroke="#10B981" 
+        stroke-width="6" 
+        stroke-linejoin="round"/>
+
+  <!-- Perspective Inversion Dual Arrows (Inversion Core) -->
+  <!-- Top Arrow pointing downward/inward -->
+  <path d="M220 200 L256 160 L292 200" 
+        fill="none" 
+        stroke="#10B981" 
+        stroke-width="8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  <line x1="256" y1="164" x2="256" y2="244" 
+        stroke="#10B981" 
+        stroke-width="8" 
+        stroke-linecap="round"/>
+
+  <!-- Bottom Inverted Arrow pointing upward -->
+  <path d="M292 292 L256 332 L220 292" 
+        fill="none" 
+        stroke="#06B6D4" 
+        stroke-width="8" 
+        stroke-linecap="round" 
+        stroke-linejoin="round"/>
+  <line x1="256" y1="328" x2="256" y2="248" 
+        stroke="#06B6D4" 
+        stroke-width="8" 
+        stroke-linecap="round"/>
+
+  <!-- Center Focal Core Point -->
+  <circle cx="256" cy="246" r="10" fill="#FFFFFF" />
+  <circle cx="256" cy="246" r="16" fill="none" stroke="#10B981" stroke-width="3" opacity="0.6"/>
+</svg>

@@ -214,5 +214,437 @@
         "condition_note": "Awareness < 55"
       }
     ]
+  },
+  {
+    "id": "arc_ayah_rekening",
+    "title": "Panggilan Darurat Ayah",
+    "ward": {
+      "name": "Pak Bambang",
+      "relationship": "Ayah kandung di kampung",
+      "age": 62,
+      "context": "Pensiunan pegawai negeri yang tinggal di daerah dan baru belajar menggunakan smartphone untuk berkirim kabar serta cek tabungan hari tua."
+    },
+    "initial_node_id": "arc2_n1",
+    "initial_state": {
+      "trust": 65,
+      "awareness": 25,
+      "empathy": 50
+    },
+    "nodes": [
+      {
+        "id": "arc2_n1",
+        "speaker": "Pak Bambang",
+        "narration": "Suara Ayah bergetar di seberang telepon. Nafasnya memburu dan terdengar sangat cemas di ruang tamu rumahnya.",
+        "victim_evidence": "Nak, ini Ayah barusan dapat chat WhatsApp dari petugas berlogo kepolisian dan kejaksaan. Katanya motor Ayah terekam kamera melanggar lampu merah dan ada denda tilang berjalan. Mereka kirim file namanya Surat_Tilang_Elektronik_ETLE.apk. Katanya kalau tidak dibuka dan diverifikasi dalam 2 jam, rekening pensiun Taspen Ayah dibekukan untuk sita jaminan...",
+        "choices": [
+          {
+            "id": "c2_1_inversion",
+            "label": "Ayah tarik nafas dulu, jangan panik. Coba kita renungkan: instansi kepolisian resmi kalau kirim tilang itu lewat surat pos ke rumah atau kirim file aplikasi .APK lewat nomor WhatsApp tak dikenal?",
+            "next_node_id": "arc2_n2_investigative",
+            "effects": {
+              "trust": 15,
+              "awareness": 30,
+              "empathy": 20
+            },
+            "perspective_hint": "Mengajak Ayah membedah prosedur hukum formal vs kepalsuan format .APK."
+          },
+          {
+            "id": "c2_1_harsh",
+            "label": "Astaga Ayah! Masa surat tilang bentuknya file aplikasi? Itu penipu mau maling uang pensiun Ayah! Jangan klik apa-apa, jangan sok tahu!",
+            "next_node_id": "arc2_n2_defensive",
+            "effects": {
+              "trust": -20,
+              "awareness": 20,
+              "empathy": -15
+            },
+            "perspective_hint": "Kata-kata kasar membuat Ayah merasa bodoh dan enggan menceritakan detail ancaman berikutnya."
+          },
+          {
+            "id": "c2_1_lenient",
+            "label": "Aduh jangan-jangan beneran Yah. Buka aja dulu suratnya biar tau foto motornya beneran motor Ayah apa bukan.",
+            "next_node_id": "arc2_n2_vulnerable",
+            "effects": {
+              "trust": 5,
+              "awareness": -25,
+              "empathy": 0
+            },
+            "perspective_hint": "Memberi izin membuka malware berkedok surat tilang."
+          }
+        ]
+      },
+      {
+        "id": "arc2_n2_investigative",
+        "speaker": "Pak Bambang",
+        "narration": "Ayah terdiam sejenak. Nada suaranya mulai mereda dari kepanikan buta menjadi kehati-hatian.",
+        "victim_evidence": "Iya juga ya Nak... Biasanya tilang ada amplop cokelat datang ke rumah. Tapi orang ini pasang foto profil polisi berseragam dan bicaranya sangat galak. Sekarang dia telpon Ayah berkali-kali nanyain udah dibuka belum filenya.",
+        "choices": [
+          {
+            "id": "c2_2_explain_urgency",
+            "label": "Kenapa dia telpon terus dan galak Yah? Karena kalau Ayah punya waktu tenang buat mikir atau tanya orang lain, kebohongan dia pasti ketahuan. Abaikan telponnya sekarang.",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": 20,
+              "awareness": 25,
+              "empathy": 15
+            },
+            "perspective_hint": "Membongkar alasan psikologis di balik sikap agresif penipu."
+          },
+          {
+            "id": "c2_2_threaten_back",
+            "label": "Angkat telponnya terus maki-maki dia Yah! Bilang anak saya tahu hukum!",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": -5,
+              "awareness": 10,
+              "empathy": -10
+            },
+            "perspective_hint": "Meladeni provokasi emosi penipu justru memperpanjang risiko manipulasi."
+          }
+        ]
+      },
+      {
+        "id": "arc2_n2_defensive",
+        "speaker": "Pak Bambang",
+        "narration": "Suara Ayah tertahan di tenggorokan, tersinggung oleh nada bicaramu yang membentak.",
+        "victim_evidence": "Ayah kan cuma nanya Nak... Ayah takut rekening pensiun dibekukan. Ibu kamu butuh biaya obat bulan depan. Orang ini ngotot minta Ayah segera pasang aplikasinya di HP.",
+        "choices": [
+          {
+            "id": "c2_2_apologize_realign",
+            "label": "Maafin aku ya Yah, aku tadi kaget karena takut tabungan Ayah hilang. File .APK itu racun yang dipasang penipu buat bobol SMS bank Ayah. Kita hadapi bareng ya.",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": 25,
+              "awareness": 25,
+              "empathy": 30
+            },
+            "perspective_hint": "Memulihkan rasa aman dan kepercayaan orang tua."
+          },
+          {
+            "id": "c2_2_stubborn",
+            "label": "Ya makanya kalau dibilangin nurut dong Yah, jangan ngeyel.",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": -20,
+              "awareness": 5,
+              "empathy": -20
+            },
+            "perspective_hint": "Memperlebar jarak emosional sehingga Ayah menutup diri."
+          }
+        ]
+      },
+      {
+        "id": "arc2_n2_vulnerable",
+        "speaker": "Pak Bambang",
+        "narration": "Terdengar bunyi ketukan layar ponsel dari seberang telepon.",
+        "victim_evidence": "Ayah barusan pencet filenya Nak... tapi layarnya kedip-kedip hitam sebentar terus layarnya minta izin baca SMS dan kontak. Ini Ayah izinkan aja ya?",
+        "choices": [
+          {
+            "id": "c2_2_emergency_airplane",
+            "label": "JANGAN DIIZINKAN! Pencet tombol TOLAK! Sekarang juga langsung geser layar atas, aktifkan MODE PESAWAT (Airplane Mode) biar sinyalnya mati Yah!",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": 15,
+              "awareness": 20,
+              "empathy": 10
+            },
+            "perspective_hint": "Protokol darurat teknis memutus transmisi data malware."
+          },
+          {
+            "id": "c2_2_hesitate",
+            "label": "Waduh kok gitu ya, coba restart HP-nya dulu Yah...",
+            "next_node_id": "arc2_n3_climax",
+            "effects": {
+              "trust": -10,
+              "awareness": -15,
+              "empathy": -5
+            },
+            "perspective_hint": "Keraguan teknis memberi waktu malware menyalin SMS OTP."
+          }
+        ]
+      },
+      {
+        "id": "arc2_n3_climax",
+        "speaker": "Pak Bambang",
+        "narration": "Ponsel Ayah berbunyi notifikasi SMS singkat berulang kali. Suara panggilan telepon kedua masuk bersamaan.",
+        "victim_evidence": "Nak, orang tadi nelpon lagi lewat nomor lain. Katanya ada kode verifikasi 6 angka masuk ke SMS Ayah dari bank. Dia minta Ayah sebutkan angka itu sekarang biar proses pembatalan tilang selesai!",
+        "choices": [
+          {
+            "id": "c2_3_decode_otp",
+            "label": "Ayah, dengarkan aku baik-baik: jangan pernah sebut 6 angka itu ke siapa pun! Itu kode OTP kunci brankas tabungan pensiun Ayah. Tutup teleponnya sekarang, kita aman.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 25,
+              "awareness": 35,
+              "empathy": 20
+            },
+            "perspective_hint": "Menegakkan garis batas mutlak rahasia perbankan dengan wibawa penjaga."
+          },
+          {
+            "id": "c2_3_panic_give_up",
+            "label": "Duh sebutin aja deh Yah daripada orangnya marah dan datangin rumah...",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": -25,
+              "awareness": -30,
+              "empathy": -15
+            },
+            "perspective_hint": "Menyerahkan kunci keamanan terakhir pada pelaku."
+          },
+          {
+            "id": "c2_3_take_over",
+            "label": "Tutup telponnya sekarang Yah! Biar aku yang telpon kantor bank Ayah buat kunci akses sementara dan besok pagi aku temani ke kantor polisi.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 30,
+              "awareness": 25,
+              "empathy": 25
+            },
+            "perspective_hint": "Mengambil alih beban krisis dan mendampingi orang tua secara nyata."
+          }
+        ]
+      }
+    ],
+    "endings": [
+      {
+        "id": "ending_guardian_partnership",
+        "title": "Bahu Kokoh Sang Penjaga (The Compassionate Anchor)",
+        "summary": "Pak Bambang menutup telepon dan menghapus file jahat. Saldo tabungan pensiun selamat seutuhnya, dan Ayah belajar membedakan surat resmi dengan file jebakan .APK.",
+        "reflection": "Kamu menjaga orang tuamu tanpa merendahkan martabatnya. Keberhasilanmu bukan hanya terletak pada uang yang terselamatkan, melainkan terjalinnya rasa percaya bahwa Ayah tidak sendirian menghadapi rimba digital.",
+        "guardian_archetype": "Empathetic Strategist",
+        "condition_note": "Trust >= 55 dan Awareness >= 55"
+      },
+      {
+        "id": "ending_overprotective_silence",
+        "title": "Perisai yang Menakutkan (The Alienating Protector)",
+        "summary": "Uang pensiun selamat, namun Ayah merasa minder dan trauma. Ayah takut memegang ponsel pintarnya lagi karena khawatir dimarahi anak sendiri.",
+        "reflection": "Kamu berhasil mencegah pencurian finansial, namun melukai harga diri orang tua. Menjadi penjaga sejati memerlukan kesabaran mengedukasi, bukan sekadar bentakan yang mengintimidasi.",
+        "guardian_archetype": "Strict Sentinel",
+        "condition_note": "Awareness >= 55 tetapi Trust < 55"
+      },
+      {
+        "id": "ending_delayed_intervention",
+        "title": "Luka Tabungan Hari Tua (The Bitter Lesson)",
+        "summary": "Kode OTP terlanjur disebutkan atau izin SMS terlanjur aktif. Saldo tabungan hari tua Ayah terkuras habis sebelum verifikasi dilakukan.",
+        "reflection": "Keterlambatan bersikap tegas dalam hitungan detik berakibat fatal. Rekayasa sosial mengeksploitasi rasa takut generasi tua, dan kelemahan terbesar penjaga adalah membiarkan kepanikan mengaburkan kewaspadaan.",
+        "guardian_archetype": "Reluctant Witness",
+        "condition_note": "Awareness < 55"
+      }
+    ]
+  },
+  {
+    "id": "arc_sahabat_crypto",
+    "title": "Investasi Asmara Reza",
+    "ward": {
+      "name": "Reza",
+      "relationship": "Sahabat karib sejak kuliah",
+      "age": 25,
+      "context": "Karyawan swasta yang baru saja patah hati setelah putus cinta dan sedang aktif mencari pasangan di dating app Bumble."
+    },
+    "initial_node_id": "arc3_n1",
+    "initial_state": {
+      "trust": 60,
+      "awareness": 30,
+      "empathy": 50
+    },
+    "nodes": [
+      {
+        "id": "arc3_n1",
+        "speaker": "Reza",
+        "narration": "Reza tersenyum sumringah sambil menunjukkan profil wanita berparas rupawan di layar ponselnya saat makan malam bersama.",
+        "victim_evidence": "Bro, kenalin nih, namanya Clarissa. Dia analis keuangan independen di Singapura, nyambung banget ngobrol sama gue seminggu ini. Dia baik banget bro, ngajarin gue cara dapet passive income trading emas crypto di platform AsiaBit-Global.net. Katanya sehari bisa profit 20% stabil!",
+        "choices": [
+          {
+            "id": "c3_1_inversion",
+            "label": "Za, Clarissa emang menarik. Tapi coba lu telaah dari sudut pandang bisnis: kalau dia beneran punya cara untung 20% per hari tanpa risiko, kenapa dia sibuk bujuk orang asing di dating app buat setor uang?",
+            "next_node_id": "arc3_n2_investigative",
+            "effects": {
+              "trust": 15,
+              "awareness": 25,
+              "empathy": 15
+            },
+            "perspective_hint": "Menguji logika ekonomi di balik ilusi keuntungan mustahil."
+          },
+          {
+            "id": "c3_1_mock",
+            "label": "Wkwkwk halu lu bro! Cewek secakep itu mana mau sama lu di Bumble terus tiba-tiba ngajak trading. Sadar diri bro, itu akun bot sindikat!",
+            "next_node_id": "arc3_n2_defensive",
+            "effects": {
+              "trust": -20,
+              "awareness": 15,
+              "empathy": -20
+            },
+            "perspective_hint": "Ejekan personal merusak harga diri Reza dan membuatnya defensif membela sang pelaku."
+          },
+          {
+            "id": "c3_1_lenient",
+            "label": "Wah asyik bener bro kalau cuan. Coba dulu aja sejuta dua juta, siapa tahu beneran rezeki lu.",
+            "next_node_id": "arc3_n2_vulnerable",
+            "effects": {
+              "trust": 10,
+              "awareness": -20,
+              "empathy": 5
+            },
+            "perspective_hint": "Memvalidasi umpan awal skema Pig Butchering."
+          }
+        ]
+      },
+      {
+        "id": "arc3_n2_investigative",
+        "speaker": "Reza",
+        "narration": "Reza tertegun. Senyumnya sedikit memudar, mulai menatap layar ponselnya dengan tatapan kritis.",
+        "victim_evidence": "Hmm... bener juga sih. Tapi dia gak pernah minta uang gue ditransfer ke rekening dia langsung kok. Dia cuma nyuruh gue daftar di website bursa AsiaBit tadi, terus deposit mandiri lewat virtual account lokal.",
+        "choices": [
+          {
+            "id": "c3_2_explain_pigbutchering",
+            "label": "Itu namanya modus Sha Zhu Pan (Pig Butchering) Za. Website bursa itu fiktif buatan sindikat. Angka grafik naiknya bisa disetting sesuka mereka buat bikin lu ngerasa jago sebelum digembok.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": 20,
+              "awareness": 30,
+              "empathy": 15
+            },
+            "perspective_hint": "Mengungkap anatomi industri penipuan cinta dan investasi palsu."
+          },
+          {
+            "id": "c3_2_check_domain",
+            "label": "Coba kita cek umur domain websitenya bareng-bareng di whois. Berani taruhan umurnya belum ada 3 bulan.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": 20,
+              "awareness": 25,
+              "empathy": 10
+            },
+            "perspective_hint": "Membuktikan kebohongan teknis melalui jejak digital objektif."
+          }
+        ]
+      },
+      {
+        "id": "arc3_n2_defensive",
+        "speaker": "Reza",
+        "narration": "Reza memasukkan ponselnya ke saku jaket dengan wajah kesal dan kaku.",
+        "victim_evidence": "Lu selalu ngeremehin gue bro. Tiap kali gue deket sama cewek lu curigain. Lu gak ngerasain gimana rasanya ada yang nemenin dan peduli sama masa depan finansial gue.",
+        "choices": [
+          {
+            "id": "c3_2_empathy_reconnect",
+            "label": "Gue minta maaf Za, candaan gue keterlaluan. Gue peduli sama lu bukan mau ngeremehin. Gue gak rela lu yang udah kerja keras banting tulang malah dimanfaatin orang gak bertanggung jawab.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": 30,
+              "awareness": 20,
+              "empathy": 30
+            },
+            "perspective_hint": "Memulihkan ikatan persahabatan sejati dengan kerendahan hati."
+          },
+          {
+            "id": "c3_2_dismiss",
+            "label": "Terserah lu dah kalau dibilangin malah baper. Duit duit lu ini.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": -25,
+              "awareness": -10,
+              "empathy": -25
+            },
+            "perspective_hint": "Menyerah menjaga sahabat dan membiarkannya masuk jebakan."
+          }
+        ]
+      },
+      {
+        "id": "arc3_n2_vulnerable",
+        "speaker": "Reza",
+        "narration": "Reza menunjukkan layar dashboard bursa dengan riang.",
+        "victim_evidence": "Tuh liat bro! Tadi gue deposit Rp2.000.000, sekarang saldonya jadi Rp2.700.000 dalam tempo 30 menit! Clarissa pinter banget baca sinyal tradingnya.",
+        "choices": [
+          {
+            "id": "c3_2_force_withdraw",
+            "label": "Oke kalau beneran profit, coba lu tarik (withdraw) seluruh uang lu ke rekening bank sekarang. Jangan setor lagi sebelum dana itu landing di ATM lu.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": 15,
+              "awareness": 30,
+              "empathy": 10
+            },
+            "perspective_hint": "Ujian realitas instan menguji integritas platform fiktif."
+          },
+          {
+            "id": "c3_2_cheer",
+            "label": "Mantap bro, lumayan buat beli sepatu baru.",
+            "next_node_id": "arc3_n3_climax",
+            "effects": {
+              "trust": 5,
+              "awareness": -25,
+              "empathy": -5
+            },
+            "perspective_hint": "Terbuai ilusi angka saldo virtual buatan scammer."
+          }
+        ]
+      },
+      {
+        "id": "arc3_n3_climax",
+        "speaker": "Reza",
+        "narration": "Ponsel Reza bergetar panik. Pesan suara dari Clarissa bernada manja bercampur desakan mendadak masuk.",
+        "victim_evidence": "Bro! Clarissa barusan chat: Ada event VIP Node malam ini, slotnya cuma 3 orang. Kalau gue top up Rp25.000.000 sekarang, besok pagi dijamin cair Rp60.000.000! Clarissa nawarin talangan Rp5.000.000, sisanya dia nyuruh gue pinjam pinjol kilat. Gue harus gimana bro?!",
+        "choices": [
+          {
+            "id": "c3_3_break_illusion",
+            "label": "Za, ini titik jebakan terakhirnya! Uang Rp25 juta itu gak bakal pernah balik, dan lu bakal ditinggal pergi dengan utang pinjol seumur hidup. Blokir Clarissa sekarang, tarik nafas, lu gak boleh hancur cuma gara-gara cinta fiktif.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 25,
+              "awareness": 35,
+              "empathy": 25
+            },
+            "perspective_hint": "Menyelamatkan sahabat dari jurang kehancuran finansial dengan ketegasan penuh kasih."
+          },
+          {
+            "id": "c3_3_let_it_burn",
+            "label": "Dua puluh lima juta gede banget bro... kalau lu yakin sama dia ya pinjam pinjol aja, tanggung udah basah.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": -30,
+              "awareness": -35,
+              "empathy": -20
+            },
+            "perspective_hint": "Membiarkan sahabat terjun bebas ke dalam lingkaran utang sindikat."
+          },
+          {
+            "id": "c3_3_test_together",
+            "label": "Tahan tanganmu dari tombol pinjol! Sekarang kita buka menu withdraw Rp2 juta kemarin. Liat responnya, pasti dia minta uang jaminan/pajak. Itu bukti telak di depan matamu sendiri.",
+            "next_node_id": "resolve_ending",
+            "effects": {
+              "trust": 30,
+              "awareness": 30,
+              "empathy": 20
+            },
+            "perspective_hint": "Membuktikan penipuan secara empiris tanpa ruang sanggahan."
+          }
+        ]
+      }
+    ],
+    "endings": [
+      {
+        "id": "ending_guardian_partnership",
+        "title": "Cermin Sahabat Sejati (The Anchor of Truth)",
+        "summary": "Reza membatalkan niat pinjol dan memblokir akun Clarissa. Meski hatinya terluka menyadari cintanya dimanipulasi, Reza terhindar dari lilitan utang puluhan juta dan persahabatan kalian semakin kokoh.",
+        "reflection": "Kamu menjadi cermin kejujuran di saat ilusi asmara mengaburkan akal sehat sahabatmu. Kamu tidak menghakimi kerentanannya, melainkan melindunginya dengan keberanian moral seorang penjaga.",
+        "guardian_archetype": "Empathetic Strategist",
+        "condition_note": "Trust >= 55 dan Awareness >= 55"
+      },
+      {
+        "id": "ending_overprotective_silence",
+        "title": "Sahabat yang Menghakimi (The Broken Camaraderie)",
+        "summary": "Uang puluhan juta Reza selamat, namun kata-kata kasarmu membuatnya merasa kerdil dan malu. Reza menjauhi pergaulan dan enggan bercerita lagi kepadamu.",
+        "reflection": "Kebenaran tanpa empati terasa seperti penghinaan. Menjaga sesama bukan panggung untuk pamer kecerdasan, melainkan seni menjaga hati agar tetap terhubung.",
+        "guardian_archetype": "Strict Sentinel",
+        "condition_note": "Awareness >= 55 tetapi Trust < 55"
+      },
+      {
+        "id": "ending_delayed_intervention",
+        "title": "Jerat Utang Asmara Semu (The Devastating Fall)",
+        "summary": "Reza terlanjur mengajukan pinjaman online Rp25 juta dan mentransfernya ke sindikat. Beberapa jam kemudian, akun Clarissa lenyap dan platform bursa fiktif dinonaktifkan.",
+        "reflection": "Saat keraguan diabaikan, manipulasi emosional akan menuntut korban hingga titik darah penghabisan. Refleks seorang penjaga harus hadir sebelum janji manis berubah menjadi tragedi.",
+        "guardian_archetype": "Reluctant Witness",
+        "condition_note": "Awareness < 55"
+      }
+    ]
   }
 ]

@@ -1,12 +1,12 @@
 ---
 ruas_dialect: ai-native/v1
 target: "Autonomous AI Coding Agents (Cursor, Claude, Antigravity, Cline)"
-generated_at: "2026-10-28T01:05:00.000Z"
+generated_at: "2026-10-28T04:45:00.000Z"
 project_root: "/Users/kou/Project/prototype_ATO"
 project_name: "Anti Trap Order (ATO)"
 culture_technology: "A20 (Alpha to Omega) — Lee Soo-man Culture Technology Manifesto"
-version: "0.2.0-duolingo-drill"
-vibe_session_id: "vibe-ato-20261028-guardiandrill"
+version: "0.3.0-pwa-soul-og"
+vibe_session_id: "vibe-ato-20261028-pwa-soul-badge-og"
 ---
 
 # Ruas AI-Native Memory & Working Context
@@ -18,56 +18,51 @@ vibe_session_id: "vibe-ato-20261028-guardiandrill"
 
 ## 1. Active Vibe Intent & Working State
 - **Current Intent:** 
-  1. Complete transition from unicode emojis to clean vector icons (Lucide React).
-  2. Maintain 10 authentic Indonesian social engineering scenarios across Go backend and Next.js frontend.
-  3. Support Duolingo-style mobile daily drill (`/drill`) with tactile 3D interactions and thumb navigation.
-  4. Keep Go backend micro-NLP engine running sub-5ms within VPS 1.9 GB RAM constraints.
-- **Session Tag:** `ato-duolingo-drill-and-icons`
+  1. Completed 4 core pre-redesign foundations: PWA Manifest & App Icons, 3 Narrative Soul Arcs, Guardian Badge Generator with WhatsApp Share, and Dynamic 1200x630 OpenGraph SEO preview.
+  2. Ready to transition into Phase 2: Comprehensive UI Redesign.
+- **Session Tag:** `ato-pwa-soul-badge-og`
 - **Active Files (Core Hubs):**
-  - `src/app/drill/page.tsx` — Mobile daily drill with 8-stage skill tree, synthetic Web Audio chime, client-side streak & XP.
-  - `src/components/layout/MobileTabBar.tsx` — Fixed thumb-friendly mobile navigation bar.
-  - `src/components/landing/ReverseReflexDemo.tsx` — Desktop/mobile interactive perspective inversion simulator.
-  - `src/data/scenarios.json` — 10 canonical scam scenarios with structured flaws and safe steps.
-  - `internal/data/scenarios.json` — Go backend embedded scenario dataset (`go:embed`).
-  - `internal/reflect/nlp.go` — Indonesian social engineering tokenizer and slang normalizer.
-  - `internal/model/types.go` — Go API request/response structs and invariants.
-  - `internal/handler/handler.go` — Chi/HTTP handlers with input sanitization.
+  - `src/app/manifest.ts` — Web App Manifest for Android/iOS standalone home screen installation.
+  - `src/app/opengraph-image.tsx` — Dynamic 1200x630 social card generated on-demand via `next/og`.
+  - `src/components/guardian/GuardianBadgeModal.tsx` — HTML5 Canvas 2D engine for high-res PNG certificate generation & WhatsApp sharing.
+  - `src/app/soul/page.tsx` — Interactive narrative consequence engine with 3-arc selector.
+  - `src/app/drill/page.tsx` — Duolingo-style daily reflex drill with badge claim trigger.
+  - `src/app/layout.tsx` — Root layout with enhanced SEO, PWA, and OpenGraph metadata.
+  - `src/data/soul-arcs.json` & `internal/data/soul-arcs.json` — 3 complete BFS-validated narrative arcs.
+  - `src/data/scenarios.json` & `internal/data/scenarios.json` — 10 canonical scenarios with >=4 validated flaws each.
   - `scripts/deploy.sh` — EC2 live synchronization and zero-downtime deployment script.
 
 ---
 
-## 2. Architectural Invariants (Non-Negotiable Rules)
+## 2. The 4 Completed Foundations
 
-### Invariant 1: Perspective Inversion (Reverse Reflex)
-- User must never be treated as a passive victim who receives an arbitrary percentage score (e.g. NEVER output "87% penipuan").
-- The core pedagogy trains users to adopt the attacker's lens: *"What vulnerability is the attacker exploiting?"*, *"Why are they rushing you?"*, *"What happens if you verify externally?"*
+### 1. PWA Standalone Mobile Installation
+- **Manifest:** `src/app/manifest.ts` configured with `display: "standalone"`, `theme_color: "#07090D"`, and categories `["education", "security", "utilities"]`.
+- **Icon Suite:** `public/icons/icon-192.png`, `public/icons/icon-512.png`, `public/icons/apple-touch-icon.png`, and `public/icons/icon.svg`.
+- **Offline Behavior:** All simulation engines (`reflect-local.ts`, `soul-local.ts`, `localStorage` streak/XP) work 100% offline without cellular reception.
 
-### Invariant 2: Zero-Login & Zero-DB on Server (Stateless by Design)
-- Server backend in Go has **no database** (no Postgres, no MySQL, no MongoDB).
-- No session cookies, no personal identity collection, no phone number logging.
-- Gamification state (daily streak, XP, completed drill stages) is stored purely in client-side `localStorage` (`ato_duolingo_drill_v1`).
+### 2. 3 Complete Narrative Soul Arcs
+- **Arc 1: Misi Sampingan Dian (`arc_dian_parttime`)**:
+  - *Ward:* Dian (19th, adik kuliah perantauan).
+  - *Threat:* Skema ponzi tugas review Google Maps VIP di grup Telegram.
+- **Arc 2: Panggilan Darurat Ayah (`arc_ayah_rekening`)**:
+  - *Ward:* Pak Bambang (62th, pensiunan PNS di kampung).
+  - *Threat:* Ancaman surat tilang palsu format `.APK` dan pembobolan SMS OTP tabungan hari tua.
+- **Arc 3: Investasi Asmara Reza (`arc_sahabat_crypto`)**:
+  - *Ward:* Reza (25th, sahabat karib).
+  - *Threat:* Modus Sha Zhu Pan (Pig Butchering) berkedok wanita analis finansial di Bumble yang mengajak trading crypto bursa fiktif.
+- **Graph Traversal:** 100% BFS reachability verified, zero dead-ends, 3 distinct endings per arc.
 
-### Invariant 3: Visual Design & Zero Raw Emojis
-- **Never use raw unicode emojis in UI indicators.** Emojis break visual consistency across operating systems and look amateurish.
-- Always use **Lucide React vector icons** (`Clock`, `Briefcase`, `UserX`, `Package`, `Truck`, `Smartphone`, `HeartCrack`, `Crown`, `Trophy`, `Compass`, `Zap`, `ShieldCheck`, `BookOpen`).
-- Dark-first aesthetic (`#07090D` background, `#0B0F17` surfaces, `#10B981` emerald accents, `#8B5CF6` purple accents, `#F59E0B` amber warning accents).
-- Tactile 3D-ish buttons for mobile interactions (`border-b-4 shadow-[0_6px_0_...] active:translate-y-1.5 active:shadow-none`).
+### 3. Guardian Badge & Certificate Generator
+- Built inside `src/components/guardian/GuardianBadgeModal.tsx`.
+- Generates high-res 1200x675 PNG certificate cards directly in the client via Canvas 2D context.
+- Includes unique verification ID (`ATO-A20-XXXXXX`), user streak, total XP, and rank title.
+- Supports 1-click WhatsApp viral share with personalized reflex challenge copy.
 
-### Invariant 4: Lightweight Rule-Based NLP vs. Local LLM
-- VPS specification: `13.228.178.42` has 1.9 GB RAM total and 0 GPU.
-- Running Ollama/llama.cpp triggers the Linux Out-Of-Memory (OOM) killer.
-- The Indonesian social engineering tokenizer in `internal/reflect/nlp.go` normalizes chat slang (`tf`, `rek`, `apk`, `loker`, `pinjol`, `cair`) and detects 5 manipulation vectors in `< 5ms` with `< 5MB` RAM.
-
-### Invariant 5: Data Contract Compatibility
-- `SafeStep` must always be serialized as an object:
-  ```json
-  {
-    "id": "step_id",
-    "text": "Instruction text",
-    "applies_to_tags": ["all"]
-  }
-  ```
-  Never serialize `SafeStep` as a plain string in `scenarios.json` to avoid Go unmarshal errors.
+### 4. Dynamic OpenGraph & Meta SEO
+- Generated dynamically via `src/app/opengraph-image.tsx`.
+- Formatted with dark cyber-guardian styling (`#07090D`, emerald/cyan radial gradient, badge chips, and official ATO typography).
+- Standard metadataBase set to `https://ato.kousozo.tech` in `src/app/layout.tsx`.
 
 ---
 
@@ -79,11 +74,12 @@ graph TD
   
   subgraph Frontend [Next.js 16.4 App Router :3120]
     Root[src/app/layout.tsx] --> TabBar[src/components/layout/MobileTabBar.tsx]
+    Root --> Manifest[src/app/manifest.ts PWA]
+    Root --> OG[src/app/opengraph-image.tsx]
+    Drill[src/app/drill/page.tsx] --> BadgeModal[src/components/guardian/GuardianBadgeModal.tsx]
+    Soul[src/app/soul/page.tsx] --> BadgeModal
+    Soul --> ArcSelector[3-Arc Selector: Dian, Ayah, Reza]
     Landing[src/app/page.tsx] --> Demo[src/components/landing/ReverseReflexDemo.tsx]
-    Drill[src/app/drill/page.tsx] --> SkillTree[Duolingo 8-Stage Guardian Path]
-    Lite[src/app/lite/page.tsx] --> FastSim[3-Step Reflection Tool]
-    Soul[src/app/soul/page.tsx] --> Arc[Interactive Narrative Consequence Engine]
-    Docs[src/app/docs/page.tsx] --> Outline[13 Chapters Document Viewer]
   end
 
   subgraph Backend [Go 1.22 API :8080]
@@ -92,6 +88,7 @@ graph TD
     Handler --> SoulEngine[internal/soul/engine.go]
     ReflectEngine --> NLP[internal/reflect/nlp.go]
     ReflectEngine --> ScenariosJSON[(internal/data/scenarios.json)]
+    SoulEngine --> SoulArcsJSON[(internal/data/soul-arcs.json)]
   end
 
   Nginx -->|/api/*| Backend
@@ -100,24 +97,7 @@ graph TD
 
 ---
 
-## 4. 10 Canonical Indonesian Scenarios
-
-| # | ID | Category | Threat Vector | Primary Flaw |
-|---|---|---|---|---|
-| 1 | `wfh_admin_fee` | `job_scam` | Upfront Fee | Pungutan biaya seragam/ID card di depan |
-| 2 | `impersonate_blue_badge` | `impersonation` | Too Good To Be True | Akun centang biru tiruan minta OTP |
-| 3 | `impersonate_new_number` | `family_emergency` | Urgency / Impersonation | Kerabat ganti nomor minta talangan dana |
-| 4 | `phishing_bank_account_freeze` | `bank_phishing` | Urgency / Isolation | Ancaman blokir rekening dalam 1x24 jam |
-| 5 | `loan_shark_no_bi_checking` | `loan_shark` | Predatory Terms | Pinjol ilegal minta akses kontak penuh |
-| 6 | `apk_wedding_invitation` | `phishing` | Malware / APK | File .APK undangan pernikahan curi SMS OTP |
-| 7 | `marketplace_cod_scam` | `marketplace` | Off-Platform Urgency | Tagihan COD kurir fiktif di depan rumah |
-| 8 | `romance_investment_pigbutchering` | `impersonation` | Social Grooming | Kenalan kencan online ajak trading crypto |
-| 9 | `task_scam_review_maps` | `job_scam` | Advance Fee Trap | Misi like video & deposit misi VIP bertingkat |
-| 10 | `generic_emergency` | `custom_reflection` | Multi-vector | Kerangka analisis umum rekayasa sosial |
-
----
-
-## 5. Deployment & Operations Runbook
+## 4. Deployment & Operations Runbook
 
 - **Live URL:** `https://ato.kousozo.tech`
 - **Host:** `ubuntu@13.228.178.42` (AWS EC2 Singapore)

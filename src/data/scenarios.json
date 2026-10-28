@@ -1217,6 +1217,18 @@
           "Mohon doa restunya"
         ],
         "severity": 2
+      },
+      {
+        "id": "flaw_fake_sender_number",
+        "title": "Nomor Pengirim Tanpa Riwayat Komunikasi",
+        "explanation": "Pengirim mengaku kerabat namun menggunakan nomor baru tanpa riwayat obrolan sebelumnya serta menghindari panggilan suara langsung.",
+        "evidence_phrases": [
+          "nomor baru",
+          "tidak ada riwayat chat",
+          "pesan dari nomor asing"
+        ],
+        "severity": 2,
+        "user_perspective_reason": "Pelaku memanfaatkan media chat instan agar korban langsung mengklik file tanpa verifikasi dua arah."
       }
     ],
     "safe_steps": [
@@ -1424,6 +1436,18 @@
           "saya buru-buru mau antar paket lain"
         ],
         "severity": 2
+      },
+      {
+        "id": "flaw_unverified_recipient",
+        "title": "Penerima Paket Bukan Pemesan Asli",
+        "explanation": "Pelaku sengaja mengirim paket pada jam kerja saat pemesan asli tidak di rumah agar keluarga merasa terpaksa menalangi tagihan COD.",
+        "evidence_phrases": [
+          "sedang tidak di rumah",
+          "talangan dulu",
+          "atas nama orang rumah"
+        ],
+        "severity": 2,
+        "user_perspective_reason": "Pelaku memanfaatkan rasa sungkan keluarga untuk menolak paket di depan pintu rumah."
       }
     ],
     "safe_steps": [
@@ -1633,6 +1657,18 @@
           "Nanti aku bimbing step-by-step sampai profit"
         ],
         "severity": 2
+      },
+      {
+        "id": "flaw_refusal_video_call",
+        "title": "Penolakan Panggilan Video Langsung",
+        "explanation": "Pelaku selalu beralasan sibuk atau koneksi buruk saat diajak video call tatap muka untuk menutupi identitas aslinya yang menggunakan foto curian.",
+        "evidence_phrases": [
+          "koneksi buruk",
+          "tidak bisa video call",
+          "hanya pesan teks"
+        ],
+        "severity": 2,
+        "user_perspective_reason": "Pelaku membangun fantasi visual melalui foto statis tanpa berani menunjukkan wajah langsung."
       }
     ],
     "safe_steps": [
@@ -1840,6 +1876,18 @@
           "join grup Telegram VIP kami"
         ],
         "severity": 3
+      },
+      {
+        "id": "flaw_group_peer_pressure",
+        "title": "Tekanan Sosial Grup Fiktif (Astroturfing)",
+        "explanation": "Anggota grup Telegram yang memamerkan bukti transfer ratusan ribu rupiah adalah akun komplotan sindikat untuk menciptakan FOMO (Fear of Missing Out).",
+        "evidence_phrases": [
+          "bukti transfer member lain",
+          "slot VIP terbatas",
+          "testimoni member grup"
+        ],
+        "severity": 3,
+        "user_perspective_reason": "Sindikat menciptakan ilusi kerumunan sukses palsu agar korban terdorong ikut menyetor dana."
       }
     ],
     "safe_steps": [

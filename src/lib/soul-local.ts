@@ -52,8 +52,17 @@ export function soulStepLocal(req: SoulStepRequest): SoulStepResponse {
   // Check if next node is an ending or regular node
   const nextNodeId = choice.next_node_id;
 
-  if (nextNodeId.startsWith("ending_")) {
-    const ending = arc.endings.find((e) => e.id === nextNodeId) || arc.endings[0];
+  if (nextNodeId === "resolve_ending" || nextNodeId.startsWith("ending_")) {
+    let targetEndingId = "ending_delayed_intervention";
+    if (newState.awareness >= 55 && newState.trust >= 55) {
+      targetEndingId = "ending_guardian_partnership";
+    } else if (newState.awareness >= 55 && newState.trust < 55) {
+      targetEndingId = "ending_overprotective_silence";
+    }
+    const ending =
+      arc.endings.find((e) => e.id === targetEndingId) ||
+      arc.endings.find((e) => e.id === nextNodeId) ||
+      arc.endings[0];
     return {
       state: newState,
       ending,

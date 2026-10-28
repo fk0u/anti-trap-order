@@ -19,6 +19,8 @@ import {
   Server,
   WifiOff,
   ExternalLink,
+  Award,
+  Share2,
 } from "lucide-react";
 import { BorderBeam } from "@/components/ui/BorderBeam";
 import { Kbd } from "@/components/ui/Kbd";
@@ -33,6 +35,7 @@ import {
   SoulArcSummary,
 } from "@/types/api";
 import soulArcsData from "@/data/soul-arcs.json";
+import { GuardianBadgeModal } from "@/components/guardian/GuardianBadgeModal";
 
 const soulArcs = soulArcsData as SoulArc[];
 const LOCAL_STORAGE_KEY = "ato_soul_progress_v1";
@@ -53,6 +56,16 @@ export default function SoulPage() {
   const [ending, setEnding] = useState<ArcEnding | null>(null);
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
   const [isOffline, setIsOffline] = useState<boolean>(false);
+  const [isBadgeModalOpen, setIsBadgeModalOpen] = useState<boolean>(false);
+
+  // Switch between different soul arcs
+  const handleSwitchArc = (arc: SoulArc) => {
+    setSelectedArc(arc);
+    setCurrentNode(arc.nodes[0] || null);
+    setState(arc.initial_state);
+    setHistory([]);
+    setEnding(null);
+  };
 
   // Load arcs
   useEffect(() => {
@@ -208,7 +221,48 @@ export default function SoulPage() {
 
       {/* Main Container */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        {/* Intro Banner */}
+        {/* Arc Selector Tabs */}
+        <div className="mb-8 space-y-2">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted text-center">
+            Pilih Alur Cerita Tanggung Jawab (The Guardian Arc):
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+            {soulArcs.map((arc) => {
+              const isSelected = selectedArc?.id === arc.id;
+              return (
+                <button
+                  key={arc.id}
+                  type="button"
+                  onClick={() => handleSwitchArc(arc)}
+                  className={cn(
+                    "p-3.5 rounded-2xl border text-left transition-all relative overflow-hidden",
+                    isSelected
+                      ? "bg-purple-500/15 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/30"
+                      : "bg-white/[0.02] border-white/5 hover:border-white/15 text-text-muted hover:text-white"
+                  )}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <User className={cn("w-3.5 h-3.5", isSelected ? "text-purple-400" : "text-text-muted")} />
+                    <span className={cn("text-xs font-bold", isSelected ? "text-white" : "text-text-muted")}>
+                      {arc.ward.name}
+                    </span>
+                    <span className="text-[10px] font-mono text-text-muted ml-auto">
+                      {arc.ward.age} thn
+                    </span>
+                  </div>
+                  <div className="text-xs font-semibold text-white/95 truncate">
+                    {arc.title}
+                  </div>
+                  <div className="text-[10px] font-mono text-text-muted truncate mt-0.5">
+                    {arc.ward.relationship}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Dynamic Intro Banner */}
         <div className="mb-8 text-center space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-xs font-mono text-purple-400">
             <Shield className="w-3.5 h-3.5" />
@@ -216,11 +270,11 @@ export default function SoulPage() {
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
-            The Guardian Arc — Jaga Dian dari Penipuan
+            {selectedArc?.title || "The Guardian Arc"} &mdash; Lindungi {selectedArc?.ward.name || "Keluarga"}
           </h1>
 
           <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto leading-relaxed">
-            Dian adalah adikmu yang baru mulai merantau kuliah di kota besar. Setiap kata dan saranmu akan mempengaruhi rasa percaya, kewaspadaan, dan nasib akhirnya.
+            {selectedArc?.ward.context}
           </p>
         </div>
 
@@ -368,12 +422,21 @@ export default function SoulPage() {
                 <span>Ulangi dengan Pendekatan Lain</span>
               </button>
 
-              <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={() => setIsBadgeModalOpen(true)}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-purple-500/40 bg-purple-500/20 text-xs font-semibold text-purple-300 hover:bg-purple-500/30 transition-all shadow-md"
+                >
+                  <Award className="w-3.5 h-3.5 text-purple-400" />
+                  <span>Klaim Kartu Penjaga</span>
+                </button>
+
                 <Link
                   href="/lite"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all shadow-md active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all shadow-md active:scale-95"
                 >
-                  <span>Coba A20 Lite (Taktis)</span>
+                  <span>Coba A20 Lite</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -381,6 +444,15 @@ export default function SoulPage() {
           </div>
         )}
       </main>
+
+      <GuardianBadgeModal
+        isOpen={isBadgeModalOpen}
+        onClose={() => setIsBadgeModalOpen(false)}
+        streak={Math.max(1, Math.floor((state.trust + state.awareness + state.empathy) / 40))}
+        xp={state.awareness * 2 + state.empathy * 2}
+        rankTitle={ending?.guardian_archetype || "Guardian of the Digital Space"}
+        stageTitle={ending ? `${ending.title} (${selectedArc?.ward.name})` : "The Guardian Arc"}
+      />
     </div>
   );
 }

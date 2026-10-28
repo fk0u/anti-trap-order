@@ -30,10 +30,12 @@ import {
   HeartCrack,
   Crown,
   Trophy,
+  Share2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import scenariosData from "@/data/scenarios.json";
 import type { Scenario, PerspectiveOption, Flaw } from "@/types/api";
+import { GuardianBadgeModal } from "@/components/guardian/GuardianBadgeModal";
 
 const scenarios = scenariosData as Scenario[];
 
@@ -195,6 +197,7 @@ export default function DrillPage() {
   const [isAnswerChecked, setIsAnswerChecked] = useState<boolean>(false);
   const [isCelebration, setIsCelebration] = useState<boolean>(false);
   const [copiedWarning, setCopiedWarning] = useState<boolean>(false);
+  const [isBadgeModalOpen, setIsBadgeModalOpen] = useState<boolean>(false);
 
   // Load progress from localStorage
   useEffect(() => {
@@ -304,6 +307,16 @@ export default function DrillPage() {
               <Shield className="w-3.5 h-3.5 fill-emerald-400" />
               <span>Max</span>
             </div>
+
+            <button
+              type="button"
+              onClick={() => setIsBadgeModalOpen(true)}
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/80 hover:text-white hover:border-white/20 transition-all text-xs"
+              title="Klaim Kartu Penjaga"
+            >
+              <Award className="w-3.5 h-3.5 text-emerald-400" />
+              <span className="hidden sm:inline">Badge</span>
+            </button>
           </div>
         </div>
       </header>
@@ -606,6 +619,15 @@ export default function DrillPage() {
                 <div className="w-full space-y-2.5 pt-4">
                   <button
                     type="button"
+                    onClick={() => setIsBadgeModalOpen(true)}
+                    className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold text-xs uppercase tracking-wider bg-white/[0.08] hover:bg-white/[0.12] text-white border border-white/15 transition-all shadow-md"
+                  >
+                    <Share2 className="w-4 h-4 text-emerald-400" />
+                    <span>Klaim & Bagikan Kartu Penjaga (Badge)</span>
+                  </button>
+
+                  <button
+                    type="button"
                     onClick={handleCloseExercise}
                     className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider bg-emerald-500 text-black border-b-4 border-emerald-700 active:border-b-0 active:translate-y-1 shadow-lg transition-all"
                   >
@@ -624,6 +646,21 @@ export default function DrillPage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <GuardianBadgeModal
+        isOpen={isBadgeModalOpen}
+        onClose={() => setIsBadgeModalOpen(false)}
+        streak={progress.streak}
+        xp={progress.xp}
+        rankTitle={
+          progress.completedStages.length >= 8
+            ? "Omega Guardian"
+            : progress.completedStages.length >= 4
+            ? "Beta Guardian"
+            : "Alpha Guardian"
+        }
+        stageTitle={activeStage ? activeStage.title : "Ujian Refleks Digital A20"}
+      />
     </div>
   );
 }
