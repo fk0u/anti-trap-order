@@ -15,6 +15,9 @@ rsync -avz --delete \
   --exclude '.git' \
   --exclude '.env' \
   --exclude '*.pem' \
+  --exclude 'venv' \
+  --exclude '__pycache__' \
+  --exclude '.pytest_cache' \
   -e "ssh -i '$KEY' -o StrictHostKeyChecking=accept-new" \
   ./ "$SERVER:$APP_DIR/"
 
@@ -24,8 +27,19 @@ ssh -i "$KEY" -o StrictHostKeyChecking=accept-new "$SERVER" "bash -c '
   go build -o bin/server ./cmd/server
   go test ./...
   npm run build
+
+  # Manage gemini-web2api AI Service
+  cd $APP_DIR/services/gemini-web2api
+  if [ ! -d \"venv\" ]; then
+    python3 -m venv venv
+    venv/bin/pip install --upgrade pip httpx
+  fi
+  pm2 describe ato-gemini-web2api > /dev/null 2>&1 && pm2 reload ato-gemini-web2api || pm2 start \"venv/bin/python3 gemini_web2api.py --config config.json\" --name ato-gemini-web2api
+  cd $APP_DIR
+
   pm2 reload anti-trap-order || pm2 restart anti-trap-order
   pm2 reload ato-backend || pm2 restart ato-backend
+  pm2 save
 '"
 
 echo "==> Deployment complete! Live at: https://ato.kousozo.tech"

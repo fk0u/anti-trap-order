@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+cookie.txt
+cookie.json
+.env
+.idea
+.DS_Store
+gemini-auth.json
