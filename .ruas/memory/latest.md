@@ -1,41 +1,37 @@
 # Ruas AI Vibe Memory Checkpoint
-- **Timestamp:** 2026-10-28T05:38:00.000Z
-- **Vibe Session ID:** vibe-ato-20261028-pr-merge-aero-redesign
-- **Session Tag:** ato-pr-merge-aero-redesign
+- **Timestamp:** 2026-10-29T00:00:00.000Z
+- **Vibe Session ID:** vibe-ato-20261029-ai-realmulator-gemini-web2api
+- **Session Tag:** ato-ai-realmulator-gemini-web2api
 - **Project Name:** Anti Trap Order (ATO)
-- **Status:** All PRs Merged & Full Frutiger Aero Aqua UI Redesign Deployed Live.
+- **Status:** AI Realmulator Chat (`/realmulator`) and Full Frutiger Aero Aqua Polish Deployed Live.
 
 ## Active Files
-- `src/app/globals.css`
-- `src/components/layout/MobileTabBar.tsx`
-- `src/components/landing/Navbar.tsx`
-- `src/components/landing/Hero.tsx`
-- `src/components/landing/HeroConsole.tsx`
-- `src/components/landing/Problem.tsx`
-- `src/components/landing/A20System.tsx`
-- `src/components/landing/ReverseReflexDemo.tsx`
-- `src/app/drill/page.tsx`
-- `src/app/soul/page.tsx`
-- `docs/` (`PRD.md`, `TRD.md`, `AFD.md`, `DBD.md`, `BSD.md`, `IPD.md`)
-- `public/icons/`
+- `services/gemini-web2api/` (Python zero-auth Gemini Web2API daemon on port 8081)
+- `src/app/api/realmulator/chat/route.ts` (Next.js AI intermediary with resilient payload parsing & context-rich scam personas)
+- `src/app/realmulator/page.tsx` (AI Realmulator cyber-messenger window with real-time reflex co-pilot & WhatsApp alert generator)
+- `src/app/lite/page.tsx` (Frutiger Aero Aqua glass redesign, high contrast typography, aero-cards, no mobile dock overlap)
+- `src/components/layout/MobileTabBar.tsx` (5-column mobile dock with Realmulator icon)
+- `src/content/landing.ts` & `src/components/landing/Navbar.tsx` (Global navigation links for Chat AI)
+- `scripts/deploy.sh` (Automated rsync, venv builder, and PM2 process manager for Next.js, Go backend, and gemini-web2api)
 
-## Pull Requests Successfully Merged
-1. **PR #1 (`bendoreal:patch-1`)**: Merged documentation suite into `main` (`docs/PRD.md`, `docs/TRD.md`, `docs/AFD.md`, `docs/DBD.md`, `docs/BSD.md`, `docs/IPD.md`).
-2. **PR #2 (`imgbot[bot]`)**: Merged lossless image optimization on `public/icons/` (-46% size reduction).
-
-## Completed UI Redesign (Synthesizing User References)
-1. **Ref 1 (`Schedule.ust` Korean / NewJeans aesthetic)**:
-   - Rounded pastel status capsules (`.aero-pill`) for scenario categories and stats.
-   - Clean outline geometry and high-contrast typography.
-2. **Ref 2 (`RandomRender Aqua Aero` / Frutiger Aero Glassmorphism)**:
-   - Translucent glass panels with specular top highlights (`border-t border-white/65`, `backdrop-blur-2xl`).
-   - Tactile 3D jelly buttons (`.aero-btn-aqua` & `.aero-btn-emerald`) with bevel edge and active press bounce.
-   - Gadget console window with glossy RGB window indicators.
-3. **Ref 3 (`CHIG headline show` / Cyber-Eco Grid)**:
-   - Perspective cyber-eco grid (`.bg-eco-grid`) background.
-   - Monospaced boxed tags (`[ A20 // CULTURE TECHNOLOGY ]`, `[ REVERSE-REFLEX ]`).
-   - Strict adherence to Lucide vector icons with zero raw emojis in UI.
+## AI Realmulator Architecture
+1. **Engine**: `gemini-web2api` converts Google Gemini Web interface into an OpenAI-compatible API running locally on port 8081.
+2. **Personas & Scenarios**:
+   - `job_scam`: "Kak Sarah" (HRD freelance like video WFH deposit scam).
+   - `bank_freeze`: Bank CS phishing urgency auto-blockir threat.
+   - `cod_scam`: "Andi" J&T fake COD package delivery scam with inline invoice card.
+   - `apk_wedding`: "Dika" wedding invitation malware (.APK delivery card).
+   - `crypto_dating`: "Jessica" dating app crypto trading romance scam.
+3. **Guardian Reflex Co-Pilot**:
+   - Heuristic trap detection during chat (e.g. upfront fee, artificial urgency, authority impersonation).
+   - Tactical counter-reply pills for user testing.
+   - "Bongkar Modus" modal with one-click copyable family warning templates for WhatsApp.
 
 ## Deployment Status
-- Live at: `https://ato.kousozo.tech`
-- PM2 Processes: Next.js (`anti-trap-order` ID 3) and Go backend (`ato-backend` ID 4) reloaded and healthy (HTTP 200).
+- Live domain: `https://ato.kousozo.tech`
+- PM2 Processes on EC2:
+  - `ato-gemini-web2api` (ID 5, port 8081)
+  - `anti-trap-order` (ID 3, Next.js port 3120)
+  - `ato-backend` (ID 4, Go backend port 8080)
+- Nginx: Configured to route `/api/realmulator/` to Next.js (port 3120) and `/api/` to Go (port 8080).
+- Local Daemon: `services/gemini-web2api/venv/bin/python3 services/gemini-web2api/gemini_web2api.py` (task-1291).
