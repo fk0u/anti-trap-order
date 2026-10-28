@@ -279,39 +279,34 @@ export default function DrillPage() {
   const currentQuestion = activeScenario?.perspective_questions[exerciseStep];
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-[#F5F7FA] pb-24 md:pb-12 selection:bg-[#10B981]/20 selection:text-[#22D3EE]">
-      {/* Top Mobile-First Header */}
-      <header className="sticky top-0 z-40 border-b border-white/10 bg-[#07090D]/90 backdrop-blur-xl px-4 py-3">
+    <div className="min-h-screen bg-[#030c19] bg-eco-grid text-[#F5F7FA] pb-24 md:pb-12 selection:bg-cyan-500/20 selection:text-cyan-300">
+      {/* Top Mobile-First Header with Aero Glass */}
+      <header className="sticky top-0 z-40 border-b border-white/15 aero-glass px-4 py-3">
         <div className="max-w-md mx-auto flex items-center justify-between gap-3">
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-xs text-text-muted hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs text-slate-300 hover:text-white transition-colors"
           >
-            <ArrowLeft className="w-4 h-4" />
-            <span className="font-semibold text-white">Beranda</span>
+            <ArrowLeft className="w-4 h-4 text-cyan-300" />
+            <span className="font-bold text-white tracking-wider">[ ATO ]</span>
           </Link>
 
-          {/* Gamification Stats: Streak, XP, Stamina */}
-          <div className="flex items-center gap-3 font-mono text-xs font-bold">
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400">
-              <Flame className="w-3.5 h-3.5 fill-orange-400 animate-bounce" />
+          {/* Gamification Stats: Streak, XP, Stamina, Badge (Aero Pills) */}
+          <div className="flex items-center gap-2 font-mono text-xs font-bold">
+            <div className="flex items-center gap-1 px-3 py-1 rounded-full aero-pill text-amber-300 shadow-sm" title="Streak Hari">
+              <Flame className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
               <span>{progress.streak}</span>
             </div>
 
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400">
-              <Star className="w-3.5 h-3.5 fill-amber-400" />
+            <div className="flex items-center gap-1 px-3 py-1 rounded-full aero-pill text-cyan-300 shadow-sm" title="XP Terkumpul">
+              <Star className="w-3.5 h-3.5 fill-cyan-400 text-cyan-400" />
               <span>{progress.xp} XP</span>
-            </div>
-
-            <div className="flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400">
-              <Shield className="w-3.5 h-3.5 fill-emerald-400" />
-              <span>Max</span>
             </div>
 
             <button
               type="button"
               onClick={() => setIsBadgeModalOpen(true)}
-              className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/[0.05] border border-white/10 text-white/80 hover:text-white hover:border-white/20 transition-all text-xs"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full aero-pill text-emerald-300 hover:border-emerald-300/50 transition-all text-xs font-bold font-mono"
               title="Klaim Kartu Penjaga"
             >
               <Award className="w-3.5 h-3.5 text-emerald-400" />
@@ -324,17 +319,17 @@ export default function DrillPage() {
       {/* Main Content Area: Skill Tree Path */}
       <main className="max-w-md mx-auto px-4 py-6 space-y-6">
         {/* Banner Section */}
-        <div className="p-5 rounded-3xl border border-emerald-500/30 bg-gradient-to-b from-emerald-950/20 to-[#0B0F17] relative overflow-hidden space-y-2 text-center">
-          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[11px] font-mono font-bold uppercase">
-            <Sparkles className="w-3 h-3" />
-            <span>Daily Reflex Drill &bull; Latihan Harian</span>
+        <div className="p-6 rounded-3xl aero-card relative overflow-hidden space-y-2 text-center shadow-xl">
+          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full aero-pill text-[11px] font-mono font-bold uppercase text-cyan-300">
+            <Sparkles className="w-3 h-3 text-cyan-300" />
+            <span>[ DAILY REFLEX DRILL // A20 ]</span>
           </div>
 
-          <h1 className="text-xl font-extrabold text-white tracking-tight">
+          <h1 className="text-xl font-extrabold text-white tracking-tight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
             Peta Jalur Penjaga Digital
           </h1>
 
-          <p className="text-xs text-text-muted leading-relaxed font-mono">
+          <p className="text-xs text-slate-300 leading-relaxed font-mono">
             Selesaikan modul latihan mikro (&lt; 45 detik) setiap hari untuk membangun insting bawah sadar menangkis rekayasa sosial.
           </p>
         </div>
@@ -342,7 +337,7 @@ export default function DrillPage() {
         {/* Duolingo-style Skill Tree Path */}
         <div className="relative py-4 flex flex-col items-center gap-7">
           {/* SVG Connecting Dashed Line */}
-          <div className="absolute top-8 bottom-8 w-1 border-r-2 border-dashed border-white/10 -z-0" />
+          <div className="absolute top-8 bottom-8 w-1 border-r-2 border-dashed border-cyan-400/20 -z-0" />
 
           {STAGES.map((stage, idx) => {
             const isCompleted = progress.completedStages.includes(stage.id);
@@ -370,7 +365,7 @@ export default function DrillPage() {
                   currentOffset
                 )}
               >
-                {/* 3D Tactile Node Button */}
+                {/* 3D Tactile Node Button (Aero Aqua Jelly / Emerald) */}
                 <button
                   type="button"
                   disabled={!isUnlocked}
@@ -378,19 +373,19 @@ export default function DrillPage() {
                   className={cn(
                     "w-20 h-20 rounded-full flex flex-col items-center justify-center transition-all duration-150 relative group",
                     isCompleted
-                      ? "bg-emerald-500 border-2 border-emerald-400 shadow-[0_6px_0_#047857] active:shadow-none active:translate-y-1.5 text-black"
+                      ? "aero-btn-emerald shadow-[0_8px_0_#064E3B]"
                       : isUnlocked
-                      ? "bg-white text-surface-base border-2 border-slate-200 shadow-[0_6px_0_#94A3B8] active:shadow-none active:translate-y-1.5"
-                      : "bg-[#161B22] border-2 border-white/10 text-white/30 cursor-not-allowed opacity-60"
+                      ? "aero-btn-aqua shadow-[0_8px_0_#075985]"
+                      : "bg-[#0a1628]/80 border-2 border-white/10 text-white/30 cursor-not-allowed opacity-60 backdrop-blur-md"
                   )}
                 >
                   {(() => {
                     const StageIcon = stage.icon;
-                    return <StageIcon className="w-7 h-7" />;
+                    return <StageIcon className="w-7 h-7 drop-shadow-sm" />;
                   })()}
 
                   {isCompleted && (
-                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-400 text-black flex items-center justify-center shadow-md">
+                    <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-emerald-300 text-black flex items-center justify-center shadow-md">
                       <CheckCircle2 className="w-4 h-4 stroke-[3]" />
                     </div>
                   )}
@@ -404,10 +399,10 @@ export default function DrillPage() {
 
                 {/* Stage Label Tooltip / Card */}
                 <div className="mt-2 text-center max-w-[150px]">
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-400 block">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-300 block">
                     Level {stage.stageNumber} &bull; {stage.tier}
                   </span>
-                  <span className="text-xs font-semibold text-white leading-tight block truncate">
+                  <span className="text-xs font-bold text-white leading-tight block truncate drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
                     {stage.title}
                   </span>
                 </div>
@@ -552,8 +547,8 @@ export default function DrillPage() {
                       className={cn(
                         "w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider transition-all",
                         selectedOptionId
-                          ? "bg-emerald-500 text-black border-b-4 border-emerald-700 shadow-lg active:border-b-0 active:translate-y-1"
-                          : "bg-white/10 text-text-muted cursor-not-allowed opacity-40"
+                          ? "aero-btn-emerald"
+                          : "bg-white/10 text-slate-400 cursor-not-allowed opacity-40"
                       )}
                     >
                       Periksa Celah
@@ -562,7 +557,7 @@ export default function DrillPage() {
                     <button
                       type="button"
                       onClick={handleNextQuestion}
-                      className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider bg-white text-surface-base border-b-4 border-slate-300 shadow-lg active:border-b-0 active:translate-y-1 transition-all"
+                      className="w-full py-4 rounded-2xl font-bold text-sm uppercase tracking-wider aero-btn-aqua transition-all"
                     >
                       Lanjutkan &rarr;
                     </button>

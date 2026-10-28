@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 :root {
-  --bg-surface: #07090D;
-  --bg-card: #0D1117;
-  --bg-elevated: #161B22;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --text-main: #F5F7FA;
-  --text-muted: #8B95A5;
+  --bg-surface: #040e1d;
+  --bg-card: rgba(255, 255, 255, 0.07);
+  --bg-elevated: rgba(14, 45, 82, 0.4);
+  --border-subtle: rgba(255, 255, 255, 0.15);
+  --text-main: #FFFFFF;
+  --text-muted: #94A3B8;
   --brand-teal: #10B981;
-  --brand-cyan: #22D3EE;
+  --brand-cyan: #38BDF8;
   --alert-amber: #F59E0B;
 }
 
@@ -20,7 +20,13 @@ html {
 }
 
 body {
-  background-color: var(--bg-surface);
+  background-color: #030c19;
+  background-image: 
+    radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 90% 40%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 10% 70%, rgba(14, 165, 233, 0.14) 0%, transparent 45%),
+    linear-gradient(180deg, #041224 0%, #030C19 60%, #020710 100%);
+  background-attachment: fixed;
   color: var(--text-main);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
   overflow-x: hidden;
@@ -28,17 +34,125 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Custom noise texture overlay using inline SVG data URI */
-.bg-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* ================= AERO AQUA GLASS & FRUTIGER AERO UTILITIES ================= */
+
+/* Frutiger Aero Specular Glass Container */
+.aero-glass {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 16px 40px -10px rgba(0, 30, 60, 0.5),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
 }
 
-/* Technical grid background */
-.bg-grid-pattern {
-  background-size: 56px 56px;
+/* Aero Glass Interactive Card */
+.aero-card {
+  position: relative;
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.11) 0%, rgba(14, 52, 94, 0.25) 50%, rgba(255, 255, 255, 0.03) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 
+    0 20px 50px -12px rgba(6, 182, 212, 0.16),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aero-card:hover {
+  border-top-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 24px 60px -8px rgba(6, 182, 212, 0.28),
+    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Tactile 3D Jelly Aqua Button (Frutiger Aqua / Schedule.ust) */
+.aero-btn-aqua {
+  background: linear-gradient(180deg, #38BDF8 0%, #0284C7 60%, #0369A1 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 3.5px solid #075985;
+  box-shadow: 
+    0 8px 24px -4px rgba(2, 132, 199, 0.5),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  transition: all 0.15s ease-out;
+}
+
+.aero-btn-aqua:hover {
+  background: linear-gradient(180deg, #7DD3FC 0%, #0EA5E9 60%, #0284C7 100%);
+  box-shadow: 
+    0 12px 28px -4px rgba(2, 132, 199, 0.65),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.aero-btn-aqua:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+/* Tactile 3D Jelly Emerald Button */
+.aero-btn-emerald {
+  background: linear-gradient(180deg, #34D399 0%, #059669 60%, #047857 100%);
+  color: #FFFFFF;
+  font-weight: 700;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.35);
+  border-bottom: 3.5px solid #064E3B;
+  box-shadow: 
+    0 8px 24px -4px rgba(5, 150, 105, 0.45),
+    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+  transition: all 0.15s ease-out;
+}
+
+.aero-btn-emerald:hover {
+  background: linear-gradient(180deg, #6EE7B7 0%, #10B981 60%, #059669 100%);
+  box-shadow: 
+    0 12px 28px -4px rgba(5, 150, 105, 0.6),
+    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+}
+
+.aero-btn-emerald:active {
+  transform: translateY(2px);
+  border-bottom-width: 1px;
+  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+}
+
+/* Translucent Glass Pill Capsule (Schedule.ust & Y2K aesthetic) */
+.aero-pill {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+}
+
+/* Cyber-Eco Grid Background (CHIG Flyer perspective) */
+.bg-eco-grid {
   background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(56, 189, 248, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Caustic Light Sheen */
+.caustic-shimmer {
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.15) 50%, 
+    transparent 100%
+  );
+  background-size: 200% 100%;
 }
 
 /* Respect user's motion preferences */

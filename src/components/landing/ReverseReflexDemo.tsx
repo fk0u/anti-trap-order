@@ -171,43 +171,43 @@ export function ReverseReflexDemo() {
   return (
     <section
       id="reverse-reflex"
-      className="relative w-full bg-surface-card/40 py-24 md:py-32 px-4 sm:px-6"
+      className="relative w-full py-24 md:py-32 px-4 sm:px-6"
       aria-label="Section Demo Reverse Reflex"
     >
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-teal/10 border border-brand-teal/20 text-xs font-mono font-semibold text-brand-teal uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>Interactive Simulator</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full aero-pill text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+            <span>[ INTERACTIVE SIMULATOR // A20 ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-primary">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
             Uji Situasi dengan <GradientText variant="brand">Reverse Reflex</GradientText>
           </h2>
 
-          <p className="mt-3 text-sm sm:text-base text-text-muted leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
             Pilih skenario atau ketik pesan mencurigakanmu. Masuk ke sudut pandang pelaku untuk membongkar celahnya.
           </p>
         </div>
 
-        {/* Main Interactive Container Card with BorderBeam */}
-        <div className="relative rounded-3xl border border-white/10 bg-surface-card p-6 sm:p-10 shadow-2xl overflow-hidden text-left">
-          <BorderBeam duration={16} borderWidth={1.5} colorFrom="#10B981" colorTo="#22D3EE" />
+        {/* Main Interactive Container Card with BorderBeam & Aero Card */}
+        <div className="relative rounded-3xl aero-card p-6 sm:p-10 shadow-2xl overflow-hidden text-left">
+          <BorderBeam duration={16} borderWidth={1.5} colorFrom="#10B981" colorTo="#38BDF8" />
 
           {/* Progress Bar & Header */}
-          <div className="flex items-center justify-between border-b border-white/10 pb-5 mb-8">
+          <div className="flex items-center justify-between border-b border-white/15 pb-5 mb-8">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-brand-teal animate-pulse" />
-              <span className="text-xs font-mono font-semibold uppercase tracking-wider text-text-primary">
-                {currentStep === 1 && "Langkah 1: Tentukan Situasi"}
-                {currentStep === 2 && "Langkah 2: Posisikan Diri Jadi Pelaku"}
-                {currentStep === 3 && "Langkah 3: Action Card & Celah Terkuak"}
+              <span className="w-2.5 h-2.5 rounded-full bg-cyan-300 shadow-[0_0_8px_#38BDF8] animate-pulse" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+                {currentStep === 1 && "[ FASE 1: TENTUKAN SITUASI ]"}
+                {currentStep === 2 && "[ FASE 2: INVERSI SUDUT PANDANG ]"}
+                {currentStep === 3 && "[ FASE 3: ACTION CARD TERBUKA ]"}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5 font-mono text-xs text-text-muted">
-              <span className="text-brand-teal font-bold">0{currentStep}</span>
+            <div className="flex items-center gap-1.5 font-mono text-xs text-slate-300">
+              <span className="text-cyan-300 font-bold">0{currentStep}</span>
               <span>/</span>
               <span>03</span>
             </div>
@@ -225,7 +225,7 @@ export function ReverseReflexDemo() {
                 className="space-y-6"
               >
                 <div>
-                  <label className="block text-xs font-mono uppercase text-text-muted tracking-wider mb-3">
+                  <label className="block text-xs font-mono uppercase text-cyan-300 font-bold tracking-wider mb-3">
                     Pilih skenario fiktif realistis:
                   </label>
                   <div className="flex flex-wrap gap-2.5">
@@ -240,10 +240,10 @@ export function ReverseReflexDemo() {
                             setCustomText("");
                           }}
                           className={cn(
-                            "px-3.5 py-2 rounded-xl text-xs font-medium border transition-all text-left",
+                            "px-4 py-2 rounded-full text-xs transition-all text-left font-semibold",
                             isSelected
-                              ? "bg-brand-teal/20 border-brand-teal text-brand-teal font-semibold shadow-sm"
-                              : "bg-white/[0.03] border-white/10 text-text-muted hover:border-white/20 hover:text-text-primary"
+                              ? "aero-pill bg-cyan-500/25 border-cyan-300 text-white shadow-[0_0_16px_rgba(56,189,248,0.3)]"
+                              : "bg-white/[0.04] border border-white/10 text-slate-300 hover:bg-white/[0.08] hover:text-white"
                           )}
                         >
                           {s.title}
@@ -288,7 +288,7 @@ export function ReverseReflexDemo() {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold bg-brand-teal text-surface-base hover:bg-brand-teal/90 active:scale-95 transition-all"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold aero-btn-aqua"
                   >
                     <span>Mulai Balik Perspektif</span>
                     <ArrowRight className="w-4 h-4" />
@@ -378,11 +378,11 @@ export function ReverseReflexDemo() {
                       activeScenario.perspective_questions.length
                     }
                     className={cn(
-                      "inline-flex items-center gap-2 px-6 py-3 rounded-full text-xs font-semibold transition-all",
+                      "inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold transition-all",
                       Object.keys(answers).length >=
                         activeScenario.perspective_questions.length
-                        ? "bg-brand-teal text-surface-base hover:bg-brand-teal/90 active:scale-95"
-                        : "bg-white/10 text-text-muted cursor-not-allowed opacity-50"
+                        ? "aero-btn-aqua"
+                        : "bg-white/10 text-slate-400 cursor-not-allowed opacity-50"
                     )}
                   >
                     <span>Buka Action Card</span>
@@ -523,16 +523,16 @@ export function ReverseReflexDemo() {
                     <button
                       type="button"
                       onClick={handleCopyWarning}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-brand-teal text-surface-base hover:bg-brand-teal/90 active:scale-95 transition-all"
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-btn-emerald"
                     >
                       {copied ? (
                         <>
-                          <Check className="w-3.5 h-3.5" />
+                          <Check className="w-3.5 h-3.5 text-white" />
                           <span>Tersalin!</span>
                         </>
                       ) : (
                         <>
-                          <Copy className="w-3.5 h-3.5" />
+                          <Copy className="w-3.5 h-3.5 text-white" />
                           <span>Salin Pesan</span>
                         </>
                       )}
@@ -541,7 +541,7 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Mandatory Disclaimer */}
-                <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-[11px] font-mono text-text-muted flex items-center justify-center gap-2 text-center">
+                <div className="p-3.5 rounded-2xl bg-black/30 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center justify-center gap-2 text-center backdrop-blur-md">
                   <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
                   <span>Ini alat bantu berpikir mandiri (decision support), bukan deteksi kepastian 100%. Selalu konfirmasi ke kanal resmi institusi terkait.</span>
                 </div>
@@ -551,15 +551,15 @@ export function ReverseReflexDemo() {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center gap-2 text-xs font-mono text-text-muted hover:text-text-primary transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-mono text-slate-300 hover:text-white transition-colors"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RotateCcw className="w-3.5 h-3.5 text-cyan-300" />
                     <span>Uji Skenario Lain</span>
                   </button>
 
                   <Link
                     href="/lite"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 hover:bg-white/15 text-white transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-pill text-white hover:border-cyan-300/50 transition-all shadow-sm"
                   >
                     <span>Buka Mode Taktis Lengkap di /lite</span>
                     <ArrowRight className="w-3.5 h-3.5" />

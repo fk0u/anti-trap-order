@@ -173,25 +173,25 @@ export default function SoulPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-[#F5F7FA] selection:bg-[#8B5CF6]/20 selection:text-[#C084FC]">
-      {/* Top Header */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07090D]/85 backdrop-blur-xl px-4 sm:px-8 py-3.5">
+    <div className="min-h-screen bg-[#030c19] bg-eco-grid text-[#F5F7FA] selection:bg-cyan-500/20 selection:text-cyan-300">
+      {/* Top Header with Aero Glass */}
+      <header className="sticky top-0 z-50 border-b border-white/15 aero-glass px-4 sm:px-8 py-3.5">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-medium text-text-muted hover:text-text-primary hover:border-white/20 transition-all"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full aero-pill text-xs font-bold text-white hover:border-cyan-300/50 transition-all"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              <span>Beranda</span>
+              <ArrowLeft className="w-3.5 h-3.5 text-cyan-300" />
+              <span>[ ATO ]</span>
             </Link>
 
             <span className="text-white/20 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-wide">A20 Soul</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-purple-500/20 text-purple-400 border border-purple-500/30">
-                The Guardian Arc
+              <span className="font-bold text-sm tracking-wide text-white">A20 Soul</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-cyan-400/20 text-cyan-200 border border-cyan-400/40 font-bold">
+                [ THE GUARDIAN ARC ]
               </span>
             </div>
           </div>
@@ -200,16 +200,16 @@ export default function SoulPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs text-text-muted hover:text-rose-400 hover:border-rose-500/30 transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full aero-pill text-xs text-slate-300 hover:text-rose-300 hover:border-rose-400/50 transition-all font-semibold"
               title="Hapus progres dan mulai ulang cerita"
             >
-              <Trash2 className="w-3 h-3" />
+              <Trash2 className="w-3 h-3 text-rose-400" />
               <span className="hidden sm:inline">Hapus Progres</span>
             </button>
 
             <Link
               href="/lite"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20 transition-all"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full aero-btn-aqua text-xs font-bold"
             >
               <span className="hidden sm:inline">Beralih ke</span>
               <span>A20 Lite</span>
@@ -222,11 +222,11 @@ export default function SoulPage() {
       {/* Main Container */}
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Arc Selector Tabs */}
-        <div className="mb-8 space-y-2">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-text-muted text-center">
-            Pilih Alur Cerita Tanggung Jawab (The Guardian Arc):
+        <div className="mb-8 space-y-2.5">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-300 font-bold text-center">
+            [ PILIH ALUR CERITA TANGGUNG JAWAB // GUARDIAN ARC ]
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             {soulArcs.map((arc) => {
               const isSelected = selectedArc?.id === arc.id;
               return (
@@ -235,9 +235,9 @@ export default function SoulPage() {
                   type="button"
                   onClick={() => handleSwitchArc(arc)}
                   className={cn(
-                    "p-3.5 rounded-2xl border text-left transition-all relative overflow-hidden",
+                    "p-4 rounded-2xl border text-left transition-all relative overflow-hidden",
                     isSelected
-                      ? "bg-purple-500/15 border-purple-500/50 shadow-[0_0_20px_rgba(168,85,247,0.15)] ring-1 ring-purple-500/30"
+                      ? "aero-card border-cyan-400/60 shadow-[0_0_24px_rgba(56,189,248,0.25)] ring-1 ring-cyan-300/40"
                       : "bg-white/[0.02] border-white/5 hover:border-white/15 text-text-muted hover:text-white"
                   )}
                 >

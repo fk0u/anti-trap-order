@@ -24,14 +24,12 @@ export function Hero() {
 
   return (
     <section className="relative w-full pt-20 md:pt-24 pb-8">
-      {/* Outer Rounded Shell with Inset from Viewport Margins */}
-      <div className="relative mx-2 md:mx-4 rounded-[28px] md:rounded-[44px] overflow-hidden bg-surface-base border border-white/[0.08] min-h-[calc(100svh-1rem)] flex flex-col justify-between shadow-2xl">
+      {/* Outer Rounded Shell with Frutiger Aero Specular Glass and Cyber-Eco Grid */}
+      <div className="relative mx-2 md:mx-4 rounded-[28px] md:rounded-[44px] overflow-hidden aero-glass bg-eco-grid min-h-[calc(100svh-1rem)] flex flex-col justify-between shadow-2xl">
         {/* Layer 1: Grid Background with Elliptical Radial Mask */}
         <GridBackground className="absolute inset-0">
           {/* Layer 2: Ambient Aurora Blobs */}
           <Aurora />
-
-          {/* Layer 3: Noise Overlay is included inside GridBackground */}
 
           {/* Layer 4: Desktop Mouse Cursor Spotlight */}
           <CursorSpotlight />
@@ -39,7 +37,7 @@ export function Hero() {
 
         {/* Hero Content Container */}
         <div className="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 pt-16 md:pt-20 text-center flex flex-col items-center">
-          {/* Announcement Pill with Pulsing Dot */}
+          {/* Announcement Pill with Pulsing Dot (Ref 1 & 2 Aero Capsule) */}
           <motion.div
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -51,24 +49,23 @@ export function Hero() {
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
-                "group inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full",
-                "border border-white/10 bg-white/[0.04] backdrop-blur-xl",
-                "text-xs text-text-primary/90 transition-all duration-200",
-                "hover:border-brand-teal/40 hover:bg-white/[0.08]"
+                "group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full",
+                "aero-pill text-xs text-white/95 transition-all duration-200",
+                "hover:border-cyan-300/60 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
               )}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-teal opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-teal shadow-[0_0_8px_#10B981]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-300 shadow-[0_0_8px_#38BDF8]" />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-wider text-brand-teal font-semibold">
-                {hero.announcement.tag}
+              <span className="font-mono text-[11px] uppercase tracking-wider text-cyan-300 font-bold">
+                [ {hero.announcement.tag} ]
               </span>
-              <span className="text-white/20">|</span>
-              <span className="text-text-muted group-hover:text-text-primary transition-colors">
+              <span className="text-white/30">|</span>
+              <span className="text-slate-200 group-hover:text-white transition-colors">
                 {hero.announcement.text}
               </span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-text-muted transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-cyan-300 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </motion.div>
 
@@ -78,16 +75,16 @@ export function Hero() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.12]"
+              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12]"
             >
-              <span className="block text-text-primary font-semibold">
+              <span className="block text-white font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
                 {hero.headline.line1}
               </span>
               <span className="block mt-1">
-                <span className="text-text-primary font-semibold">
+                <span className="text-white font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
                   {hero.headline.line2Part1}
                 </span>
-                <GradientText variant="brand" className="font-bold">
+                <GradientText variant="brand" className="font-extrabold drop-shadow-[0_2px_16px_rgba(56,189,248,0.4)]">
                   {hero.headline.line2Highlight}
                 </GradientText>
               </span>
@@ -99,7 +96,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-2xl text-base sm:text-lg text-text-muted leading-relaxed mb-8"
+            className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed mb-8 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
           >
             {hero.subheadline}
           </motion.p>
@@ -111,31 +108,29 @@ export function Hero() {
             transition={{ duration: 0.55, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-col sm:flex-row items-center gap-3.5 w-full sm:w-auto"
           >
-            {/* Primary CTA */}
+            {/* Primary CTA: Tactile 3D Jelly Aqua Button */}
             <a
               href={hero.primaryCta.href}
               className={cn(
-                "group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full text-sm font-semibold",
-                "bg-text-primary text-surface-base shadow-xl shadow-white/10",
-                "hover:brightness-105 active:scale-[0.98] transition-all duration-200"
+                "group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-bold",
+                "aero-btn-aqua focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
               )}
             >
               <span>{hero.primaryCta.label}</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
 
-            {/* Secondary CTA */}
+            {/* Secondary CTA: Translucent Specular Capsule */}
             <button
               type="button"
               onClick={() => scrollToSection(hero.secondaryCta.targetId)}
               className={cn(
-                "inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-medium",
-                "text-text-muted hover:text-text-primary hover:bg-white/[0.05] border border-transparent hover:border-white/10",
-                "transition-all duration-200"
+                "inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-semibold",
+                "aero-pill text-white hover:border-cyan-300/50 transition-all duration-200"
               )}
             >
               <span>{hero.secondaryCta.label}</span>
-              <ArrowDown className="w-3.5 h-3.5 text-text-muted" />
+              <ArrowDown className="w-3.5 h-3.5 text-cyan-300" />
             </button>
           </motion.div>
 

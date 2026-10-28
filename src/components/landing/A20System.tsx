@@ -51,14 +51,14 @@ export function A20System() {
         </div>
 
         {/* Perspective Inversion Interactive Callout Diagram */}
-        <div className="mb-20 p-6 sm:p-8 rounded-3xl border border-white/10 bg-surface-card/60 backdrop-blur-xl relative overflow-hidden">
+        <div className="mb-20 p-6 sm:p-8 rounded-3xl aero-card relative overflow-hidden">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-lg space-y-2">
-              <span className="text-xs font-mono uppercase tracking-wider text-alert-amber font-semibold flex items-center gap-1.5">
+              <span className="text-xs font-mono uppercase tracking-wider text-amber-300 font-bold flex items-center gap-1.5">
                 <RotateCcw className="w-3.5 h-3.5" />
-                {a20System.inversionCallout.title}
+                [ {a20System.inversionCallout.title} ]
               </span>
-              <p className="text-sm sm:text-base text-text-primary/90 font-medium">
+              <p className="text-sm sm:text-base text-slate-200 font-medium leading-relaxed">
                 {a20System.inversionCallout.description}
               </p>
             </div>
@@ -70,32 +70,32 @@ export function A20System() {
                 className={cn(
                   "p-4 rounded-2xl border transition-all duration-300 text-center w-36 sm:w-40",
                   !isInverting
-                    ? "bg-brand-teal/10 border-brand-teal/40 text-text-primary"
-                    : "bg-white/[0.03] border-white/10 text-text-muted"
+                    ? "aero-pill bg-cyan-500/20 border-cyan-300/50 text-white shadow-[0_0_20px_rgba(56,189,248,0.25)]"
+                    : "bg-white/[0.03] border-white/10 text-slate-400"
                 )}
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-brand-teal/20 text-brand-teal mx-auto mb-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-cyan-400/25 text-cyan-300 mx-auto mb-2 shadow-inner">
                   <Shield className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-semibold block">Posisi Kamu</span>
-                <span className="text-[10px] font-mono text-brand-teal">Calon Penjaga</span>
+                <span className="text-xs font-bold block text-white">Posisi Kamu</span>
+                <span className="text-[10px] font-mono text-cyan-300 font-semibold">Calon Penjaga</span>
               </div>
 
               {/* Rotating Inversion Button / Arrow */}
               <button
                 type="button"
                 onClick={() => setIsInverting(!isInverting)}
-                className="group relative flex flex-col items-center gap-1.5 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-text-muted hover:text-text-primary transition-all active:scale-95"
+                className="group relative flex flex-col items-center gap-1.5 p-2 rounded-2xl aero-pill text-slate-300 hover:text-white transition-all active:scale-95"
                 title="Klik untuk membalik sudut pandang"
               >
                 <motion.div
                   animate={{ rotate: isInverting ? 180 : 0 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                  className="w-8 h-8 rounded-full bg-alert-amber/20 text-alert-amber flex items-center justify-center"
+                  className="w-8 h-8 rounded-full bg-amber-400/20 text-amber-300 flex items-center justify-center shadow-inner"
                 >
                   <RotateCcw className="w-4 h-4" />
                 </motion.div>
-                <span className="text-[9px] font-mono uppercase tracking-tight text-alert-amber">
+                <span className="text-[9px] font-mono uppercase tracking-tight text-amber-300 font-bold">
                   Inversi
                 </span>
               </button>
@@ -105,15 +105,15 @@ export function A20System() {
                 className={cn(
                   "p-4 rounded-2xl border transition-all duration-300 text-center w-36 sm:w-40",
                   isInverting
-                    ? "bg-alert-amber/10 border-alert-amber/50 text-text-primary"
-                    : "bg-white/[0.03] border-white/10 text-text-muted"
+                    ? "aero-pill bg-amber-500/20 border-amber-300/50 text-white shadow-[0_0_20px_rgba(245,158,11,0.25)]"
+                    : "bg-white/[0.03] border-white/10 text-slate-400"
                 )}
               >
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-alert-amber/20 text-alert-amber mx-auto mb-2">
+                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-amber-400/25 text-amber-300 mx-auto mb-2 shadow-inner">
                   <Eye className="w-4 h-4" />
                 </div>
-                <span className="text-xs font-semibold block">Posisi Pelaku</span>
-                <span className="text-[10px] font-mono text-alert-amber">Perekayasa Jebakan</span>
+                <span className="text-xs font-bold block text-white">Posisi Pelaku</span>
+                <span className="text-[10px] font-mono text-amber-300 font-semibold">Perekayasa Jebakan</span>
               </div>
             </div>
           </div>
@@ -131,14 +131,14 @@ export function A20System() {
                   type="button"
                   onClick={() => setActiveStepIndex(index)}
                   className={cn(
-                    "w-full text-left p-6 sm:p-7 rounded-3xl border transition-all duration-300 relative overflow-hidden",
+                    "w-full text-left p-6 sm:p-7 rounded-3xl transition-all duration-300 relative overflow-hidden",
                     isActive
-                      ? "bg-surface-card border-brand-teal/40 shadow-xl shadow-black/40"
-                      : "bg-surface-card/40 border-white/[0.06] hover:bg-surface-card/70 hover:border-white/15"
+                      ? "aero-card border-cyan-400/50 shadow-2xl"
+                      : "bg-white/[0.04] border border-white/10 hover:bg-white/[0.08] hover:border-white/20"
                   )}
                 >
                   {isActive && (
-                    <BorderBeam duration={12} borderWidth={1} colorFrom="#10B981" colorTo="#22D3EE" />
+                    <BorderBeam duration={12} borderWidth={1.5} colorFrom="#10B981" colorTo="#38BDF8" />
                   )}
 
                   <div className="flex items-center justify-between gap-2 mb-3">
@@ -184,63 +184,63 @@ export function A20System() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 sm:p-8 rounded-3xl border border-white/10 bg-surface-card space-y-6 shadow-2xl"
+                  className="p-6 sm:p-8 rounded-3xl aero-card space-y-6 shadow-2xl"
                 >
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-brand-teal" />
-                      <span className="text-xs font-mono font-semibold text-text-primary">
-                        A20 LITE INTERFACE PREVIEW
+                      <span className="w-2.5 h-2.5 rounded-full bg-cyan-300 shadow-[0_0_8px_#38BDF8]" />
+                      <span className="text-xs font-mono font-bold text-white tracking-wider">
+                        [ A20 LITE // INTERFACE GADGET ]
                       </span>
                     </div>
-                    <span className="text-[11px] font-mono text-brand-teal">
-                      Target Waktu: 90s
+                    <span className="text-[11px] font-mono text-cyan-300 font-bold">
+                      Target Refleks: 90s
                     </span>
                   </div>
 
                   {/* Flow Steps Mini Visuals */}
                   <div className="space-y-3">
-                    <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/5 flex items-start gap-3">
-                      <span className="w-5 h-5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="p-3.5 rounded-2xl bg-black/20 border border-white/10 flex items-start gap-3 backdrop-blur-md">
+                      <span className="w-5 h-5 rounded-full bg-cyan-400/20 text-cyan-300 font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold shadow-inner">
                         1
                       </span>
                       <div className="text-xs space-y-0.5">
-                        <span className="font-semibold text-text-primary block">Input Situasi</span>
-                        <p className="text-text-muted">Tempel pesan WA mencurigakan atau pilih skenario fiktif.</p>
+                        <span className="font-bold text-white block">Input Situasi</span>
+                        <p className="text-slate-300">Tempel pesan WA mencurigakan atau pilih skenario fiktif.</p>
                       </div>
                     </div>
 
-                    <div className="p-3.5 rounded-2xl bg-alert-amber/[0.06] border border-alert-amber/30 flex items-start gap-3">
-                      <span className="w-5 h-5 rounded-full bg-alert-amber/20 text-alert-amber font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/30 flex items-start gap-3 backdrop-blur-md">
+                      <span className="w-5 h-5 rounded-full bg-amber-400/20 text-amber-300 font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold shadow-inner">
                         2
                       </span>
                       <div className="text-xs space-y-0.5">
-                        <span className="font-semibold text-text-primary block">Tiga Pertanyaan Pelaku</span>
-                        <p className="text-text-muted">Dipaksa berpikir: apa umpanmu? Mengapa buru-buru? Celah apa yang kamu sembunyikan?</p>
+                        <span className="font-bold text-white block">Tiga Pertanyaan Pelaku</span>
+                        <p className="text-slate-300">Dipaksa berpikir: apa umpanmu? Mengapa buru-buru? Celah apa yang kamu sembunyikan?</p>
                       </div>
                     </div>
 
-                    <div className="p-3.5 rounded-2xl bg-brand-teal/[0.06] border border-brand-teal/30 flex items-start gap-3">
-                      <span className="w-5 h-5 rounded-full bg-brand-teal/20 text-brand-teal font-mono text-xs flex items-center justify-center shrink-0 mt-0.5">
+                    <div className="p-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-400/30 flex items-start gap-3 backdrop-blur-md">
+                      <span className="w-5 h-5 rounded-full bg-emerald-400/20 text-emerald-300 font-mono text-xs flex items-center justify-center shrink-0 mt-0.5 font-bold shadow-inner">
                         3
                       </span>
                       <div className="text-xs space-y-0.5">
-                        <span className="font-semibold text-text-primary block">Action Card & Template Copy</span>
-                        <p className="text-text-muted">Celah manipulasi yang kamu temukan sendiri + template pesan peringatan untuk disebarkan.</p>
+                        <span className="font-bold text-white block">Action Card & Template Copy</span>
+                        <p className="text-slate-300">Celah manipulasi yang kamu temukan sendiri + template pesan peringatan untuk disebarkan.</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-2 flex flex-wrap gap-2">
+                  <div className="pt-2 flex flex-wrap gap-2.5">
                     <a
                       href="#reverse-reflex"
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 text-white hover:bg-white/15 transition-all"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-semibold aero-pill text-white hover:border-cyan-300/50 transition-all"
                     >
                       <span>Demo Singkat di Bawah</span>
                     </a>
                     <Link
                       href="/lite"
-                      className="inline-flex items-center gap-2 px-5 py-2 rounded-xl text-xs font-semibold bg-brand-teal text-surface-base hover:bg-brand-teal/90 transition-all font-bold shadow-md"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold aero-btn-aqua"
                     >
                       <span>Buka Halaman A20 Lite</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -255,53 +255,53 @@ export function A20System() {
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.98 }}
                   transition={{ duration: 0.3 }}
-                  className="p-6 sm:p-8 rounded-3xl border border-white/10 bg-surface-card space-y-6 shadow-2xl relative overflow-hidden"
+                  className="p-6 sm:p-8 rounded-3xl aero-card space-y-6 shadow-2xl relative overflow-hidden"
                 >
                   <div className="flex items-center justify-between border-b border-white/10 pb-4">
                     <div className="flex items-center gap-2">
-                      <span className="w-2.5 h-2.5 rounded-full bg-purple-400" />
-                      <span className="text-xs font-mono font-semibold text-text-primary">
-                        A20 SOUL · THE GUARDIAN ARC
+                      <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#10B981]" />
+                      <span className="text-xs font-mono font-bold text-white tracking-wider">
+                        [ A20 SOUL // THE GUARDIAN ARC ]
                       </span>
                     </div>
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-purple-400/20 text-purple-300 border border-purple-400/30">
-                      Live Interactive Route
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-emerald-400/20 text-emerald-300 border border-emerald-400/40 font-bold">
+                      Interactive Narrative
                     </span>
                   </div>
 
                   {/* Mock Ward Profile */}
-                  <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
+                  <div className="p-4 rounded-2xl bg-black/25 border border-white/10 space-y-2 backdrop-blur-md">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-semibold text-text-primary">Karakter yang Dijaga: Dian (19 thn)</span>
-                      <span className="font-mono text-purple-300 text-[11px]">Adik Tingkat Kuliah</span>
+                      <span className="font-bold text-white">Karakter yang Dijaga: Dian (19 thn)</span>
+                      <span className="font-mono text-cyan-300 text-[11px] font-semibold">[ Adik Tingkat Kuliah ]</span>
                     </div>
-                    <p className="text-xs text-text-muted">
+                    <p className="text-xs text-slate-200 leading-relaxed font-mono">
                       &ldquo;Kak, di grup Telegram ini aku baru dapet 30rb habis review maps. Sekarang disuruh deposit 200rb buat komisi 550rb. Aman gak ya?&rdquo;
                     </p>
                   </div>
 
                   {/* Mock Multi-Path Choices */}
                   <div className="space-y-2 text-xs">
-                    <span className="font-mono text-[11px] text-text-muted uppercase tracking-wider block">
+                    <span className="font-mono text-[11px] text-cyan-300 uppercase tracking-wider block font-bold">
                       Pilihan Respons Kamu:
                     </span>
-                    <div className="p-3 rounded-xl bg-white/[0.02] border border-white/10 text-text-primary/90 flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 text-slate-300 flex items-center justify-between">
                       <span>1. Langsung bentak dan suruh keluar grup</span>
-                      <span className="text-[10px] font-mono text-rose-400">Trust -15 / Aware +25</span>
+                      <span className="text-[10px] font-mono text-rose-300 font-semibold">Trust -15 / Aware +25</span>
                     </div>
-                    <div className="p-3 rounded-xl bg-brand-teal/10 border border-brand-teal/30 text-text-primary flex items-center justify-between">
+                    <div className="p-3 rounded-xl bg-emerald-500/15 border border-emerald-400/40 text-white flex items-center justify-between font-medium">
                       <span>2. Pancing: &ldquo;Kenapa mereka rela buang 30rb ke orang asing?&rdquo;</span>
-                      <span className="text-[10px] font-mono text-brand-teal">Trust +15 / Aware +25</span>
+                      <span className="text-[10px] font-mono text-emerald-300 font-bold">Trust +15 / Aware +25</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between pt-2">
-                    <p className="text-[11px] text-text-muted italic">
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+                    <p className="text-[11px] text-slate-300 italic">
                       Setiap pilihan mempengaruhi Trust dan Awareness Dian menuju salah satu dari 3 ending berbeda.
                     </p>
                     <Link
                       href="/soul"
-                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-semibold bg-purple-600 hover:bg-purple-500 text-white font-bold transition-all shadow-md active:scale-95"
+                      className="shrink-0 inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold aero-btn-emerald"
                     >
                       <span>Mulai Mainkan Cerita</span>
                       <ArrowRight className="w-3.5 h-3.5" />

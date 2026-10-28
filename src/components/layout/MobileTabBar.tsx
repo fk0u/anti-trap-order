@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-
 import { Compass, Zap, ShieldCheck, BookOpen } from "lucide-react";
 
 export function MobileTabBar() {
@@ -18,8 +17,8 @@ export function MobileTabBar() {
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-40 bg-[#07090D]/95 border-t border-white/10 backdrop-blur-xl px-2 py-2 md:hidden">
-      <div className="max-w-md mx-auto grid grid-cols-4 gap-1 text-center font-mono text-[10px]">
+    <nav className="fixed inset-x-3 bottom-3 z-40 max-w-sm mx-auto aero-glass rounded-full px-2 py-1.5 md:hidden shadow-[0_16px_40px_rgba(2,44,84,0.65)] border-t border-white/60">
+      <div className="grid grid-cols-4 gap-1 text-center font-mono text-[10px]">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
           const Icon = tab.icon;
@@ -28,14 +27,14 @@ export function MobileTabBar() {
               key={tab.href}
               href={tab.href}
               className={cn(
-                "flex flex-col items-center gap-1 py-1.5 rounded-xl transition-all",
+                "flex flex-col items-center gap-1 py-1.5 px-1 rounded-full transition-all duration-200",
                 isActive
-                  ? "text-emerald-400 font-bold bg-white/[0.06] shadow-sm"
-                  : "text-text-muted hover:text-white"
+                  ? "bg-gradient-to-b from-sky-400/30 to-emerald-400/20 text-white font-bold border border-white/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]"
+                  : "text-white/60 hover:text-white hover:bg-white/5"
               )}
             >
-              <Icon className="w-4 h-4" />
-              <span>{tab.label}</span>
+              <Icon className={cn("w-4 h-4 transition-transform", isActive && "scale-110 text-cyan-300")} />
+              <span className="tracking-tight">{tab.label}</span>
             </Link>
           );
         })}

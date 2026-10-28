@@ -115,27 +115,27 @@ export function HeroConsole() {
   const showActionCard = state.step >= 4;
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto rounded-2xl md:rounded-3xl border border-white/10 bg-surface-card/95 backdrop-blur-2xl shadow-2xl shadow-black/80 overflow-hidden text-left">
+    <div className="relative w-full max-w-4xl mx-auto rounded-2xl md:rounded-3xl aero-card shadow-2xl overflow-hidden text-left">
       {/* Signature Animated Border Beam */}
-      <BorderBeam duration={16} borderWidth={1.5} colorFrom="#10B981" colorTo="#22D3EE" />
+      <BorderBeam duration={16} borderWidth={1.5} colorFrom="#10B981" colorTo="#38BDF8" />
 
-      {/* Top Window Bar */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-white/[0.08] bg-white/[0.02]">
+      {/* Top Window Bar: Frutiger Aero Gadget Top */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/15 bg-white/[0.04]">
         <div className="flex items-center gap-2">
           <div className="flex items-center gap-1.5" aria-hidden="true">
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
-            <span className="w-2.5 h-2.5 rounded-full bg-white/20" />
+            <span className="w-3 h-3 rounded-full bg-gradient-to-b from-rose-400 to-rose-600 border border-white/40 shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-gradient-to-b from-amber-300 to-amber-500 border border-white/40 shadow-sm" />
+            <span className="w-3 h-3 rounded-full bg-gradient-to-b from-emerald-400 to-emerald-600 border border-white/40 shadow-sm" />
           </div>
-          <span className="ml-2 font-mono text-[11px] text-text-muted flex items-center gap-1.5">
-            <Terminal className="w-3.5 h-3.5 text-brand-teal" />
-            reverse-reflex::interactive-preview
+          <span className="ml-2 font-mono text-[11px] text-cyan-200/80 flex items-center gap-1.5">
+            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+            [ REVERSE-REFLEX // AERO GADGET ]
           </span>
         </div>
 
         {/* Mode Toggle Indicator (Victim vs Scammer) */}
         <div className="flex items-center gap-2">
-          <div className="relative flex items-center p-0.5 rounded-full bg-black/40 border border-white/10 text-[11px] font-mono">
+          <div className="relative flex items-center p-0.5 rounded-full bg-black/40 border border-white/15 text-[11px] font-mono shadow-inner">
             <motion.div
               className={cn(
                 "absolute inset-y-0.5 rounded-full transition-colors",
@@ -216,8 +216,8 @@ export function HeroConsole() {
                 animate={{ opacity: 1, y: 0 }}
                 className={cn(
                   "p-4 rounded-2xl rounded-tl-sm text-sm sm:text-base leading-relaxed transition-all duration-300",
-                  "bg-[#161B22] border",
-                  isAttackerMode ? "border-[#F59E0B]/30 shadow-[0_0_24px_rgba(245,158,11,0.06)]" : "border-white/10"
+                  "aero-card border",
+                  isAttackerMode ? "border-[#F59E0B]/50 shadow-[0_0_24px_rgba(245,158,11,0.15)]" : "border-white/20"
                 )}
               >
                 {!showHighlights ? (
@@ -336,16 +336,16 @@ export function HeroConsole() {
                 <button
                   type="button"
                   onClick={handleCopy}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl text-xs font-medium bg-brand-teal text-surface-base hover:bg-brand-teal/90 active:scale-[0.98] transition-all"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full text-xs font-bold aero-btn-emerald"
                 >
                   {state.copied ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-surface-base" />
+                      <Check className="w-3.5 h-3.5 text-white" />
                       <span>{heroConsole.actionCard.copiedButtonLabel}</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5" />
+                      <Copy className="w-3.5 h-3.5 text-white" />
                       <span>{heroConsole.actionCard.copyButtonLabel}</span>
                     </>
                   )}
