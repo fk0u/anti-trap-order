@@ -177,37 +177,37 @@ export function ReverseReflexDemo() {
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full aero-pill text-xs font-mono font-bold text-cyan-300 uppercase tracking-wider mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-cyan-300" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full aero-pill text-xs font-mono font-bold text-sky-800 uppercase tracking-wider mb-3 shadow-xs">
+            <Sparkles className="w-3.5 h-3.5 text-sky-600" />
             <span>[ INTERACTIVE SIMULATOR // A20 ]</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.6)]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900">
             Uji Situasi dengan <GradientText variant="brand">Reverse Reflex</GradientText>
           </h2>
 
-          <p className="mt-3 text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="mt-3 text-sm sm:text-base text-slate-600 leading-relaxed font-medium">
             Pilih skenario atau ketik pesan mencurigakanmu. Masuk ke sudut pandang pelaku untuk membongkar celahnya.
           </p>
         </div>
 
         {/* Main Interactive Container Card with BorderBeam & Aero Card */}
-        <div className="relative rounded-3xl aero-card p-6 sm:p-10 shadow-2xl overflow-hidden text-left">
+        <div className="relative rounded-3xl aero-card p-6 sm:p-10 shadow-xl overflow-hidden text-left border-t-2 border-white">
           <BorderBeam duration={16} borderWidth={1.5} colorFrom="#10B981" colorTo="#38BDF8" />
 
           {/* Progress Bar & Header */}
-          <div className="flex items-center justify-between border-b border-white/15 pb-5 mb-8">
+          <div className="flex items-center justify-between border-b border-sky-100 pb-5 mb-8">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-300 shadow-[0_0_8px_#38BDF8] animate-pulse" />
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+              <span className="w-2.5 h-2.5 rounded-full bg-sky-500 shadow-[0_0_8px_#0284c7] animate-pulse" />
+              <span className="text-xs font-mono font-bold uppercase tracking-wider text-slate-900">
                 {currentStep === 1 && "[ FASE 1: TENTUKAN SITUASI ]"}
                 {currentStep === 2 && "[ FASE 2: INVERSI SUDUT PANDANG ]"}
                 {currentStep === 3 && "[ FASE 3: ACTION CARD TERBUKA ]"}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5 font-mono text-xs text-slate-300">
-              <span className="text-cyan-300 font-bold">0{currentStep}</span>
+            <div className="flex items-center gap-1.5 font-mono text-xs text-slate-500 font-bold">
+              <span className="text-sky-700 font-bold">0{currentStep}</span>
               <span>/</span>
               <span>03</span>
             </div>
@@ -225,7 +225,7 @@ export function ReverseReflexDemo() {
                 className="space-y-6"
               >
                 <div>
-                  <label className="block text-xs font-mono uppercase text-cyan-300 font-bold tracking-wider mb-3">
+                  <label className="block text-xs font-mono uppercase text-sky-800 font-bold tracking-wider mb-3">
                     Pilih skenario fiktif realistis:
                   </label>
                   <div className="flex flex-wrap gap-2.5">
@@ -240,10 +240,10 @@ export function ReverseReflexDemo() {
                             setCustomText("");
                           }}
                           className={cn(
-                            "px-4 py-2 rounded-full text-xs transition-all text-left font-semibold",
+                            "px-4 py-2 rounded-full text-xs transition-all text-left font-bold shadow-xs",
                             isSelected
-                              ? "aero-pill bg-cyan-500/25 border-cyan-300 text-white shadow-[0_0_16px_rgba(56,189,248,0.3)]"
-                              : "bg-white/[0.04] border border-white/10 text-slate-300 hover:bg-white/[0.08] hover:text-white"
+                              ? "aero-pill bg-sky-100 border-sky-300 text-sky-950 shadow-md"
+                              : "bg-white/80 border border-sky-200 text-slate-700 hover:bg-sky-50 hover:text-slate-900"
                           )}
                         >
                           {s.title}
@@ -255,7 +255,7 @@ export function ReverseReflexDemo() {
 
                 {/* Or Custom Text Input */}
                 <div>
-                  <label htmlFor="custom-situation" className="block text-xs font-mono uppercase text-text-muted tracking-wider mb-2">
+                  <label htmlFor="custom-situation" className="block text-xs font-mono uppercase text-slate-600 font-bold tracking-wider mb-2">
                     Atau ketik sendiri situasi yang kamu alami:
                   </label>
                   <textarea
@@ -264,19 +264,19 @@ export function ReverseReflexDemo() {
                     value={customText}
                     onChange={(e) => handleCustomTextMatch(e.target.value)}
                     placeholder="Contoh: dapat chat WA ngaku admin bank nawarin perubahan tarif dan minta klik link..."
-                    className="w-full rounded-2xl border border-white/10 bg-black/40 p-4 text-xs sm:text-sm text-text-primary placeholder:text-text-muted/50 focus:border-brand-teal focus:outline-none focus:ring-1 focus:ring-brand-teal"
+                    className="w-full rounded-2xl border border-sky-200 bg-white p-4 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:border-sky-400 focus:outline-none focus:ring-2 focus:ring-sky-200 shadow-inner"
                   />
                 </div>
 
                 {/* Preview of the Target's Incoming Message */}
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-2">
-                  <span className="text-[11px] font-mono text-text-muted uppercase tracking-wider block">
+                <div className="p-4 rounded-2xl bg-sky-50/70 border border-sky-200 space-y-2">
+                  <span className="text-[11px] font-mono text-slate-600 uppercase tracking-wider block font-bold">
                     Cuplikan Pesan Situasi Ini:
                   </span>
-                  <div className="space-y-1.5 text-xs sm:text-sm text-text-primary/90">
+                  <div className="space-y-1.5 text-xs sm:text-sm text-slate-800 font-medium">
                     {activeScenario.victim_view.map((msg, i) => (
                       <p key={i}>
-                        <span className="font-semibold text-brand-teal">{msg.from}: </span>
+                        <span className="font-bold text-sky-700">{msg.from}: </span>
                         <span>{msg.text}</span>
                       </p>
                     ))}
@@ -288,7 +288,7 @@ export function ReverseReflexDemo() {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(2)}
-                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold aero-btn-aqua"
+                    className="inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold aero-btn-aqua text-white shadow-md"
                   >
                     <span>Mulai Balik Perspektif</span>
                     <ArrowRight className="w-4 h-4" />
@@ -307,13 +307,13 @@ export function ReverseReflexDemo() {
                 transition={{ duration: 0.25 }}
                 className="space-y-8"
               >
-                <div className="p-4 rounded-2xl bg-alert-amber/[0.08] border border-alert-amber/30 flex items-start gap-3">
-                  <Eye className="w-5 h-5 text-alert-amber shrink-0 mt-0.5" />
+                <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-300 flex items-start gap-3 shadow-xs">
+                  <Eye className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
                   <div className="text-xs space-y-0.5">
-                    <span className="font-mono text-alert-amber font-semibold uppercase tracking-wider block">
+                    <span className="font-mono text-amber-900 font-bold uppercase tracking-wider block">
                       Instruksi Inversi:
                     </span>
-                    <p className="text-text-primary/90">
+                    <p className="text-slate-700 font-medium">
                       Jawablah bukan sebagai korban yang takut, tetapi sebagai orang yang merancang pesan tersebut. Tekan tombol angka <Kbd size="sm">1</Kbd>, <Kbd size="sm">2</Kbd>, atau <Kbd size="sm">3</Kbd> untuk memilih cepat.
                     </p>
                   </div>
@@ -325,8 +325,8 @@ export function ReverseReflexDemo() {
                     const currentAnswer = answers[q.id];
                     return (
                       <div key={q.id} className="space-y-3">
-                        <span className="text-xs sm:text-sm font-semibold text-text-primary flex items-start gap-2">
-                          <span className="font-mono text-brand-teal">Q{qIndex + 1}.</span>
+                        <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-start gap-2">
+                          <span className="font-mono text-sky-700">Q{qIndex + 1}.</span>
                           <span>{q.prompt}</span>
                         </span>
 
@@ -341,14 +341,14 @@ export function ReverseReflexDemo() {
                                   setAnswers((prev) => ({ ...prev, [q.id]: opt }))
                                 }
                                 className={cn(
-                                  "w-full text-left p-3.5 rounded-xl border text-xs transition-all flex items-center justify-between gap-3",
+                                  "w-full text-left p-3.5 rounded-xl border text-xs transition-all flex items-center justify-between gap-3 shadow-xs",
                                   isChosen
-                                    ? "bg-alert-amber/15 border-alert-amber/60 text-text-primary font-medium shadow-sm"
-                                    : "bg-white/[0.02] border-white/10 text-text-muted hover:border-white/20 hover:text-text-primary"
+                                    ? "bg-amber-100 border-amber-400 text-amber-950 font-bold shadow-sm"
+                                    : "bg-white border-sky-200 text-slate-700 hover:border-sky-300 hover:text-slate-900 hover:bg-sky-50/50"
                                 )}
                               >
                                 <span>{opt.label}</span>
-                                <Kbd size="sm" className="shrink-0">
+                                <Kbd size="sm" className="shrink-0 bg-white border-sky-200 text-slate-700 font-bold">
                                   {optIndex + 1}
                                 </Kbd>
                               </button>
@@ -361,11 +361,11 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Bottom Navigation */}
-                <div className="pt-4 flex items-center justify-between border-t border-white/10">
+                <div className="pt-4 flex items-center justify-between border-t border-sky-100">
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="text-xs font-mono text-text-muted hover:text-text-primary"
+                    className="text-xs font-mono font-bold text-slate-600 hover:text-slate-900"
                   >
                     ← Ganti Skenario
                   </button>
@@ -378,11 +378,11 @@ export function ReverseReflexDemo() {
                       activeScenario.perspective_questions.length
                     }
                     className={cn(
-                      "inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold transition-all",
+                      "inline-flex items-center gap-2 px-7 py-3 rounded-full text-xs font-bold transition-all text-white",
                       Object.keys(answers).length >=
                         activeScenario.perspective_questions.length
-                        ? "aero-btn-aqua"
-                        : "bg-white/10 text-slate-400 cursor-not-allowed opacity-50"
+                        ? "aero-btn-aqua shadow-md"
+                        : "bg-slate-300 text-slate-500 cursor-not-allowed opacity-60"
                     )}
                   >
                     <span>Buka Action Card</span>
@@ -404,18 +404,18 @@ export function ReverseReflexDemo() {
                 aria-live="polite"
               >
                 {/* Result Top Badge */}
-                <div className="p-4 rounded-2xl bg-brand-teal/[0.08] border border-brand-teal/30 flex flex-wrap items-center justify-between gap-2">
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-300 flex flex-wrap items-center justify-between gap-2 shadow-xs">
                   <div className="flex items-center gap-2.5">
-                    <Shield className="w-5 h-5 text-brand-teal" />
-                    <span className="text-xs sm:text-sm font-bold text-text-primary">
+                    <Shield className="w-5 h-5 text-emerald-600" />
+                    <span className="text-xs sm:text-sm font-bold text-slate-900">
                       Refleks Aktif: {flawsToRender.length} Celah Manipulasi Berhasil Kamu Bongkar
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] font-mono text-brand-teal">
+                    <span className="text-[11px] font-mono text-emerald-800 font-bold">
                       Kategori: {activeScenario.category}
                     </span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold">
                       {isEngineOffline ? "Local Engine" : "Go API Live"}
                     </span>
                   </div>
@@ -423,32 +423,32 @@ export function ReverseReflexDemo() {
 
                 {/* Ranked Flaws */}
                 <div className="space-y-3">
-                  <span className="text-xs font-mono uppercase text-alert-amber font-semibold tracking-wider block">
+                  <span className="text-xs font-mono uppercase text-amber-800 font-bold tracking-wider block">
                     Celah Taktik yang Kamu Temukan Sendiri:
                   </span>
                   <div className="grid grid-cols-1 gap-3">
                     {flawsToRender.map((flaw, i) => (
                       <div
                         key={flaw.id}
-                        className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-1.5"
+                        className="p-4 rounded-2xl bg-white border border-sky-200 space-y-1.5 shadow-xs"
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-xs sm:text-sm font-semibold text-text-primary flex items-center gap-2">
-                            <span className="text-alert-amber font-mono font-bold">#{i + 1}</span>
+                          <span className="text-xs sm:text-sm font-bold text-slate-900 flex items-center gap-2">
+                            <span className="text-amber-600 font-mono font-bold">#{i + 1}</span>
                             <span>{flaw.title}</span>
                           </span>
-                          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-alert-amber/20 text-alert-amber border border-alert-amber/30">
+                          <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-100 text-amber-900 border border-amber-300 font-bold">
                             Tingkat Bahaya: {flaw.severity}/3
                           </span>
                         </div>
-                        <p className="text-xs text-text-muted leading-relaxed">
+                        <p className="text-xs text-slate-600 leading-relaxed font-medium">
                           {flaw.explanation}
                         </p>
                         <div className="pt-1 flex flex-wrap gap-1.5">
                           {flaw.evidence_phrases.map((phrase, pIdx) => (
                             <span
                               key={pIdx}
-                              className="px-2 py-0.5 rounded bg-black/50 border border-alert-amber/30 font-mono text-[11px] text-alert-amber"
+                              className="px-2 py-0.5 rounded bg-amber-50 border border-amber-300 font-mono text-[11px] text-amber-950 font-bold"
                             >
                               &ldquo;{phrase}&rdquo;
                             </span>
@@ -460,15 +460,15 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Safe Steps Checklist */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-black/40 border border-white/10 space-y-3">
-                  <span className="text-xs font-mono uppercase text-brand-teal font-semibold tracking-wider flex items-center gap-1.5">
-                    <CheckCircle2 className="w-4 h-4 text-brand-teal" />
+                <div className="p-4 sm:p-5 rounded-2xl bg-sky-50/80 border border-sky-200 space-y-3">
+                  <span className="text-xs font-mono uppercase text-sky-800 font-bold tracking-wider flex items-center gap-1.5">
+                    <CheckCircle2 className="w-4 h-4 text-sky-600" />
                     Langkah Aman yang Harus Kamu Ambil:
                   </span>
-                  <ul className="space-y-2 text-xs text-text-primary/90">
+                  <ul className="space-y-2 text-xs text-slate-800 font-medium">
                     {activeScenario.safe_steps.map((step, idx) => (
                       <li key={step.id} className="flex items-start gap-2">
-                        <span className="text-brand-teal font-mono">0{idx + 1}.</span>
+                        <span className="text-sky-600 font-mono font-bold">0{idx + 1}.</span>
                         <span>{step.text}</span>
                       </li>
                     ))}
@@ -476,22 +476,22 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Ready to Copy Warning Template */}
-                <div className="p-4 sm:p-5 rounded-2xl bg-[#0D1117] border border-brand-teal/40 space-y-3">
+                <div className="p-4 sm:p-5 rounded-2xl bg-white border border-emerald-300 space-y-3 shadow-md">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs font-mono uppercase text-text-muted font-semibold tracking-wider">
+                    <span className="text-xs font-mono uppercase text-slate-700 font-bold tracking-wider">
                       Kalimat Peringatan Siap Copy:
                     </span>
 
                     {/* Tone Switcher */}
-                    <div className="flex items-center gap-1 p-0.5 rounded-lg bg-black/50 border border-white/10 text-[10px] font-mono">
+                    <div className="flex items-center gap-1 p-0.5 rounded-lg bg-sky-50 border border-sky-200 text-[10px] font-mono">
                       <button
                         type="button"
                         onClick={() => setWarningTone("casual")}
                         className={cn(
-                          "px-2 py-0.5 rounded transition-colors",
+                          "px-2.5 py-0.5 rounded transition-colors font-bold",
                           warningTone === "casual"
-                            ? "bg-white/10 text-brand-teal font-bold"
-                            : "text-text-muted"
+                            ? "bg-white text-sky-800 shadow-xs border border-sky-300"
+                            : "text-slate-500"
                         )}
                       >
                         Santai (Grup Teman)
@@ -500,10 +500,10 @@ export function ReverseReflexDemo() {
                         type="button"
                         onClick={() => setWarningTone("firm")}
                         className={cn(
-                          "px-2 py-0.5 rounded transition-colors",
+                          "px-2.5 py-0.5 rounded transition-colors font-bold",
                           warningTone === "firm"
-                            ? "bg-white/10 text-brand-teal font-bold"
-                            : "text-text-muted"
+                            ? "bg-white text-sky-800 shadow-xs border border-sky-300"
+                            : "text-slate-500"
                         )}
                       >
                         Tegas (Grup Keluarga)
@@ -511,19 +511,19 @@ export function ReverseReflexDemo() {
                     </div>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-text-primary/95 leading-relaxed italic bg-black/30 p-3 rounded-xl border border-white/5">
+                  <p className="text-xs sm:text-sm text-slate-800 leading-relaxed italic bg-sky-50/60 p-3 rounded-xl border border-sky-100 font-medium">
                     &ldquo;{activeWarningTemplate}&rdquo;
                   </p>
 
                   <div className="flex items-center justify-between pt-1">
-                    <span className="text-[11px] font-mono text-text-muted">
+                    <span className="text-[11px] font-mono text-slate-500 font-medium">
                       Salin dan kirim langsung sebelum orang lain terjebak.
                     </span>
 
                     <button
                       type="button"
                       onClick={handleCopyWarning}
-                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-btn-emerald"
+                      className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-btn-emerald text-white shadow-md"
                     >
                       {copied ? (
                         <>
@@ -541,8 +541,8 @@ export function ReverseReflexDemo() {
                 </div>
 
                 {/* Mandatory Disclaimer */}
-                <div className="p-3.5 rounded-2xl bg-black/30 border border-white/10 text-[11px] font-mono text-slate-300 flex items-center justify-center gap-2 text-center backdrop-blur-md">
-                  <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <div className="p-3.5 rounded-2xl bg-amber-50/80 border border-amber-300 text-[11px] font-mono text-amber-950 flex items-center justify-center gap-2 text-center font-medium shadow-xs">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
                   <span>Ini alat bantu berpikir mandiri (decision support), bukan deteksi kepastian 100%. Selalu konfirmasi ke kanal resmi institusi terkait.</span>
                 </div>
 
@@ -551,18 +551,18 @@ export function ReverseReflexDemo() {
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center gap-2 text-xs font-mono text-slate-300 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-xs font-mono font-bold text-slate-600 hover:text-slate-900 transition-colors"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-cyan-300" />
+                    <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
                     <span>Uji Skenario Lain</span>
                   </button>
 
                   <Link
                     href="/lite"
-                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-pill text-white hover:border-cyan-300/50 transition-all shadow-sm"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-xs font-bold aero-pill text-slate-800 hover:border-sky-300 hover:bg-sky-50 transition-all shadow-xs"
                   >
                     <span>Buka Mode Taktis Lengkap di /lite</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
+                    <ArrowRight className="w-3.5 h-3.5 text-sky-600" />
                   </Link>
                 </div>
               </motion.div>

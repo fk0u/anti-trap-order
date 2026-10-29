@@ -9,7 +9,7 @@ import { Footer } from "@/components/landing/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-surface-base text-text-primary selection:bg-brand-teal/20 selection:text-brand-cyan">
+    <main className="relative min-h-screen bg-surface-base text-slate-900 selection:bg-sky-500/20 selection:text-sky-900">
       {/* Floating 3-Pill Navbar */}
       <Navbar />
 

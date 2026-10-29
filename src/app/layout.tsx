@@ -8,7 +8,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#07090D",
+  themeColor: "#E0F2FE",
 };
 
 export const metadata: Metadata = {
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default",
     title: "ATO Guardian",
   },
   icons: {
@@ -79,9 +79,9 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`dark ${GeistSans.variable} ${GeistMono.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable}`}
     >
-      <body className="min-h-screen bg-surface-base font-sans text-text-primary antialiased selection:bg-brand-teal/20 selection:text-brand-cyan">
+      <body className="min-h-screen bg-surface-base font-sans text-slate-900 antialiased selection:bg-sky-500/20 selection:text-sky-900">
         {children}
         <MobileTabBar />
       </body>

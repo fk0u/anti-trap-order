@@ -42,24 +42,24 @@ export default function DocsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#07090D] text-[#F5F7FA] selection:bg-[#10B981]/20 selection:text-[#22D3EE]">
+    <div className="min-h-screen bg-eco-grid text-slate-900 selection:bg-sky-500/20 selection:text-sky-800">
       {/* Top Navigation */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-[#07090D]/80 backdrop-blur-xl px-4 sm:px-8 py-4">
+      <header className="sticky top-0 z-50 border-b border-sky-200 aero-glass px-4 sm:px-8 py-4 shadow-xs">
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/[0.04] text-xs font-medium text-text-muted hover:text-text-primary hover:border-white/20 transition-all"
+              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full aero-pill text-xs font-bold text-slate-700 hover:text-slate-900 hover:border-sky-300 transition-all shadow-xs"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-3.5 h-3.5 text-sky-600" />
               <span>Kembali ke Beranda</span>
             </Link>
 
-            <span className="text-white/20 hidden sm:inline">|</span>
+            <span className="text-slate-300 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-wide">ATO Docs & Repo Portal</span>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase bg-brand-teal/20 text-brand-teal border border-brand-teal/30">
+              <span className="font-extrabold text-sm tracking-wide text-slate-900">ATO Docs & Repo Portal</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-sky-100 text-sky-800 border border-sky-200 font-bold">
                 Public Access
               </span>
             </div>
@@ -67,8 +67,8 @@ export default function DocsPage() {
 
           <div className="flex items-center gap-3">
             {healthStatus && (
-              <div className="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-mono text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="hidden md:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-300 text-[11px] font-mono text-emerald-800 font-bold shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>API Live (Go 1.26): {healthStatus.version}</span>
               </div>
             )}
@@ -76,7 +76,7 @@ export default function DocsPage() {
             <a
               href="/docs/Anti-Trap-Order-Project-Outline-Draft.docx"
               download
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-white text-[#07090D] hover:bg-slate-200 transition-all active:scale-95 shadow-sm"
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold aero-btn-aqua text-white shadow-md active:scale-95 transition-all"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download DOCX Asli</span>
@@ -89,29 +89,29 @@ export default function DocsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-10">
         {/* Hero Section */}
         <div className="mb-10 space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.05] border border-white/10 text-xs font-mono text-[#10B981]">
-            <BookOpen className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-100 border border-sky-300 text-xs font-mono font-bold text-sky-800 shadow-xs">
+            <BookOpen className="w-3.5 h-3.5 text-sky-600" />
             <span>Dokumentasi Resmi & Portal Akses Terbuka</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-tight">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
             Anti Trap Order (ATO) — Project Design, Outline & Codebase
           </h1>
 
-          <p className="text-sm sm:text-base text-text-muted max-w-3xl leading-relaxed">
-            Meskipun repositori Git di-set private untuk integritas penjurian, seluruh naskah perancangan proyek (<span className="text-white font-mono">Anti Trap Order Project Outline Draft.docx</span>), arsitektur monorepo, implementasi Go backend, dan kontrak API dapat diakses dan diinspeksi secara transparan di halaman ini.
+          <p className="text-sm sm:text-base text-slate-600 max-w-3xl leading-relaxed font-medium">
+            Meskipun repositori Git di-set private untuk integritas penjurian, seluruh naskah perancangan proyek (<span className="text-slate-900 font-mono font-bold">Anti Trap Order Project Outline Draft.docx</span>), arsitektur monorepo, implementasi Go backend, dan kontrak API dapat diakses dan diinspeksi secara transparan di halaman ini.
           </p>
 
           {/* Navigation Tabs */}
-          <div className="pt-4 flex flex-wrap gap-2 border-b border-white/10 pb-4">
+          <div className="pt-4 flex flex-wrap gap-2 border-b border-sky-100 pb-4">
             <button
               type="button"
               onClick={() => setActiveTab("outline")}
               className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all",
+                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs",
                 activeTab === "outline"
-                  ? "bg-white text-surface-base shadow-sm"
-                  : "bg-white/[0.03] text-text-muted hover:text-text-primary hover:bg-white/[0.06]"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "bg-white border border-sky-200 text-slate-700 hover:text-slate-900 hover:bg-sky-50"
               )}
             >
               <FileText className="w-3.5 h-3.5" />
@@ -122,10 +122,10 @@ export default function DocsPage() {
               type="button"
               onClick={() => setActiveTab("code")}
               className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all",
+                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs",
                 activeTab === "code"
-                  ? "bg-white text-surface-base shadow-sm"
-                  : "bg-white/[0.03] text-text-muted hover:text-text-primary hover:bg-white/[0.06]"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "bg-white border border-sky-200 text-slate-700 hover:text-slate-900 hover:bg-sky-50"
               )}
             >
               <Code2 className="w-3.5 h-3.5" />
@@ -136,10 +136,10 @@ export default function DocsPage() {
               type="button"
               onClick={() => setActiveTab("api")}
               className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all",
+                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs",
                 activeTab === "api"
-                  ? "bg-white text-surface-base shadow-sm"
-                  : "bg-white/[0.03] text-text-muted hover:text-text-primary hover:bg-white/[0.06]"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "bg-white border border-sky-200 text-slate-700 hover:text-slate-900 hover:bg-sky-50"
               )}
             >
               <Server className="w-3.5 h-3.5" />
@@ -150,10 +150,10 @@ export default function DocsPage() {
               type="button"
               onClick={() => setActiveTab("architecture")}
               className={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold transition-all",
+                "inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all shadow-xs",
                 activeTab === "architecture"
-                  ? "bg-white text-surface-base shadow-sm"
-                  : "bg-white/[0.03] text-text-muted hover:text-text-primary hover:bg-white/[0.06]"
+                  ? "bg-sky-600 text-white shadow-sm"
+                  : "bg-white border border-sky-200 text-slate-700 hover:text-slate-900 hover:bg-sky-50"
               )}
             >
               <Layers className="w-3.5 h-3.5" />

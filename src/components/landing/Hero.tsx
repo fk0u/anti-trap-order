@@ -50,22 +50,22 @@ export function Hero() {
               rel="noopener noreferrer"
               className={cn(
                 "group inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full",
-                "aero-pill text-xs text-white/95 transition-all duration-200",
-                "hover:border-cyan-300/60 hover:shadow-[0_0_20px_rgba(56,189,248,0.3)]"
+                "aero-pill text-xs text-slate-800 transition-all duration-200",
+                "hover:border-sky-300 hover:shadow-[0_4px_16px_rgba(14,165,233,0.18)]"
               )}
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-300 shadow-[0_0_8px_#38BDF8]" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-sky-500 shadow-[0_0_8px_#0284c7]" />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-wider text-cyan-300 font-bold">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-sky-700 font-bold">
                 [ {hero.announcement.tag} ]
               </span>
-              <span className="text-white/30">|</span>
-              <span className="text-slate-200 group-hover:text-white transition-colors">
+              <span className="text-slate-300">|</span>
+              <span className="text-slate-700 font-semibold group-hover:text-sky-900 transition-colors">
                 {hero.announcement.text}
               </span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-cyan-300 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              <ArrowUpRight className="w-3.5 h-3.5 text-sky-600 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </a>
           </motion.div>
 
@@ -77,14 +77,14 @@ export function Hero() {
               transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
               className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.12]"
             >
-              <span className="block text-white font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
+              <span className="block text-slate-900 font-extrabold">
                 {hero.headline.line1}
               </span>
               <span className="block mt-1">
-                <span className="text-white font-extrabold drop-shadow-[0_2px_12px_rgba(0,0,0,0.7)]">
+                <span className="text-slate-900 font-extrabold">
                   {hero.headline.line2Part1}
                 </span>
-                <GradientText variant="brand" className="font-extrabold drop-shadow-[0_2px_16px_rgba(56,189,248,0.4)]">
+                <GradientText variant="brand" className="font-extrabold">
                   {hero.headline.line2Highlight}
                 </GradientText>
               </span>
@@ -96,7 +96,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="max-w-2xl text-base sm:text-lg text-slate-300 leading-relaxed mb-8 drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]"
+            className="max-w-2xl text-base sm:text-lg text-slate-600 font-medium leading-relaxed mb-8"
           >
             {hero.subheadline}
           </motion.p>
@@ -112,8 +112,8 @@ export function Hero() {
             <a
               href={hero.primaryCta.href}
               className={cn(
-                "group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-bold",
-                "aero-btn-aqua focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+                "group relative inline-flex items-center justify-center gap-2 w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-bold text-white",
+                "aero-btn-aqua focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
               )}
             >
               <span>{hero.primaryCta.label}</span>
@@ -125,12 +125,12 @@ export function Hero() {
               type="button"
               onClick={() => scrollToSection(hero.secondaryCta.targetId)}
               className={cn(
-                "inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-semibold",
-                "aero-pill text-white hover:border-cyan-300/50 transition-all duration-200"
+                "inline-flex items-center justify-center gap-2 w-full sm:w-auto px-6 py-3.5 rounded-full text-sm font-bold",
+                "aero-pill text-slate-800 hover:border-sky-300 hover:bg-sky-50 shadow-sm transition-all duration-200"
               )}
             >
               <span>{hero.secondaryCta.label}</span>
-              <ArrowDown className="w-3.5 h-3.5 text-cyan-300" />
+              <ArrowDown className="w-3.5 h-3.5 text-sky-600" />
             </button>
           </motion.div>
 
@@ -139,7 +139,7 @@ export function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.38 }}
-            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] text-text-muted/70"
+            className="mt-6 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 font-mono text-[11px] text-slate-500 font-semibold"
           >
             {hero.microcopy.map((item, idx) => (
               <React.Fragment key={idx}>

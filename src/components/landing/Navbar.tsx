@@ -61,14 +61,14 @@ export function Navbar() {
           href="/"
           className={cn(
             "pointer-events-auto group flex items-center gap-2.5 px-3.5 py-2 md:px-4 md:py-2.5 rounded-full transition-all duration-300",
-            "aero-pill hover:border-cyan-300/50 hover:shadow-[0_0_20px_rgba(56,189,248,0.25)]"
+            "aero-pill hover:border-sky-300 hover:shadow-[0_4px_16px_rgba(14,165,233,0.18)]"
           )}
           aria-label="Anti Trap Order Home"
         >
-          <div className="relative flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-tr from-cyan-400/25 to-emerald-400/25 border border-cyan-300/60 group-hover:border-cyan-200 transition-colors shadow-inner">
+          <div className="relative flex items-center justify-center w-7 h-7 rounded-full bg-gradient-to-tr from-sky-400/20 to-teal-400/20 border border-sky-300/80 group-hover:border-sky-400 transition-colors shadow-inner">
             {/* Minimal Shield + Dot Custom SVG */}
             <svg
-              className="w-4 h-4 text-cyan-300 transition-transform duration-300 group-hover:scale-110"
+              className="w-4 h-4 text-sky-600 transition-transform duration-300 group-hover:scale-110"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -78,12 +78,12 @@ export function Navbar() {
             >
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             </svg>
-            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_8px_#38BDF8]" />
+            <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-sky-500 shadow-[0_0_8px_#0284c7]" />
           </div>
-          <span className="font-bold text-sm tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]">
+          <span className="font-extrabold text-sm tracking-wide text-slate-900">
             {nav.brandName}
           </span>
-          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase bg-cyan-400/15 border border-cyan-300/30 text-cyan-200">
+          <span className="hidden sm:inline-block px-2 py-0.5 rounded-full text-[10px] font-mono tracking-wider uppercase bg-sky-100 border border-sky-200 text-sky-800 font-bold">
             {nav.badge}
           </span>
         </Link>
@@ -93,7 +93,7 @@ export function Navbar() {
           className={cn(
             "hidden md:flex pointer-events-auto items-center p-1 rounded-full",
             "aero-pill",
-            isScrolled && "bg-white/[0.12] border-white/30"
+            isScrolled && "bg-white/95 border-sky-200 shadow-md"
           )}
           aria-label="Navigasi Utama"
         >
@@ -104,19 +104,19 @@ export function Navbar() {
                 key={link.id}
                 href={link.href}
                 className={cn(
-                  "relative px-4 py-1.5 text-xs font-semibold transition-colors duration-200 rounded-full",
-                  isActive ? "text-white" : "text-slate-300 hover:text-white"
+                  "relative px-4 py-1.5 text-xs font-bold transition-colors duration-200 rounded-full",
+                  isActive ? "text-sky-950" : "text-slate-600 hover:text-sky-900"
                 )}
                 onClick={() => setActiveSection(link.id)}
               >
                 {isActive && (
                   <motion.div
                     layoutId="navbar-active-pill"
-                    className="absolute inset-0 rounded-full bg-gradient-to-b from-cyan-400/25 to-blue-600/25 border border-cyan-300/40 shadow-inner"
+                    className="absolute inset-0 rounded-full bg-sky-100/80 border border-sky-300/60 shadow-inner"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 )}
-                <span className="relative z-10 drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">{link.label}</span>
+                <span className="relative z-10">{link.label}</span>
               </a>
             );
           })}
@@ -127,13 +127,13 @@ export function Navbar() {
           <a
             href={nav.cta.href}
             className={cn(
-              "group inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold",
-              "aero-btn-aqua focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+              "group inline-flex items-center gap-2 px-5 py-2 rounded-full text-xs font-bold text-white",
+              "aero-btn-aqua focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
             )}
           >
             <span>{nav.cta.label}</span>
             <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            <Kbd size="sm" className="hidden lg:inline-flex bg-black/20 border-white/30 text-white font-bold">
+            <Kbd size="sm" className="hidden lg:inline-flex bg-white/20 border-white/40 text-white font-bold">
               {nav.cta.kbdShortcut}
             </Kbd>
           </a>
@@ -144,11 +144,11 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex items-center justify-center w-10 h-10 rounded-full aero-pill text-white hover:border-cyan-300/50 transition-colors"
+            className="flex items-center justify-center w-10 h-10 rounded-full aero-pill text-slate-700 hover:border-sky-300 transition-colors shadow-sm"
             aria-expanded={mobileMenuOpen}
             aria-label="Buka menu navigasi"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-slate-800" /> : <Menu className="w-5 h-5 text-slate-800" />}
           </button>
         </div>
       </div>

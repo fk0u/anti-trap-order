@@ -86,17 +86,17 @@ export function Trust() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.55 }}
-          className="p-6 sm:p-10 rounded-3xl bg-[#0D1117] text-white space-y-6 shadow-xl"
+          className="p-6 sm:p-10 rounded-3xl bg-white border border-amber-300 text-slate-900 space-y-6 shadow-xl border-t-2 border-white"
         >
           <div className="space-y-1">
-            <span className="text-xs font-mono uppercase tracking-widest text-alert-amber font-semibold flex items-center gap-1.5">
-              <XCircle className="w-4 h-4 text-alert-amber" />
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-800 font-bold flex items-center gap-1.5">
+              <XCircle className="w-4 h-4 text-amber-600" />
               Transparansi Keterbatasan
             </span>
-            <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight">
               {trust.limitations.title}
             </h3>
-            <p className="text-xs sm:text-sm text-[#8B95A5]">
+            <p className="text-xs sm:text-sm text-slate-600 font-medium">
               {trust.limitations.description}
             </p>
           </div>
@@ -105,9 +105,9 @@ export function Trust() {
             {trust.limitations.points.map((pt, i) => (
               <div
                 key={i}
-                className="p-4 rounded-2xl bg-white/[0.04] border border-white/5 text-xs text-[#E2E8F0] leading-relaxed flex items-start gap-3"
+                className="p-4 rounded-2xl bg-amber-50/70 border border-amber-200 text-xs text-slate-800 font-medium leading-relaxed flex items-start gap-3 shadow-xs"
               >
-                <span className="text-alert-amber font-mono font-bold shrink-0">✕</span>
+                <span className="text-amber-700 font-mono font-bold shrink-0">✕</span>
                 <span>{pt}</span>
               </div>
             ))}

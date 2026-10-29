@@ -173,24 +173,24 @@ export default function SoulPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#030c19] bg-eco-grid text-[#F5F7FA] selection:bg-cyan-500/20 selection:text-cyan-300">
+    <div className="min-h-screen bg-eco-grid text-slate-900 selection:bg-sky-500/20 selection:text-sky-800">
       {/* Top Header with Aero Glass */}
-      <header className="sticky top-0 z-50 border-b border-white/15 aero-glass px-4 sm:px-8 py-3.5">
+      <header className="sticky top-0 z-50 border-b border-sky-200 aero-glass px-4 sm:px-8 py-3.5 shadow-xs">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full aero-pill text-xs font-bold text-white hover:border-cyan-300/50 transition-all"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full aero-pill text-xs font-bold text-slate-800 hover:border-sky-300 shadow-xs transition-all"
             >
-              <ArrowLeft className="w-3.5 h-3.5 text-cyan-300" />
+              <ArrowLeft className="w-3.5 h-3.5 text-sky-600" />
               <span>[ ATO ]</span>
             </Link>
 
-            <span className="text-white/20 hidden sm:inline">|</span>
+            <span className="text-slate-300 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-wide text-white">A20 Soul</span>
-              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-cyan-400/20 text-cyan-200 border border-cyan-400/40 font-bold">
+              <span className="font-extrabold text-sm tracking-wide text-slate-900">A20 Soul</span>
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase bg-sky-100 text-sky-800 border border-sky-200 font-bold">
                 [ THE GUARDIAN ARC ]
               </span>
             </div>
@@ -200,16 +200,16 @@ export default function SoulPage() {
             <button
               type="button"
               onClick={handleReset}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full aero-pill text-xs text-slate-300 hover:text-rose-300 hover:border-rose-400/50 transition-all font-semibold"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full aero-pill text-xs text-slate-600 hover:text-rose-600 hover:border-rose-300 transition-all font-semibold shadow-xs"
               title="Hapus progres dan mulai ulang cerita"
             >
-              <Trash2 className="w-3 h-3 text-rose-400" />
+              <Trash2 className="w-3 h-3 text-rose-500" />
               <span className="hidden sm:inline">Hapus Progres</span>
             </button>
 
             <Link
               href="/lite"
-              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full aero-btn-aqua text-xs font-bold"
+              className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full aero-btn-aqua text-xs font-bold text-white shadow-md"
             >
               <span className="hidden sm:inline">Beralih ke</span>
               <span>A20 Lite</span>
@@ -223,7 +223,7 @@ export default function SoulPage() {
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Arc Selector Tabs */}
         <div className="mb-8 space-y-2.5">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-cyan-300 font-bold text-center">
+          <div className="text-[11px] font-mono uppercase tracking-wider text-sky-800 font-bold text-center">
             [ PILIH ALUR CERITA TANGGUNG JAWAB // GUARDIAN ARC ]
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -235,25 +235,25 @@ export default function SoulPage() {
                   type="button"
                   onClick={() => handleSwitchArc(arc)}
                   className={cn(
-                    "p-4 rounded-2xl border text-left transition-all relative overflow-hidden",
+                    "p-4 rounded-2xl border text-left transition-all relative overflow-hidden shadow-xs",
                     isSelected
-                      ? "aero-card border-cyan-400/60 shadow-[0_0_24px_rgba(56,189,248,0.25)] ring-1 ring-cyan-300/40"
-                      : "bg-white/[0.02] border-white/5 hover:border-white/15 text-text-muted hover:text-white"
+                      ? "aero-card border-sky-400 shadow-lg ring-1 ring-sky-300 border-t-2 border-white"
+                      : "bg-white/80 border-sky-200 hover:border-sky-300 text-slate-600 hover:text-slate-900"
                   )}
                 >
                   <div className="flex items-center gap-2 mb-1">
-                    <User className={cn("w-3.5 h-3.5", isSelected ? "text-purple-400" : "text-text-muted")} />
-                    <span className={cn("text-xs font-bold", isSelected ? "text-white" : "text-text-muted")}>
+                    <User className={cn("w-3.5 h-3.5", isSelected ? "text-purple-600" : "text-slate-400")} />
+                    <span className={cn("text-xs font-bold", isSelected ? "text-slate-900" : "text-slate-600")}>
                       {arc.ward.name}
                     </span>
-                    <span className="text-[10px] font-mono text-text-muted ml-auto">
+                    <span className="text-[10px] font-mono text-slate-500 ml-auto font-bold">
                       {arc.ward.age} thn
                     </span>
                   </div>
-                  <div className="text-xs font-semibold text-white/95 truncate">
+                  <div className="text-xs font-bold text-slate-800 truncate">
                     {arc.title}
                   </div>
-                  <div className="text-[10px] font-mono text-text-muted truncate mt-0.5">
+                  <div className="text-[10px] font-mono text-slate-500 truncate mt-0.5 font-medium">
                     {arc.ward.relationship}
                   </div>
                 </button>
@@ -264,80 +264,80 @@ export default function SoulPage() {
 
         {/* Dynamic Intro Banner */}
         <div className="mb-8 text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-xs font-mono text-purple-400">
-            <Shield className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-300 text-xs font-mono font-bold text-purple-900 shadow-xs">
+            <Shield className="w-3.5 h-3.5 text-purple-700" />
             <span>Simulasi Tanggung Jawab &bull; Membentuk Mental Penjaga</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-white">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
             {selectedArc?.title || "The Guardian Arc"} &mdash; Lindungi {selectedArc?.ward.name || "Keluarga"}
           </h1>
 
-          <p className="text-xs sm:text-sm text-text-muted max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed font-medium">
             {selectedArc?.ward.context}
           </p>
         </div>
 
         {/* State Status Bar */}
-        <div className="mb-6 p-4 rounded-2xl bg-white/[0.03] border border-white/10 grid grid-cols-3 gap-3 text-center font-mono">
+        <div className="mb-6 p-4 rounded-2xl bg-white border border-sky-200 grid grid-cols-3 gap-3 text-center font-mono shadow-sm">
           <div className="space-y-1">
-            <div className="flex items-center justify-center gap-1 text-[11px] text-text-muted">
-              <Heart className="w-3 h-3 text-rose-400" />
-              <span>Trust (Kepercayaan)</span>
+            <div className="flex items-center justify-center gap-1 text-[11px] text-slate-600 font-bold">
+              <Heart className="w-3 h-3 text-rose-500 fill-rose-100" />
+              <span>Trust</span>
             </div>
-            <div className="text-base sm:text-lg font-bold text-white">{state.trust} / 100</div>
+            <div className="text-base sm:text-lg font-extrabold text-slate-900">{state.trust} / 100</div>
           </div>
 
-          <div className="space-y-1 border-x border-white/5">
-            <div className="flex items-center justify-center gap-1 text-[11px] text-text-muted">
-              <Eye className="w-3 h-3 text-amber-400" />
-              <span>Awareness (Kewaspadaan)</span>
+          <div className="space-y-1 border-x border-sky-100">
+            <div className="flex items-center justify-center gap-1 text-[11px] text-slate-600 font-bold">
+              <Eye className="w-3 h-3 text-amber-500" />
+              <span>Awareness</span>
             </div>
-            <div className="text-base sm:text-lg font-bold text-white">{state.awareness} / 100</div>
+            <div className="text-base sm:text-lg font-extrabold text-slate-900">{state.awareness} / 100</div>
           </div>
 
           <div className="space-y-1">
-            <div className="flex items-center justify-center gap-1 text-[11px] text-text-muted">
-              <Sparkles className="w-3 h-3 text-purple-400" />
-              <span>Empathy (Empati)</span>
+            <div className="flex items-center justify-center gap-1 text-[11px] text-slate-600 font-bold">
+              <Sparkles className="w-3 h-3 text-purple-500" />
+              <span>Empathy</span>
             </div>
-            <div className="text-base sm:text-lg font-bold text-white">{state.empathy} / 100</div>
+            <div className="text-base sm:text-lg font-extrabold text-slate-900">{state.empathy} / 100</div>
           </div>
         </div>
 
         {/* ================= ACTIVE DIALOGUE NODE ================= */}
         {!ending && currentNode && (
-          <div className="relative rounded-3xl border border-white/10 bg-[#0B0F17] p-6 sm:p-8 space-y-6">
+          <div className="relative rounded-3xl aero-card p-6 sm:p-8 space-y-6 shadow-xl border-t-2 border-white">
             <BorderBeam size={240} duration={14} colorFrom="#A855F7" colorTo="#3B82F6" />
 
             {/* Speaker Tag */}
-            <div className="flex items-center justify-between border-b border-white/5 pb-3">
+            <div className="flex items-center justify-between border-b border-sky-100 pb-3">
               <div className="flex items-center gap-2">
-                <div className="w-7 h-7 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center text-xs font-bold font-mono">
-                  D
+                <div className="w-7 h-7 rounded-full bg-purple-100 border border-purple-300 text-purple-800 flex items-center justify-center text-xs font-bold font-mono">
+                  {selectedArc?.ward.name.charAt(0) || "D"}
                 </div>
                 <div>
-                  <span className="text-xs font-bold text-white block">Dian (Adik Perantauan)</span>
-                  <span className="text-[10px] text-text-muted font-mono">19 Tahun &bull; Mahasiswi Baru</span>
+                  <span className="text-xs font-bold text-slate-900 block">{selectedArc?.ward.name}</span>
+                  <span className="text-[10px] text-slate-500 font-mono font-medium">{selectedArc?.ward.relationship}</span>
                 </div>
               </div>
 
-              <div className="text-[11px] font-mono text-text-muted">
+              <div className="text-[11px] font-mono text-slate-500 font-bold">
                 {isOffline ? "Offline Mode" : "Go Engine Sync"}
               </div>
             </div>
 
             {/* Narration */}
             <div className="space-y-3 font-mono">
-              <p className="text-sm sm:text-base text-white leading-relaxed">
+              <p className="text-sm sm:text-base text-slate-800 leading-relaxed font-medium">
                 {currentNode.narration}
               </p>
 
               {/* Evidence bubble if present */}
               {currentNode.victim_evidence && (
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-xs sm:text-sm text-emerald-300 leading-relaxed border-l-4 border-l-purple-500">
-                  <span className="text-[10px] uppercase text-text-muted block font-bold mb-1">
-                    Tangkapan Layar Pesan Dian:
+                <div className="p-4 rounded-2xl bg-purple-50/70 border border-purple-200 text-xs sm:text-sm text-purple-950 leading-relaxed border-l-4 border-l-purple-500 shadow-xs">
+                  <span className="text-[10px] uppercase text-purple-800 block font-bold mb-1">
+                    Tangkapan Layar Pesan:
                   </span>
                   &ldquo;{currentNode.victim_evidence}&rdquo;
                 </div>
@@ -346,7 +346,7 @@ export default function SoulPage() {
 
             {/* Choices */}
             <div className="space-y-3 pt-2">
-              <span className="text-[11px] font-mono uppercase text-purple-400 font-bold tracking-wider block">
+              <span className="text-[11px] font-mono uppercase text-sky-800 font-bold tracking-wider block">
                 Pilih Respons Kamu Sebagai Penjaga:
               </span>
 
@@ -356,18 +356,18 @@ export default function SoulPage() {
                   type="button"
                   disabled={isProcessing}
                   onClick={() => handleSelectChoice(choice)}
-                  className="w-full p-4 sm:p-5 rounded-2xl border border-white/10 bg-white/[0.02] hover:bg-white/[0.06] hover:border-purple-500/50 hover:shadow-[0_0_20px_rgba(168,85,247,0.1)] transition-all flex items-start gap-4 text-left group"
+                  className="w-full p-4 sm:p-5 rounded-2xl border border-sky-200 bg-white hover:bg-sky-50/60 hover:border-sky-400 hover:shadow-md transition-all flex items-start gap-4 text-left group shadow-xs"
                 >
-                  <span className="w-6 h-6 rounded-full border border-white/20 bg-white/[0.05] flex items-center justify-center text-xs font-mono text-text-muted group-hover:border-purple-400 group-hover:text-purple-400 shrink-0 mt-0.5">
+                  <span className="w-6 h-6 rounded-full border border-sky-300 bg-sky-50 flex items-center justify-center text-xs font-mono font-bold text-sky-700 group-hover:border-sky-500 group-hover:bg-sky-500 group-hover:text-white shrink-0 mt-0.5">
                     {idx + 1}
                   </span>
 
                   <div className="space-y-1">
-                    <span className="text-xs sm:text-sm font-medium text-text-primary group-hover:text-white leading-relaxed block">
+                    <span className="text-xs sm:text-sm font-bold text-slate-800 group-hover:text-sky-950 leading-relaxed block">
                       {choice.label}
                     </span>
                     {choice.perspective_hint && (
-                      <span className="text-[11px] font-mono text-text-muted group-hover:text-purple-300/80 block">
+                      <span className="text-[11px] font-mono text-slate-500 group-hover:text-sky-700 block font-medium">
                         &rarr; {choice.perspective_hint}
                       </span>
                     )}
@@ -380,45 +380,45 @@ export default function SoulPage() {
 
         {/* ================= ENDING STATE ================= */}
         {ending && (
-          <div className="relative rounded-3xl border border-purple-500/30 bg-[#0B0F17] p-6 sm:p-9 space-y-6">
+          <div className="relative rounded-3xl aero-card p-6 sm:p-9 space-y-6 shadow-xl border-t-2 border-white">
             <BorderBeam size={280} duration={10} colorFrom="#A855F7" colorTo="#EC4899" />
 
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/30 text-xs font-mono text-purple-300">
-              <Sparkles className="w-3.5 h-3.5" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 border border-purple-300 text-xs font-mono font-bold text-purple-900 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-purple-700" />
               <span>Arketipe Penjaga: {ending.guardian_archetype}</span>
             </div>
 
             <div className="space-y-3">
-              <h2 className="text-xl sm:text-3xl font-bold text-white tracking-tight">
+              <h2 className="text-xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
                 {ending.title}
               </h2>
-              <p className="text-xs sm:text-sm text-text-muted leading-relaxed font-mono">
+              <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-mono font-medium">
                 {ending.summary}
               </p>
             </div>
 
             {/* Philosophical Reflection Box */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
-              <span className="text-xs font-mono uppercase text-emerald-400 font-bold block">
+            <div className="p-5 sm:p-6 rounded-2xl bg-sky-50/70 border border-sky-200 space-y-3">
+              <span className="text-xs font-mono uppercase text-emerald-800 font-bold block">
                 Refleksi Budaya Penjaga (Perspective Inversion):
               </span>
-              <p className="text-xs sm:text-sm text-white leading-relaxed font-mono italic">
+              <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-mono italic font-medium">
                 &ldquo;{ending.reflection}&rdquo;
               </p>
             </div>
 
-            <div className="text-[11px] font-mono text-text-muted">
+            <div className="text-[11px] font-mono text-slate-500 font-bold">
               Kondisi akhir: {ending.condition_note}
             </div>
 
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/10">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-sky-100">
               <button
                 type="button"
                 onClick={handleReset}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/[0.04] text-xs font-semibold text-white hover:bg-white/[0.08] transition-all"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-sky-200 bg-white text-xs font-bold text-slate-700 hover:bg-sky-50 shadow-xs transition-all"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
                 <span>Ulangi dengan Pendekatan Lain</span>
               </button>
 
@@ -426,15 +426,15 @@ export default function SoulPage() {
                 <button
                   type="button"
                   onClick={() => setIsBadgeModalOpen(true)}
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-purple-500/40 bg-purple-500/20 text-xs font-semibold text-purple-300 hover:bg-purple-500/30 transition-all shadow-md"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border border-purple-300 bg-purple-100 text-xs font-bold text-purple-900 hover:bg-purple-200 transition-all shadow-sm"
                 >
-                  <Award className="w-3.5 h-3.5 text-purple-400" />
+                  <Award className="w-3.5 h-3.5 text-purple-700" />
                   <span>Klaim Kartu Penjaga</span>
                 </button>
 
                 <Link
                   href="/lite"
-                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black text-xs font-semibold transition-all shadow-md active:scale-95"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl aero-btn-aqua text-white text-xs font-bold transition-all shadow-md active:scale-95"
                 >
                   <span>Coba A20 Lite</span>
                   <ArrowRight className="w-3.5 h-3.5" />

@@ -211,26 +211,26 @@ export default function LitePage() {
   const currentQuestion = activeScenario?.perspective_questions[currentQuestionIndex];
 
   return (
-    <div className="min-h-screen bg-slate-950 bg-eco-grid text-slate-100 pb-28 md:pb-16 selection:bg-[#10B981]/20 selection:text-[#22D3EE]">
-      {/* Top Bar with Frutiger Aero Glass */}
-      <header className="sticky top-0 z-50 border-b border-white/15 bg-slate-950/80 backdrop-blur-xl px-4 sm:px-8 py-3.5 shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+    <div className="min-h-screen bg-gradient-to-b from-[#e0f2fe] via-[#f0f9ff] to-[#e0f7fa] bg-eco-grid text-slate-800 pb-28 md:pb-16 selection:bg-cyan-200 selection:text-cyan-900">
+      {/* Top Bar with Frutiger Aero Light Glass (Phoning Style) */}
+      <header className="sticky top-0 z-50 border-b border-white/90 aero-glass px-4 sm:px-8 py-3.5 shadow-[0_4px_24px_rgba(186,230,253,0.35)]">
         <div className="max-w-5xl mx-auto flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-xs font-medium text-slate-300 hover:text-white hover:border-cyan-400/40 hover:bg-cyan-500/10 transition-all shadow-sm"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-sky-200 bg-white/80 text-xs font-semibold text-slate-700 hover:text-sky-600 hover:border-sky-300 hover:bg-white transition-all shadow-sm"
             >
-              <ArrowLeft className="w-3.5 h-3.5" />
+              <ArrowLeft className="w-3.5 h-3.5 text-sky-600" />
               <span>Beranda</span>
             </Link>
 
-            <span className="text-white/20 hidden sm:inline">|</span>
+            <span className="text-sky-300 hidden sm:inline">|</span>
 
             <div className="flex items-center gap-2">
-              <span className="font-bold text-sm tracking-wide text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">
+              <span className="font-bold text-sm tracking-wide text-slate-900">
                 A20 Lite
               </span>
-              <span className="px-2 py-0.5 rounded-full text-[10px] font-mono uppercase bg-emerald-400/15 text-emerald-300 border border-emerald-400/30">
+              <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase candy-badge text-sky-800">
                 The Reflex
               </span>
             </div>
@@ -241,30 +241,30 @@ export default function LitePage() {
               <button
                 type="button"
                 onClick={handleReset}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 bg-white/[0.06] text-xs text-slate-200 hover:text-white hover:border-cyan-400/40 transition-all shadow-sm"
+                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-sky-200 bg-white/80 text-xs font-medium text-slate-700 hover:text-sky-700 hover:border-sky-300 hover:bg-white transition-all shadow-sm"
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
                 <span className="hidden sm:inline">Reset</span>
-                <Kbd className="hidden md:inline text-[9px]">Esc</Kbd>
+                <Kbd className="hidden md:inline text-[9px] bg-sky-100 border-sky-200 text-sky-800">Esc</Kbd>
               </button>
             )}
 
             <Link
               href="/realmulator"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-cyan-400/30 bg-cyan-500/10 text-xs font-medium text-cyan-300 hover:bg-cyan-500/20 transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-sky-300 bg-sky-100 text-xs font-bold text-sky-800 hover:bg-sky-200 transition-all shadow-sm"
             >
-              <Sparkles className="w-3 h-3 text-cyan-300" />
+              <Sparkles className="w-3.5 h-3.5 text-sky-600" />
               <span className="hidden sm:inline">Simulasi Chat</span>
               <span>Chat AI</span>
             </Link>
 
             <Link
               href="/soul"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-xs font-medium text-purple-300 hover:bg-purple-500/20 transition-all shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-purple-200 bg-purple-100 text-xs font-bold text-purple-800 hover:bg-purple-200 transition-all shadow-sm"
             >
               <span className="hidden sm:inline">Beralih ke</span>
               <span>A20 Soul</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3.5 h-3.5 text-purple-600" />
             </Link>
           </div>
         </div>
@@ -274,16 +274,16 @@ export default function LitePage() {
       <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         {/* Intro Banner */}
         <div className="mb-8 text-center space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-400/15 border border-emerald-400/30 text-xs font-mono text-emerald-300 shadow-[0_0_15px_rgba(52,211,153,0.15)]">
-            <Zap className="w-3.5 h-3.5" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full candy-badge text-xs font-mono text-sky-800 shadow-sm">
+            <Zap className="w-3.5 h-3.5 text-sky-600" />
             <span>Mode Taktis & Cepat &bull; Selesai &lt; 90 Detik</span>
           </div>
 
-          <h1 className="text-2xl sm:text-4xl font-bold tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+          <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 drop-shadow-sm">
             Reverse Reflex — Cek Celah dari Kepala Pelaku
           </h1>
 
-          <p className="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 max-w-xl mx-auto leading-relaxed font-medium">
             Bukan sekadar detektor kata kunci. Kamu akan diposisikan sebagai pelaku tipuan untuk membuka pola manipulasi psikologis secara mandiri.
           </p>
         </div>
@@ -292,15 +292,15 @@ export default function LitePage() {
         {step === "input" && (
           <div className="space-y-6">
             {/* Mode Switcher: Preset vs Custom */}
-            <div className="p-1 rounded-2xl bg-white/[0.06] border border-white/20 flex gap-1 max-w-md mx-auto shadow-inner">
+            <div className="p-1.5 rounded-2xl bg-white/80 border border-sky-200/80 flex gap-1 max-w-md mx-auto shadow-sm">
               <button
                 type="button"
                 onClick={() => setIsCustomInput(false)}
                 className={cn(
-                  "flex-1 py-2 rounded-xl text-xs font-semibold transition-all",
+                  "flex-1 py-2 rounded-xl text-xs font-bold transition-all",
                   !isCustomInput
-                    ? "aero-btn-emerald text-white shadow-sm"
-                    : "text-slate-300 hover:text-white"
+                    ? "aero-btn-aqua text-white shadow-sm"
+                    : "text-slate-600 hover:text-sky-700"
                 )}
               >
                 Pilih Skenario Nyata
@@ -309,10 +309,10 @@ export default function LitePage() {
                 type="button"
                 onClick={() => setIsCustomInput(true)}
                 className={cn(
-                  "flex-1 py-2 rounded-xl text-xs font-semibold transition-all",
+                  "flex-1 py-2 rounded-xl text-xs font-bold transition-all",
                   isCustomInput
-                    ? "aero-btn-emerald text-white shadow-sm"
-                    : "text-slate-300 hover:text-white"
+                    ? "aero-btn-aqua text-white shadow-sm"
+                    : "text-slate-600 hover:text-sky-700"
                 )}
               >
                 Ketik Pesan Sendiri
@@ -335,21 +335,24 @@ export default function LitePage() {
                           className={cn(
                             "p-3.5 rounded-2xl border text-left transition-all flex flex-col justify-between gap-2 min-h-[90px]",
                             isSelected
-                              ? "border-emerald-400/80 bg-emerald-500/[0.15] shadow-[0_0_20px_rgba(16,185,129,0.25)] ring-1 ring-emerald-400/60"
-                              : "border-white/15 bg-white/[0.04] hover:bg-white/[0.08] hover:border-cyan-400/30"
+                              ? "border-sky-500 bg-sky-50/90 shadow-[0_6px_20px_rgba(14,165,233,0.22)] ring-2 ring-sky-400/60"
+                              : "border-sky-200/70 bg-white/80 hover:bg-white hover:border-sky-400 hover:shadow-md"
                           )}
                         >
-                          <span className="text-xs font-semibold text-white line-clamp-2 drop-shadow-sm">
+                          <span className={cn(
+                            "text-xs font-bold line-clamp-2",
+                            isSelected ? "text-sky-950" : "text-slate-800"
+                          )}>
                             {sc.title}
                           </span>
-                          <div className="flex items-center justify-between text-[10px] text-slate-300 font-mono">
+                          <div className="flex items-center justify-between text-[10px] text-slate-500 font-mono">
                             <span className="capitalize">{sc.category.replace("_", " ")}</span>
                             <span
                               className={cn(
-                                "px-1.5 py-0.5 rounded",
+                                "px-1.5 py-0.5 rounded font-bold",
                                 isSelected
-                                  ? "bg-emerald-400/20 text-emerald-300 font-bold"
-                                  : "bg-white/10 text-slate-300"
+                                  ? "bg-sky-200/70 text-sky-900"
+                                  : "bg-slate-100 text-slate-600"
                               )}
                             >
                               Tingkat {sc.difficulty}
@@ -362,17 +365,17 @@ export default function LitePage() {
 
                 {/* Victim View Mockup */}
                 {activeScenario && (
-                  <div className="relative rounded-3xl aero-card p-5 sm:p-7 space-y-4">
-                    <BorderBeam size={220} duration={12} colorFrom="#10B981" colorTo="#22D3EE" />
+                  <div className="relative rounded-3xl aero-card p-5 sm:p-7 space-y-4 border-white shadow-[0_20px_50px_rgba(186,230,253,0.35)]">
+                    <BorderBeam size={220} duration={12} colorFrom="#0284C7" colorTo="#10B981" />
 
-                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                    <div className="flex items-center justify-between border-b border-sky-100 pb-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                        <span className="text-xs font-mono font-medium text-slate-300">
+                        <div className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse" />
+                        <span className="text-xs font-mono font-bold text-slate-700">
                           Pesan yang Diterima Korban:
                         </span>
                       </div>
-                      <span className="text-[11px] font-mono text-cyan-300">
+                      <span className="text-[11px] font-mono font-bold text-sky-700 bg-sky-100/70 px-2 py-0.5 rounded-full">
                         {activeScenario.victim_view[0]?.from}
                       </span>
                     </div>
@@ -381,7 +384,7 @@ export default function LitePage() {
                       {activeScenario.victim_view.map((msg, idx) => (
                         <div
                           key={idx}
-                          className="p-4 rounded-2xl bg-white/[0.05] border border-white/10 text-slate-100 leading-relaxed shadow-inner"
+                          className="p-4 rounded-2xl bg-white border border-sky-100 text-slate-800 leading-relaxed shadow-sm"
                         >
                           {msg.text}
                         </div>
@@ -392,11 +395,11 @@ export default function LitePage() {
                       <button
                         type="button"
                         onClick={handleStartQuestions}
-                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl aero-btn-emerald text-white font-semibold text-xs sm:text-sm transition-all active:scale-95 shadow-lg"
+                        className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl aero-btn-aqua text-white font-bold text-xs sm:text-sm transition-all active:scale-95 shadow-md"
                       >
-                        <Eye className="w-4 h-4 text-emerald-200" />
+                        <Eye className="w-4 h-4 text-white" />
                         <span>Mulai Analisis Perspektif Pelaku</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4 text-white" />
                       </button>
                     </div>
                   </div>
@@ -404,12 +407,12 @@ export default function LitePage() {
               </div>
             ) : (
               /* Custom Input Box */
-              <div className="relative rounded-3xl aero-card p-5 sm:p-7 space-y-4">
-                <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                  <span className="text-xs font-mono text-slate-300">
+              <div className="relative rounded-3xl aero-card p-5 sm:p-7 space-y-4 border-white shadow-[0_20px_50px_rgba(186,230,253,0.35)]">
+                <div className="flex items-center justify-between border-b border-sky-100 pb-3">
+                  <span className="text-xs font-mono font-bold text-slate-700">
                     Salin teks pesan atau jelaskan situasi janggal yang kamu hadapi:
                   </span>
-                  <span className="text-[11px] font-mono text-cyan-300">
+                  <span className="text-[11px] font-mono text-sky-700 bg-sky-100/80 px-2 py-0.5 rounded-full font-bold">
                     {customText.length}/1000
                   </span>
                 </div>
@@ -419,11 +422,11 @@ export default function LitePage() {
                   onChange={(e) => setCustomText(e.target.value.slice(0, 1000))}
                   placeholder="Contoh: 'Halo kak, saya dari HRD PT Global Digital. Mau nawarin kerjaan like & subscribe YouTube gaji 200rb per hari. Tapi harus transfer deposit 50rb dulu untuk aktivasi akun member...'"
                   rows={6}
-                  className="w-full bg-slate-900/60 border border-white/15 rounded-2xl p-4 text-xs sm:text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-emerald-400/60 focus:ring-1 focus:ring-emerald-400/50 transition-all font-mono resize-none shadow-inner"
+                  className="w-full bg-white border border-sky-200 rounded-2xl p-4 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-sky-400 focus:ring-2 focus:ring-sky-200 transition-all font-mono resize-none shadow-inner"
                 />
 
-                <div className="p-3 rounded-xl bg-amber-500/[0.1] border border-amber-500/30 text-[11px] text-amber-200 leading-relaxed flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                <div className="p-3 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed flex items-start gap-2 shadow-sm font-medium">
+                  <AlertTriangle className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
                   <span>
                     Invarian Privasi: Jangan masukkan data sensitif pribadi (seperti nomor KTP, PIN ATM, atau password).
                   </span>
@@ -434,11 +437,11 @@ export default function LitePage() {
                     type="button"
                     disabled={!customText.trim()}
                     onClick={handleStartQuestions}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl aero-btn-emerald text-white font-semibold text-xs sm:text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95 shadow-lg"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-2xl aero-btn-aqua text-white font-bold text-xs sm:text-sm disabled:opacity-40 disabled:cursor-not-allowed transition-all active:scale-95 shadow-md"
                   >
-                    <Eye className="w-4 h-4 text-emerald-200" />
+                    <Eye className="w-4 h-4 text-white" />
                     <span>Mulai Analisis Perspektif Pelaku</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
@@ -448,18 +451,18 @@ export default function LitePage() {
 
         {/* ================= STEP 2: PERSPECTIVE QUESTIONS ================= */}
         {step === "question" && currentQuestion && (
-          <div className="relative rounded-3xl aero-card p-6 sm:p-8 space-y-6">
-            <BorderBeam size={260} duration={10} colorFrom="#10B981" colorTo="#22D3EE" />
+          <div className="relative rounded-3xl aero-card p-6 sm:p-8 space-y-6 border-white shadow-[0_20px_50px_rgba(186,230,253,0.35)]">
+            <BorderBeam size={260} duration={10} colorFrom="#0284C7" colorTo="#10B981" />
 
             {/* Progress Header */}
-            <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className="flex items-center justify-between border-b border-sky-100 pb-4">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs font-mono font-semibold text-emerald-300 uppercase tracking-wider">
+                <span className="w-2.5 h-2.5 rounded-full bg-sky-500 animate-pulse" />
+                <span className="text-xs font-mono font-bold text-sky-800 uppercase tracking-wider">
                   Inversi Perspektif #{currentQuestionIndex + 1}
                 </span>
               </div>
-              <span className="text-xs font-mono text-slate-300">
+              <span className="text-xs font-mono font-bold text-slate-500 bg-sky-50 px-2 py-0.5 rounded-full">
                 Langkah {currentQuestionIndex + 1} dari{" "}
                 {activeScenario?.perspective_questions.length || 3}
               </span>
@@ -467,10 +470,10 @@ export default function LitePage() {
 
             {/* Question Prompt */}
             <div className="space-y-2">
-              <span className="text-[11px] font-mono uppercase text-amber-300 font-semibold tracking-wider block drop-shadow-sm">
+              <span className="text-[11px] font-mono uppercase text-sky-700 font-bold tracking-wider block">
                 Pikirkan dari Sudut Pandang Pelaku:
               </span>
-              <h2 className="text-lg sm:text-2xl font-bold text-white tracking-tight leading-snug drop-shadow-sm">
+              <h2 className="text-lg sm:text-2xl font-extrabold text-slate-900 tracking-tight leading-snug">
                 {currentQuestion.prompt}
               </h2>
             </div>
@@ -484,18 +487,18 @@ export default function LitePage() {
                     key={opt.id}
                     type="button"
                     onClick={() => handleSelectOption(currentQuestion.id, opt.id)}
-                    className="w-full p-4 sm:p-5 rounded-2xl border border-white/15 bg-white/[0.04] hover:bg-white/[0.08] hover:border-emerald-400/60 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] transition-all flex items-center justify-between gap-4 text-left group"
+                    className="w-full p-4 sm:p-5 rounded-2xl border border-sky-100 bg-white/90 hover:bg-white hover:border-sky-400 hover:shadow-[0_8px_24px_rgba(14,165,233,0.18)] transition-all flex items-center justify-between gap-4 text-left group shadow-sm"
                   >
                     <div className="flex items-start gap-3">
-                      <span className="w-6 h-6 rounded-full border border-white/20 bg-white/[0.08] flex items-center justify-center text-xs font-mono text-slate-300 group-hover:border-emerald-300 group-hover:text-emerald-300 shrink-0 mt-0.5">
+                      <span className="w-6 h-6 rounded-full border border-sky-200 bg-sky-50 flex items-center justify-center text-xs font-mono font-bold text-sky-700 group-hover:border-sky-500 group-hover:bg-sky-500 group-hover:text-white shrink-0 mt-0.5 transition-colors">
                         {String.fromCharCode(65 + idx)}
                       </span>
-                      <span className="text-xs sm:text-sm font-medium text-slate-100 group-hover:text-white leading-relaxed">
+                      <span className="text-xs sm:text-sm font-semibold text-slate-800 group-hover:text-slate-950 leading-relaxed">
                         {opt.label}
                       </span>
                     </div>
 
-                    <Kbd className="hidden sm:inline text-xs font-mono opacity-70 group-hover:opacity-100 text-slate-300">
+                    <Kbd className="hidden sm:inline text-xs font-mono bg-sky-50 border-sky-200 text-sky-800 opacity-80 group-hover:opacity-100">
                       {shortcutNum}
                     </Kbd>
                   </button>
@@ -503,9 +506,9 @@ export default function LitePage() {
               })}
             </div>
 
-            <div className="text-[11px] font-mono text-slate-400 text-center pt-2">
-              Pilih opsi di atas atau tekan tombol <Kbd className="text-[10px]">1</Kbd> /{" "}
-              <Kbd className="text-[10px]">2</Kbd> / <Kbd className="text-[10px]">3</Kbd> di keyboard.
+            <div className="text-[11px] font-mono text-slate-500 text-center pt-2">
+              Pilih opsi di atas atau tekan tombol <Kbd className="text-[10px] bg-sky-50 border-sky-200 text-sky-800">1</Kbd> /{" "}
+              <Kbd className="text-[10px] bg-sky-50 border-sky-200 text-sky-800">2</Kbd> / <Kbd className="text-[10px] bg-sky-50 border-sky-200 text-sky-800">3</Kbd> di keyboard.
             </div>
           </div>
         )}
@@ -514,35 +517,35 @@ export default function LitePage() {
         {step === "result" && (
           <div aria-live="polite" className="space-y-8">
             {isReflecting ? (
-              <div className="p-12 rounded-3xl aero-card text-center space-y-4">
-                <div className="w-10 h-10 border-2 border-emerald-400 border-t-transparent rounded-full animate-spin mx-auto shadow-[0_0_20px_rgba(16,185,129,0.4)]" />
-                <h3 className="text-base font-semibold text-white font-mono drop-shadow-sm">
+              <div className="p-12 rounded-3xl aero-card text-center space-y-4 border-white shadow-[0_20px_50px_rgba(186,230,253,0.35)]">
+                <div className="w-10 h-10 border-3 border-sky-500 border-t-transparent rounded-full animate-spin mx-auto shadow-md" />
+                <h3 className="text-base font-bold text-slate-900 font-mono">
                   Menyusun Celah & Action Card Taktis...
                 </h3>
-                <p className="text-xs text-slate-300 max-w-sm mx-auto">
+                <p className="text-xs text-slate-600 max-w-sm mx-auto font-medium">
                   Engine sedang menghitung ranking flaw deterministik berdasarkan taktik manipulasi yang kamu temukan.
                 </p>
               </div>
             ) : result ? (
               <div className="space-y-6">
                 {/* Status Bar */}
-                <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl aero-pill text-xs font-mono">
+                <div className="flex flex-wrap items-center justify-between gap-3 p-4 rounded-2xl aero-pill text-xs font-mono border-sky-200/80 shadow-sm">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-semibold text-emerald-300 uppercase">
+                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="font-bold text-emerald-800 uppercase tracking-wide">
                       Action Card Terbit
                     </span>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {isOffline ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[11px]">
-                        <WifiOff className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-900 border border-amber-300 text-[11px] font-bold">
+                        <WifiOff className="w-3.5 h-3.5 text-amber-700" />
                         <span>Mode Offline (Local Fallback)</span>
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[11px]">
-                        <Server className="w-3 h-3" />
+                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 text-emerald-900 border border-emerald-300 text-[11px] font-bold">
+                        <Server className="w-3.5 h-3.5 text-emerald-700" />
                         <span>Live Go Engine (100% Deterministic)</span>
                       </span>
                     )}
@@ -550,20 +553,20 @@ export default function LitePage() {
                 </div>
 
                 {/* Perspective Summary Banner */}
-                <div className="p-5 rounded-2xl bg-emerald-500/[0.12] border border-emerald-500/30 space-y-2 shadow-inner">
-                  <div className="flex items-center gap-2 text-xs font-mono font-semibold text-emerald-300">
-                    <Sparkles className="w-3.5 h-3.5 text-emerald-300" />
+                <div className="p-5 rounded-2xl bg-sky-100/70 border border-sky-200 space-y-2 shadow-sm">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-sky-800">
+                    <Sparkles className="w-3.5 h-3.5 text-sky-600" />
                     <span>Hasil Inversi Perspektif:</span>
                   </div>
-                  <p className="text-xs sm:text-sm text-slate-100 leading-relaxed font-mono">
+                  <p className="text-xs sm:text-sm text-slate-800 leading-relaxed font-mono font-medium">
                     {result.perspective_summary}
                   </p>
                 </div>
 
                 {/* Detected Flaws */}
                 <div className="space-y-4">
-                  <h3 className="text-sm font-mono font-semibold text-white uppercase tracking-wider flex items-center gap-2 drop-shadow-sm">
-                    <AlertTriangle className="w-4 h-4 text-amber-400" />
+                  <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <AlertTriangle className="w-4 h-4 text-amber-600" />
                     <span>3 Celah Manipulasi yang Terbongkar:</span>
                   </h3>
 
@@ -571,43 +574,43 @@ export default function LitePage() {
                     {result.user_detected_flaws.map((flaw, idx) => (
                       <div
                         key={flaw.id}
-                        className="p-5 sm:p-6 rounded-3xl aero-card space-y-3 relative overflow-hidden"
+                        className="p-5 sm:p-6 rounded-3xl aero-card space-y-3 relative overflow-hidden border-white shadow-[0_12px_32px_rgba(186,230,253,0.25)]"
                       >
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex items-center gap-2">
-                            <span className="w-5 h-5 rounded-full bg-amber-400/25 text-amber-300 flex items-center justify-center text-[10px] font-mono font-bold border border-amber-400/40">
+                            <span className="w-5 h-5 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center text-[10px] font-mono font-bold border border-amber-300">
                               #{idx + 1}
                             </span>
-                            <h4 className="text-sm sm:text-base font-bold text-white tracking-tight drop-shadow-sm">
+                            <h4 className="text-sm sm:text-base font-extrabold text-slate-900 tracking-tight">
                               {flaw.title}
                             </h4>
                           </div>
 
                           <span
                             className={cn(
-                              "px-2 py-0.5 rounded-full text-[10px] font-mono uppercase font-semibold border",
+                              "px-2.5 py-0.5 rounded-full text-[10px] font-mono uppercase font-bold border",
                               flaw.severity === 3
-                                ? "bg-rose-500/20 text-rose-300 border-rose-500/40"
+                                ? "bg-rose-100 text-rose-800 border-rose-300"
                                 : flaw.severity === 2
-                                ? "bg-amber-500/20 text-amber-300 border-amber-500/40"
-                                : "bg-cyan-500/20 text-cyan-300 border-cyan-500/40"
+                                ? "bg-amber-100 text-amber-900 border-amber-300"
+                                : "bg-sky-100 text-sky-900 border-sky-300"
                             )}
                           >
                             Tingkat Bahaya {flaw.severity === 3 ? "Kritis" : flaw.severity === 2 ? "Sedang" : "Ringan"}
                           </span>
                         </div>
 
-                        <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
                           {flaw.explanation}
                         </p>
 
                         {/* Evidence Highlight if present */}
                         {flaw.evidence_phrases && flaw.evidence_phrases.length > 0 && (
-                          <div className="p-3 rounded-xl bg-white/[0.04] border border-white/10 space-y-1">
-                            <span className="text-[10px] font-mono text-slate-400 uppercase font-bold block">
+                          <div className="p-3 rounded-xl bg-sky-50 border border-sky-200/80 space-y-1">
+                            <span className="text-[10px] font-mono text-sky-800 uppercase font-bold block">
                               Frasa Indikator Manipulasi:
                             </span>
-                            <div className="text-xs font-mono text-cyan-200">
+                            <div className="text-xs font-mono font-bold text-sky-950">
                               {renderHighlightedEvidence(
                                 flaw.evidence_phrases.join(" • "),
                                 flaw.evidence_phrases
@@ -616,7 +619,7 @@ export default function LitePage() {
                           </div>
                         )}
 
-                        <div className="text-[11px] font-mono text-emerald-300 pt-1">
+                        <div className="text-[11px] font-mono font-bold text-sky-700 pt-1">
                           &rarr; {flaw.user_perspective_reason}
                         </div>
                       </div>
@@ -625,9 +628,9 @@ export default function LitePage() {
                 </div>
 
                 {/* Safe Steps Checklist */}
-                <div className="p-6 sm:p-7 rounded-3xl aero-card space-y-4">
-                  <h3 className="text-sm font-mono font-semibold text-white uppercase tracking-wider flex items-center gap-2 drop-shadow-sm">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <div className="p-6 sm:p-7 rounded-3xl aero-card space-y-4 border-white shadow-md">
+                  <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                     <span>Langkah Aman yang Harus Kamu Ambil Sekarang:</span>
                   </h3>
 
@@ -645,26 +648,26 @@ export default function LitePage() {
                             }))
                           }
                           className={cn(
-                            "w-full p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3",
+                            "w-full p-3.5 rounded-2xl border text-left transition-all flex items-start gap-3 shadow-sm",
                             isChecked
-                              ? "bg-emerald-500/[0.12] border-emerald-400/50 text-emerald-200"
-                              : "bg-white/[0.04] border-white/15 text-slate-200 hover:bg-white/[0.08]"
+                              ? "bg-emerald-50 border-emerald-300 text-emerald-900"
+                              : "bg-white border-sky-100 text-slate-800 hover:bg-sky-50/60"
                           )}
                         >
                           <div
                             className={cn(
                               "w-5 h-5 rounded-md border flex items-center justify-center shrink-0 mt-0.5 transition-all",
                               isChecked
-                                ? "bg-emerald-500 border-emerald-400 text-slate-950 font-bold"
-                                : "border-white/30 bg-white/10"
+                                ? "bg-emerald-500 border-emerald-500 text-white font-bold shadow-sm"
+                                : "border-slate-300 bg-white"
                             )}
                           >
                             {isChecked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
                           </div>
                           <span
                             className={cn(
-                              "text-xs sm:text-sm leading-relaxed",
-                              isChecked && "line-through opacity-70"
+                              "text-xs sm:text-sm leading-relaxed font-medium",
+                              isChecked && "line-through text-slate-500 font-normal"
                             )}
                           >
                             {stepText}
@@ -676,23 +679,23 @@ export default function LitePage() {
                 </div>
 
                 {/* Warning Copy Box */}
-                <div className="p-6 sm:p-7 rounded-3xl aero-card space-y-4">
+                <div className="p-6 sm:p-7 rounded-3xl aero-card space-y-4 border-white shadow-md">
                   <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h3 className="text-sm font-mono font-semibold text-white uppercase tracking-wider flex items-center gap-2 drop-shadow-sm">
-                      <Send className="w-4 h-4 text-cyan-300" />
+                    <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2">
+                      <Send className="w-4 h-4 text-sky-600" />
                       <span>Kalimat Peringatan Siap Kirim:</span>
                     </h3>
 
                     {/* Tone Switcher */}
-                    <div className="p-1 rounded-xl bg-white/[0.06] border border-white/20 flex gap-1 shadow-inner">
+                    <div className="p-1 rounded-xl bg-sky-100/80 border border-sky-200 flex gap-1 shadow-inner">
                       <button
                         type="button"
                         onClick={() => setSelectedTone("casual")}
                         className={cn(
-                          "px-3 py-1 rounded-lg text-xs font-semibold font-mono transition-all",
+                          "px-3 py-1 rounded-lg text-xs font-bold font-mono transition-all",
                           selectedTone === "casual"
-                            ? "aero-btn-aqua text-white"
-                            : "text-slate-300 hover:text-white"
+                            ? "aero-btn-aqua text-white shadow-sm"
+                            : "text-slate-600 hover:text-sky-800"
                         )}
                       >
                         Santai (Keluarga)
@@ -701,10 +704,10 @@ export default function LitePage() {
                         type="button"
                         onClick={() => setSelectedTone("firm")}
                         className={cn(
-                          "px-3 py-1 rounded-lg text-xs font-semibold font-mono transition-all",
+                          "px-3 py-1 rounded-lg text-xs font-bold font-mono transition-all",
                           selectedTone === "firm"
-                            ? "aero-btn-aqua text-white"
-                            : "text-slate-300 hover:text-white"
+                            ? "aero-btn-aqua text-white shadow-sm"
+                            : "text-slate-600 hover:text-sky-800"
                         )}
                       >
                         Tegas (Formal)
@@ -712,21 +715,21 @@ export default function LitePage() {
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-white/[0.04] border border-white/10 font-mono text-xs sm:text-sm text-slate-100 leading-relaxed relative shadow-inner">
+                  <div className="p-4 rounded-2xl bg-white border border-sky-200/80 font-mono text-xs sm:text-sm text-slate-800 leading-relaxed relative shadow-inner">
                     {selectedTone === "casual"
                       ? result.warning_templates.casual
                       : result.warning_templates.firm}
                   </div>
 
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-1">
-                    <span className="text-[11px] font-mono text-slate-300">
+                    <span className="text-[11px] font-mono text-slate-500 font-medium">
                       Kirim kalimat ini ke target atau grup WhatsApp keluarga.
                     </span>
 
                     <button
                       type="button"
                       onClick={handleCopyWarning}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-xl aero-btn-emerald text-white font-semibold text-xs transition-all active:scale-95 shadow-md"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl aero-btn-aqua text-white font-bold text-xs transition-all active:scale-95 shadow-md"
                     >
                       {copiedWarning ? (
                         <>
@@ -744,28 +747,28 @@ export default function LitePage() {
                 </div>
 
                 {/* Hard Invariant Confidence Note */}
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 text-[11px] font-mono text-slate-300 text-center space-y-1">
-                  <p className="text-amber-300 font-semibold">{result.confidence_note}</p>
+                <div className="p-4 rounded-2xl bg-sky-50 border border-sky-200/70 text-[11px] font-mono text-slate-600 text-center space-y-1 shadow-sm">
+                  <p className="text-amber-800 font-bold">{result.confidence_note}</p>
                   <p>
                     Anti Trap Order tidak memberikan persentase skor akurasi karena manipulasi sosial bersifat dinamis.
                   </p>
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-white/15">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-4 border-t border-sky-200/70">
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-white/20 bg-white/[0.06] text-xs font-semibold text-white hover:bg-white/[0.12] hover:border-cyan-400/40 transition-all shadow-sm"
+                    className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl border border-sky-200 bg-white text-xs font-bold text-slate-700 hover:bg-sky-50 hover:border-sky-300 transition-all shadow-sm"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RotateCcw className="w-3.5 h-3.5 text-sky-600" />
                     <span>Coba Situasi Lain</span>
                   </button>
 
                   <div className="flex items-center gap-3 w-full sm:w-auto">
                     <Link
                       href="/realmulator"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl aero-btn-aqua text-white text-xs font-semibold transition-all shadow-md active:scale-95"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl aero-btn-aqua text-white text-xs font-bold transition-all shadow-md active:scale-95"
                     >
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Coba Simulasi Chat AI</span>
@@ -773,7 +776,7 @@ export default function LitePage() {
 
                     <Link
                       href="/soul"
-                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-semibold transition-all shadow-md active:scale-95 border border-purple-400/40"
+                      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold transition-all shadow-md active:scale-95 border border-purple-400"
                     >
                       <span>Lanjut ke A20 Soul</span>
                       <ArrowRight className="w-3.5 h-3.5" />

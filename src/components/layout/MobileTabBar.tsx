@@ -18,7 +18,7 @@ export function MobileTabBar() {
   ];
 
   return (
-    <nav className="fixed inset-x-2 bottom-3 z-40 max-w-md mx-auto aero-glass rounded-full px-2 py-1.5 md:hidden shadow-[0_16px_40px_rgba(2,44,84,0.7)] border-t border-white/60">
+    <nav className="fixed inset-x-3 bottom-3 z-40 max-w-md mx-auto aero-glass rounded-full px-2 py-1.5 md:hidden shadow-[0_12px_32px_rgba(14,165,233,0.18)] border-t-2 border-white">
       <div className="grid grid-cols-5 gap-1 text-center font-mono text-[9px]">
         {tabs.map((tab) => {
           const isActive = pathname === tab.href;
@@ -30,12 +30,12 @@ export function MobileTabBar() {
               className={cn(
                 "flex flex-col items-center gap-1 py-1.5 px-0.5 rounded-full transition-all duration-200",
                 isActive
-                  ? "bg-gradient-to-b from-sky-400/30 to-emerald-400/20 text-white font-bold border border-white/40 shadow-[inset_0_1px_1px_rgba(255,255,255,0.6)]"
-                  : "text-white/60 hover:text-white hover:bg-white/5"
+                  ? "bg-sky-100/90 text-sky-900 font-bold border border-sky-300 shadow-[inset_0_1px_2px_rgba(255,255,255,0.8)]"
+                  : "text-slate-500 hover:text-slate-900 hover:bg-sky-50/60"
               )}
             >
-              <Icon className={cn("w-4 h-4 transition-transform", isActive && "scale-110 text-cyan-300")} />
-              <span className="tracking-tight truncate w-full">{tab.label}</span>
+              <Icon className={cn("w-4 h-4 transition-transform", isActive ? "scale-110 text-sky-600" : "text-slate-400")} />
+              <span className="tracking-tight truncate w-full font-bold">{tab.label}</span>
             </Link>
           );
         })}

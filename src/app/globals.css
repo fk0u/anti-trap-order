@@ -3,29 +3,29 @@
 @tailwind utilities;
 
 :root {
-  --bg-surface: #040e1d;
-  --bg-card: rgba(255, 255, 255, 0.07);
-  --bg-elevated: rgba(14, 45, 82, 0.4);
-  --border-subtle: rgba(255, 255, 255, 0.15);
-  --text-main: #FFFFFF;
-  --text-muted: #94A3B8;
-  --brand-teal: #10B981;
-  --brand-cyan: #38BDF8;
-  --alert-amber: #F59E0B;
+  --bg-surface: #f0f8ff;
+  --bg-card: rgba(255, 255, 255, 0.9);
+  --bg-elevated: rgba(255, 255, 255, 0.95);
+  --border-subtle: rgba(186, 230, 253, 0.6);
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --brand-teal: #059669;
+  --brand-cyan: #0284c7;
+  --alert-amber: #d97706;
 }
 
 html {
   scroll-behavior: smooth;
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  background-color: #030c19;
+  background-color: #f0f8ff;
   background-image: 
-    radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.18) 0%, transparent 50%),
-    radial-gradient(circle at 90% 40%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 10% 70%, rgba(14, 165, 233, 0.14) 0%, transparent 45%),
-    linear-gradient(180deg, #041224 0%, #030C19 60%, #020710 100%);
+    radial-gradient(circle at 50% -10%, rgba(56, 189, 248, 0.35) 0%, transparent 60%),
+    radial-gradient(circle at 85% 30%, rgba(52, 211, 153, 0.22) 0%, transparent 50%),
+    radial-gradient(circle at 15% 65%, rgba(125, 211, 252, 0.28) 0%, transparent 50%),
+    linear-gradient(180deg, #dcf0fa 0%, #edf7fc 40%, #f4faff 75%, #e1f3fe 100%);
   background-attachment: fixed;
   color: var(--text-main);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
@@ -34,114 +34,120 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ================= AERO AQUA GLASS & FRUTIGER AERO UTILITIES ================= */
+/* ================= AERO AQUA GLASS & FRUTIGER AERO UTILITIES (LIGHT MODE // PHONING NEWJEANS) ================= */
 
 /* Frutiger Aero Specular Glass Container */
 .aero-glass {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.04) 100%);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(240, 249, 255, 0.72) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 1.5px solid rgba(186, 230, 253, 0.65);
   box-shadow: 
-    0 16px 40px -10px rgba(0, 30, 60, 0.5),
-    inset 0 1px 1px 0 rgba(255, 255, 255, 0.45);
+    0 12px 32px -4px rgba(14, 165, 233, 0.12),
+    0 4px 12px -2px rgba(0, 0, 0, 0.04),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
 }
 
 /* Aero Glass Interactive Card */
 .aero-card {
   position: relative;
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.11) 0%, rgba(14, 52, 94, 0.25) 50%, rgba(255, 255, 255, 0.03) 100%);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.94) 0%, rgba(240, 249, 255, 0.86) 60%, rgba(224, 242, 254, 0.78) 100%);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-top: 1.5px solid rgba(255, 255, 255, 0.65);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-top: 2px solid rgba(255, 255, 255, 1);
+  border-bottom: 1.5px solid rgba(186, 230, 253, 0.8);
   box-shadow: 
-    0 20px 50px -12px rgba(6, 182, 212, 0.16),
-    inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    0 16px 36px -6px rgba(14, 165, 233, 0.13),
+    0 4px 12px rgba(0, 0, 0, 0.03),
+    inset 0 1.5px 2px rgba(255, 255, 255, 1);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .aero-card:hover {
-  border-top-color: rgba(255, 255, 255, 0.9);
+  border-top-color: #FFFFFF;
   box-shadow: 
-    0 24px 60px -8px rgba(6, 182, 212, 0.28),
-    inset 0 1px 2px rgba(255, 255, 255, 0.6);
+    0 22px 48px -4px rgba(14, 165, 233, 0.22),
+    0 6px 16px rgba(0, 0, 0, 0.04),
+    inset 0 2px 3px rgba(255, 255, 255, 1);
   transform: translateY(-2px);
 }
 
-/* Tactile 3D Jelly Aqua Button (Frutiger Aqua / Schedule.ust) */
+/* Tactile 3D Jelly Aqua Button (Frutiger Aqua / Schedule.ust / Phoning) */
 .aero-btn-aqua {
-  background: linear-gradient(180deg, #38BDF8 0%, #0284C7 60%, #0369A1 100%);
+  background: linear-gradient(180deg, #38BDF8 0%, #0EA5E9 55%, #0284C7 100%);
   color: #FFFFFF;
   font-weight: 700;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.8);
-  border-left: 1px solid rgba(255, 255, 255, 0.35);
-  border-right: 1px solid rgba(255, 255, 255, 0.35);
-  border-bottom: 3.5px solid #075985;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 3.5px solid #0369A1;
   box-shadow: 
-    0 8px 24px -4px rgba(2, 132, 199, 0.5),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    0 8px 20px -2px rgba(2, 132, 199, 0.38),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.85);
   transition: all 0.15s ease-out;
 }
 
 .aero-btn-aqua:hover {
-  background: linear-gradient(180deg, #7DD3FC 0%, #0EA5E9 60%, #0284C7 100%);
+  background: linear-gradient(180deg, #7DD3FC 0%, #38BDF8 55%, #0EA5E9 100%);
   box-shadow: 
-    0 12px 28px -4px rgba(2, 132, 199, 0.65),
-    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+    0 12px 24px -2px rgba(2, 132, 199, 0.48),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
 }
 
 .aero-btn-aqua:active {
   transform: translateY(2px);
   border-bottom-width: 1px;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+  box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);
 }
 
 /* Tactile 3D Jelly Emerald Button */
 .aero-btn-emerald {
-  background: linear-gradient(180deg, #34D399 0%, #059669 60%, #047857 100%);
+  background: linear-gradient(180deg, #34D399 0%, #10B981 55%, #059669 100%);
   color: #FFFFFF;
   font-weight: 700;
-  border-top: 1.5px solid rgba(255, 255, 255, 0.8);
-  border-left: 1px solid rgba(255, 255, 255, 0.35);
-  border-right: 1px solid rgba(255, 255, 255, 0.35);
-  border-bottom: 3.5px solid #064E3B;
+  border-top: 1.5px solid rgba(255, 255, 255, 0.9);
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+  border-right: 1px solid rgba(255, 255, 255, 0.45);
+  border-bottom: 3.5px solid #047857;
   box-shadow: 
-    0 8px 24px -4px rgba(5, 150, 105, 0.45),
-    inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    0 8px 20px -2px rgba(5, 150, 105, 0.35),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.85);
   transition: all 0.15s ease-out;
 }
 
 .aero-btn-emerald:hover {
-  background: linear-gradient(180deg, #6EE7B7 0%, #10B981 60%, #059669 100%);
+  background: linear-gradient(180deg, #6EE7B7 0%, #34D399 55%, #10B981 100%);
   box-shadow: 
-    0 12px 28px -4px rgba(5, 150, 105, 0.6),
-    inset 0 1px 2px rgba(255, 255, 255, 0.95);
+    0 12px 24px -2px rgba(5, 150, 105, 0.45),
+    inset 0 1.5px 2px rgba(255, 255, 255, 0.95);
 }
 
 .aero-btn-emerald:active {
   transform: translateY(2px);
   border-bottom-width: 1px;
-  box-shadow: 0 2px 8px rgba(5, 150, 105, 0.4);
+  box-shadow: 0 2px 6px rgba(5, 150, 105, 0.3);
 }
 
 /* Translucent Glass Pill Capsule (Schedule.ust & Y2K aesthetic) */
 .aero-pill {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.06) 100%);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 249, 255, 0.85) 100%);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-top: 1.5px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 1.5px solid rgba(186, 230, 253, 0.7);
+  box-shadow: 
+    0 4px 16px rgba(14, 165, 233, 0.1),
+    inset 0 1px 2px rgba(255, 255, 255, 1);
 }
 
-/* Cyber-Eco Grid Background (CHIG Flyer perspective) */
+/* Cyber-Eco Grid Background (Light Mode) */
 .bg-eco-grid {
   background-image: 
-    linear-gradient(to right, rgba(56, 189, 248, 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(56, 189, 248, 0.08) 1px, transparent 1px);
-  background-size: 48px 48px;
+    linear-gradient(to right, rgba(14, 165, 233, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(14, 165, 233, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
 /* Caustic Light Sheen */
@@ -149,10 +155,58 @@ body {
   background: linear-gradient(
     90deg, 
     transparent 0%, 
-    rgba(255, 255, 255, 0.15) 50%, 
+    rgba(255, 255, 255, 0.4) 50%, 
     transparent 100%
   );
   background-size: 200% 100%;
+}
+
+/* ================= PHONING NEWJEANS & EARLY 2000s GADGET UTILITIES ================= */
+
+/* Phoning Gadget Outer Container */
+.phoning-frame {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F0F9FF 50%, #E0F2FE 100%);
+  border: 2px solid rgba(255, 255, 255, 0.95);
+  border-bottom: 3px solid #BAE6FD;
+  border-radius: 2.25rem;
+  box-shadow: 
+    0 24px 60px -12px rgba(14, 165, 233, 0.18),
+    0 4px 16px rgba(0, 0, 0, 0.04),
+    inset 0 2px 4px rgba(255, 255, 255, 1);
+}
+
+/* Phoning Incoming Message Bubble (Penipu / Contact) */
+.phoning-bubble-incoming {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
+  border: 1px solid rgba(186, 230, 253, 0.7);
+  border-top: 1.5px solid #FFFFFF;
+  border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+  box-shadow: 
+    0 4px 14px -2px rgba(14, 165, 233, 0.08),
+    inset 0 1px 1px #FFFFFF;
+  color: #0F172A;
+}
+
+/* Phoning Outgoing Message Bubble (User / Defender) */
+.phoning-bubble-outgoing {
+  background: linear-gradient(180deg, #38BDF8 0%, #0EA5E9 60%, #0284C7 100%);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 2px solid #0369A1;
+  border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+  box-shadow: 
+    0 6px 16px -2px rgba(2, 132, 199, 0.35),
+    inset 0 1px 1px rgba(255, 255, 255, 0.75);
+  color: #FFFFFF;
+}
+
+/* Retro Early 2000s Cute Candy Badge */
+.candy-badge {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E0F2FE 100%);
+  border: 1px solid #7DD3FC;
+  border-top: 1.5px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(56, 189, 248, 0.18);
+  color: #0369A1;
+  font-weight: 700;
 }
 
 /* Respect user's motion preferences */
