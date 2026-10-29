@@ -1,37 +1,29 @@
 # Ruas AI Vibe Memory Checkpoint
-- **Timestamp:** 2026-10-29T00:00:00.000Z
-- **Vibe Session ID:** vibe-ato-20261029-ai-realmulator-gemini-web2api
-- **Session Tag:** ato-ai-realmulator-gemini-web2api
+- **Timestamp:** 2026-10-29T08:24:00.000Z
+- **Vibe Session ID:** vibe-ato-20261029-full-light-mode-phoning-newjeans
+- **Session Tag:** full-light-mode-aeromorphism-phoning-newjeans
 - **Project Name:** Anti Trap Order (ATO)
-- **Status:** AI Realmulator Chat (`/realmulator`) and Full Frutiger Aero Aqua Polish Deployed Live.
+- **Status:** Full Light Mode Aeromorphism / Frutiger Aero (Early 2000s / 'Phoning from NewJeans') completely implemented across all routes, built, tested, and deployed live to production.
 
-## Active Files
-- `services/gemini-web2api/` (Python zero-auth Gemini Web2API daemon on port 8081)
-- `src/app/api/realmulator/chat/route.ts` (Next.js AI intermediary with resilient payload parsing & context-rich scam personas)
-- `src/app/realmulator/page.tsx` (AI Realmulator cyber-messenger window with real-time reflex co-pilot & WhatsApp alert generator)
-- `src/app/lite/page.tsx` (Frutiger Aero Aqua glass redesign, high contrast typography, aero-cards, no mobile dock overlap)
-- `src/components/layout/MobileTabBar.tsx` (5-column mobile dock with Realmulator icon)
-- `src/content/landing.ts` & `src/components/landing/Navbar.tsx` (Global navigation links for Chat AI)
-- `scripts/deploy.sh` (Automated rsync, venv builder, and PM2 process manager for Next.js, Go backend, and gemini-web2api)
+## Design System & Theme: Full Light Mode "Phoning from NewJeans" & Aeromorphism
+1. **Color Palette & Glass Materials:**
+   - Strict `color-scheme: light` (no dark mode).
+   - Clear sky blue gradients (`#e0f2fe` -> `#f0f9ff` -> `#e0f7fa`) with subtle eco-grid lines.
+   - Porcelain white cards (`rgba(255, 255, 255, 0.88)` - `rgba(255, 255, 255, 0.96)`) with specular top sheen (`border-t-2 border-white`).
+   - Tactile aqua jelly buttons (`.aero-btn-aqua`), emerald buttons (`.aero-btn-emerald`), and pastel candy badges.
+   - High-contrast typography: `text-slate-900`, `text-slate-800`, `text-slate-700`, `text-sky-950` (strict AAA readability).
 
-## AI Realmulator Architecture
-1. **Engine**: `gemini-web2api` converts Google Gemini Web interface into an OpenAI-compatible API running locally on port 8081.
-2. **Personas & Scenarios**:
-   - `job_scam`: "Kak Sarah" (HRD freelance like video WFH deposit scam).
-   - `bank_freeze`: Bank CS phishing urgency auto-blockir threat.
-   - `cod_scam`: "Andi" J&T fake COD package delivery scam with inline invoice card.
-   - `apk_wedding`: "Dika" wedding invitation malware (.APK delivery card).
-   - `crypto_dating`: "Jessica" dating app crypto trading romance scam.
-3. **Guardian Reflex Co-Pilot**:
-   - Heuristic trap detection during chat (e.g. upfront fee, artificial urgency, authority impersonation).
-   - Tactical counter-reply pills for user testing.
-   - "Bongkar Modus" modal with one-click copyable family warning templates for WhatsApp.
+2. **Routes & Components Transformed:**
+   - `/` Landing Page: [Navbar](file:///Users/kou/Project/prototype_ATO/src/components/landing/Navbar.tsx), [Hero](file:///Users/kou/Project/prototype_ATO/src/components/landing/Hero.tsx), [HeroConsole](file:///Users/kou/Project/prototype_ATO/src/components/landing/HeroConsole.tsx), [Problem](file:///Users/kou/Project/prototype_ATO/src/components/landing/Problem.tsx), [A20System](file:///Users/kou/Project/prototype_ATO/src/components/landing/A20System.tsx), [ReverseReflexDemo](file:///Users/kou/Project/prototype_ATO/src/components/landing/ReverseReflexDemo.tsx), [Trust](file:///Users/kou/Project/prototype_ATO/src/components/landing/Trust.tsx), [FinalCTA](file:///Users/kou/Project/prototype_ATO/src/components/landing/FinalCTA.tsx), [Footer](file:///Users/kou/Project/prototype_ATO/src/components/landing/Footer.tsx), [Marquee](file:///Users/kou/Project/prototype_ATO/src/components/landing/Marquee.tsx), [MobileTabBar](file:///Users/kou/Project/prototype_ATO/src/components/layout/MobileTabBar.tsx).
+   - `/lite` A20 Lite Page: [src/app/lite/page.tsx](file:///Users/kou/Project/prototype_ATO/src/app/lite/page.tsx) with scenario selector, victim mockup, 3 perspective questions, action checklist, and copy box.
+   - `/realmulator` AI Chat Page: [src/app/realmulator/page.tsx](file:///Users/kou/Project/prototype_ATO/src/app/realmulator/page.tsx) with Phoning messenger window, contacts sidebar, incoming/outgoing chat bubbles, tactical quick replies, and "Bongkar Modus" modal.
+   - `/drill` Interactive Drills: [src/app/drill/page.tsx](file:///Users/kou/Project/prototype_ATO/src/app/drill/page.tsx) skill tree path, bite-sized exercise modal, and celebration screen.
+   - `/soul` Story Arc Mode: [src/app/soul/page.tsx](file:///Users/kou/Project/prototype_ATO/src/app/soul/page.tsx) arc selector tabs, state status bar, and dialogue node cards.
+   - `/docs` Documentation: [src/app/docs/page.tsx](file:///Users/kou/Project/prototype_ATO/src/app/docs/page.tsx) header, navigation tabs, and hero container.
+   - `GuardianBadgeModal`: [src/components/guardian/GuardianBadgeModal.tsx](file:///Users/kou/Project/prototype_ATO/src/components/guardian/GuardianBadgeModal.tsx) light mode modal & high-resolution canvas certificate generator.
 
-## Deployment Status
-- Live domain: `https://ato.kousozo.tech`
-- PM2 Processes on EC2:
-  - `ato-gemini-web2api` (ID 5, port 8081)
-  - `anti-trap-order` (ID 3, Next.js port 3120)
-  - `ato-backend` (ID 4, Go backend port 8080)
-- Nginx: Configured to route `/api/realmulator/` to Next.js (port 3120) and `/api/` to Go (port 8080).
-- Local Daemon: `services/gemini-web2api/venv/bin/python3 services/gemini-web2api/gemini_web2api.py` (task-1291).
+## Validation & Verification
+- `npx tsx scripts/validate-data.ts`: Passed 100% (10 scenarios, all Soul graph paths, perspective inversion determinism).
+- `npm run build`: Zero errors, all 12 static/dynamic routes compiled successfully.
+- Deployment: Synced via `./scripts/deploy.sh` to AWS EC2 (`https://ato.kousozo.tech`).
+- Live HTTP Check: Verified 200 OK on `/`, `/realmulator`, and `/lite`.
