@@ -1,0 +1,766 @@
+openapi: 3.1.0
+info:
+  title: Anti Trap Order (ATO) API
+  version: 1.0.0-draft
+  description: |
+    Kontrak API backend Go untuk MVP MIT-Week 2026, disusun mengikuti wireframe
+    S-01 sampai S-20 (file Figma "Anti Trap Order - DESIGN").
+
+    ## Prinsip privasi (mengikuti layar S-16)
+    - **Tidak ada teks tulisan user yang dikirim ke server.** Teks yang ditempel di S-03,
+      isi "Lainnya" di S-04–06, dan nama panggilan karakter Soul di S-10 diproses
+      hanya di browser.
+    - Server hanya menerima ID: `scenario_id`, ID opsi jawaban, `arc_id`, ID pilihan misi,
+      dan nilai meter Soul.
+    - Server tidak menyimpan apa pun (tanpa database, tanpa login).
+
+    ## Pembagian kerja
+    | Di browser | Di server (API ini) |
+    |---|---|
+    | Masking nomor/email/rekening, model ML (kategori + taktik), memilih skenario dari teks, mengisi `{{nama}}`/`{{relasi}}` di narasi Soul, ekspor Action Card 4:5, 👍👎 | Konten skenario, ranking celah (found/missed), Action Card, alur misi Soul, peringkat akhir Soul |
+
+    ## Mode terbatas (S-07 Error, S-19)
+    Jika API tidak terjangkau atau lebih dari 3 detik, frontend memakai engine lokal yang
+    menghasilkan struktur respons yang **sama persis** dengan endpoint di sini.
+
+    ## Format error
+    Semua error memakai `ErrorResponse`. `429` selalu menyertakan header `Retry-After: 20`
+    (sesuai hitung mundur di S-20).
+security: []  # tanpa login, sesuai prinsip privasi
+servers:
+  - url: http://localhost:8080
+    description: Lokal
+tags:
+  - name: Sistem
+    description: Status server
+  - name: Lite
+    description: Alur A20 Lite (S-03 sampai S-09)
+  - name: Soul
+    description: Alur A20 Soul (S-10 sampai S-14)
+
+paths:
+  /api/v1/health:
+    get:
+      tags: [Sistem]
+      summary: Status server
+      operationId: getHealth
+      responses:
+        '200':
+          description: Server hidup
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/Health' }
+              example:
+                status: ok
+                version: 1.0.0
+                content_version: 2026-11-07
+                time: '2026-11-07T10:00:00Z'
+        '429': { $ref: '#/components/responses/RateLimited' }
+
+  /api/v1/lite/categories:
+    get:
+      tags: [Lite]
+      summary: Daftar kategori situasi (chip di S-03)
+      operationId: listCategories
+      responses:
+        '200':
+          description: Lima kategori sesuai CategoryChip
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Category' }
+              example:
+                - { id: tawaran_kerja, label: Tawaran Kerja, icon: briefcase }
+                - { id: giveaway, label: Giveaway, icon: gift }
+                - { id: akun_menyamar, label: Akun Menyamar, icon: user-round-x }
+                - { id: pinjaman_investasi, label: Pinjaman/Investasi, icon: banknote }
+                - { id: lainnya, label: Lainnya, icon: help-circle }
+        '429': { $ref: '#/components/responses/RateLimited' }
+
+  /api/v1/lite/tactics:
+    get:
+      tags: [Lite]
+      summary: Katalog taktik (TacticBadge + kartu "Yang mungkin belum kepikiran")
+      description: |
+        Dipakai frontend untuk menampilkan kartu taktik yang terdeteksi model ML di teks
+        user tetapi tidak ada di daftar celah skenario. Juga menjadi sumber nama label
+        untuk model ML di browser.
+      operationId: listTactics
+      responses:
+        '200':
+          description: Delapan taktik
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/Tactic' }
+              example:
+                - id: urgency
+                  label: Urgensi
+                  icon: clock
+                  explanation: Tenggat palsu memotong waktu berpikirmu.
+                  counter: Tidak ada kesempatan sah yang hilang dalam 10 menit. Tunda dulu.
+                - id: too_good
+                  label: Terlalu Bagus
+                  icon: trending-up
+                  explanation: Imbalan yang tidak masuk akal membuat orang berhenti bertanya.
+                  counter: Bandingkan dengan gaji pasaran; minta kontrak tertulis.
+        '429': { $ref: '#/components/responses/RateLimited' }
+
+  /api/v1/lite/scenarios:
+    get:
+      tags: [Lite]
+      summary: Daftar skenario (untuk pencocokan teks dan tombol "Contoh fiktif")
+      operationId: listScenarios
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema: { $ref: '#/components/schemas/CategoryId' }
+      responses:
+        '200':
+          description: Ringkasan skenario
+          content:
+            application/json:
+              schema:
+                type: array
+                items: { $ref: '#/components/schemas/ScenarioSummary' }
+              example:
+                - id: wfh_admin_fee
+                  category: tawaran_kerja
+                  title: Lowongan Admin WFH Bayar Seragam
+                  example_message: Dicari admin input data, kerja dari rumah, Rp500rb/hari. Daftar hari ini, kuota terbatas. Biaya seragam Rp150rb.
+                  keywords: [admin, wfh, seragam, gaji harian]
+                  is_fallback: false
+                - id: generic_emergency
+                  category: lainnya
+                  title: Situasi Lain yang Terasa Janggal
+                  example_message: Ada yang menghubungi dan minta sesuatu dengan buru-buru.
+                  keywords: []
+                  is_fallback: true
+        '429': { $ref: '#/components/responses/RateLimited' }
+
+  /api/v1/lite/scenarios/{scenarioId}:
+    get:
+      tags: [Lite]
+      summary: Detail skenario + 3 pertanyaan Mode Pelaku (S-04, S-05, S-06)
+      operationId: getScenario
+      parameters:
+        - $ref: '#/components/parameters/ScenarioId'
+      responses:
+        '200':
+          description: Skenario lengkap
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScenarioDetail' }
+              example:
+                id: wfh_admin_fee
+                category: tawaran_kerja
+                title: Lowongan Admin WFH Bayar Seragam
+                example_message: Dicari admin input data, kerja dari rumah, Rp500rb/hari. Daftar hari ini, kuota terbatas. Biaya seragam Rp150rb.
+                questions:
+                  - id: q1
+                    step: 1
+                    prompt: Kalau kamu yang menipu orang ini, hal pertama apa yang akan kamu manfaatkan darinya?
+                    min_select: 1
+                    max_select: 2
+                    allow_other: true
+                    other_max_length: 80
+                    options:
+                      - { id: q1_a, label: Dia butuh uang cepat }
+                      - { id: q1_b, label: Dia belum pernah kerja kantoran }
+                      - { id: q1_c, label: Dia percaya lowongan di media sosial }
+                      - { id: q1_d, label: Dia takut ketinggalan kesempatan }
+                      - { id: q1_e, label: Dia sungkan bertanya soal biaya }
+                  - id: q2
+                    step: 2
+                    prompt: Supaya dia tidak sempat berpikir, tekanan apa yang kamu pakai?
+                    min_select: 1
+                    max_select: 2
+                    allow_other: true
+                    other_max_length: 80
+                    options:
+                      - { id: q2_a, label: Batas waktu }
+                      - { id: q2_b, label: Kuota tinggal sedikit }
+                      - { id: q2_c, label: Gaji dibayar hari ini juga }
+                      - { id: q2_d, label: Banyak yang sudah daftar }
+                      - { id: q2_e, label: Ancaman slot diberikan ke orang lain }
+                  - id: q3
+                    step: 3
+                    prompt: Satu cara verifikasi paling gampang yang paling kamu hindari supaya tidak ketahuan?
+                    min_select: 1
+                    max_select: 2
+                    allow_other: true
+                    other_max_length: 80
+                    options:
+                      - { id: q3_a, label: Dicek nama perusahaannya di internet }
+                      - { id: q3_b, label: Diminta kontrak tertulis }
+                      - { id: q3_c, label: Ditanya ke teman atau keluarga }
+                      - { id: q3_d, label: Diminta wawancara video }
+                      - { id: q3_e, label: Ditanya kenapa harus bayar dulu }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/lite/reflect:
+    post:
+      tags: [Lite]
+      summary: Hitung hasil celah (S-08) dan Action Card (S-09)
+      description: |
+        Dipanggil setelah Q3 (saat S-07 Loading). Body hanya berisi ID.
+
+        - `found` = celah yang cocok dengan opsi yang dipilih user (bagian "KAMU MENYEBUT").
+          `user_quote` berisi label opsi yang dipilih user, ditampilkan sebagai
+          "Kamu menyebut: '…'".
+        - `missed_candidates` = celah skenario lain yang tidak disebut user, urut dari
+          severity tertinggi. **Frontend** memilih maksimal 2 untuk ditampilkan di
+          "YANG MUNGKIN BELUM KEPIKIRAN", dengan prioritas celah yang taktiknya
+          terdeteksi oleh model ML di browser. Jika model mendeteksi taktik yang tidak
+          ada di `missed_candidates`, frontend boleh membuat kartu dari `/lite/tactics`.
+        - `found_count` bisa 0. Daftar `missed_candidates` selalu berisi minimal 1 item
+          (sesuai matriks state: "selalu ada celah").
+      operationId: reflect
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/ReflectRequest' }
+            example:
+              scenario_id: wfh_admin_fee
+              answers:
+                - { question_id: q1, option_ids: [q1_a] }
+                - { question_id: q2, option_ids: [q2_a, q2_b] }
+                - { question_id: q3, option_ids: [q3_e] }
+      responses:
+        '200':
+          description: Hasil celah dan Action Card
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ReflectResponse' }
+              example:
+                scenario_id: wfh_admin_fee
+                category: { id: tawaran_kerja, label: Tawaran Kerja, icon: briefcase }
+                found_count: 2
+                found:
+                  - flaw_id: flaw_too_good
+                    kind: found
+                    tactic: { id: too_good, label: Terlalu Bagus, icon: trending-up }
+                    user_quote: Dia butuh uang cepat
+                    explanation: Imbalan yang tidak masuk akal membuat orang berhenti bertanya.
+                    counter: Bandingkan dengan gaji pasaran; minta kontrak tertulis.
+                    severity: 2
+                  - flaw_id: flaw_urgency
+                    kind: found
+                    tactic: { id: urgency, label: Urgensi, icon: clock }
+                    user_quote: Batas waktu
+                    explanation: Tenggat palsu memotong waktu berpikirmu.
+                    counter: Tidak ada kesempatan sah yang hilang dalam 10 menit. Tunda dulu.
+                    severity: 2
+                missed_candidates:
+                  - flaw_id: flaw_upfront_fee
+                    kind: missed
+                    tactic: { id: upfront_fee, label: Biaya di Depan, icon: wallet }
+                    user_quote: null
+                    explanation: Pelaku sering meminta biaya di muka untuk "pendaftaran" atau "seragam".
+                    counter: Tidak ada pekerjaan sah yang meminta kamu membayar lebih dulu.
+                    severity: 3
+                why_it_works: Saat kamu memposisikan diri sebagai pelaku, pola yang tadinya samar jadi jelas — dan itu bisa kamu kenali lagi lain kali.
+                action_card:
+                  category_label: Tawaran Kerja
+                  checklist:
+                    - { id: step_stop_payment, text: Jangan transfer apa pun sebelum ada kontrak resmi. }
+                    - { id: step_verify, text: Cek nama perusahaan lewat situs resmi atau LinkedIn. }
+                  warnings:
+                    santai: 'Eh, sebelum kamu terima tawaran kerja itu, coba pikir dulu: kenapa harus bayar duluan? Biasanya itu tanda jebakan. Yuk cek bareng.'
+                    tegas: Jangan transfer biaya apa pun untuk lowongan kerja. Perusahaan sah tidak meminta uang dari pelamar.
+                  report_channels:
+                    - name: Kanal pelaporan platform lowongan tempat kejadian
+                      status: placeholder
+                      note: Sementara, laporkan lewat fitur lapor di platform tempat kejadian.
+                disclaimer: Ini alat bantu berpikir, bukan deteksi pasti.
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ServerError' }
+
+  /api/v1/soul/characters:
+    get:
+      tags: [Soul]
+      summary: Template karakter dan pilihan relasi (S-10)
+      description: |
+        Nama panggilan karakter **tidak** dikirim ke server. Frontend menyimpannya di
+        state lokal dan mengganti `{{nama}}` serta `{{relasi}}` di narasi.
+        Validasi nama di frontend: maks. 20 karakter, tanpa angka berurutan/email.
+      operationId: listCharacters
+      responses:
+        '200':
+          description: Template dan relasi
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/CharacterOptions' }
+              example:
+                templates:
+                  - { id: tpl_adik, default_name: Nadia, relation_id: adik, avatar: 1-lingkar, arc_id: arc_kerja_deposit }
+                  - { id: tpl_ibu, default_name: Ibu, relation_id: ibu, avatar: 2-tumpuk, arc_id: arc_rekening_beku }
+                relations:
+                  - { id: adik, label: Adik, arc_id: arc_kerja_deposit }
+                  - { id: teman_kuliah, label: Teman Kuliah, arc_id: arc_investasi }
+                  - { id: ibu, label: Ibu, arc_id: arc_rekening_beku }
+                  - { id: adik_tingkat, label: Adik Tingkat, arc_id: arc_kerja_deposit }
+                nickname_max_length: 20
+        '429': { $ref: '#/components/responses/RateLimited' }
+
+  /api/v1/soul/start:
+    post:
+      tags: [Soul]
+      summary: Mulai arc, dapatkan meter awal + Misi 1 (S-11)
+      operationId: startSoul
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SoulStartRequest' }
+            example: { arc_id: arc_kerja_deposit }
+      responses:
+        '200':
+          description: Misi pertama
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SoulStartResponse' }
+              example:
+                arc_id: arc_kerja_deposit
+                total_missions: 3
+                meters: { kepercayaan: 60, kewaspadaan: 40, keamanan: 60 }
+                mission:
+                  id: m1
+                  index: 1
+                  story: '{{nama}} cerita ada DM yang menawarkan kerja part-time, tapi harus deposit dulu. Kamu sebagai {{relasi}}-nya…'
+                  choices:
+                    - { id: A, label: '"Siapa tahu beneran, coba aja."' }
+                    - { id: B, label: '"Boleh aku lihat dulu pesannya?"' }
+                    - { id: C, label: '"Jangan! Blokir sekarang juga."' }
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/soul/step:
+    post:
+      tags: [Soul]
+      summary: Kirim pilihan misi, dapatkan konsekuensi (S-13) dan misi berikut atau ringkasan (S-14)
+      description: |
+        Server bersifat stateless: frontend mengirim ulang `meters` terakhir.
+        Jika `next_mission` bernilai null, `summary` terisi dan frontend menampilkan S-14.
+      operationId: stepSoul
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/SoulStepRequest' }
+            example:
+              arc_id: arc_kerja_deposit
+              mission_id: m1
+              choice_id: A
+              meters: { kepercayaan: 60, kewaspadaan: 40, keamanan: 60 }
+      responses:
+        '200':
+          description: Konsekuensi pilihan
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/SoulStepResponse' }
+              example:
+                mission_index: 1
+                choice_id: A
+                consequence:
+                  kind: negatif
+                  what_happened: '{{nama}} merasa kamu setuju, jadi dia lanjut mendaftar dan mulai menyiapkan deposit. Belum ada uang yang hilang, tapi dia makin percaya pada pengirim DM itu. Masih ada waktu untuk bicara lagi.'
+                  why: Kalimat 'siapa tahu beneran' membuat tawaran itu terasa aman, padahal belum ada yang dicek. Tidak apa-apa — misi berikutnya memberi kesempatan untuk memperbaikinya bersama.
+                deltas: { kepercayaan: 5, kewaspadaan: -10, keamanan: -20 }
+                meters: { kepercayaan: 65, kewaspadaan: 30, keamanan: 40 }
+                next_mission:
+                  id: m2
+                  index: 2
+                  story: Dua hari kemudian, {{nama}} mengirim tangkapan layar "bukti transfer komisi"…
+                  choices:
+                    - { id: A, label: '"Wah, berarti aman ya."' }
+                    - { id: B, label: '"Coba kita cek bareng nama perusahaannya."' }
+                    - { id: C, label: '"Kamu nggak dengerin aku, ya?"' }
+                summary: null
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '404': { $ref: '#/components/responses/NotFound' }
+
+components:
+  parameters:
+    ScenarioId:
+      name: scenarioId
+      in: path
+      required: true
+      schema: { type: string, example: wfh_admin_fee }
+
+  responses:
+    ValidationError:
+      description: Body tidak valid
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example:
+            error: { code: VALIDATION_ERROR, message: Pilih 1–2 opsi untuk setiap pertanyaan., field: 'answers[1].option_ids' }
+    NotFound:
+      description: ID tidak ditemukan
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example:
+            error: { code: NOT_FOUND, message: Skenario tidak ditemukan. }
+    RateLimited:
+      description: Terlalu banyak permintaan (S-20)
+      headers:
+        Retry-After:
+          description: Detik sampai boleh mencoba lagi
+          schema: { type: integer, example: 20 }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example:
+            error: { code: RATE_LIMITED, message: Pelan-pelan dulu ya. Coba lagi 20 detik lagi., retry_after: 20 }
+    ServerError:
+      description: Kesalahan server (S-18); frontend boleh beralih ke mode terbatas
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/ErrorResponse' }
+          example:
+            error: { code: INTERNAL_ERROR, message: Terjadi kesalahan di server. }
+
+  schemas:
+    Health:
+      type: object
+      required: [status, version, content_version, time]
+      properties:
+        status: { type: string, enum: [ok] }
+        version: { type: string }
+        content_version: { type: string, description: Versi data skenario dan arc }
+        time: { type: string, format: date-time }
+
+    CategoryId:
+      type: string
+      enum: [tawaran_kerja, giveaway, akun_menyamar, pinjaman_investasi, lainnya]
+
+    Category:
+      type: object
+      required: [id, label, icon]
+      properties:
+        id: { $ref: '#/components/schemas/CategoryId' }
+        label: { type: string }
+        icon: { type: string, description: Nama ikon Lucide }
+
+    TacticId:
+      type: string
+      description: Delapan label taktik; sama dengan label model ML di browser
+      enum: [urgency, upfront_fee, impersonation, isolation, too_good, credential_request, link_or_apk, authority]
+
+    TacticRef:
+      type: object
+      required: [id, label, icon]
+      properties:
+        id: { $ref: '#/components/schemas/TacticId' }
+        label: { type: string, description: 'Teks di TacticBadge, mis. "Urgensi"' }
+        icon: { type: string }
+
+    Tactic:
+      allOf:
+        - $ref: '#/components/schemas/TacticRef'
+        - type: object
+          required: [explanation, counter]
+          properties:
+            explanation: { type: string }
+            counter: { type: string, description: Teks blok PENANGKAL }
+
+    ScenarioSummary:
+      type: object
+      required: [id, category, title, example_message, keywords, is_fallback]
+      properties:
+        id: { type: string }
+        category: { $ref: '#/components/schemas/CategoryId' }
+        title: { type: string }
+        example_message: { type: string, description: Pesan fiktif untuk "Contoh fiktif ↻" dan kotak PESAN (FIKTIF) }
+        keywords:
+          type: array
+          items: { type: string }
+          description: Dipakai pencocokan skenario di browser
+        is_fallback: { type: boolean, description: true untuk generic_emergency }
+
+    Option:
+      type: object
+      required: [id, label]
+      properties:
+        id: { type: string }
+        label: { type: string }
+
+    Question:
+      type: object
+      required: [id, step, prompt, min_select, max_select, allow_other, other_max_length, options]
+      properties:
+        id: { type: string }
+        step: { type: integer, minimum: 1, maximum: 3, description: Ditampilkan sebagai "LITE · step/3" }
+        prompt: { type: string }
+        min_select: { type: integer, const: 1 }
+        max_select: { type: integer, const: 2 }
+        allow_other: { type: boolean }
+        other_max_length: { type: integer, const: 80 }
+        options:
+          type: array
+          minItems: 5
+          maxItems: 5
+          items: { $ref: '#/components/schemas/Option' }
+
+    ScenarioDetail:
+      type: object
+      required: [id, category, title, example_message, questions]
+      properties:
+        id: { type: string }
+        category: { $ref: '#/components/schemas/CategoryId' }
+        title: { type: string }
+        example_message: { type: string }
+        questions:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: '#/components/schemas/Question' }
+
+    Answer:
+      type: object
+      required: [question_id, option_ids]
+      properties:
+        question_id: { type: string }
+        option_ids:
+          type: array
+          minItems: 0
+          maxItems: 2
+          uniqueItems: true
+          items: { type: string }
+          description: |
+            0 hanya boleh jika user mengisi "Lainnya" saja. Isi teks "Lainnya" tidak dikirim;
+            set `other_filled: true` sebagai penanda.
+        other_filled: { type: boolean, default: false }
+
+    ReflectRequest:
+      type: object
+      required: [scenario_id, answers]
+      additionalProperties: false
+      properties:
+        scenario_id: { type: string }
+        answers:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: '#/components/schemas/Answer' }
+
+    GapCard:
+      type: object
+      required: [flaw_id, kind, tactic, user_quote, explanation, counter, severity]
+      properties:
+        flaw_id: { type: string }
+        kind: { type: string, enum: [found, missed], description: Varian GapCard Kind=found / Kind=missed }
+        tactic: { $ref: '#/components/schemas/TacticRef' }
+        user_quote: { type: [string, 'null'], description: Label opsi yang dipilih user; null untuk missed }
+        explanation: { type: string }
+        counter: { type: string }
+        severity: { type: integer, minimum: 1, maximum: 3, description: Hanya untuk urutan; jangan ditampilkan sebagai skor }
+
+    ReportChannel:
+      type: object
+      required: [name, status, note]
+      properties:
+        name: { type: string }
+        status: { type: string, enum: [placeholder, verified], description: Varian ChannelItem }
+        url: { type: [string, 'null'], format: uri }
+        note: { type: string }
+
+    ActionCard:
+      type: object
+      required: [category_label, checklist, warnings, report_channels]
+      properties:
+        category_label: { type: string, description: 'Judul "ACTION CARD · …"' }
+        checklist:
+          type: array
+          items:
+            type: object
+            required: [id, text]
+            properties:
+              id: { type: string }
+              text: { type: string }
+        warnings:
+          type: object
+          required: [santai, tegas]
+          description: Isi PhraseCard sesuai Segmented Santai | Tegas
+          properties:
+            santai: { type: string }
+            tegas: { type: string }
+        report_channels:
+          type: array
+          items: { $ref: '#/components/schemas/ReportChannel' }
+
+    ReflectResponse:
+      type: object
+      required: [scenario_id, category, found_count, found, missed_candidates, why_it_works, action_card, disclaimer]
+      properties:
+        scenario_id: { type: string }
+        category: { $ref: '#/components/schemas/Category' }
+        found_count: { type: integer, minimum: 0, description: '"Kamu menemukan N celah."' }
+        found:
+          type: array
+          items: { $ref: '#/components/schemas/GapCard' }
+        missed_candidates:
+          type: array
+          minItems: 1
+          items: { $ref: '#/components/schemas/GapCard' }
+        why_it_works: { type: string }
+        action_card: { $ref: '#/components/schemas/ActionCard' }
+        disclaimer: { type: string }
+
+    CharacterTemplate:
+      type: object
+      required: [id, default_name, relation_id, avatar, arc_id]
+      properties:
+        id: { type: string }
+        default_name: { type: string }
+        relation_id: { type: string }
+        avatar: { type: string, enum: [1-lingkar, 2-tumpuk, 3-segitiga, 4-kotak] }
+        arc_id: { type: string }
+
+    Relation:
+      type: object
+      required: [id, label, arc_id]
+      properties:
+        id: { type: string }
+        label: { type: string }
+        arc_id: { type: string, description: Arc yang dipakai jika user membuat karakter sendiri dengan relasi ini }
+
+    CharacterOptions:
+      type: object
+      required: [templates, relations, nickname_max_length]
+      properties:
+        templates:
+          type: array
+          items: { $ref: '#/components/schemas/CharacterTemplate' }
+        relations:
+          type: array
+          items: { $ref: '#/components/schemas/Relation' }
+        nickname_max_length: { type: integer, const: 20 }
+
+    Meters:
+      type: object
+      description: Nilai 0–100. UI menampilkannya sebagai 5 segmen (1 segmen = 20 poin).
+      required: [kepercayaan, kewaspadaan, keamanan]
+      additionalProperties: false
+      properties:
+        kepercayaan: { type: integer, minimum: 0, maximum: 100 }
+        kewaspadaan: { type: integer, minimum: 0, maximum: 100 }
+        keamanan: { type: integer, minimum: 0, maximum: 100 }
+
+    MeterDeltas:
+      type: object
+      description: Perubahan untuk badge +5 ▲ / −10 ▼ di komponen Meter
+      required: [kepercayaan, kewaspadaan, keamanan]
+      properties:
+        kepercayaan: { type: integer }
+        kewaspadaan: { type: integer }
+        keamanan: { type: integer }
+
+    Choice:
+      type: object
+      required: [id, label]
+      properties:
+        id: { type: string, enum: [A, B, C] }
+        label: { type: string }
+
+    Mission:
+      type: object
+      required: [id, index, story, choices]
+      properties:
+        id: { type: string }
+        index: { type: integer, minimum: 1, maximum: 3 }
+        story:
+          type: string
+          description: Boleh berisi placeholder `{{nama}}` dan `{{relasi}}` yang diganti di frontend
+        choices:
+          type: array
+          minItems: 3
+          maxItems: 3
+          items: { $ref: '#/components/schemas/Choice' }
+
+    SoulStartRequest:
+      type: object
+      required: [arc_id]
+      additionalProperties: false
+      properties:
+        arc_id: { type: string }
+
+    SoulStartResponse:
+      type: object
+      required: [arc_id, total_missions, meters, mission]
+      properties:
+        arc_id: { type: string }
+        total_missions: { type: integer, const: 3 }
+        meters: { $ref: '#/components/schemas/Meters' }
+        mission: { $ref: '#/components/schemas/Mission' }
+
+    SoulStepRequest:
+      type: object
+      required: [arc_id, mission_id, choice_id, meters]
+      additionalProperties: false
+      properties:
+        arc_id: { type: string }
+        mission_id: { type: string }
+        choice_id: { type: string, enum: [A, B, C] }
+        meters: { $ref: '#/components/schemas/Meters' }
+
+    Consequence:
+      type: object
+      required: [kind, what_happened, why]
+      properties:
+        kind: { type: string, enum: [positif, negatif, campuran], description: Varian layar S-13 }
+        what_happened: { type: string, description: 'Blok "APA YANG TERJADI", boleh berisi {{nama}}' }
+        why: { type: string, description: 'Blok "KENAPA BEGINI?"' }
+
+    SoulSummary:
+      type: object
+      required: [rank_id, rank_label, description, insights, final_meters]
+      properties:
+        rank_id: { type: string, enum: [pemula_waspada, penjaga_siaga, penjaga_teguh] }
+        rank_label: { type: string, description: 'Mis. "Penjaga Siaga"' }
+        description: { type: string }
+        insights:
+          type: array
+          items: { type: string }
+        final_meters: { $ref: '#/components/schemas/Meters' }
+
+    SoulStepResponse:
+      type: object
+      required: [mission_index, choice_id, consequence, deltas, meters, next_mission, summary]
+      properties:
+        mission_index: { type: integer, minimum: 1, maximum: 3 }
+        choice_id: { type: string, enum: [A, B, C] }
+        consequence: { $ref: '#/components/schemas/Consequence' }
+        deltas: { $ref: '#/components/schemas/MeterDeltas' }
+        meters: { $ref: '#/components/schemas/Meters' }
+        next_mission:
+          oneOf:
+            - $ref: '#/components/schemas/Mission'
+            - type: 'null'
+        summary:
+          oneOf:
+            - $ref: '#/components/schemas/SoulSummary'
+            - type: 'null'
+
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum: [VALIDATION_ERROR, NOT_FOUND, RATE_LIMITED, INTERNAL_ERROR]
+            message: { type: string, description: 'Kalimat siap tampil, nada tenang' }
+            field: { type: string, description: Field yang salah (VALIDATION_ERROR) }
+            retry_after: { type: integer, description: Detik (RATE_LIMITED) }
