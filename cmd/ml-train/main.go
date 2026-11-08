@@ -12,6 +12,7 @@ import (
 	"sort"
 	"strings"
 
+	"prototype-ato/internal/data"
 	"prototype-ato/internal/ml"
 )
 
@@ -349,6 +350,46 @@ func section(b *strings.Builder, title string, res result, targets bool) {
 	b.WriteString("\n")
 }
 
+// analyzeCases: teks tetap (fiktif) untuk fixture ml-analyze.json; urutan tidak boleh berubah tanpa alasan.
+var analyzeCases = []string{
+	"Halo kak, lowongan admin WFH gaji 300rb/hari. Daftar sekarang, cukup tf biaya seragam 150rb ke 1234567890123 ya!!",
+	"Selamat! Kamu terpilih jadi pemenang giveaway dari akun resmi toko kami. Hadiah HP baru, klaim dengan kirim kode OTP yang masuk ke nomor kamu hari ini.",
+	"Ma, ini nomor baru Dimas, HP yang lama rusak. Tolong transfer dulu 2 juta ke rekening temanku ya, penting banget jangan bilang papa.",
+	"Investasi cepat untung 30 persen per minggu, modal kecil mulai 500rb, dijamin profit tanpa risiko. Hubungi mentor kami lewat 081234567890 sekarang.",
+	"Pinjaman cepat cair 10 juta tanpa survei dan tanpa jaminan, cukup KTP. Bayar biaya admin 300rb dulu supaya pencairan diproses.",
+	"Besok kuliah pagi jam 8 ya, jangan lupa bawa laptop dan tugas kelompok. Nanti kita makan siang bareng di kantin.",
+	"Promo resmi toko kami diskon 20 persen sampai akhir bulan, belanja langsung di aplikasi resmi dan bayar di kasir.",
+	"Halo bang",
+	"Hubungi admin di <NOMOR> atau buka <URL> untuk daftar kerja online, transfer ke <REKENING> biaya pendaftaran 100rb ya kak!!",
+	"Kak, hubungi saya di 0812-3456-7890 atau email budi@contoh.id, nanti saya kirim detail lowongannya lewat https://contoh.id/daftar",
+}
+
+func writeAnalyzeFixture(m *ml.Model) {
+	repo, err := data.Load()
+	if err != nil {
+		die(err)
+	}
+	sc := ml.IndexScenarios(repo)
+	type fx struct {
+		Text     string    `json:"text"`
+		Expected ml.Result `json:"expected"`
+	}
+	out := make([]fx, len(analyzeCases))
+	for i, t := range analyzeCases {
+		out[i] = fx{t, ml.Analyze(m, t, sc)}
+	}
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	enc.SetEscapeHTML(false)
+	enc.SetIndent("", " ")
+	if err := enc.Encode(out); err != nil {
+		die(err)
+	}
+	if err := os.WriteFile("testdata/fixtures/ml-analyze.json", buf.Bytes(), 0o644); err != nil {
+		die(err)
+	}
+}
+
 func main() {
 	rows := readCSV("data/ml/train.csv")
 	tr, val := split(rows)
@@ -375,6 +416,12 @@ func main() {
 		die(err)
 	}
 	fmt.Printf("model.json: %d bytes, vocab %d\n", len(js), m.VocabSize)
+	// pakai model hasil muat ulang dari bytes agar sama persis dengan yang dipakai server
+	loaded := &ml.Model{}
+	if err := json.Unmarshal(js, loaded); err != nil {
+		die(err)
+	}
+	writeAnalyzeFixture(loaded)
 
 	var b strings.Builder
 	fmt.Fprintf(&b, "# Laporan model ML\n\nDibuat oleh `go run ./cmd/ml-train` (tanpa cap waktu agar hasil deterministik). Data latih: `data/ml/train.csv` (%d baris, sintetis). Ukuran `model.json`: %d byte; kosakata %d token.\n\n", len(rows), len(js), m.VocabSize)
