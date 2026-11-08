@@ -26,6 +26,7 @@ func (s *Server) registerV1(mux *http.ServeMux) {
 	mux.HandleFunc("GET /api/v1/soul/characters", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, s.repo.V1().Characters)
 	})
+	s.registerSoulV1(mux)
 }
 
 func (s *Server) v1Health(w http.ResponseWriter, r *http.Request) {

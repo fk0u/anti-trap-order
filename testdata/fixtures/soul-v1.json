@@ -1,0 +1,722 @@
+[
+  {
+    "name": "start kerja_deposit",
+    "endpoint": "POST /api/v1/soul/start",
+    "request": {
+      "arc_id": "arc_kerja_deposit"
+    },
+    "status": 200,
+    "response": {
+      "arc_id": "arc_kerja_deposit",
+      "total_missions": 3,
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      },
+      "mission": {
+        "id": "m1",
+        "index": 1,
+        "story": "{{nama}}, {{relasi}} kamu, cerita ada DM yang menawarkan kerja paruh waktu dari rumah: gaji Rp300.000 per hari, cukup menyukai dan membagikan postingan. Syaratnya, bayar deposit dulu supaya akun karyawannya aktif. Wajahnya berbinar, tapi ia juga terlihat sedikit ragu.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Siapa tahu beneran, coba aja.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Boleh aku lihat dulu pesannya?\""
+          },
+          {
+            "id": "C",
+            "label": "\"Jangan! Blokir sekarang juga.\""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "start investasi",
+    "endpoint": "POST /api/v1/soul/start",
+    "request": {
+      "arc_id": "arc_investasi"
+    },
+    "status": 200,
+    "response": {
+      "arc_id": "arc_investasi",
+      "total_missions": 3,
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      },
+      "mission": {
+        "id": "m1",
+        "index": 1,
+        "story": "{{nama}}, {{relasi}} kamu, mengajakmu masuk grup \"Cuan Bareng AsetPlus\". Katanya modal Rp500.000 bisa jadi Rp1,5 juta dalam seminggu dan \"dijamin untung\". Beberapa anggota grup memamerkan tangkapan layar saldo mereka.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Keren! Aku ikut juga deh.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Menarik. Boleh cerita, kenapa kamu yakin?\""
+          },
+          {
+            "id": "C",
+            "label": "\"Itu pasti penipuan. Keluar dari grup itu.\""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "start rekening_beku",
+    "endpoint": "POST /api/v1/soul/start",
+    "request": {
+      "arc_id": "arc_rekening_beku"
+    },
+    "status": 200,
+    "response": {
+      "arc_id": "arc_rekening_beku",
+      "total_missions": 3,
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      },
+      "mission": {
+        "id": "m1",
+        "index": 1,
+        "story": "{{nama}}, {{relasi}} kamu, cerita barusan ditelepon nomor tak dikenal. Penelepon mengaku petugas \"Bank Tirta Nusantara\" dan bilang rekeningnya akan dibekukan hari ini kalau tidak segera diverifikasi. {{nama}} terdengar cemas dan memintamu menemaninya.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Ikuti saja petunjuknya, daripada rekeningnya beku.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Kita tutup dulu teleponnya, lalu hubungi bank lewat nomor resmi di kartu.\""
+          },
+          {
+            "id": "C",
+            "label": "\"Itu pasti penipu. Jangan angkat telepon lagi.\""
+          }
+        ]
+      }
+    }
+  },
+  {
+    "name": "teguh: kerja m1 B",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m1",
+      "choice_id": "B",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 1,
+      "choice_id": "B",
+      "consequence": {
+        "kind": "positif",
+        "what_happened": "{{nama}} menunjukkan pesannya dengan lega. Kalian membacanya bersama dan menemukan dua hal aneh: gaji besar untuk kerja ringan, dan permintaan deposit di depan. {{nama}} memutuskan menunda dulu.",
+        "why": "Bertanya dengan tenang membuat {{nama}} tidak merasa dihakimi, jadi ia mau terbuka. Melihat pesannya bersama mengubah rasa 'pasti beneran' menjadi 'perlu dicek'."
+      },
+      "deltas": {
+        "kepercayaan": 10,
+        "kewaspadaan": 15,
+        "keamanan": 15
+      },
+      "meters": {
+        "kepercayaan": 70,
+        "kewaspadaan": 55,
+        "keamanan": 75
+      },
+      "next_mission": {
+        "id": "m2",
+        "index": 2,
+        "story": "Dua hari kemudian, {{nama}} mengirim tangkapan layar \"bukti transfer komisi\" dari pengirim DM tadi. Jumlahnya kecil, tapi {{nama}} terlihat semangat dan bilang tawaran itu mungkin memang asli.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Wah, berarti aman ya.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Kamu nggak dengerin aku, ya?\""
+          },
+          {
+            "id": "C",
+            "label": "\"Coba kita cek bareng nama perusahaannya.\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "teguh: kerja m2 C",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m2",
+      "choice_id": "C",
+      "meters": {
+        "kepercayaan": 70,
+        "kewaspadaan": 55,
+        "keamanan": 75
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 2,
+      "choice_id": "C",
+      "consequence": {
+        "kind": "positif",
+        "what_happened": "Kalian mencari nama perusahaan di mesin pencari dan situs resmi. Hasilnya nihil, dan alamat kantornya tidak jelas. {{nama}} mulai merasa janggal dan berterima kasih kamu mau menemani.",
+        "why": "Mengecek bersama berarti kamu tidak menolak ceritanya, tapi mengajak melihat fakta. Perusahaan sungguhan biasanya mudah ditemukan lewat jalur resmi."
+      },
+      "deltas": {
+        "kepercayaan": 10,
+        "kewaspadaan": 15,
+        "keamanan": 10
+      },
+      "meters": {
+        "kepercayaan": 80,
+        "kewaspadaan": 70,
+        "keamanan": 85
+      },
+      "next_mission": {
+        "id": "m3",
+        "index": 3,
+        "story": "Malam harinya, pengirim DM menekan: \"Slot tinggal 2 orang, deposit Rp150.000 sebelum jam 9 malam atau hangus.\" {{nama}} bimbang dan sudah membuka aplikasi bank di ponselnya.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Tunda dulu malam ini, besok kita cek bareng.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Ya sudah, transfer saja. Sedikit ini.\""
+          },
+          {
+            "id": "C",
+            "label": "\"Kalau tetap transfer, jangan cerita ke aku lagi.\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "teguh: kerja m3 A (ringkasan, keamanan dijepit 100)",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m3",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 80,
+        "kewaspadaan": 70,
+        "keamanan": 85
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 3,
+      "choice_id": "A",
+      "consequence": {
+        "kind": "positif",
+        "what_happened": "{{nama}} menarik napas dan menutup aplikasi bank. Besoknya, pengirim DM itu sudah menghilang dan akunnya tidak bisa dihubungi. {{nama}} bilang lega karena kamu menemaninya berpikir.",
+        "why": "Batas waktu yang sangat sempit adalah ciri tekanan, bukan tawaran yang wajar. Menunda memberi ruang berpikir dan hampir selalu menolong."
+      },
+      "deltas": {
+        "kepercayaan": 10,
+        "kewaspadaan": 15,
+        "keamanan": 20
+      },
+      "meters": {
+        "kepercayaan": 90,
+        "kewaspadaan": 85,
+        "keamanan": 100
+      },
+      "next_mission": null,
+      "summary": {
+        "rank_id": "penjaga_teguh",
+        "rank_label": "Penjaga Teguh",
+        "description": "Kamu menjaga keamanan sambil tetap menjaga hubungan. Orang terdekatmu merasa didengar, dan ia lebih mungkin bercerita lagi kalau ada hal mencurigakan berikutnya.",
+        "insights": [
+          "Mulai dari bertanya dan mengecek bersama membuat orang tidak merasa disalahkan, sehingga ia tetap terbuka.",
+          "Menunda keputusan dan memakai jalur resmi adalah langkah sederhana yang paling sering memutus jebakan.",
+          "Kalau suatu hari kamu sendiri yang ragu, lakukan hal yang sama: tunda, cek lewat jalur resmi, lalu ceritakan ke orang yang kamu percaya."
+        ],
+        "final_meters": {
+          "kepercayaan": 90,
+          "kewaspadaan": 85,
+          "keamanan": 100
+        }
+      }
+    }
+  },
+  {
+    "name": "siaga: investasi m1 C",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_investasi",
+      "mission_id": "m1",
+      "choice_id": "C",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 1,
+      "choice_id": "C",
+      "consequence": {
+        "kind": "campuran",
+        "what_happened": "{{nama}} keluar dari grup dengan wajah kesal dan bilang kamu menuduh tanpa bukti. Kecurigaanmu sebenarnya tepat, tapi {{nama}} merasa ditolak.",
+        "why": "Vonis langsung menyentuh harga diri, bukan alasan. Orang yang membela pilihannya cenderung makin yakin padanya."
+      },
+      "deltas": {
+        "kepercayaan": -10,
+        "kewaspadaan": 10,
+        "keamanan": 10
+      },
+      "meters": {
+        "kepercayaan": 50,
+        "kewaspadaan": 50,
+        "keamanan": 70
+      },
+      "next_mission": {
+        "id": "m2",
+        "index": 2,
+        "story": "Sepekan kemudian, {{nama}} bercerita ia sudah menyetor Rp200.000 dan berhasil menarik Rp250.000. Sekarang admin grup menawarkan \"naik level\" dengan setoran lebih besar, dan meminta {{nama}} mengajak teman lain.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Bagus, berarti memang beneran bisa cair.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Aku senang kamu cerita. Boleh kita cek izinnya di situs resmi?\""
+          },
+          {
+            "id": "C",
+            "label": "\"Kamu sudah rugi, kan? Dibilangin juga.\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "siaga: investasi m2 B",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_investasi",
+      "mission_id": "m2",
+      "choice_id": "B",
+      "meters": {
+        "kepercayaan": 50,
+        "kewaspadaan": 50,
+        "keamanan": 70
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 2,
+      "choice_id": "B",
+      "consequence": {
+        "kind": "positif",
+        "what_happened": "Kalian membuka situs pengawas keuangan dan mencari nama AsetPlus. Tidak ada izin yang tercatat. {{nama}} terdiam, lalu bilang akan berhenti menyetor sambil bertanya apa yang sebaiknya dilakukan.",
+        "why": "Memuji kejujuran {{nama}} menjaga rasa aman, dan mengecek izin lewat jalur resmi memberi dasar yang jelas, bukan sekadar pendapat."
+      },
+      "deltas": {
+        "kepercayaan": 10,
+        "kewaspadaan": 15,
+        "keamanan": 15
+      },
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 65,
+        "keamanan": 85
+      },
+      "next_mission": {
+        "id": "m3",
+        "index": 3,
+        "story": "Ketika {{nama}} mencoba menarik dana yang lebih besar, aplikasinya menolak. Admin bilang harus membayar \"pajak penarikan\" sebesar 20% dulu. {{nama}} panik dan bertanya apa yang sebaiknya ia lakukan.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Bayar saja pajaknya, daripada uangnya hilang.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Tenang dulu. Berhenti menyetor, kita simpan bukti dan lapor bareng.\""
+          },
+          {
+            "id": "C",
+            "label": "\"Makanya jangan sembarangan percaya orang!\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "siaga: investasi m3 C (ringkasan)",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_investasi",
+      "mission_id": "m3",
+      "choice_id": "C",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 65,
+        "keamanan": 85
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 3,
+      "choice_id": "C",
+      "consequence": {
+        "kind": "campuran",
+        "what_happened": "{{nama}} tidak jadi membayar pajak itu, tapi menangis dan merasa bodoh. Ia ragu untuk melapor karena takut ditertawakan.",
+        "why": "Peringatanmu menghentikan pembayaran lanjutan, tapi menambah malu. Rasa malu adalah alasan terbesar korban tidak melapor, padahal pelaporan membantu semua orang."
+      },
+      "deltas": {
+        "kepercayaan": -20,
+        "kewaspadaan": 5,
+        "keamanan": 5
+      },
+      "meters": {
+        "kepercayaan": 40,
+        "kewaspadaan": 70,
+        "keamanan": 90
+      },
+      "next_mission": null,
+      "summary": {
+        "rank_id": "penjaga_siaga",
+        "rank_label": "Penjaga Siaga",
+        "description": "Kamu cukup peka dan mau bertindak. Sebagian pilihanmu melindungi dengan baik, sebagian masih membuat orang terdekatmu merasa dihakimi atau tidak didengar.",
+        "insights": [
+          "Melarang keras bisa menjaga keamanan sesaat, tapi bisa membuat orang berhenti bercerita padamu. Kepercayaan adalah pagar yang paling awet.",
+          "Mengecek bersama, bukan menggantikan keputusan, membuat orang tetap merasa punya kendali.",
+          "Kamu tidak perlu sempurna di setiap momen. Memperbaiki percakapan sesudahnya tetap sangat berarti."
+        ],
+        "final_meters": {
+          "kepercayaan": 40,
+          "kewaspadaan": 70,
+          "keamanan": 90
+        }
+      }
+    }
+  },
+  {
+    "name": "pemula: rekening m1 A",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_rekening_beku",
+      "mission_id": "m1",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 1,
+      "choice_id": "A",
+      "consequence": {
+        "kind": "negatif",
+        "what_happened": "{{nama}} kembali menghubungi nomor itu dan mulai mengikuti arahan penelepon. Belum ada data yang diberikan, tapi ia kini yakin penelepon itu benar-benar dari bank.",
+        "why": "Ancaman rekening dibekukan membuat orang bertindak cepat tanpa mengecek. Bank sungguhan tidak menelepon untuk meminta verifikasi mendadak."
+      },
+      "deltas": {
+        "kepercayaan": 5,
+        "kewaspadaan": -10,
+        "keamanan": -25
+      },
+      "meters": {
+        "kepercayaan": 65,
+        "kewaspadaan": 30,
+        "keamanan": 35
+      },
+      "next_mission": {
+        "id": "m2",
+        "index": 2,
+        "story": "Keesokan harinya, nomor lain menelepon {{nama}} dan mengaku dari bank yang sama. Kali ini penelepon meminta kode OTP yang baru masuk lewat SMS dan menyuruh memasang \"aplikasi verifikasi\" lewat tautan. {{nama}} menoleh kepadamu dengan wajah bingung.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Berikan kodenya, tapi jangan pasang aplikasinya.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Kita tutup. Bank tidak pernah minta kode OTP.\""
+          },
+          {
+            "id": "C",
+            "label": "\"Sudah kubilang kemarin! Kenapa masih diangkat?\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "pemula: rekening m2 A",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_rekening_beku",
+      "mission_id": "m2",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 65,
+        "kewaspadaan": 30,
+        "keamanan": 35
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 2,
+      "choice_id": "A",
+      "consequence": {
+        "kind": "negatif",
+        "what_happened": "{{nama}} menyebutkan kode OTP. Beberapa menit kemudian, muncul notifikasi login dari perangkat lain. Kalian segera panik, padahal belum ada uang yang pindah.",
+        "why": "Kode OTP adalah kunci rahasia dan tidak boleh diberikan kepada siapa pun, bahkan yang mengaku petugas. Memberi kode saja sudah cukup untuk membuka akses akun."
+      },
+      "deltas": {
+        "kepercayaan": 0,
+        "kewaspadaan": -10,
+        "keamanan": -30
+      },
+      "meters": {
+        "kepercayaan": 65,
+        "kewaspadaan": 20,
+        "keamanan": 5
+      },
+      "next_mission": {
+        "id": "m3",
+        "index": 3,
+        "story": "Malamnya, {{nama}} pelan-pelan mengaku: tadi sore ia sempat menyebutkan beberapa angka kode kepada penelepon, sebelum sadar ada yang janggal. Ia takut dimarahi dan takut uangnya hilang.",
+        "choices": [
+          {
+            "id": "A",
+            "label": "\"Terima kasih sudah cerita. Kita ganti PIN dan telepon bank sekarang.\""
+          },
+          {
+            "id": "B",
+            "label": "\"Ya ampun, kok bisa sih? Kan sudah dibilangin.\""
+          },
+          {
+            "id": "C",
+            "label": "\"Sudah, jangan dipikirkan. Pasti tidak apa-apa.\""
+          }
+        ]
+      },
+      "summary": null
+    }
+  },
+  {
+    "name": "pemula: rekening m3 B (ringkasan, keamanan dijepit 0)",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_rekening_beku",
+      "mission_id": "m3",
+      "choice_id": "B",
+      "meters": {
+        "kepercayaan": 65,
+        "kewaspadaan": 20,
+        "keamanan": 5
+      }
+    },
+    "status": 200,
+    "response": {
+      "mission_index": 3,
+      "choice_id": "B",
+      "consequence": {
+        "kind": "negatif",
+        "what_happened": "{{nama}} menunduk dan berkata, \"Maaf.\" Karena takut makin dimarahi, ia menunda menghubungi bank sampai besok pagi, dan celah itu terbuka semalaman.",
+        "why": "Menyalahkan membuat orang menyembunyikan atau menunda, padahal di kasus seperti ini setiap jam sangat berarti. Orang yang merasa aman bercerita cenderung bertindak lebih cepat."
+      },
+      "deltas": {
+        "kepercayaan": -20,
+        "kewaspadaan": -5,
+        "keamanan": -15
+      },
+      "meters": {
+        "kepercayaan": 45,
+        "kewaspadaan": 15,
+        "keamanan": 0
+      },
+      "next_mission": null,
+      "summary": {
+        "rank_id": "pemula_waspada",
+        "rank_label": "Pemula Waspada",
+        "description": "Kamu sudah mulai memperhatikan tanda-tanda penipuan, tapi di beberapa momen pilihanmu justru membuat orang terdekatmu makin dekat ke jebakan. Itu wajar untuk pemula, dan semuanya bisa dilatih.",
+        "insights": [
+          "Setuju atau membiarkan tanpa mengecek membuat tawaran terasa aman bagi orang yang sedang ragu. Satu pertanyaan kecil sudah cukup untuk mengubah arah.",
+          "Rasa sayang dan rasa cemas sering tampil sebagai marah. Coba mulai dari 'aku khawatir' sebelum 'kamu salah'.",
+          "Pelaku penipuan mengandalkan waktu yang sempit. Menunda sebentar hampir selalu menolong."
+        ],
+        "final_meters": {
+          "kepercayaan": 45,
+          "kewaspadaan": 15,
+          "keamanan": 0
+        }
+      }
+    }
+  },
+  {
+    "name": "pilihan tidak valid",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m1",
+      "choice_id": "D",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Pilihan harus A, B, atau C.",
+        "field": "choice_id"
+      }
+    }
+  },
+  {
+    "name": "meter di luar rentang",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m1",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 101,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Nilai meter harus antara 0 dan 100.",
+        "field": "meters.kepercayaan"
+      }
+    }
+  },
+  {
+    "name": "meter hilang satu field",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m1",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40
+      }
+    },
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Data meter belum lengkap.",
+        "field": "meters.keamanan"
+      }
+    }
+  },
+  {
+    "name": "misi tidak dikenal",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "mission_id": "m4",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Misi ini tidak dikenal. Mulai ulang ceritanya ya.",
+        "field": "mission_id"
+      }
+    }
+  },
+  {
+    "name": "arc tidak dikenal (start)",
+    "endpoint": "POST /api/v1/soul/start",
+    "request": {
+      "arc_id": "arc_tidak_ada"
+    },
+    "status": 404,
+    "response": {
+      "error": {
+        "code": "NOT_FOUND",
+        "message": "Alur cerita tidak ditemukan."
+      }
+    }
+  },
+  {
+    "name": "arc tidak dikenal (step)",
+    "endpoint": "POST /api/v1/soul/step",
+    "request": {
+      "arc_id": "arc_tidak_ada",
+      "mission_id": "m1",
+      "choice_id": "A",
+      "meters": {
+        "kepercayaan": 60,
+        "kewaspadaan": 40,
+        "keamanan": 60
+      }
+    },
+    "status": 404,
+    "response": {
+      "error": {
+        "code": "NOT_FOUND",
+        "message": "Alur cerita tidak ditemukan."
+      }
+    }
+  },
+  {
+    "name": "field tak dikenal: nama (K5)",
+    "endpoint": "POST /api/v1/soul/start",
+    "request": {
+      "arc_id": "arc_kerja_deposit",
+      "nama": "Nadia"
+    },
+    "status": 400,
+    "response": {
+      "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Ada isian yang tidak dikenal. Server hanya menerima ID pilihan, bukan nama atau teks.",
+        "field": "nama"
+      }
+    }
+  }
+]
