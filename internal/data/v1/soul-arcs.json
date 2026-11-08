@@ -1,0 +1,245 @@
+{
+  "notes": "Peringkat memakai TOTAL tiga meter akhir (kepercayaan+kewaspadaan+keamanan, maks. 300). Meter awal 60/40/60 = 160. Pilihan 'melindungi dengan empati' biasanya +35..+45 total, 'menegur/memaksa' sekitar -5..+10, 'membiarkan/ikut arus' sekitar -25..-45. Penjaga Teguh (>=220) butuh hampir seluruh misi ditangani dengan empati; Pemula Waspada (<150) berarti total akhir turun di bawah meter awal (160); di antaranya Penjaga Siaga. Jumlah jalur per peringkat diuji di internal/soulv1.",
+  "initial_meters": { "kepercayaan": 60, "kewaspadaan": 40, "keamanan": 60 },
+  "ranks": [
+    {
+      "id": "pemula_waspada",
+      "label": "Pemula Waspada",
+      "min_total": 0,
+      "description": "Kamu sudah mulai memperhatikan tanda-tanda penipuan, tapi di beberapa momen pilihanmu justru membuat orang terdekatmu makin dekat ke jebakan. Itu wajar untuk pemula, dan semuanya bisa dilatih.",
+      "insights": [
+        "Setuju atau membiarkan tanpa mengecek membuat tawaran terasa aman bagi orang yang sedang ragu. Satu pertanyaan kecil sudah cukup untuk mengubah arah.",
+        "Rasa sayang dan rasa cemas sering tampil sebagai marah. Coba mulai dari 'aku khawatir' sebelum 'kamu salah'.",
+        "Pelaku penipuan mengandalkan waktu yang sempit. Menunda sebentar hampir selalu menolong."
+      ]
+    },
+    {
+      "id": "penjaga_siaga",
+      "label": "Penjaga Siaga",
+      "min_total": 150,
+      "description": "Kamu cukup peka dan mau bertindak. Sebagian pilihanmu melindungi dengan baik, sebagian masih membuat orang terdekatmu merasa dihakimi atau tidak didengar.",
+      "insights": [
+        "Melarang keras bisa menjaga keamanan sesaat, tapi bisa membuat orang berhenti bercerita padamu. Kepercayaan adalah pagar yang paling awet.",
+        "Mengecek bersama, bukan menggantikan keputusan, membuat orang tetap merasa punya kendali.",
+        "Kamu tidak perlu sempurna di setiap momen. Memperbaiki percakapan sesudahnya tetap sangat berarti."
+      ]
+    },
+    {
+      "id": "penjaga_teguh",
+      "label": "Penjaga Teguh",
+      "min_total": 220,
+      "description": "Kamu menjaga keamanan sambil tetap menjaga hubungan. Orang terdekatmu merasa didengar, dan ia lebih mungkin bercerita lagi kalau ada hal mencurigakan berikutnya.",
+      "insights": [
+        "Mulai dari bertanya dan mengecek bersama membuat orang tidak merasa disalahkan, sehingga ia tetap terbuka.",
+        "Menunda keputusan dan memakai jalur resmi adalah langkah sederhana yang paling sering memutus jebakan.",
+        "Kalau suatu hari kamu sendiri yang ragu, lakukan hal yang sama: tunda, cek lewat jalur resmi, lalu ceritakan ke orang yang kamu percaya."
+      ]
+    }
+  ],
+  "arcs": [
+    {
+      "id": "arc_kerja_deposit",
+      "missions": [
+        {
+          "id": "m1",
+          "story": "{{nama}}, {{relasi}} kamu, cerita ada DM yang menawarkan kerja paruh waktu dari rumah: gaji Rp300.000 per hari, cukup menyukai dan membagikan postingan. Syaratnya, bayar deposit dulu supaya akun karyawannya aktif. Wajahnya berbinar, tapi ia juga terlihat sedikit ragu.",
+          "choices": [
+            { "id": "A", "label": "\"Siapa tahu beneran, coba aja.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} merasa kamu setuju, jadi ia lanjut mendaftar dan mulai menyiapkan deposit. Belum ada uang yang hilang, tapi ia makin percaya pada pengirim DM itu. Masih ada waktu untuk bicara lagi.",
+                "why": "Kalimat 'siapa tahu beneran' membuat tawaran itu terasa aman, padahal belum ada yang dicek. Tidak apa-apa, misi berikutnya memberi kesempatan untuk memperbaikinya bersama." },
+              "deltas": { "kepercayaan": 5, "kewaspadaan": -10, "keamanan": -20 } },
+            { "id": "B", "label": "\"Boleh aku lihat dulu pesannya?\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} menunjukkan pesannya dengan lega. Kalian membacanya bersama dan menemukan dua hal aneh: gaji besar untuk kerja ringan, dan permintaan deposit di depan. {{nama}} memutuskan menunda dulu.",
+                "why": "Bertanya dengan tenang membuat {{nama}} tidak merasa dihakimi, jadi ia mau terbuka. Melihat pesannya bersama mengubah rasa 'pasti beneran' menjadi 'perlu dicek'." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 15 } },
+            { "id": "C", "label": "\"Jangan! Blokir sekarang juga.\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} memblokir akun itu karena kamu terdengar sangat khawatir. Tapi ia terlihat tersinggung dan bilang, \"Aku kan cuma cerita.\" Ia belum tahu kenapa tawaran itu bermasalah.",
+                "why": "Larangan tegas menghentikan bahaya saat itu juga, tapi tanpa penjelasan {{nama}} bisa merasa tidak dipercaya dan mungkin lebih sulit bercerita lain kali." },
+              "deltas": { "kepercayaan": -10, "kewaspadaan": 5, "keamanan": 15 } }
+          ]
+        },
+        {
+          "id": "m2",
+          "story": "Dua hari kemudian, {{nama}} mengirim tangkapan layar \"bukti transfer komisi\" dari pengirim DM tadi. Jumlahnya kecil, tapi {{nama}} terlihat semangat dan bilang tawaran itu mungkin memang asli.",
+          "choices": [
+            { "id": "A", "label": "\"Wah, berarti aman ya.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} makin yakin dan mulai bertanya cara menambah deposit supaya komisinya naik. Tangkapan layar itu belum pernah diperiksa asal-usulnya.",
+                "why": "Komisi kecil di awal adalah umpan yang umum dipakai supaya korban percaya. Tangkapan layar mudah dibuat, jadi tidak bisa jadi bukti sendirian." },
+              "deltas": { "kepercayaan": 5, "kewaspadaan": -15, "keamanan": -15 } },
+            { "id": "B", "label": "\"Kamu nggak dengerin aku, ya?\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} terdiam, lalu menjawab pendek dan mengalihkan pembicaraan. Ia tetap membaca pesan dari pengirim DM itu sendirian.",
+                "why": "Rasa kesalmu wajar, tapi kalimat yang menyalahkan membuat {{nama}} menutup diri. Orang yang merasa disalahkan cenderung mencari teman bicara yang lebih 'ramah', termasuk pelaku." },
+              "deltas": { "kepercayaan": -15, "kewaspadaan": 5, "keamanan": 5 } },
+            { "id": "C", "label": "\"Coba kita cek bareng nama perusahaannya.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "Kalian mencari nama perusahaan di mesin pencari dan situs resmi. Hasilnya nihil, dan alamat kantornya tidak jelas. {{nama}} mulai merasa janggal dan berterima kasih kamu mau menemani.",
+                "why": "Mengecek bersama berarti kamu tidak menolak ceritanya, tapi mengajak melihat fakta. Perusahaan sungguhan biasanya mudah ditemukan lewat jalur resmi." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 10 } }
+          ]
+        },
+        {
+          "id": "m3",
+          "story": "Malam harinya, pengirim DM menekan: \"Slot tinggal 2 orang, deposit Rp150.000 sebelum jam 9 malam atau hangus.\" {{nama}} bimbang dan sudah membuka aplikasi bank di ponselnya.",
+          "choices": [
+            { "id": "A", "label": "\"Tunda dulu malam ini, besok kita cek bareng.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} menarik napas dan menutup aplikasi bank. Besoknya, pengirim DM itu sudah menghilang dan akunnya tidak bisa dihubungi. {{nama}} bilang lega karena kamu menemaninya berpikir.",
+                "why": "Batas waktu yang sangat sempit adalah ciri tekanan, bukan tawaran yang wajar. Menunda memberi ruang berpikir dan hampir selalu menolong." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 20 } },
+            { "id": "B", "label": "\"Ya sudah, transfer saja. Sedikit ini.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} mengirim deposit. Tak lama kemudian pengirim DM meminta \"biaya aktivasi\" tambahan. Uang Rp150.000 itu tidak akan kembali, dan {{nama}} merasa bersalah.",
+                "why": "Deposit kecil pun membuka pintu permintaan berikutnya. Kamu tidak sendirian, banyak orang pernah berada di posisi ini, dan ini masih bisa dipelajari bersama." },
+              "deltas": { "kepercayaan": 0, "kewaspadaan": -15, "keamanan": -30 } },
+            { "id": "C", "label": "\"Kalau tetap transfer, jangan cerita ke aku lagi.\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} terkejut dan akhirnya tidak jadi transfer malam itu, tapi sakit hati. Beberapa hari ia jarang membalas pesanmu.",
+                "why": "Ancaman menjauh bisa menghentikan transfer, tapi membuat {{nama}} takut bercerita. Padahal bercerita adalah pengaman terbaik untuk kejadian berikutnya." },
+              "deltas": { "kepercayaan": -20, "kewaspadaan": 5, "keamanan": 10 } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arc_investasi",
+      "missions": [
+        {
+          "id": "m1",
+          "story": "{{nama}}, {{relasi}} kamu, mengajakmu masuk grup \"Cuan Bareng AsetPlus\". Katanya modal Rp500.000 bisa jadi Rp1,5 juta dalam seminggu dan \"dijamin untung\". Beberapa anggota grup memamerkan tangkapan layar saldo mereka.",
+          "choices": [
+            { "id": "A", "label": "\"Keren! Aku ikut juga deh.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} senang kamu ikut dan kalian mulai membahas berapa modal yang akan disetor. Belum ada uang yang dikirim, tapi dalam obrolan itu tidak ada satu pun pertanyaan tentang risikonya.",
+                "why": "Janji untung pasti dalam waktu singkat adalah tanda bahaya, karena investasi sungguhan selalu punya risiko. Ikut-ikutan membuat tanda itu tidak terlihat." },
+              "deltas": { "kepercayaan": 5, "kewaspadaan": -10, "keamanan": -20 } },
+            { "id": "B", "label": "\"Menarik. Boleh cerita, kenapa kamu yakin?\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} bercerita dengan antusias, lalu mulai menyadari ia belum tahu siapa yang mengelola dananya atau izinnya. Ia bilang akan mencari tahu dulu sebelum menyetor.",
+                "why": "Pertanyaan yang tulus membuat {{nama}} mendengar alasannya sendiri. Sering kali keraguan muncul dengan sendirinya ketika orang diminta menjelaskan." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 10 } },
+            { "id": "C", "label": "\"Itu pasti penipuan. Keluar dari grup itu.\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} keluar dari grup dengan wajah kesal dan bilang kamu menuduh tanpa bukti. Kecurigaanmu sebenarnya tepat, tapi {{nama}} merasa ditolak.",
+                "why": "Vonis langsung menyentuh harga diri, bukan alasan. Orang yang membela pilihannya cenderung makin yakin padanya." },
+              "deltas": { "kepercayaan": -10, "kewaspadaan": 10, "keamanan": 10 } }
+          ]
+        },
+        {
+          "id": "m2",
+          "story": "Sepekan kemudian, {{nama}} bercerita ia sudah menyetor Rp200.000 dan berhasil menarik Rp250.000. Sekarang admin grup menawarkan \"naik level\" dengan setoran lebih besar, dan meminta {{nama}} mengajak teman lain.",
+          "choices": [
+            { "id": "A", "label": "\"Bagus, berarti memang beneran bisa cair.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} merasa terbukti benar dan menyiapkan setoran yang jauh lebih besar. Ia juga mulai mengajak teman-teman lain.",
+                "why": "Penarikan kecil di awal sering sengaja dibiarkan cair supaya korban percaya dan menyetor lebih banyak. Berhasil menarik sekali belum berarti aman." },
+              "deltas": { "kepercayaan": 5, "kewaspadaan": -15, "keamanan": -20 } },
+            { "id": "B", "label": "\"Aku senang kamu cerita. Boleh kita cek izinnya di situs resmi?\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "Kalian membuka situs pengawas keuangan dan mencari nama AsetPlus. Tidak ada izin yang tercatat. {{nama}} terdiam, lalu bilang akan berhenti menyetor sambil bertanya apa yang sebaiknya dilakukan.",
+                "why": "Memuji kejujuran {{nama}} menjaga rasa aman, dan mengecek izin lewat jalur resmi memberi dasar yang jelas, bukan sekadar pendapat." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 15 } },
+            { "id": "C", "label": "\"Kamu sudah rugi, kan? Dibilangin juga.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} diam dan mengubah topik. Ia tidak cerita lagi soal setoran berikutnya dan lebih banyak bertanya ke admin grup.",
+                "why": "Kalimat 'dibilangin juga' membuat orang malu, dan rasa malu membuat orang menyembunyikan langkah berikutnya, padahal saat itulah ia paling butuh teman." },
+              "deltas": { "kepercayaan": -20, "kewaspadaan": -5, "keamanan": -5 } }
+          ]
+        },
+        {
+          "id": "m3",
+          "story": "Ketika {{nama}} mencoba menarik dana yang lebih besar, aplikasinya menolak. Admin bilang harus membayar \"pajak penarikan\" sebesar 20% dulu. {{nama}} panik dan bertanya apa yang sebaiknya ia lakukan.",
+          "choices": [
+            { "id": "A", "label": "\"Bayar saja pajaknya, daripada uangnya hilang.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} membayar \"pajak\" itu. Setelahnya muncul permintaan biaya lain, lalu admin berhenti menjawab. Uangnya makin sulit kembali.",
+                "why": "Biaya di depan untuk mencairkan dana adalah pola klasik: setiap pembayaran memunculkan biaya baru. Rasa takut kehilangan membuat orang mengejar kerugian." },
+              "deltas": { "kepercayaan": 0, "kewaspadaan": -15, "keamanan": -30 } },
+            { "id": "B", "label": "\"Tenang dulu. Berhenti menyetor, kita simpan bukti dan lapor bareng.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} berhenti membayar, kalian menyimpan tangkapan layar dan bukti transfer, lalu menghubungi bank dan kanal pengaduan resmi. Dana belum tentu kembali, tapi {{nama}} merasa tidak sendirian dan tidak membayar lagi.",
+                "why": "Menenangkan lebih dulu, menghentikan setoran, lalu mengumpulkan bukti adalah urutan yang paling melindungi. Melapor juga membantu orang lain terhindar." },
+              "deltas": { "kepercayaan": 15, "kewaspadaan": 10, "keamanan": 20 } },
+            { "id": "C", "label": "\"Makanya jangan sembarangan percaya orang!\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} tidak jadi membayar pajak itu, tapi menangis dan merasa bodoh. Ia ragu untuk melapor karena takut ditertawakan.",
+                "why": "Peringatanmu menghentikan pembayaran lanjutan, tapi menambah malu. Rasa malu adalah alasan terbesar korban tidak melapor, padahal pelaporan membantu semua orang." },
+              "deltas": { "kepercayaan": -20, "kewaspadaan": 5, "keamanan": 5 } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "arc_rekening_beku",
+      "missions": [
+        {
+          "id": "m1",
+          "story": "{{nama}}, {{relasi}} kamu, cerita barusan ditelepon nomor tak dikenal. Penelepon mengaku petugas \"Bank Tirta Nusantara\" dan bilang rekeningnya akan dibekukan hari ini kalau tidak segera diverifikasi. {{nama}} terdengar cemas dan memintamu menemaninya.",
+          "choices": [
+            { "id": "A", "label": "\"Ikuti saja petunjuknya, daripada rekeningnya beku.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} kembali menghubungi nomor itu dan mulai mengikuti arahan penelepon. Belum ada data yang diberikan, tapi ia kini yakin penelepon itu benar-benar dari bank.",
+                "why": "Ancaman rekening dibekukan membuat orang bertindak cepat tanpa mengecek. Bank sungguhan tidak menelepon untuk meminta verifikasi mendadak." },
+              "deltas": { "kepercayaan": 5, "kewaspadaan": -10, "keamanan": -25 } },
+            { "id": "B", "label": "\"Kita tutup dulu teleponnya, lalu hubungi bank lewat nomor resmi di kartu.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} menutup telepon, lalu kalian menelepon nomor di belakang kartu. Petugas bank memastikan tidak ada masalah di rekeningnya. {{nama}} menghela napas lega.",
+                "why": "Mengakhiri percakapan dan menghubungi nomor resmi yang kamu temukan sendiri memutus kendali penelepon. Rasa cemas {{nama}} juga didengar, bukan diabaikan." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 20 } },
+            { "id": "C", "label": "\"Itu pasti penipu. Jangan angkat telepon lagi.\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} menutup telepon dan memblokir nomor itu, tapi masih khawatir apakah rekeningnya benar-benar aman. Ia bilang kamu terdengar terlalu yakin.",
+                "why": "Dugaanmu tepat dan tindakanmu aman, tapi tanpa langkah pengecekan {{nama}} masih menyimpan cemas dan belum belajar cara memastikannya sendiri." },
+              "deltas": { "kepercayaan": -5, "kewaspadaan": 10, "keamanan": 15 } }
+          ]
+        },
+        {
+          "id": "m2",
+          "story": "Keesokan harinya, nomor lain menelepon {{nama}} dan mengaku dari bank yang sama. Kali ini penelepon meminta kode OTP yang baru masuk lewat SMS dan menyuruh memasang \"aplikasi verifikasi\" lewat tautan. {{nama}} menoleh kepadamu dengan wajah bingung.",
+          "choices": [
+            { "id": "A", "label": "\"Berikan kodenya, tapi jangan pasang aplikasinya.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} menyebutkan kode OTP. Beberapa menit kemudian, muncul notifikasi login dari perangkat lain. Kalian segera panik, padahal belum ada uang yang pindah.",
+                "why": "Kode OTP adalah kunci rahasia dan tidak boleh diberikan kepada siapa pun, bahkan yang mengaku petugas. Memberi kode saja sudah cukup untuk membuka akses akun." },
+              "deltas": { "kepercayaan": 0, "kewaspadaan": -10, "keamanan": -30 } },
+            { "id": "B", "label": "\"Kita tutup. Bank tidak pernah minta kode OTP.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} menutup telepon tanpa memberi kode dan tidak menekan tautan. Kalian lalu membuka aplikasi bank resmi untuk memastikan semua baik-baik saja. {{nama}} bilang, \"Untung ada kamu.\"",
+                "why": "Aturannya sederhana dan mudah diingat: kode OTP dan PIN tidak diberikan ke siapa pun. Dengan pegangan itu, {{nama}} bisa menolak tanpa perlu menilai suara penelepon." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": 15, "keamanan": 20 } },
+            { "id": "C", "label": "\"Sudah kubilang kemarin! Kenapa masih diangkat?\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} tersentak dan menutup telepon, tapi wajahnya muram. Ia bilang, \"Aku kan cuma takut rekeningnya dibekukan.\" Kalian tidak jadi memberi kode.",
+                "why": "Kamu benar bahwa telepon itu tidak boleh dilayani, tapi nada marah membuat {{nama}} merasa dipersalahkan atas rasa takut yang wajar." },
+              "deltas": { "kepercayaan": -15, "kewaspadaan": 10, "keamanan": 10 } }
+          ]
+        },
+        {
+          "id": "m3",
+          "story": "Malamnya, {{nama}} pelan-pelan mengaku: tadi sore ia sempat menyebutkan beberapa angka kode kepada penelepon, sebelum sadar ada yang janggal. Ia takut dimarahi dan takut uangnya hilang.",
+          "choices": [
+            { "id": "A", "label": "\"Terima kasih sudah cerita. Kita ganti PIN dan telepon bank sekarang.\"",
+              "consequence": { "kind": "positif",
+                "what_happened": "{{nama}} merasa lega karena tidak dimarahi. Kalian mengganti PIN dan kata sandi, mengaktifkan notifikasi transaksi, lalu menghubungi bank lewat nomor resmi untuk memblokir akses mencurigakan. Tidak ada dana yang hilang.",
+                "why": "Berterima kasih atas kejujuran membuat {{nama}} berani bercerita lebih cepat lain kali. Langkah cepat dan konkret, ganti PIN lalu hubungi bank, menutup celah sebelum dimanfaatkan." },
+              "deltas": { "kepercayaan": 15, "kewaspadaan": 10, "keamanan": 20 } },
+            { "id": "B", "label": "\"Ya ampun, kok bisa sih? Kan sudah dibilangin.\"",
+              "consequence": { "kind": "negatif",
+                "what_happened": "{{nama}} menunduk dan berkata, \"Maaf.\" Karena takut makin dimarahi, ia menunda menghubungi bank sampai besok pagi, dan celah itu terbuka semalaman.",
+                "why": "Menyalahkan membuat orang menyembunyikan atau menunda, padahal di kasus seperti ini setiap jam sangat berarti. Orang yang merasa aman bercerita cenderung bertindak lebih cepat." },
+              "deltas": { "kepercayaan": -20, "kewaspadaan": -5, "keamanan": -15 } },
+            { "id": "C", "label": "\"Sudah, jangan dipikirkan. Pasti tidak apa-apa.\"",
+              "consequence": { "kind": "campuran",
+                "what_happened": "{{nama}} merasa tenang dan tidur nyenyak, tapi tidak ada langkah yang diambil malam itu. Akses ke akunnya belum diamankan.",
+                "why": "Menenangkan itu baik dan membuat {{nama}} merasa aman bercerita, tapi menenangkan saja tidak menutup celah. Rasa tenang perlu disertai langkah nyata." },
+              "deltas": { "kepercayaan": 10, "kewaspadaan": -10, "keamanan": -15 } }
+          ]
+        }
+      ]
+    }
+  ]
+}
