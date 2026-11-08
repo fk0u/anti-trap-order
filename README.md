@@ -1,66 +1,150 @@
 # Anti Trap Order (ATO)
 
-> **A20 Culture Technology for Digital Guardians**  
-> *Alpha to Omega — Sistem Pembentukan Penjaga Digital*  
-> **Tema MIT-Week 2026:** *Guardians of the Digital Space — Empowering Today's Generation Toward a Safer Cyber Ecosystem*
+> **A20 Culture Technology for Digital Guardians** — Web Development Competition MIT-Week 2026
+> Tema: *Guardians of the Digital Space — Empowering Today's Generation Toward a Safer Cyber Ecosystem*
+> Studi kasus: *The Trust Trap — Navigating Digital Deception*
 
-[![Next.js 15](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-Strict-blue?logo=typescript)](https://www.typescriptlang.org/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
+[![CI](https://github.com/fk0u/anti-trap-order/actions/workflows/ci.yml/badge.svg)](https://github.com/fk0u/anti-trap-order/actions/workflows/ci.yml)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black?logo=next.js)](https://nextjs.org/)
+[![Go 1.22](https://img.shields.io/badge/Go-1.22-00ADD8?logo=go)](https://go.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 
----
+**Live:** https://ato.kousozo.tech
 
-## 🛡️ Visi & Filosofi Produk
-
-Kebanyakan sistem keamanan siber memperlakukan manusia sebagai korban potensial yang pasif menunggu deteksi skor bahaya. **Anti Trap Order (ATO)** membalik logika tersebut:
-
-1. **Bukan Detektor Pasif:** ATO tidak mengeluarkan klaim "aman 100%" atau skor deteksi probabilitas palsu. Ini adalah **alat bantu berpikir (decision support)**.
-2. **Perspective Inversion (Pembalikan Sudut Pandang):** Melatih pengguna masuk ke kepala pelaku manipulasi siber ("Kalau kamu yang menipu, celah apa yang kamu manfaatkan?"). Ketika pengguna menemukan polanya sendiri, insting waspada bertransformasi menjadi refleks penjaga.
-3. **Culture Technology (Alpha to Omega):**
-   - **A20 Lite (Alpha) — The Reflex:** Mode taktis cepat (< 90 detik) saat menghadapi pesan mencurigakan untuk membedah celah taktik dan menghasilkan *Action Card* peringatan siap kirim.
-   - **A20 Soul (menuju Omega) — The Guardian Arc:** Mode cerita interaktif untuk melatih tanggung jawab melindungi orang terdekat (adik, orang tua, teman kampus).
+ATO adalah **alat bantu berpikir, bukan deteksi pasti**. Alih-alih memberi skor bahaya, ATO melatih pengguna berpikir dari sudut pelaku (*perspective inversion*): "kalau kamu yang menipu, celah apa yang kamu manfaatkan?" — sehingga pengguna menemukan sendiri tanda bahayanya.
 
 ---
 
-## ⚡ Tech Stack
+## Fitur dan kaitannya dengan studi kasus
 
-- **Framework:** Next.js 15 (App Router) + React 19
-- **Bahasa:** Strict TypeScript (tanpa `any`)
-- **Styling:** Tailwind CSS (Dark-first, CSS mask-composite border beam, ambient transform aurora)
-- **Animasi & Interaktivitas:** Framer Motion + state machine console loop
-- **Typography:** Geist Sans & Geist Mono
-- **Prinsip Privasi:** Tanpa login, zero tracking data sensitif, client-safe & stateless
+| Fitur | Halaman | Recognize | Learn | Act |
+|---|---|:-:|:-:|:-:|
+| **A20 Lite — Reverse Reflex**: tempel/ceritakan situasi (contoh fiktif) → kategori & taktik terdeteksi → 3 pertanyaan dari sudut pelaku → celah yang ditemukan/terlewat → *Action Card* | `/lite` | ✅ | ✅ | ✅ |
+| **A20 Soul — Guardian Arc**: pilih sosok yang dijaga, jalani 3 misi cerita (pilihan A/B/C memengaruhi meter Kepercayaan/Kewaspadaan/Keamanan), dapat peringkat penjagaan | `/soul` | | ✅ | |
+| **Realmulator**: simulasi chat dengan "pelaku" fiktif untuk latihan menolak/menguji | `/realmulator` | ✅ | ✅ | |
+| **Drill**: latihan cepat mengenali pola | `/drill` | ✅ | ✅ | |
+
+Hasil setiap fitur bergantung pada input/pilihan pengguna (syarat Fungsionalitas studi kasus).
+
+**Action Card** berisi checklist pengamanan, kalimat peringatan siap salin (gaya santai/tegas) untuk memperingatkan teman/keluarga, dan kanal pelaporan.
 
 ---
 
-## 🚀 Memulai Secara Lokal
+## Privasi, keamanan, dan keterbatasan
+
+- **Tanpa login, tanpa database, tanpa data pribadi.** Server bersifat stateless.
+- **Teks bebas hanya diterima satu endpoint** (`POST /api/v1/lite/analyze`). Nomor HP, email, URL, dan rekening **dimasking di server** (aturan yang sama tersedia untuk browser di `src/lib/ml/contract.ts`); teks tidak dicatat ke log dan tidak disimpan.
+- **Tidak ada layanan pihak ketiga / LLM saat aplikasi berjalan.** Klasifikasi memakai model Naive Bayes kecil yang dilatih offline dan di-embed di binary Go; Realmulator memakai balasan berbasis aturan.
+- **Semua skenario, nama, nomor, dan merek fiktif.** Tidak ada konten berbahaya nyata (tautan/APK) yang dihosting.
+- **Keterbatasan:** model dilatih dari data sintetis + tulisan tangan berbahasa Indonesia, bisa salah, tidak memberi skor/persen bahaya, dan **hasil tidak membuktikan suatu interaksi aman**. Selalu verifikasi lewat kanal resmi.
+- Hardening backend: rate limit per IP (`429` + `Retry-After`), CORS allowlist persis, batas ukuran body, header keamanan (HSTS, `nosniff`, `DENY`), validasi JSON ketat (field asing ditolak).
+
+---
+
+## Arsitektur
+
+```
+Browser (Next.js 16, React 19, Tailwind, Framer Motion)
+   │  hanya ID pilihan, kecuali teks Lite ke /analyze
+   ▼
+Go API (net/http, stateless)  ── internal/middleware  (rate limit, CORS, security headers)
+   ├─ internal/ml       Naive Bayes + tokenizer slang Indonesia (model.json di-embed)
+   ├─ internal/lite     logika reflect v1 (celah ditemukan/terlewat, Action Card)
+   ├─ internal/soulv1   mesin cerita Soul v1 (meter, peringkat)
+   └─ internal/data     konten JSON di-embed, divalidasi fail-fast saat start
+```
+
+Kontrak API: [`docs/openapi.yaml`](docs/openapi.yaml) · ringkasan: [`docs/api-v1.md`](docs/api-v1.md) · keputusan desain: [`docs/handoff/KEPUTUSAN.md`](docs/handoff/KEPUTUSAN.md) · spesifikasi ML: [`docs/handoff/ML-SPEC.md`](docs/handoff/ML-SPEC.md) · laporan evaluasi model: [`data/ml/report.md`](data/ml/report.md)
+
+### Endpoint API v1
+
+| Method | Path | Fungsi |
+|---|---|---|
+| GET | `/api/v1/health` | status & versi konten |
+| GET | `/api/v1/lite/categories`, `/api/v1/lite/tactics` | katalog kategori & taktik |
+| GET | `/api/v1/lite/scenarios[?category=]`, `/api/v1/lite/scenarios/{id}` | skenario (tanpa kunci jawaban) |
+| POST | `/api/v1/lite/analyze` | teks (≤ 2000 karakter) → kategori, skenario, taktik |
+| POST | `/api/v1/lite/reflect` | jawaban 3 pertanyaan → celah + Action Card |
+| GET | `/api/v1/soul/characters` | template karakter & relasi |
+| POST | `/api/v1/soul/start`, `/api/v1/soul/step` | jalankan misi Soul |
+
+---
+
+## Menjalankan secara lokal
+
+Prasyarat: **Node.js 20+** dan **Go 1.22+**.
 
 ```bash
-# Clone repository
 git clone https://github.com/fk0u/anti-trap-order.git
 cd anti-trap-order
+cp .env.example .env        # sesuaikan bila perlu
 
-# Install dependencies
+# backend (port 8080)
+go run ./cmd/server
+
+# frontend (port 3000), di terminal lain
 npm install
-
-# Jalankan development server
 npm run dev
 ```
 
-Buka [http://localhost:3000](http://localhost:3000) di browser.
+Buka http://localhost:3000.
+
+| Variabel | Default | Keterangan |
+|---|---|---|
+| `PORT` | `8080` | port backend Go |
+| `CORS_ORIGIN` | `http://localhost:3000` | origin frontend yang diizinkan, persis, dipisah koma |
+| `NEXT_PUBLIC_API_URL` | kosong | URL backend untuk frontend |
+
+### Test dan CI
+
+```bash
+go vet ./... && go test -race ./...   # backend
+npm run build                          # frontend
+go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun ulang dataset + model ML
+```
+
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) menjalankan semua di atas pada setiap PR dan push ke `main`.
+
+### Deploy
+
+`scripts/deploy.sh` (rsync + build + PM2 di server). Akses server diambil dari environment, tidak disimpan di repo:
+
+```bash
+DEPLOY_HOST=user@host DEPLOY_KEY=~/.ssh/ato-deploy.pem npm run deploy
+```
+
+Path key sebaiknya tanpa spasi.
 
 ---
 
-## 📌 Status Pengembangan
+## Struktur direktori
 
-- [x] **Fase 1:** Design System tokens, visual primitives (GridBackground, Aurora, BorderBeam, CursorSpotlight, SpotlightCard), floating 3-pill Navbar, Hero + HeroConsole (state machine interactive loop) & Marquee.
-- [ ] **Fase 2:** Problem Bento Grid & A20 Interactive Sticky System.
-- [ ] **Fase 3:** Core Reverse Reflex Demo Engine (typed scenario rules & interactive decision tree).
-- [ ] **Fase 4:** Trust & Transparency, Final CTA, Footer, metadata OpenGraph, production verification.
+```
+cmd/            server, ml-gendata, ml-train
+internal/       data, handler, lite, middleware, ml, model, soulv1 (+ reflect, soul untuk API lama)
+src/            app (halaman Next.js), components, lib, types
+data/ml/        dataset dan laporan evaluasi model
+docs/           openapi, PRD/TRD, keputusan desain
+testdata/       fixture kontrak Go ↔ TypeScript
+```
 
 ---
 
-## ⚖️ Disclaimer
+## Tim
 
-Anti Trap Order adalah sarana edukasi dan kerangka berpikir mandiri untuk mengenali manipulasi digital, **bukan pengganti verifikasi resmi**. Selalu konfirmasi ke kanal resmi institusi terkait saat menghadapi transaksi atau permintaan data sensitif.
+| Nama | Peran |
+|---|---|
+| Muhammad Shafly Putra Darmawan (Ketua) | Backend, data, AI, deployment |
+| Al-Ghani Desta Setyawan | Product, riset ekosistem, QA, dokumentasi |
+| Syafaruddin | Frontend |
+| Widhi Nur Maulida | UI/UX & desain kreatif |
+
+Dosen pendamping: Naufal Azmi Verdikha, S.Kom., M.Eng. — Teknik Informatika UMKT.
+
+## Atribusi pihak ketiga
+
+Next.js, React, Tailwind CSS, Framer Motion, Geist (font), Lucide (ikon), clsx, tailwind-merge — lihat `package.json`. Backend Go hanya memakai standard library. Alat bantu AI coding dipakai selama pengembangan; seluruh kode ditinjau dan dipertanggungjawabkan oleh tim.
+
+## Lisensi
+
+[MIT](LICENSE)

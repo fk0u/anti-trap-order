@@ -75,7 +75,7 @@ const SCENARIOS: ScenarioContact[] = [
   },
   {
     id: "bank_freeze",
-    name: "BCA Customer Care VIP",
+    name: "Bank Nusantara Care VIP (fiktif)",
     role: "Pemberitahuan Sistem Otomatis",
     avatar: "https://images.unsplash.com/photo-1544717305-2782549b5136?w=100&h=100&fit=crop&crop=faces",
     phone: "+62 811-9876-002",
@@ -83,7 +83,7 @@ const SCENARIOS: ScenarioContact[] = [
     threatLevel: "Kritis",
     initialMessage: "PEMBERITAHUAN RESMI: Rekening Anda terindikasi transaksi mencurigakan dan akan DIBEKUKAN dalam 1x24 jam. Segera verifikasi data tarif dan identitas melalui tautan resmi sebelum sistem auto-blockir.",
     quickReplies: [
-      "Saya akan konfirmasi langsung ke nomor HaloBCA 1500888 resmi.",
+      "Saya akan konfirmasi langsung ke nomor call center resmi yang tertera di kartu/aplikasi bank.",
       "Kenapa notifikasi resmi bank dikirim dari nomor GSM WhatsApp?",
       "Boleh sebutkan 4 digit terakhir nomor rekening saya yang dibekukan?",
       "Saya tidak pernah mengajukan perubahan tarif apapun."
@@ -91,7 +91,7 @@ const SCENARIOS: ScenarioContact[] = [
   },
   {
     id: "cod_scam",
-    name: "Andi - Kurir J&T Express",
+    name: "Andi - Kurir Ekspres Kilat (fiktif)",
     role: "Kurir Lapangan Rute 04",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
     phone: "+62 857-3312-8871",
@@ -416,7 +416,7 @@ export default function RealmulatorPage() {
               {/* Disclaimer Watermark Header */}
               <div className="text-center my-2">
                 <span className="inline-block px-3.5 py-1 rounded-full bg-white/80 border border-sky-200 text-[10px] font-mono font-medium text-slate-500 shadow-sm">
-                  Simulasi Rekayasa Sosial &bull; Respons didukung AI Gemini Web
+                  Simulasi Rekayasa Sosial &bull; Respons berbasis aturan &bull; Teks tidak dikirim ke pihak ketiga
                 </span>
               </div>
 

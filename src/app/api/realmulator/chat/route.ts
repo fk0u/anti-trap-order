@@ -24,7 +24,7 @@ Taktik psikologismu:
 5. Jawablah maksimal 2-3 kalimat per pesan agar terasa seperti chatting WhatsApp sungguhan. Jangan pernah mengakui dirimu penipu.`
   },
   bank_freeze: {
-    persona: "Customer Support Bank Mandiri / BCA",
+    persona: "Customer Support Bank Nusantara (fiktif)",
     initialMessage: "Pemberitahuan Resmi: Rekening Anda terindikasi aktivitas mencurigakan dan akan DIBEKUKAN dalam 1x24 jam. Segera verifikasi data tarif dan identitas melalui tautan resmi berikut sebelum sistem auto-blockir.",
     context: `Kamu adalah penipu phising perbankan yang mengaku sebagai CS resmi Bank di Indonesia.
 Gaya bicaramu: Kaku, formal, menekan, menggunakan istilah perbankan ('auto-blockir', 'rekonsiliasi sistem', 'kebijakan BI').
@@ -35,7 +35,7 @@ Taktik psikologismu:
 4. Jawablah singkat, padat, dan otoritatif (1-3 kalimat). Jangan pernah keluar dari karakter.`
   },
   cod_scam: {
-    persona: "Kurir J&T Express (Paket COD)",
+    persona: "Kurir Ekspres Kilat (fiktif, Paket COD)",
     initialMessage: "Pagi kak, saya kurir di depan pagar rumah kakak antar paket COD senilai Rp185.000 atas nama pemilik rumah. Boleh minta tolong dibuka pagarnya atau ditransfer sekarang ya kak?",
     context: `Kamu adalah komplotan penipu paket COD fiktif. Kamu mengaku sebagai kurir ekspedisi yang sedang menunggu di depan rumah korban.
 Gaya bicaramu: Agak terburu-buru, khas kurir yang kejar target rute pengantaran ('Kak paketnya banyak nih', 'Bisa cepetan gak ya kak', 'Udah dari pengirimnya emang COD kak').
@@ -78,63 +78,12 @@ export async function POST(req: NextRequest) {
 
     const scenario = SCENARIO_PROMPTS[scenarioId] || SCENARIO_PROMPTS.job_scam;
 
-    // Build message array with system instructions
-    const promptMessages = [
-      {
-        role: "system",
-        content: `${scenario.context}
-
-PENTING:
-- Keluarkan HANYA balasan pesan chat langsung. Jangan beri komentar meta atau pembuka seperti 'Tentu, ini balasan saya:'.
-- Maksimal 3 kalimat pendek.
-- Bahasa Indonesia sehari-hari/chatting.
-- Tetap bertahan dalam karakter penipuan ini sampai akhir.`
-      },
-      ...messages
-    ];
-
-    // Attempt to call local gemini-web2api service (http://127.0.0.1:8081/v1/chat/completions)
-    try {
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 12000);
-
-      const aiResponse = await fetch("http://127.0.0.1:8081/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "gemini-3.5-flash",
-          messages: promptMessages,
-          temperature: 0.8,
-          max_tokens: 250,
-        }),
-        signal: controller.signal,
-      });
-
-      clearTimeout(timeout);
-
-      if (aiResponse.ok) {
-        const data = await aiResponse.json();
-        const reply = data.choices?.[0]?.message?.content?.trim();
-        if (reply) {
-          return NextResponse.json({
-            reply,
-            source: "gemini-web2api",
-            persona: scenario.persona,
-          });
-        }
-      }
-    } catch {
-      // Fallback gracefully to smart rule-based contextual responses if AI service is temporarily unavailable
-    }
-
-    // Contextual fallback response
+    // Balasan rule-based; teks user tidak dikirim ke layanan mana pun.
     const lastUserMessage = messages[messages.length - 1]?.content.toLowerCase() || "";
     let fallbackReply = "Halo kak, mohon segera dikonfirmasi ya kak, karena data kakak sedang diproses di sistem kami.";
 
     if (lastUserMessage.includes("bukti") || lastUserMessage.includes("legalitas") || lastUserMessage.includes("pt")) {
-      fallbackReply = "Perusahaan kami sudah terdaftar resmi di Kemenkumham kok kak. Ini prosedur verifikasi standar langsung dari pimpinan, jadi aman 100% ya.";
+      fallbackReply = "Perusahaan kami sudah terdaftar resmi kok kak. Ini prosedur verifikasi standar langsung dari pimpinan, jadi aman 100% ya.";
     } else if (lastUserMessage.includes("seragam") || lastUserMessage.includes("bayar") || lastUserMessage.includes("transfer") || lastUserMessage.includes("uang")) {
       fallbackReply = "Tenang kak, uangnya bukan hilang kok, itu cuma deposit sementara untuk aktivasi ID card sistem. Setelah tugas pertama selesai langsung direimburse bareng gaji harian.";
     } else if (lastUserMessage.includes("bohong") || lastUserMessage.includes("penipu") || lastUserMessage.includes("scam") || lastUserMessage.includes("lapor")) {
@@ -145,7 +94,7 @@ PENTING:
 
     return NextResponse.json({
       reply: fallbackReply,
-      source: "ato-fallback-engine",
+      source: "ato-rule-engine",
       persona: scenario.persona,
     });
   } catch (error) {
