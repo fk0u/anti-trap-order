@@ -22,6 +22,7 @@ func (s *Server) registerV1(mux *http.ServeMux) {
 	})
 	mux.HandleFunc("GET /api/v1/lite/scenarios", s.v1ListScenarios)
 	mux.HandleFunc("GET /api/v1/lite/scenarios/{scenarioId}", s.v1GetScenario)
+	mux.HandleFunc("POST /api/v1/lite/reflect", s.v1Reflect)
 	mux.HandleFunc("GET /api/v1/soul/characters", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, http.StatusOK, s.repo.V1().Characters)
 	})
