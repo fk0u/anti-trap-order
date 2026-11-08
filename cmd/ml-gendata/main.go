@@ -31,9 +31,9 @@ type fragments struct {
 type row struct{ ID, Text, Style, Category, Tactics, Source string }
 
 const (
-	nTempel = 400
-	nCerita = 280
-	nNormal = 160
+	nTempel = 450
+	nCerita = 330
+	nNormal = 240
 )
 
 func die(f string, a ...any) {

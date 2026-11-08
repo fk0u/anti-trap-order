@@ -14,7 +14,11 @@
         "Ada posisi operator toko online di PT Bintang Timur Sejahtera, gaji {uang} plus tunjangan",
         "Kerja paruh waktu sebagai pengecek data, cukup 2 jam sehari dan dibayar {uang}",
         "Lowongan asisten virtual untuk bos perusahaan, gaji bulanan {uang}",
-        "Terbuka kesempatan kerja tugas like dan subscribe, setiap tugas dibayar {uang}"
+        "Terbuka kesempatan kerja tugas like dan subscribe, setiap tugas dibayar {uang}",
+        "Dicari tenaga admin gudang paruh waktu, honor {uang} per bulan",
+        "Posisi staf kasir toko baru dibuka, penghasilan {uang}",
+        "Perusahaan ekspedisi mencari kurir motor, gaji {uang} plus insentif",
+        "Rekrutmen tenaga pengetik naskah dari rumah, bayaran {uang}"
       ],
       "cerita": [
         "ada yang kirim tawaran kerja admin online lewat wa dengan gaji {uang} per bulan",
@@ -28,7 +32,11 @@
         "mama dapat pesan lowongan kerja tugas like dan subscribe dengan bayaran {uang}",
         "ada yang ngaku recruiter dan ngajak aku kerja jadi asisten virtual, gaji {uang}",
         "tadi sore ada telepon dari orang yang katanya dari perusahaan, nawarin kerja remote gaji {uang}",
-        "ada loker nulis konten dari rumah, honornya {uang}, dikirim lewat chat pribadi"
+        "ada loker nulis konten dari rumah, honornya {uang}, dikirim lewat chat pribadi",
+        "ada yang nawarin posisi staf kasir toko baru dengan penghasilan {uang}",
+        "aku dihubungi soal lowongan kurir motor dengan gaji {uang}",
+        "kemarin ada tawaran jadi pengetik naskah dari rumah, bayarannya {uang}",
+        "teman dikirimi lowongan admin gudang paruh waktu, honor {uang}"
       ]
     },
     "giveaway": {
@@ -44,7 +52,11 @@
         "Selamat anda pemenang lucky draw akhir tahun dengan hadiah tunai {uang}",
         "Kakak beruntung mendapat hadiah doorprize berupa televisi dan voucher {uang}",
         "Program undian pelanggan Bank Nusantara Jaya, nomor kakak terpilih memenangkan hadiah {uang}",
-        "Anda terpilih menjadi penerima hadiah gratis dari event giveaway bulan ini"
+        "Anda terpilih menjadi penerima hadiah gratis dari event giveaway bulan ini",
+        "Pemenang kuis harian: nomor Anda dipilih secara acak untuk hadiah {uang}",
+        "Hadiah utama undian bulan ini adalah paket elektronik senilai {uang}",
+        "Anda dipilih menerima hadiah spesial ulang tahun aplikasi kami",
+        "Kakak menang lomba foto di akun kami, hadiah uang {uang}"
       ],
       "cerita": [
         "tiba-tiba ada pesan yang bilang aku menang undian berhadiah uang {uang}",
@@ -58,7 +70,11 @@
         "kakakku dikabari menang doorprize padahal tidak ikut acara apa pun",
         "ada pesan mengabarkan nomorku menang undian pelanggan dengan hadiah {uang}",
         "adikku dapat chat bahwa dia pemenang giveaway paket liburan gratis",
-        "tadi ada telepon mengabarkan aku jadi pemenang hadiah dari program loyalitas"
+        "tadi ada telepon mengabarkan aku jadi pemenang hadiah dari program loyalitas",
+        "aku dikabari katanya nomorku terpilih acak buat hadiah {uang}",
+        "ada pesan bahwa aku menang lomba foto padahal nggak ikut",
+        "teman dikasih tahu dia menang hadiah ulang tahun aplikasi",
+        "tiba-tiba ada pesan hadiah utama undian bulan ini katanya milikku"
       ]
     },
     "akun_menyamar": {
@@ -74,7 +90,11 @@
         "Halo sayang, ini aku, nomor baru ya, hp ku masuk air",
         "Ini Papa, pakai nomor teman Papa dulu karena hp Papa mati",
         "Kami dari layanan pelanggan e-wallet Dompet Kita, akun Anda akan ditutup",
-        "Halo, aku teman lamamu dari SMA, simpan nomor baruku ya"
+        "Halo, aku teman lamamu dari SMA, simpan nomor baruku ya",
+        "Hai, nomor ini milikku yang baru, simpan ya, yang lama dibuang",
+        "Perhatian nasabah, ada percobaan masuk ke akun Anda dari perangkat lain",
+        "Ini aku Ayah, ponsel Ayah ditinggal di kantor jadi pakai nomor kolega",
+        "Halo, kami admin resmi layanan dompet digital, ada kendala di saldo Anda"
       ],
       "cerita": [
         "ada wa dari nomor baru yang bilang dia ibuku dan hp lamanya hilang",
@@ -88,7 +108,11 @@
         "ada akun yang foto profilnya foto temanku tapi nomornya beda",
         "ada orang menelepon mengaku dari layanan bank dan bilang akunku bermasalah",
         "tadi ada wa yang mengaku sepupuku, katanya hp nya masuk air dan pakai nomor baru",
-        "ada yang kirim pesan atas nama bos besar, nomornya baru dan nggak ada di kontak"
+        "ada yang kirim pesan atas nama bos besar, nomornya baru dan nggak ada di kontak",
+        "dapat pesan dari nomor baru bilang aku mantan teman sekelas dan minta disimpan",
+        "ada notifikasi katanya ada percobaan masuk ke akun bank dari perangkat lain",
+        "ada yang ngaku ayahku pakai nomor kolega",
+        "ada yang ngaku admin dompet digital katanya ada kendala di saldoku"
       ]
     },
     "pinjaman_investasi": {
@@ -104,7 +128,11 @@
         "Program arisan online dan investasi bersama, setoran awal {uang}",
         "Pinjaman modal usaha untuk UMKM, limit awal {uang} cair ke rekening",
         "Kenalan dulu ya, aku sering main trading forex dan mau ajak kamu ikut, modal {uang}",
-        "Layanan pinjam uang bunga ringan, tenor 6 bulan, limit {uang}"
+        "Layanan pinjam uang bunga ringan, tenor 6 bulan, limit {uang}",
+        "Butuh modal usaha? Dana {uang} bisa cair hari ini tanpa agunan",
+        "Bergabunglah dengan komunitas trading emas, sinyal profit tiap hari",
+        "Reksa dana palsu? Bukan, ini aset digital baru dengan imbal hasil tetap",
+        "Program koperasi simpan pinjam online, plafon sampai {uang}"
       ],
       "cerita": [
         "ada yang nawarin pinjaman online cepat cair {uang} lewat wa",
@@ -118,7 +146,11 @@
         "ayahku ditelepon orang yang menawarkan pinjaman modal usaha limit {uang}",
         "aku dapat pesan ajakan arisan online dan investasi bersama, setoran awal {uang}",
         "ada orang yang baru kukenal dua minggu ngajak main saham dan trading bareng",
-        "kemarin ada sms tawaran pinjaman bunga ringan, tenor 6 bulan"
+        "kemarin ada sms tawaran pinjaman bunga ringan, tenor 6 bulan",
+        "aku ditawari dana modal usaha {uang} cair hari ini tanpa agunan",
+        "ada yang ngundang ke komunitas trading emas dengan sinyal profit tiap hari",
+        "dikirimi brosur aset digital baru dengan imbal hasil tetap",
+        "teman ditawari koperasi simpan pinjam online dengan plafon {uang}"
       ]
     },
     "lainnya": {
@@ -134,7 +166,11 @@
         "Resi pesanan kakak belum terupdate di sistem ekspedisi",
         "Tagihan paket internet Anda bulan ini sebesar {uang}",
         "Bukti foto pelanggaran lalu lintas kendaraan Anda sudah tersedia",
-        "Ada kiriman dokumen penting untuk kakak dari kantor pos"
+        "Ada kiriman dokumen penting untuk kakak dari kantor pos",
+        "Pesanan Anda salah alamat, mohon cek ulang tujuan pengiriman",
+        "Penjual barang antik menawarkan lukisan langka ke kakak",
+        "Pemberitahuan tagihan air bulan ini sebesar {uang}",
+        "Ada panggilan tak terjawab dari kantor pos, dokumen Anda tertahan"
       ],
       "cerita": [
         "aku dikirimi pesan soal paket tertahan padahal tidak merasa belanja",
@@ -148,7 +184,11 @@
         "ayah dikirimi tagihan paket internet yang katanya belum terbayar",
         "tadi ada pesan katanya ada kiriman dokumen penting dari kantor pos",
         "ada orang di marketplace yang minta pindah ke wa untuk bayar barang",
-        "aku dikirimi file undangan aneh dari kontak yang tidak dikenal"
+        "aku dikirimi file undangan aneh dari kontak yang tidak dikenal",
+        "aku dikabari pesananku salah alamat padahal tidak pernah pesan",
+        "ada penjual lukisan langka yang nawarin lewat chat pribadi",
+        "mama dikirimi tagihan air yang aneh",
+        "ada pesan kantor pos soal dokumen tertahan padahal aku tidak menunggu apa-apa"
       ]
     }
   },
@@ -166,7 +206,15 @@
         "Slot terbatas, siapa cepat dia dapat",
         "Jangan sampai terlambat, ini kesempatan terakhir",
         "Urgent kak, tolong balas dalam 10 menit",
-        "Waktunya mepet sekali, harus selesai hari ini"
+        "Waktunya mepet sekali, harus selesai hari ini",
+        "Ayo gerak cepat, penawaran ini tidak lama lagi",
+        "Sebelum matahari terbenam harus sudah beres ya",
+        "Waktu kakak cuma sampai jam 12 malam ini",
+        "Jangan menunda, besok sudah tidak berlaku",
+        "Limit 2 jam dari pesan ini dikirim",
+        "Kalau lambat, ditarik dan diberikan ke orang lain",
+        "Buruan lah, yang lain sudah antre",
+        "Hanya hari ini, setelah itu ditutup"
       ],
       "cerita": [
         "dan dia terus mendesak harus dilakukan hari ini juga",
@@ -180,7 +228,15 @@
         "katanya penawaran berakhir malam ini",
         "dia terus nelpon bilang ini kesempatan terakhir",
         "diminta cepat karena slot terbatas",
-        "aku diburu-buru biar nggak sempat mikir"
+        "aku diburu-buru biar nggak sempat mikir",
+        "dia bilang kalau lambat ditarik dan dikasih orang lain",
+        "aku cuma dikasih waktu sampai jam 12 malam",
+        "dia terus nyuruh gerak cepat nggak boleh nunda",
+        "katanya penawarannya cuma hari ini lalu ditutup",
+        "pesannya bilang yang lain sudah antre jadi harus buruan",
+        "batas waktunya dua jam dari pesan dikirim",
+        "dia ngebut-ngebutin supaya aku nggak sempat mikir",
+        "katanya besok sudah tidak berlaku"
       ]
     },
     "upfront_fee": {
@@ -196,7 +252,15 @@
         "Setor biaya pelatihan {uang} sebelum mulai",
         "Kirim dulu uang pembukaan rekening {uang}",
         "Bayar biaya aktivasi member {uang} lewat {rek}",
-        "Lunasi biaya pengurusan berkas {uang} dulu baru lanjut"
+        "Lunasi biaya pengurusan berkas {uang} dulu baru lanjut",
+        "Wajib setor uang muka {uang} sebelum barang atau hadiah dikirim",
+        "Silakan transfer biaya proses {uang} ke {rek} atas nama petugas",
+        "Ada tarif legalisasi dokumen {uang} yang dibayar duluan",
+        "Isi saldo {uang} dulu untuk membuka akses",
+        "Bayar iuran keanggotaan {uang} baru bisa lanjut",
+        "Kirim biaya verifikasi {uang} lewat transfer",
+        "Kakak perlu membayar bea cukai {uang} terlebih dulu",
+        "Bayar dulu sebagian {uang}, sisanya menyusul"
       ],
       "cerita": [
         "terus aku disuruh transfer biaya administrasi {uang} dulu",
@@ -210,7 +274,15 @@
         "disuruh setor biaya pelatihan {uang} sebelum mulai",
         "dia minta aku kirim dulu uang pembukaan rekening {uang}",
         "ujung-ujungnya aku disuruh bayar biaya aktivasi {uang}",
-        "katanya harus lunasi biaya berkas {uang} dulu baru lanjut"
+        "katanya harus lunasi biaya berkas {uang} dulu baru lanjut",
+        "aku disuruh setor uang muka {uang} sebelum apa pun dikirim",
+        "katanya ada tarif legalisasi dokumen {uang} yang harus kubayar duluan",
+        "diminta isi saldo {uang} dulu buat buka akses",
+        "mereka minta iuran keanggotaan {uang} baru bisa lanjut",
+        "dia nyuruh kirim biaya verifikasi {uang}",
+        "harus bayar bea cukai {uang} dulu katanya",
+        "diminta bayar sebagian {uang} dulu, sisanya katanya nyusul",
+        "dia nyodorin nomor rekening dan minta biaya proses {uang}"
       ]
     },
     "impersonation": {
@@ -226,7 +298,15 @@
         "Aku sepupumu, lagi pakai nomor teman dulu",
         "Kami tim customer service, saya Sinta yang akan membantu",
         "Saya kurir yang ditugaskan mengantar paketnya",
-        "Dengan saya Andi, staf bagian keuangan, ingin konfirmasi"
+        "Dengan saya Andi, staf bagian keuangan, ingin konfirmasi",
+        "Masih ingat aku? Ini teman kuliahmu dulu",
+        "Saya wakil resmi dari kantor pusat",
+        "Hai, ini bos. Nomor ini nomor pribadi saya yang baru",
+        "Ini Tante, nomor Tante yang lama sudah mati",
+        "Dengan petugas layanan, saya yang menghubungi Anda tadi",
+        "Aku anak kos sebelah dulu, ingat tidak",
+        "Saya agen dari kantor cabang yang menangani akun Anda",
+        "Halo, ini tetanggamu, pakai hp saudara dulu"
       ],
       "cerita": [
         "dia ngaku sebagai HRD perusahaan",
@@ -240,7 +320,15 @@
         "orangnya bilang dia kurir yang ditugasi mengantar paket",
         "dia memperkenalkan diri sebagai staf bagian keuangan",
         "dia mengaku orang yang kukenal tapi nomornya baru",
-        "foto profilnya sama persis dengan temanku tapi katanya itu nomor barunya"
+        "foto profilnya sama persis dengan temanku tapi katanya itu nomor barunya",
+        "dia memperkenalkan diri sebagai bos dengan nomor pribadi baru",
+        "orangnya mengaku teman kuliah lamaku",
+        "dia bilang wakil dari kantor pusat",
+        "dia mengaku tante yang nomornya ganti",
+        "dia ngaku petugas layanan yang tadi menghubungi",
+        "pesan itu dari nomor asing tapi mengaku anak kos sebelah dulu",
+        "dia ngaku agen kantor cabang yang pegang akunku",
+        "orang itu ngaku tetangga yang pakai hp saudaranya"
       ]
     },
     "isolation": {
@@ -256,7 +344,15 @@
         "Rahasiakan dulu sampai semuanya selesai ya",
         "Jangan konfirmasi ke siapa pun, nanti prosesnya ribet",
         "Biar aman, jangan diskusikan dengan keluarga dulu",
-        "Ini rahasia perusahaan, tidak boleh dibocorkan ke teman"
+        "Ini rahasia perusahaan, tidak boleh dibocorkan ke teman",
+        "Kalau ditanya orang, bilang saja tidak tahu",
+        "Hapus chat ini setelah dibaca ya",
+        "Ini urusan pribadi kita, tidak perlu melibatkan keluarga",
+        "Orang lain nanti iri dan menggagalkan, jadi diam-diam saja",
+        "Tolong jangan sebut ke siapa pun termasuk pasangan",
+        "Cuma kamu yang dipercaya, jadi jaga rahasia",
+        "Jangan lapor ke pihak mana pun dulu ya",
+        "Tidak usah minta pendapat teman, nanti salah paham"
       ],
       "cerita": [
         "dan dia wanti-wanti jangan kasih tau siapa-siapa",
@@ -270,7 +366,15 @@
         "dia bilang ini rahasia perusahaan dan tidak boleh dibocorkan",
         "dia minta aku tutup mulut sampai semuanya selesai",
         "dia melarang aku bilang ke siapa pun, bahkan ke ibu",
-        "disuruh jangan cerita ke temen karena katanya bakal diganggu"
+        "disuruh jangan cerita ke temen karena katanya bakal diganggu",
+        "dia nyuruh hapus chat setelah dibaca",
+        "katanya kalau ditanya orang bilang aja nggak tahu",
+        "dia bilang ini urusan kami berdua, nggak usah libatkan keluarga",
+        "aku disuruh diam-diam soalnya orang lain katanya bakal iri",
+        "dia melarang aku nyebut ke siapa pun, termasuk pacar",
+        "dia minta aku jaga rahasia karena katanya cuma aku yang dipercaya",
+        "aku disuruh jangan lapor ke mana-mana dulu",
+        "katanya jangan minta pendapat teman nanti salah paham"
       ]
     },
     "too_good": {
@@ -286,7 +390,15 @@
         "Dapatkan iPhone gratis tanpa biaya apapun",
         "Pasti untung besar, member sebelumnya sudah ratusan juta",
         "Bonus dobel untuk kakak yang daftar hari ini",
-        "Hasil pasti dan aman tanpa risiko rugi sedikit pun"
+        "Hasil pasti dan aman tanpa risiko rugi sedikit pun",
+        "Hadiah sudah pasti jadi milik kakak tanpa syarat",
+        "Dapat bonus {uang} hanya karena daftar",
+        "Hasil dijamin balik modal dalam 3 hari",
+        "Tidak ada risiko, semua kami tanggung",
+        "Nikmati penghasilan pasif tiap hari tanpa kerja",
+        "Pinjaman disetujui 100% tanpa lihat riwayat",
+        "Untung berlipat tiap minggu, terbukti ribuan member",
+        "Gaji besar, kerja santai, libur kapan saja"
       ],
       "cerita": [
         "janjinya untung pasti 30% per minggu tanpa risiko",
@@ -300,7 +412,15 @@
         "ditawari iPhone gratis tanpa bayar apa pun",
         "dia bilang pasti untung besar tanpa risiko sama sekali",
         "bonusnya katanya dobel kalau aku daftar hari ini",
-        "terlalu bagus untuk jadi kenyataan, untungnya dijamin pasti"
+        "terlalu bagus untuk jadi kenyataan, untungnya dijamin pasti",
+        "katanya hadiahnya pasti jadi milikku tanpa syarat",
+        "dia janji bonus {uang} cuma karena daftar",
+        "dia jamin balik modal dalam 3 hari",
+        "katanya semua risiko ditanggung mereka",
+        "dia bilang bisa dapat penghasilan pasif tiap hari tanpa kerja",
+        "pinjamannya katanya pasti disetujui tanpa lihat riwayat",
+        "katanya untung berlipat tiap minggu dan sudah terbukti ribuan member",
+        "dijanjikan gaji besar, kerja santai, libur kapan saja"
       ]
     },
     "credential_request": {
@@ -316,7 +436,15 @@
         "Kirim screenshot kode yang barusan masuk",
         "Butuh PIN ATM untuk proses pencairan",
         "Sebutkan nama ibu kandung dan tanggal lahir untuk verifikasi",
-        "Mohon kirim data login akun e-wallet kakak"
+        "Mohon kirim data login akun e-wallet kakak",
+        "Mohon foto bagian depan kartu ATM Anda",
+        "Kirimkan angka 6 digit dari aplikasi autentikator",
+        "Konfirmasi dengan menyebutkan password email Anda",
+        "Kami perlu salinan KTP dan NPWP untuk proses ini",
+        "Ketik PIN Anda di kolom balasan agar terverifikasi",
+        "Sebut ulang kode yang dikirim lewat telepon",
+        "Balas dengan foto selfie memegang KTP dan kartu",
+        "Berikan token mobile banking Anda"
       ],
       "cerita": [
         "terus dia minta kode OTP yang masuk ke HP-ku",
@@ -330,7 +458,15 @@
         "dia minta screenshot kode yang barusan masuk",
         "dia nanyain PIN ATM-ku",
         "ditanya nama ibu kandung dan tanggal lahir buat verifikasi",
-        "dia minta data login akun e-wallet-ku"
+        "dia minta data login akun e-wallet-ku",
+        "dia minta foto bagian depan kartu ATM-ku",
+        "aku disuruh kirim angka 6 digit dari aplikasi",
+        "dia minta aku nyebutin password email",
+        "dia butuh salinan KTP dan NPWP katanya",
+        "aku diminta ngetik PIN di kolom balasan",
+        "dia minta aku menyebut ulang kode yang dikirim lewat telepon",
+        "disuruh balas dengan selfie pegang KTP dan kartu",
+        "dia meminta token m-banking-ku"
       ]
     },
     "link_or_apk": {
@@ -346,7 +482,15 @@
         "Klik link verifikasi {url} sekarang",
         "Buka file apk ini untuk melihat isinya",
         "Daftar lewat situs {url}",
-        "Scan dan install aplikasi dari tautan di bawah ini {url}"
+        "Scan dan install aplikasi dari tautan di bawah ini {url}",
+        "Cek rinciannya di tautan berikut {url}",
+        "Pasang berkas .apk yang kami kirimkan lewat chat",
+        "Klik tombol di {url} lalu ikuti petunjuk",
+        "Gunakan aplikasi khusus dari {url} supaya lancar",
+        "Kunjungi situs {url} untuk proses lebih lanjut",
+        "Buka lampiran di bawah dan install aplikasinya",
+        "Ketuk tautan ini dari HP Anda {url}",
+        "Unduh dokumen terlampir untuk membuka isi pesan"
       ],
       "cerita": [
         "dia ngirim link {url} dan nyuruh aku klik",
@@ -360,7 +504,15 @@
         "ada link verifikasi yang disuruh klik",
         "aku dikirimi file apk yang katanya isi undangan",
         "disuruh daftar lewat situs yang linknya aneh {url}",
-        "ada tautan yang minta aku install aplikasi dulu"
+        "ada tautan yang minta aku install aplikasi dulu",
+        "dia ngirim tautan {url} buat dicek",
+        "aku disuruh pasang berkas apk yang dikirim lewat chat",
+        "dia nyuruh klik tombol di {url}",
+        "katanya harus pakai aplikasi khusus dari link {url}",
+        "aku diminta mengunjungi situs {url} untuk lanjut",
+        "dia suruh buka lampiran lalu install aplikasinya",
+        "ada tautan {url} yang disuruh diketuk dari HP",
+        "dia mengirim dokumen terlampir yang disuruh diunduh"
       ]
     },
     "authority": {
@@ -376,7 +528,15 @@
         "Petugas pajak resmi menyampaikan tagihan Anda",
         "Sudah diverifikasi oleh lembaga resmi pemerintah",
         "Kami legal, bersertifikat, dan diawasi otoritas keuangan",
-        "Demi hukum, mohon ikuti prosedur dari kami"
+        "Demi hukum, mohon ikuti prosedur dari kami",
+        "Surat perintah dan nomor registrasi kami bisa dicek",
+        "Kami bekerja di bawah pengawasan otoritas",
+        "Berdasarkan peraturan, Anda wajib menanggapi",
+        "Perusahaan kami bersertifikat ISO dan berbadan hukum",
+        "Kami utusan resmi instansi pemerintah",
+        "Anda masuk daftar yang kami awasi, mohon kooperatif",
+        "Ini prosedur baku sesuai undang-undang",
+        "Nomor izin usaha kami sudah terdaftar di kementerian"
       ],
       "cerita": [
         "dia bilang perusahaannya resmi dan terdaftar di Kemnaker",
@@ -390,7 +550,15 @@
         "dia ngaku petugas pajak resmi",
         "katanya sudah diverifikasi lembaga pemerintah",
         "dia bilang legal, bersertifikat, dan diawasi otoritas",
-        "dia bawa-bawa hukum dan prosedur resmi buat nakut-nakutin"
+        "dia bawa-bawa hukum dan prosedur resmi buat nakut-nakutin",
+        "dia bilang punya surat perintah dan nomor registrasi",
+        "katanya mereka diawasi otoritas",
+        "dia bilang berdasarkan peraturan aku wajib menanggapi",
+        "dia bangga perusahaannya bersertifikat dan berbadan hukum",
+        "dia ngaku utusan resmi instansi pemerintah",
+        "dia bilang namaku ada di daftar pengawasan dan harus kooperatif",
+        "dia bilang ini prosedur baku sesuai undang-undang",
+        "dia menyebut nomor izin usaha yang terdaftar di kementerian"
       ]
     }
   },
@@ -445,19 +613,166 @@
     "Kita belajar bareng yuk buat ujian minggu depan, aku pinjemin catatan kemarin",
     "Gaji pertama dari magang sudah cair, nanti aku traktir makan malam",
     "Bapak, uang sekolah adik bulan ini {uang} sudah ibu transfer lewat bank",
-    "Pendaftaran beasiswa daerah dibuka sampai akhir bulan, semua proses gratis, info di situs resmi dinas"
+    "Pendaftaran beasiswa daerah dibuka sampai akhir bulan, semua proses gratis, info di situs resmi dinas",
+    "Tugas laporan harus dikumpulkan hari ini jam 5 sore ke dosen pembimbing, jangan sampai telat",
+    "Segera selesaikan registrasi ulang di portal akademik sebelum tanggal 10 supaya KRS tidak terkunci",
+    "Bayar UKT lewat bank mitra resmi kampus sebelum batas akhir, jangan lewat perantara",
+    "Biaya iuran kas kelas bulan ini {uang}, titip ke bendahara ya",
+    "Ini nomor baru ibu, nomor lama hilang. Kalau mau telepon pakai nomor ini ya nak",
+    "Hp aku rusak jadi sementara pakai nomor adik, nanti aku kabarin kalau sudah beli yang baru",
+    "Jangan bilang ke Rina dulu ya, kita lagi nyiapin kejutan ulang tahunnya hari Sabtu",
+    "Rahasiain dulu soal kado ini, biar nanti jadi kejutan buat Bapak",
+    "Diskon besar-besaran akhir tahun di toko resmi kami, potongan sampai 50% untuk produk pilihan",
+    "Mahasiswa baru bisa dapat tiket konser gratis dengan menunjukkan kartu mahasiswa di loket",
+    "Mohon bawa fotokopi KTP dan kartu mahasiswa ke bagian akademik untuk daftar ulang beasiswa",
+    "Petugas bank tidak akan pernah meminta PIN atau kode OTP Anda lewat telepon maupun chat",
+    "Waspada penipuan mengatasnamakan bank, jangan klik tautan dari pengirim yang tidak dikenal",
+    "Formulir pendaftaran lomba ada di situs resmi fakultas, silakan diisi sebelum tanggal 15",
+    "Unduh aplikasi kampus hanya dari toko aplikasi resmi, versi terbaru sudah tersedia",
+    "Perusahaan kami terdaftar resmi dan mengumumkan hasil seleksi di situs karier masing-masing",
+    "Kami dari panitia resmi acara, tiket sudah terkirim ke email {email} masing-masing peserta",
+    "Dosen sudah memberi tahu bahwa ujian susulan diadakan Rabu, mohon konfirmasi kehadiran lewat grup",
+    "Teman-teman, patungan beli kado untuk wali kelas, masing-masing {uang}, kirim ke bendahara",
+    "Tolong kirim bukti transfer ke grup ya biar bendahara gampang mencatat pembayarannya",
+    "Pesanan buku kamu sudah dikirim lewat ekspedisi, nomor resi tertera di aplikasi toko",
+    "Kakak minta tolong dikirimin dokumen skripsi lewat email {email}, nanti kakak cek malam ini",
+    "Aku baru terima gaji bulan ini, nanti akhir pekan kita makan di luar ya",
+    "Gratis ongkir untuk pembelian di atas {uang} di toko resmi kami sampai akhir pekan",
+    "Yuk ikut kerja bakti hari Minggu pagi di lingkungan RT, jangan lupa bawa sapu",
+    "Info beasiswa pemerintah daerah sudah ada di situs resmi, seluruh tahapan tidak dipungut biaya",
+    "Apakah kamu bisa pinjamkan buku catatan statistik? Besok pagi aku kembalikan di kelas",
+    "Bapak mau transfer uang kuliah semester ini {uang}, tolong kirim nomor rekening kampus yang resmi",
+    "Bank Nusantara Jaya: kartu Anda sudah aktif. Untuk keamanan, jangan bagikan PIN kepada siapa pun",
+    "Lowongan asisten dosen dibuka, kirim CV ke email resmi jurusan {email}, tidak ada biaya pendaftaran"
   ],
   "frames": {
-    "tempel_open": ["Halo kak,", "Selamat siang,", "Hai,", "Permisi kak,", "Assalamualaikum,", "Pagi kak,", "Info penting:", "Pemberitahuan:", "Kak,", ""],
-    "tempel_close": ["Terima kasih.", "Ditunggu ya kak.", "Balas pesan ini ya.", "Salam hormat.", "Mohon segera ditanggapi.", "Konfirmasi lewat {nomor} ya.", "", "", ""],
-    "cerita_open": ["Tadi", "Barusan", "Kemarin", "Tadi pagi", "Beberapa hari lalu", "Tadi malam", "Mau cerita,", "Minta pendapat dong,", "Lagi bingung nih,"],
-    "cerita_close": ["Ini penipuan bukan ya?", "Menurut kalian gimana?", "Aku jadi curiga.", "Aku belum balas apa-apa.", "Harus gimana ya?", "Aku langsung blokir nomornya.", "Takutnya aku terlanjur percaya.", "", ""]
+    "tempel_open": [
+      "Halo kak,",
+      "Selamat siang,",
+      "Hai,",
+      "Permisi kak,",
+      "Assalamualaikum,",
+      "Pagi kak,",
+      "Info penting:",
+      "Pemberitahuan:",
+      "Kak,",
+      ""
+    ],
+    "tempel_close": [
+      "Terima kasih.",
+      "Ditunggu ya kak.",
+      "Balas pesan ini ya.",
+      "Salam hormat.",
+      "Mohon segera ditanggapi.",
+      "Konfirmasi lewat {nomor} ya.",
+      "",
+      "",
+      ""
+    ],
+    "cerita_open": [
+      "Tadi",
+      "Barusan",
+      "Kemarin",
+      "Tadi pagi",
+      "Beberapa hari lalu",
+      "Tadi malam",
+      "Mau cerita,",
+      "Minta pendapat dong,",
+      "Lagi bingung nih,"
+    ],
+    "cerita_close": [
+      "Ini penipuan bukan ya?",
+      "Menurut kalian gimana?",
+      "Aku jadi curiga.",
+      "Aku belum balas apa-apa.",
+      "Harus gimana ya?",
+      "Aku langsung blokir nomornya.",
+      "Takutnya aku terlanjur percaya.",
+      "",
+      ""
+    ]
   },
   "style": {
-    "wa_abbrev": {"yang": "yg", "tidak": "gk", "banget": "bgt", "kakak": "kak", "sudah": "udh", "belum": "blm", "untuk": "utk", "dengan": "dgn", "karena": "krn", "transfer": "tf", "rekening": "rek", "sekarang": "skrg", "sama": "sm", "juga": "jg", "bisa": "bs", "tolong": "tlg", "jangan": "jgn", "saja": "aja", "dulu": "dl", "admin": "min", "orang": "org"},
-    "typo_swaps": [["ng", "n"], ["ah", "a"], ["kk", "k"], ["ss", "s"], ["ra", "ar"], ["ka", "ak"]],
-    "emoji": ["😀", "🙏", "🎉", "🔥", "😊", "💰", "⚠️", "✅", "🎁", "❤️"],
-    "money": ["{n}rb", "Rp{n}.000", "{n} ribu", "Rp {n}.000", "{n}k", "{m} juta", "{m}jt", "Rp{m}.000.000", "{m},5jt", "{m},5 juta"],
-    "probs": {"wa_abbrev": 0.5, "typo": 0.2, "caps": 0.08, "seru": 0.15, "emoji": 0.2, "strip_punct": 0.25}
+    "wa_abbrev": {
+      "yang": "yg",
+      "tidak": "gk",
+      "banget": "bgt",
+      "kakak": "kak",
+      "sudah": "udh",
+      "belum": "blm",
+      "untuk": "utk",
+      "dengan": "dgn",
+      "karena": "krn",
+      "transfer": "tf",
+      "rekening": "rek",
+      "sekarang": "skrg",
+      "sama": "sm",
+      "juga": "jg",
+      "bisa": "bs",
+      "tolong": "tlg",
+      "jangan": "jgn",
+      "saja": "aja",
+      "dulu": "dl",
+      "admin": "min",
+      "orang": "org"
+    },
+    "typo_swaps": [
+      [
+        "ng",
+        "n"
+      ],
+      [
+        "ah",
+        "a"
+      ],
+      [
+        "kk",
+        "k"
+      ],
+      [
+        "ss",
+        "s"
+      ],
+      [
+        "ra",
+        "ar"
+      ],
+      [
+        "ka",
+        "ak"
+      ]
+    ],
+    "emoji": [
+      "😀",
+      "🙏",
+      "🎉",
+      "🔥",
+      "😊",
+      "💰",
+      "⚠️",
+      "✅",
+      "🎁",
+      "❤️"
+    ],
+    "money": [
+      "{n}rb",
+      "Rp{n}.000",
+      "{n} ribu",
+      "Rp {n}.000",
+      "{n}k",
+      "{m} juta",
+      "{m}jt",
+      "Rp{m}.000.000",
+      "{m},5jt",
+      "{m},5 juta"
+    ],
+    "probs": {
+      "wa_abbrev": 0.5,
+      "typo": 0.2,
+      "caps": 0.08,
+      "seru": 0.15,
+      "emoji": 0.2,
+      "strip_punct": 0.25
+    }
   }
 }
