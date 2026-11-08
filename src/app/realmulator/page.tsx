@@ -100,7 +100,7 @@ const SCENARIOS: ScenarioContact[] = [
     initialMessage: "Pagi kak, saya kurir di depan pagar rumah antar paket COD senilai Rp185.000 atas nama pemilik rumah. Boleh minta tolong dibuka pagarnya atau ditransfer sekarang ya kak?",
     attachment: {
       type: "invoice",
-      title: "Resi Tagihan COD: #JT-992184-ID",
+      title: "Resi Tagihan COD: #EK-992184-ID",
       subtitle: "Barang: Set Perawatan Wajah Premium (Tagihan: Rp185.000)",
       size: "COD Fee Rp185.000"
     },

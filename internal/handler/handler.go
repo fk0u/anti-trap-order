@@ -111,7 +111,7 @@ func (s *Server) handleGetScenarioByID(w http.ResponseWriter, r *http.Request) {
 
 func (s *Server) handleReflect(w http.ResponseWriter, r *http.Request) {
 	var req model.ReflectRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := json.NewDecoder(http.MaxBytesReader(w, r.Body, analyzeMaxBody)).Decode(&req); err != nil {
 		writeError(w, http.StatusBadRequest, "INVALID_JSON", "Payload request tidak valid")
 		return
 	}
@@ -126,6 +126,9 @@ func (s *Server) handleReflect(w http.ResponseWriter, r *http.Request) {
 		writeError(w, http.StatusBadRequest, "MISSING_INPUT", "Wajib memilih skenario_id atau memasukkan teks situasi")
 		return
 	}
+
+	// Samarkan nomor/email/URL/rekening sebelum diproses, sama seperti /api/v1/lite/analyze.
+	req.FreeText, _ = ml.Mask(req.FreeText)
 
 	resp, err := s.reflectEngine.ProcessReflection(req)
 	if err != nil {

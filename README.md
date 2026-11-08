@@ -33,9 +33,9 @@ Hasil setiap fitur bergantung pada input/pilihan pengguna (syarat Fungsionalitas
 ## Privasi, keamanan, dan keterbatasan
 
 - **Tanpa login, tanpa database, tanpa data pribadi.** Server bersifat stateless.
-- **Teks bebas hanya diterima satu endpoint** (`POST /api/v1/lite/analyze`). Nomor HP, email, URL, dan rekening **dimasking di server** (aturan yang sama tersedia untuk browser di `src/lib/ml/contract.ts`); teks tidak dicatat ke log dan tidak disimpan.
-- **Tidak ada layanan pihak ketiga / LLM saat aplikasi berjalan.** Klasifikasi memakai model Naive Bayes kecil yang dilatih offline dan di-embed di binary Go; Realmulator memakai balasan berbasis aturan.
-- **Semua skenario, nama, nomor, dan merek fiktif.** Tidak ada konten berbahaya nyata (tautan/APK) yang dihosting.
+- **Teks bebas** diterima di `POST /api/v1/lite/analyze` dan, untuk UI Lite saat ini, di `POST /api/reflect`. Di kedua endpoint nomor HP, email, URL, dan rekening **dimasking di server sebelum diproses**; teks tidak dicatat ke log dan tidak disimpan.
+- **Teks pengguna tidak dikirim ke layanan pihak ketiga / LLM.** Klasifikasi memakai model Naive Bayes kecil yang dilatih offline dan di-embed di binary Go; Realmulator memakai balasan berbasis aturan. (Satu-satunya aset eksternal: foto avatar Realmulator dari Unsplash, tanpa data pengguna.)
+- **Nama tokoh, nomor, rekening, dan perusahaan pelaku fiktif.** Nama layanan umum (mis. dompet digital) hanya disebut sebagai konteks edukasi. Tidak ada konten berbahaya nyata (tautan/APK) yang dihosting.
 - **Keterbatasan:** model dilatih dari data sintetis + tulisan tangan berbahasa Indonesia, bisa salah, tidak memberi skor/persen bahaya, dan **hasil tidak membuktikan suatu interaksi aman**. Selalu verifikasi lewat kanal resmi.
 - Hardening backend: rate limit per IP (`429` + `Retry-After`), CORS allowlist persis, batas ukuran body, header keamanan (HSTS, `nosniff`, `DENY`), validasi JSON ketat (field asing ditolak).
 
@@ -45,7 +45,7 @@ Hasil setiap fitur bergantung pada input/pilihan pengguna (syarat Fungsionalitas
 
 ```
 Browser (Next.js 16, React 19, Tailwind, Framer Motion)
-   │  hanya ID pilihan, kecuali teks Lite ke /analyze
+   │  ID pilihan + teks Lite (dimasking di server)
    ▼
 Go API (net/http, stateless)  ── internal/middleware  (rate limit, CORS, security headers)
    ├─ internal/ml       Naive Bayes + tokenizer slang Indonesia (model.json di-embed)
@@ -100,10 +100,10 @@ Buka http://localhost:3000.
 ```bash
 go vet ./... && go test -race ./...   # backend
 npm run build                          # frontend
-go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun ulang dataset + model ML
+go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun ulang dataset + model ML (manual)
 ```
 
-GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) menjalankan semua di atas pada setiap PR dan push ke `main`.
+GitHub Actions ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)) menjalankan `go vet`, `go test -race`, `go build`, dan `npm run build` pada setiap PR dan push ke `main`.
 
 ### Deploy
 
