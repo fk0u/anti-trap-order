@@ -33,6 +33,8 @@ func main() {
 	scenarios := repo.ListScenarios()
 	soulArcs := repo.ListSoulArcs()
 	log.Printf("✓ Dataset loaded: %d scenarios, %d soul arcs ready.", len(scenarios), len(soulArcs))
+	v1 := repo.V1() // sudah divalidasi fail-fast di data.Load
+	log.Printf("✓ Konten v1 %s: %d kategori, %d taktik, %d skenario.", data.ContentVersion, len(v1.Categories), len(v1.Tactics), len(v1.Scenarios))
 
 	// 2. Setup handlers and routes
 	server := handler.NewServer(repo)

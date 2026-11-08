@@ -1,0 +1,27 @@
+[
+  {
+    "id": "tawaran_kerja",
+    "label": "Tawaran Kerja",
+    "icon": "briefcase"
+  },
+  {
+    "id": "giveaway",
+    "label": "Giveaway",
+    "icon": "gift"
+  },
+  {
+    "id": "akun_menyamar",
+    "label": "Akun Menyamar",
+    "icon": "user-round-x"
+  },
+  {
+    "id": "pinjaman_investasi",
+    "label": "Pinjaman/Investasi",
+    "icon": "banknote"
+  },
+  {
+    "id": "lainnya",
+    "label": "Lainnya",
+    "icon": "help-circle"
+  }
+]

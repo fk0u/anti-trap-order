@@ -1,0 +1,58 @@
+[
+  {
+    "id": "urgency",
+    "label": "Urgensi",
+    "icon": "clock",
+    "explanation": "Tenggat palsu memotong waktu berpikirmu.",
+    "counter": "Tidak ada kesempatan sah yang hilang dalam 10 menit. Tunda dulu."
+  },
+  {
+    "id": "upfront_fee",
+    "label": "Biaya di Depan",
+    "icon": "wallet",
+    "explanation": "Pelaku meminta bayaran lebih dulu dengan janji uang kembali, hadiah, atau pencairan.",
+    "counter": "Tidak ada layanan sah yang mensyaratkan kamu membayar lebih dulu. Berhenti dan cek lewat kanal resmi."
+  },
+  {
+    "id": "impersonation",
+    "label": "Menyamar",
+    "icon": "venetian-mask",
+    "explanation": "Pelaku memakai identitas orang atau lembaga yang kamu percaya.",
+    "counter": "Konfirmasi lewat kanal yang sudah kamu kenal, bukan lewat nomor atau tautan dari pesan itu."
+  },
+  {
+    "id": "isolation",
+    "label": "Minta Dirahasiakan",
+    "icon": "eye-off",
+    "explanation": "Pelaku meminta percakapan dirahasiakan agar tidak ada yang mengingatkanmu.",
+    "counter": "Ceritakan ke orang yang kamu percaya. Tawaran yang sah tidak takut ditanyakan."
+  },
+  {
+    "id": "too_good",
+    "label": "Terlalu Bagus",
+    "icon": "trending-up",
+    "explanation": "Imbalan yang tidak masuk akal membuat orang berhenti bertanya.",
+    "counter": "Bandingkan dengan harga atau gaji pasaran; minta kontrak tertulis."
+  },
+  {
+    "id": "credential_request",
+    "label": "Minta Kode/Data",
+    "icon": "key-round",
+    "explanation": "Kode OTP, PIN, kata sandi, atau data identitas dipakai untuk mengambil alih akunmu.",
+    "counter": "Jangan bagikan kode OTP, PIN, atau kata sandi kepada siapa pun, apa pun alasannya."
+  },
+  {
+    "id": "link_or_apk",
+    "label": "Tautan/Aplikasi",
+    "icon": "link",
+    "explanation": "Tautan atau berkas pasang dipakai untuk mencuri data atau menguasai perangkatmu.",
+    "counter": "Jangan buka tautan atau pasang aplikasi dari pesan. Ketik alamat resmi sendiri atau pakai toko aplikasi resmi."
+  },
+  {
+    "id": "authority",
+    "label": "Klaim Resmi",
+    "icon": "shield-check",
+    "explanation": "Klaim berasal dari bank, instansi, atau perusahaan resmi dipakai supaya kamu tidak membantah.",
+    "counter": "Klaim resmi bisa ditiru. Cek lewat nomor atau situs yang kamu cari sendiri."
+  }
+]
