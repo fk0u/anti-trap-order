@@ -1,0 +1,4 @@
+id,text,style,category,tactics,source
+tim-0001,"Kak lolos kerja admin online, bayar seragam 100rb dulu ya hari ini",tempel,tawaran_kerja,upfront_fee|urgency,tim
+tim-0002,Tadi ada yang ngaku bank minta kode OTP katanya akunku mau diblokir,cerita,akun_menyamar,credential_request|impersonation|urgency,tim
+tim-0003,Besok rapat organisasi jam 4 sore di sekretariat ya semuanya,normal,lainnya,,tim
