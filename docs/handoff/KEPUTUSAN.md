@@ -46,8 +46,9 @@ Tidak ada layar untuk **Realmulator** maupun **Drill**.
 | K9 | Batas waktu klien API **3 detik**, lalu mode terbatas. `429` membawa `Retry-After: 20`. | Matriks state UI |
 | K10 | 👍👎 di S-09 tidak dikirim ke server; ekspor gambar 4:5 dibuat di browser. | Privasi; tanpa database |
 | K11 | Dataset latih ML berupa **data sintetis buatan AI** (ditulis agen), diperiksa sampel oleh tim, dan **diuji dengan 30–50 pesan yang ditulis tim sendiri**. Disampaikan terbuka ke juri. | Tim awam ML dan waktu 3 hari; gaya data sintetis seragam sehingga butuh uji jujur |
+| K12 | **(8 Nov 2026, menggantikan K2, serta K5/K6 untuk teks S-03.)** Model ML utama berjalan **di server Go**: `POST /api/v1/lite/analyze` menerima teks S-03 yang **sudah dimasking di browser**; Go memasking ulang, menebak kategori + skenario + taktik, lalu membuang teks (tidak di-log, tidak disimpan, tanpa LLM/pihak ketiga). Training juga di Go (`go run ./cmd/ml-train`). Frontend menjalankan **model cadangan** untuk mode terbatas memakai `internal/ml/model.json` yang sama, dijaga sama hasilnya lewat fixture `testdata/fixtures/ml-*.json`. Privasi di sisi UI (masking sebelum kirim, teks S-16) ditangani tim FE. | Keputusan pemilik proyek: backend fokus melayani permintaan FE; FE sudah setuju memperbarui kontrak |
 
-Kalimat untuk juri: *"Model Naive Bayes berjalan di perangkat pengguna dan dilatih dengan data sintetis yang dibuat dengan bantuan AI lalu diperiksa tim; diuji dengan pesan yang ditulis tim sendiri. Teks pengguna tidak pernah dikirim ke mana pun."*
+Kalimat untuk juri (diperbarui sesuai K12): *"Model Naive Bayes buatan sendiri berjalan di server kami, tanpa AI generatif. Nomor, email, rekening, dan tautan disamarkan di perangkat sebelum dikirim; server tidak mencatat atau menyimpan teks. Model dilatih dengan data sintetis yang dibuat dengan bantuan AI lalu diperiksa tim, dan diuji dengan pesan yang ditulis tim sendiri."*
 
 ## 4. Label bersama
 
@@ -77,12 +78,12 @@ Dokumen tim lengkap ada di Claude Docs "Pembagian Tugas Tim — Anti Trap Order 
 
 - **Backend (Go):** tipe v1, 9 endpoint `/api/v1/*` sesuai `docs/openapi.yaml` dengan validasi ketat, reflect found/missed, Soul 3 misi + peringkat, CORS allowlist, 429 + Retry-After 20, tidak log body, hapus `gemini-web2api`, secret deploy, test + fixture bersama. Endpoint lama dibiarkan sampai frontend pindah.
 - **Frontend (TS):** komponen dari halaman Components Figma, klien API v1 (timeout 3 dtk → mode terbatas), 20 layar, hapus "Tingkat Bahaya", sembunyikan Realmulator/Drill, `reflect-local.ts`/`soul-local.ts` ditulis ulang agar lolos fixture bersama, memakai `analyzeText()` dari `src/lib/ml`.
-- **ML (agen):** lihat `docs/handoff/ML-SPEC.md`.
+- **ML (agen, di Go):** lihat `docs/handoff/ML-SPEC.md`. Model cadangan TS untuk mode terbatas dikerjakan tim FE (draf awal tokenizer TS ada di branch `feat/ml-browser`).
 - **Konten (tim, agen boleh membuat draf):** 60 opsi baru (jadi 5 per pertanyaan, masing-masing dengan `tags`), `tactic` + `counter` untuk 40 celah, katalog 8 taktik, pemetaan kategori, arc Soul (min. 1, ideal 3) 3 misi × A/B/C dengan konsekuensi dan `deltas`, 3 peringkat + ambang. Semua di folder `content/` sebagai satu sumber untuk Go dan Next.js.
 
 ## 7. Keputusan yang masih terbuka
 
-- Siapa menulis dataset ML: agen (default, K11) atau tim. **Tanyakan ke user sebelum membuat dataset.**
+- ~~Siapa menulis dataset ML~~ → diputuskan 8 Nov 2026: agen (K11).
 - Ambang peringkat Soul untuk meter baru (disepakati tim konten + backend).
 - Nama tampilan final 8 badge taktik (cek komponen TacticBadge di Figma).
 - Apakah folder `content/` menggantikan `internal/data/*.json` dan `src/data/*.json` sekaligus dalam MVP.
