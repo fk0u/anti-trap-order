@@ -1,0 +1,2329 @@
+[
+  {
+    "id": "wfh_admin_fee",
+    "category": "tawaran_kerja",
+    "title": "Lowongan Admin WFH Bayar Seragam",
+    "example_message": "Dicari admin input data, kerja dari rumah, Rp500rb/hari. Daftar hari ini, kuota terbatas. Biaya seragam Rp150rb.",
+    "keywords": [
+      "admin",
+      "wfh",
+      "lowongan",
+      "seragam",
+      "refund",
+      "rekrutmen",
+      "biaya",
+      "harian",
+      "komitmen"
+    ],
+    "is_fallback": true,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu yang menipu orang ini, hal pertama apa yang akan kamu manfaatkan darinya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Dia butuh uang cepat",
+            "tags": [
+              "imbalan_berlebihan"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Dia belum pernah kerja kantoran",
+            "tags": [
+              "umum_wfh"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Dia percaya lowongan di media sosial",
+            "tags": [
+              "rekrutmen_palsu"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Dia takut ketinggalan kesempatan",
+            "tags": [
+              "kuota_terbatas"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Dia sungkan bertanya soal biaya",
+            "tags": [
+              "umum_wfh"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Supaya dia tidak sempat berpikir, tekanan apa yang kamu pakai?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Batas waktu",
+            "tags": [
+              "kuota_terbatas"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Kuota tinggal sedikit",
+            "tags": [
+              "kuota_terbatas"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Gaji dibayar hari ini juga",
+            "tags": [
+              "imbalan_berlebihan"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Banyak yang sudah daftar",
+            "tags": [
+              "umum_wfh"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Ancaman slot diberikan ke orang lain",
+            "tags": [
+              "umum_wfh"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Satu cara verifikasi paling gampang yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Dicek nama perusahaannya di internet",
+            "tags": [
+              "rekrutmen_palsu"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Diminta kontrak tertulis",
+            "tags": [
+              "rekrutmen_palsu"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Ditanya ke teman atau keluarga",
+            "tags": [
+              "umum_wfh"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Diminta wawancara video",
+            "tags": [
+              "umum_wfh"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Ditanya kenapa harus bayar dulu",
+            "tags": [
+              "biaya_di_depan"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Pelaku meminta biaya \"seragam\" atau \"komitmen\" sebelum kamu bekerja, lalu menjanjikan uangnya kembali.",
+        "counter": "Tidak ada pekerjaan sah yang meminta pelamar membayar lebih dulu. Berhenti di titik ini.",
+        "severity": 3,
+        "tags": [
+          "biaya_di_depan"
+        ]
+      },
+      {
+        "id": "flaw_too_good",
+        "tactic": "too_good",
+        "explanation": "Gaji harian besar untuk kerja ringan membuat orang berhenti menghitung dan bertanya.",
+        "counter": "Bandingkan dengan gaji pasaran untuk pekerjaan serupa; minta kontrak tertulis.",
+        "severity": 2,
+        "tags": [
+          "imbalan_berlebihan"
+        ]
+      },
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "\"Kuota tinggal sedikit\" dipakai supaya kamu mengambil keputusan sebelum sempat mengecek.",
+        "counter": "Tidak ada lowongan sah yang hangus dalam hitungan jam. Tunda dulu dan cek perusahaannya.",
+        "severity": 2,
+        "tags": [
+          "kuota_terbatas"
+        ]
+      },
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pesan mengaku dari tim rekrutmen perusahaan, tetapi tidak ada alamat kantor, kontrak, atau rekening atas nama perusahaan.",
+        "counter": "Cari lowongan itu di situs karier resmi perusahaan, bukan lewat nomor yang menghubungimu.",
+        "severity": 2,
+        "tags": [
+          "rekrutmen_palsu"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Tawaran Kerja",
+      "checklist": [
+        {
+          "id": "step_stop_payment",
+          "text": "Jangan transfer apa pun sebelum ada kontrak resmi."
+        },
+        {
+          "id": "step_verify",
+          "text": "Cek nama perusahaan lewat situs karier resmi atau profil perusahaan yang kamu cari sendiri."
+        },
+        {
+          "id": "step_screenshot",
+          "text": "Simpan tangkapan layar percakapan sebagai bukti, lalu berhenti membalas."
+        }
+      ],
+      "warnings": {
+        "santai": "Eh, sebelum kamu terima tawaran kerja itu, coba pikir dulu: kenapa harus bayar duluan? Biasanya itu tanda jebakan. Yuk cek bareng.",
+        "tegas": "Jangan transfer biaya apa pun untuk lowongan kerja. Perusahaan sah tidak meminta uang dari pelamar."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform lowongan tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat kejadian."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "task_scam_review_maps",
+    "category": "tawaran_kerja",
+    "title": "Tugas Ulas & Sukai Berkomisi",
+    "example_message": "Butuh freelancer lepas untuk ulas tempat bintang 5 dan sukai video. Tiap tugas selesai cair Rp25rb. Gabung grup VIP kami di grup-tugas-fiktif[.]id, sudah banyak yang terima komisi harian.",
+    "keywords": [
+      "review maps",
+      "like video",
+      "komisi like",
+      "misi review",
+      "freelancer lepas",
+      "tugas grup"
+    ],
+    "is_fallback": false,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu pengelola tugas palsu ini, apa yang kamu pasang supaya orang mau mulai?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Bayaran pertama kecil tapi benar-benar dikirim",
+            "tags": [
+              "komisi_tidak_wajar"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Tugasnya terlihat gampang dan tanpa risiko",
+            "tags": [
+              "komisi_tidak_wajar"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Grup penuh anggota yang pamer bukti transfer",
+            "tags": [
+              "pindah_grup_obrolan"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Dia butuh penghasilan sampingan",
+            "tags": [
+              "umum_task"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Dia senang dengan kerja yang fleksibel",
+            "tags": [
+              "umum_task"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Setelah dia mulai, bagaimana kamu membuatnya terus menyetor uang?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Tugas premium yang minta setoran modal",
+            "tags": [
+              "setoran_tugas_premium"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Saldo komisi tertahan sampai dia setor lagi",
+            "tags": [
+              "setoran_tugas_premium"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Menyuruh cepat sebelum tugas hangus",
+            "tags": [
+              "umum_task"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Bukti komisi jutaan dari anggota lain",
+            "tags": [
+              "komisi_tidak_wajar"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Admin yang ramah dan sabar membimbing",
+            "tags": [
+              "agensi_tanpa_identitas"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Pertanyaan apa yang paling kamu harap tidak diajukan calon korban?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Perusahaannya apa dan kantornya di mana?",
+            "tags": [
+              "agensi_tanpa_identitas"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Kenapa harus pindah ke grup obrolan?",
+            "tags": [
+              "pindah_grup_obrolan"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Kenapa tugas sekecil ini dibayar sebesar itu?",
+            "tags": [
+              "komisi_tidak_wajar"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Boleh minta kontrak kerja?",
+            "tags": [
+              "umum_task"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Kenapa harus setor uang untuk dapat bayaran?",
+            "tags": [
+              "setoran_tugas_premium"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_too_good",
+        "tactic": "too_good",
+        "explanation": "Bayaran untuk tugas semudah menekan tombol suka tidak masuk akal, dan bukti komisi \"jutaan\" membuat orang lupa bertanya dari mana uangnya.",
+        "counter": "Tanyakan siapa yang diuntungkan dari ulasan dan suka itu. Pekerjaan sah punya klien dan kontrak yang jelas.",
+        "severity": 2,
+        "tags": [
+          "komisi_tidak_wajar"
+        ]
+      },
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Setelah beberapa tugas kecil dibayar, muncul tugas \"premium\" yang meminta setoran modal dan saldo komisi ditahan.",
+        "counter": "Berhenti begitu diminta setor uang. Saldo yang \"tertahan\" hampir pasti tidak akan cair.",
+        "severity": 3,
+        "tags": [
+          "setoran_tugas_premium"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Korban digiring pindah ke grup obrolan tertutup berisi akun-akun yang berpura-pura sudah berhasil.",
+        "counter": "Hati-hati dengan ajakan pindah ke grup lewat tautan. Cek dulu siapa pemilik grup dan perusahaannya.",
+        "severity": 2,
+        "tags": [
+          "pindah_grup_obrolan"
+        ]
+      },
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pengelola mengaku dari \"agensi digital\" tanpa nama perusahaan, alamat, atau kontrak yang bisa dicek.",
+        "counter": "Minta nama badan usaha dan alamat kantor, lalu cek sendiri. Tidak ada jawaban jelas berarti jangan lanjut.",
+        "severity": 2,
+        "tags": [
+          "agensi_tanpa_identitas"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Tawaran Kerja",
+      "checklist": [
+        {
+          "id": "step_stop_deposit",
+          "text": "Jangan setor uang untuk membuka tugas atau mencairkan komisi."
+        },
+        {
+          "id": "step_leave_group",
+          "text": "Keluar dari grup dan jangan ajak teman bergabung."
+        },
+        {
+          "id": "step_check_company",
+          "text": "Cari nama agensinya sendiri dan cek apakah punya alamat serta izin usaha."
+        }
+      ],
+      "warnings": {
+        "santai": "Tugas ulas berbayar yang minta setoran itu biasanya jebakan, lho. Yuk jangan lanjut dan keluar dari grupnya dulu.",
+        "tegas": "Pekerjaan sah tidak meminta setoran. Hentikan tugas, jangan transfer lagi, dan keluar dari grup tersebut."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "giveaway_fake_verified",
+    "category": "giveaway",
+    "title": "Giveaway Akun Centang Palsu",
+    "example_message": "SELAMAT! Akunmu terpilih memenangkan ponsel baru dari @TokoSentosa.Official. Bayar ongkos asuransi Rp75rb dalam 30 menit lewat klaim-hadiah-fiktif[.]id agar hadiah dikirim.",
+    "keywords": [
+      "giveaway",
+      "iphone",
+      "hadiah",
+      "ongkir",
+      "asuransi",
+      "menang",
+      "berkah",
+      "klaim",
+      "terpilih"
+    ],
+    "is_fallback": true,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu penyelenggara palsu, apa yang kamu pakai supaya akunmu dipercaya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Nama dan foto profil mirip akun toko asli",
+            "tags": [
+              "akun_kloning"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Pengumuman pemenang yang tampak resmi",
+            "tags": [
+              "umum_giveaway"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Tautan yang terlihat seperti situs resmi",
+            "tags": [
+              "tautan_klaim"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Hadiah merek ternama yang terdengar mustahil",
+            "tags": [
+              "umum_giveaway"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Hadiah gratis yang hanya minta ongkos kecil",
+            "tags": [
+              "ongkos_hadiah"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Supaya korban tidak sempat curiga, tekanan apa yang kamu pasang?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Batas klaim hanya 30 menit",
+            "tags": [
+              "tenggat_30_menit"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Hadiah hangus jika tidak dikonfirmasi",
+            "tags": [
+              "tenggat_30_menit"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Pemenang lain sudah klaim",
+            "tags": [
+              "umum_giveaway"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Biaya dibuat terlihat sangat kecil",
+            "tags": [
+              "ongkos_hadiah"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Pesan balasan yang sopan dan ramah",
+            "tags": [
+              "umum_giveaway"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Cara cek paling mudah apa yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Dicek akun resmi tokonya lewat pencarian",
+            "tags": [
+              "akun_kloning"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Dilihat alamat tautannya lebih teliti",
+            "tags": [
+              "tautan_klaim"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Ditanya kenapa hadiah harus bayar ongkos",
+            "tags": [
+              "ongkos_hadiah"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Diminta bukti undian terbuka",
+            "tags": [
+              "umum_giveaway"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Diajak telepon atau video langsung",
+            "tags": [
+              "umum_giveaway"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Hadiah \"gratis\" ternyata meminta ongkos kirim atau asuransi lebih dulu, nominalnya dibuat kecil agar terasa wajar.",
+        "counter": "Hadiah sah tidak meminta bayaran. Kalau diminta membayar, anggap itu penipuan.",
+        "severity": 3,
+        "tags": [
+          "ongkos_hadiah"
+        ]
+      },
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Akun pengirim meniru nama, foto, dan centang toko atau tokoh yang asli, padahal pemiliknya orang lain.",
+        "counter": "Buka akun resmi lewat pencarian sendiri dan bandingkan nama pengguna serta jumlah pengikutnya.",
+        "severity": 3,
+        "tags": [
+          "akun_kloning"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Klaim hadiah diarahkan ke tautan dengan alamat mirip situs resmi, tujuannya mengumpulkan data atau uangmu.",
+        "counter": "Jangan buka tautan klaim. Periksa alamatnya huruf demi huruf atau ketik sendiri alamat resmi.",
+        "severity": 2,
+        "tags": [
+          "tautan_klaim"
+        ]
+      },
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "Batas klaim 30 menit dibuat supaya kamu bertindak sebelum sempat bertanya ke siapa pun.",
+        "counter": "Hadiah sah tidak hangus dalam hitungan menit. Beri dirimu waktu untuk mengecek.",
+        "severity": 2,
+        "tags": [
+          "tenggat_30_menit"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Giveaway",
+      "checklist": [
+        {
+          "id": "step_no_pay",
+          "text": "Jangan bayar ongkos apa pun untuk menerima hadiah."
+        },
+        {
+          "id": "step_check_account",
+          "text": "Cari akun resmi toko dan bandingkan dengan akun yang menghubungimu."
+        },
+        {
+          "id": "step_report_account",
+          "text": "Laporkan dan blokir akun yang meniru."
+        }
+      ],
+      "warnings": {
+        "santai": "Eh, hadiah yang minta bayar ongkos dulu itu biasanya jebakan. Coba cek akun resminya bareng aku dulu, yuk.",
+        "tegas": "Hadiah sah tidak meminta pembayaran. Jangan klik tautan atau transfer apa pun, dan laporkan akunnya."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "impersonate_new_number",
+    "category": "akun_menyamar",
+    "title": "Kerabat Ganti Nomor Minta Transfer",
+    "example_message": "Halo, ini aku, ganti nomor ya. HP lamaku rusak. Tolong transfer Rp400rb dulu ke rekening temanku, nanti sore langsung kuganti.",
+    "keywords": [
+      "nomor baru",
+      "ganti nomor",
+      "pinjam",
+      "layar retak",
+      "bengkel",
+      "m-banking",
+      "sementara",
+      "tolong",
+      "darurat"
+    ],
+    "is_fallback": true,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu yang menyamar jadi kerabat, apa yang kamu manfaatkan dari korban?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Dia sayang dan ingin cepat membantu",
+            "tags": [
+              "umum_impersonate"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Dia jarang mengecek nomor kontak lama",
+            "tags": [
+              "nomor_baru_kerabat"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Dia tidak enak menolak keluarga",
+            "tags": [
+              "umum_impersonate"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Dia mudah panik kalau ada musibah",
+            "tags": [
+              "musibah_mendesak"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Dia bersedia menalangi dulu",
+            "tags": [
+              "talangi_dulu"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Alasan apa yang kamu pakai supaya kamu tidak bisa ditelepon?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Layar HP retak",
+            "tags": [
+              "hindari_telepon"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Sedang rapat atau di jalan",
+            "tags": [
+              "hindari_telepon"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Kartu SIM lama bermasalah",
+            "tags": [
+              "nomor_baru_kerabat"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Nomor lama sudah diblokir",
+            "tags": [
+              "nomor_baru_kerabat"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Baterai tinggal sedikit",
+            "tags": [
+              "umum_impersonate"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Pertanyaan verifikasi apa yang paling kamu takutkan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Ditelepon ke nomor lama",
+            "tags": [
+              "nomor_baru_kerabat"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Diminta kirim voice note atau video",
+            "tags": [
+              "hindari_telepon"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Ditanya hal yang hanya kerabat asli tahu",
+            "tags": [
+              "umum_impersonate"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Ditanya kenapa rekeningnya atas nama orang lain",
+            "tags": [
+              "talangi_dulu"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Ditanya kenapa harus sekarang juga",
+            "tags": [
+              "musibah_mendesak"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pelaku mengaku kerabat yang berganti nomor, memanfaatkan kebiasaan kita jarang mengecek ulang kontak lama.",
+        "counter": "Simpan nomor baru hanya setelah kamu menelepon nomor lama atau menghubungi kerabat itu lewat orang lain.",
+        "severity": 3,
+        "tags": [
+          "nomor_baru_kerabat"
+        ]
+      },
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "Alasan musibah atau urusan mendesak membuat kamu bertindak dulu dan bertanya belakangan.",
+        "counter": "Mendesak bukan berarti tidak bisa dicek. Tarik napas dan verifikasi dulu, semendesak apa pun kedengarannya.",
+        "severity": 2,
+        "tags": [
+          "musibah_mendesak"
+        ]
+      },
+      {
+        "id": "flaw_isolation",
+        "tactic": "isolation",
+        "explanation": "Dalih HP rusak atau sedang rapat dipakai supaya kamu tidak bisa mendengar suara aslinya atau bertanya ke orang lain.",
+        "counter": "Minta panggilan suara atau video. Kerabat asli tidak keberatan dihubungi.",
+        "severity": 2,
+        "tags": [
+          "hindari_telepon"
+        ]
+      },
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Kamu diminta menalangi dulu dengan janji diganti, ke rekening atas nama orang lain.",
+        "counter": "Jangan transfer ke rekening yang namanya tidak kamu kenal sebelum identitas pengirim terbukti.",
+        "severity": 3,
+        "tags": [
+          "talangi_dulu"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Akun Menyamar",
+      "checklist": [
+        {
+          "id": "step_call_old",
+          "text": "Telepon nomor lama atau hubungi kerabat itu lewat anggota keluarga lain."
+        },
+        {
+          "id": "step_ask_proof",
+          "text": "Minta panggilan video sebelum transfer apa pun."
+        },
+        {
+          "id": "step_block",
+          "text": "Jika tidak terbukti, blokir nomor baru itu."
+        }
+      ],
+      "warnings": {
+        "santai": "Hai, tadi ada nomor baru ngaku-ngaku aku nggak? Coba telepon dulu ke nomor lamaku sebelum transfer apa pun, ya.",
+        "tegas": "Saya tidak akan mentransfer apa pun sebelum identitasmu terbukti lewat panggilan ke nomor lama."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan aplikasi percakapan tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan dan blokir nomor lewat fitur lapor di aplikasi tempat kejadian."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "phishing_bank_account_freeze",
+    "category": "akun_menyamar",
+    "title": "Notifikasi Rekening Akan Dibekukan",
+    "example_message": "PENTING: rekening Bank Nusa Sentosa kamu akan DIBEKUKAN dalam 1x24 jam. Verifikasi di bank-nusa-pemulihan[.]fiktif dan kirim kode OTP yang masuk.",
+    "keywords": [
+      "dibekukan",
+      "blokir",
+      "tarif",
+      "nasabah",
+      "verifikasi",
+      "otp",
+      "pin",
+      "rekening",
+      "link",
+      "bank"
+    ],
+    "is_fallback": false,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu penipu yang mengaku dari bank, rasa takut apa yang kamu mainkan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Takut uang di rekening tidak bisa diambil",
+            "tags": [
+              "ancaman_blokir"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Takut dianggap lalai mengurus akun",
+            "tags": [
+              "umum_phishing"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Percaya pesan berlogo bank itu resmi",
+            "tags": [
+              "klaim_bank"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Takut kena biaya atau denda",
+            "tags": [
+              "umum_phishing"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Tidak sempat membaca pesan sampai habis",
+            "tags": [
+              "umum_phishing"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Apa yang kamu minta supaya bisa menguras rekeningnya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Kode OTP yang dikirim ke ponselnya",
+            "tags": [
+              "minta_otp"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "PIN atau kata sandi aplikasi bank",
+            "tags": [
+              "minta_otp"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Dia mengisi data di halaman tiruan",
+            "tags": [
+              "tautan_bukan_resmi"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Foto KTP dan swafoto",
+            "tags": [
+              "umum_phishing"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Dia menekan tautan tanpa melihat alamatnya",
+            "tags": [
+              "tautan_bukan_resmi"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Cara cek apa yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Menutup pesan lalu menelepon nomor di kartu",
+            "tags": [
+              "klaim_bank"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Memeriksa alamat tautan huruf demi huruf",
+            "tags": [
+              "tautan_bukan_resmi"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Menunggu sebentar sebelum bertindak",
+            "tags": [
+              "ancaman_blokir"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Bertanya ke teman soal pesan serupa",
+            "tags": [
+              "umum_phishing"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Mengingat bahwa bank tidak pernah minta OTP",
+            "tags": [
+              "minta_otp"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "Ancaman rekening dibekukan dalam waktu singkat membuat orang panik dan bertindak tanpa mengecek.",
+        "counter": "Bank asli tidak membekukan rekening lewat pesan yang meminta kamu bergegas. Tutup pesannya dulu.",
+        "severity": 2,
+        "tags": [
+          "ancaman_blokir"
+        ]
+      },
+      {
+        "id": "flaw_authority",
+        "tactic": "authority",
+        "explanation": "Logo dan bahasa yang terdengar resmi dipakai supaya kamu mengira pesan itu benar-benar dari bank.",
+        "counter": "Tampilan resmi mudah ditiru. Hubungi bank lewat nomor yang tertera di kartu atau aplikasi resmi.",
+        "severity": 2,
+        "tags": [
+          "klaim_bank"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Tautan \"verifikasi\" membawa kamu ke halaman tiruan yang mencuri data login dan kartu.",
+        "counter": "Jangan buka tautan dari pesan. Buka aplikasi bank langsung atau ketik alamat resminya sendiri.",
+        "severity": 3,
+        "tags": [
+          "tautan_bukan_resmi"
+        ]
+      },
+      {
+        "id": "flaw_credential_request",
+        "tactic": "credential_request",
+        "explanation": "Kode OTP dan PIN adalah kunci akses akunmu; siapa pun yang memintanya bukan dari bank.",
+        "counter": "Bank tidak pernah meminta OTP atau PIN. Jangan berikan kepada siapa pun.",
+        "severity": 3,
+        "tags": [
+          "minta_otp"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Akun Menyamar",
+      "checklist": [
+        {
+          "id": "step_no_otp",
+          "text": "Jangan bagikan OTP, PIN, atau kata sandi."
+        },
+        {
+          "id": "step_call_bank",
+          "text": "Hubungi bank lewat nomor di kartu atau aplikasi resmi."
+        },
+        {
+          "id": "step_change_pw",
+          "text": "Jika sudah terlanjur klik, segera ganti kata sandi dan hubungi bank."
+        }
+      ],
+      "warnings": {
+        "santai": "Pesan 'rekening dibekukan' itu biasanya palsu, lho. Jangan klik tautannya dulu; cek lewat aplikasi resmi bank, yuk.",
+        "tegas": "Bank tidak meminta OTP atau PIN lewat pesan. Jangan klik tautan itu dan hubungi bank lewat nomor resmi."
+      },
+      "report_channels": [
+        {
+          "name": "Layanan pengaduan bank pemilik rekening",
+          "status": "placeholder",
+          "note": "Sementara, hubungi bank lewat nomor di kartu atau aplikasi resmi."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "loan_fast_no_check",
+    "category": "pinjaman_investasi",
+    "title": "Pinjaman Kilat Tanpa Syarat",
+    "example_message": "Pinjaman cair 5 menit tanpa cek riwayat, cukup KTP, bunga 0%. Disetujui Rp10 juta! Bayar biaya meterai dan aktivasi Rp250rb dulu agar dana cair.",
+    "keywords": [
+      "pinjol",
+      "pinjaman",
+      "cair",
+      "bi checking",
+      "slik",
+      "dana kilat",
+      "meterai",
+      "aktivasi",
+      "bunga 0%"
+    ],
+    "is_fallback": true,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu pemberi pinjaman palsu, umpan apa yang bikin orang langsung melamar?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Cair dalam hitungan menit",
+            "tags": [
+              "umum_loan"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Tanpa cek riwayat kredit",
+            "tags": [
+              "syarat_terlalu_mudah"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Mengaku pinjaman resmi dan berizin",
+            "tags": [
+              "klaim_resmi_berizin"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Plafon besar dengan syarat KTP saja",
+            "tags": [
+              "minta_data_ktp"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Iklan yang terus muncul di media sosial",
+            "tags": [
+              "umum_loan"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Setelah dia setuju, bagaimana kamu mendapatkan uang dan datanya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Biaya meterai dan aktivasi",
+            "tags": [
+              "biaya_pencairan"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Biaya asuransi pencairan",
+            "tags": [
+              "biaya_pencairan"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Alasan baru muncul setiap kali dia ragu",
+            "tags": [
+              "umum_loan"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Foto KTP dan swafoto sebagai data tambahan",
+            "tags": [
+              "minta_data_ktp"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Akses ke daftar kontaknya",
+            "tags": [
+              "minta_data_ktp"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Pertanyaan apa yang paling kamu hindari dari calon peminjam?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Apakah lembaganya terdaftar di regulator?",
+            "tags": [
+              "klaim_resmi_berizin"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Kenapa tanpa cek riwayat tapi bunganya nol?",
+            "tags": [
+              "syarat_terlalu_mudah"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Kenapa harus bayar sebelum dana cair?",
+            "tags": [
+              "biaya_pencairan"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Boleh minta kontrak pinjaman tertulis?",
+            "tags": [
+              "umum_loan"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Boleh datang ke kantornya?",
+            "tags": [
+              "umum_loan"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Dana tak kunjung cair karena selalu ada \"biaya meterai\" atau \"aktivasi\" yang harus dibayar lebih dulu.",
+        "counter": "Pemberi pinjaman sah memotong biaya dari dana yang cair. Jangan bayar apa pun sebelum uang masuk.",
+        "severity": 3,
+        "tags": [
+          "biaya_pencairan"
+        ]
+      },
+      {
+        "id": "flaw_too_good",
+        "tactic": "too_good",
+        "explanation": "Syarat nyaris tanpa cek dan bunga nol membuat orang lupa bahwa tidak ada pinjaman gratis.",
+        "counter": "Bandingkan dengan syarat dan bunga pinjaman resmi; tawaran tanpa cek sama sekali patut dicurigai.",
+        "severity": 2,
+        "tags": [
+          "syarat_terlalu_mudah"
+        ]
+      },
+      {
+        "id": "flaw_authority",
+        "tactic": "authority",
+        "explanation": "Pelaku mengaku resmi atau berizin tanpa menunjukkan nama badan hukum yang bisa dicek.",
+        "counter": "Cek izin pemberi pinjaman lewat daftar resmi regulator yang kamu cari sendiri.",
+        "severity": 2,
+        "tags": [
+          "klaim_resmi_berizin"
+        ]
+      },
+      {
+        "id": "flaw_credential_request",
+        "tactic": "credential_request",
+        "explanation": "Foto KTP, swafoto, dan akses kontak bisa disalahgunakan untuk pinjaman atas namamu atau untuk menekan teman-temanmu.",
+        "counter": "Jangan kirim foto KTP atau beri akses kontak ke pemberi pinjaman yang belum terbukti sah.",
+        "severity": 3,
+        "tags": [
+          "minta_data_ktp"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Pinjaman/Investasi",
+      "checklist": [
+        {
+          "id": "step_no_fee",
+          "text": "Jangan bayar biaya apa pun sebelum dana benar-benar masuk."
+        },
+        {
+          "id": "step_check_license",
+          "text": "Cek izin pemberi pinjaman lewat daftar resmi regulator."
+        },
+        {
+          "id": "step_protect_ktp",
+          "text": "Jangan kirim foto KTP atau beri akses kontak ke pihak yang belum terbukti sah."
+        }
+      ],
+      "warnings": {
+        "santai": "Pinjaman yang minta bayar dulu sebelum cair itu biasanya jebakan. Yuk cek izinnya bareng sebelum lanjut.",
+        "tegas": "Pinjaman sah tidak meminta biaya di depan. Hentikan proses, jangan kirim data KTP, dan jangan transfer apa pun."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pengaduan konsumen layanan keuangan (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        },
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        }
+      ]
+    }
+  },
+  {
+    "id": "apk_wedding_invitation",
+    "category": "lainnya",
+    "title": "Undangan Digital Berformat APK",
+    "example_message": "Kepada Yth. Bapak/Ibu, kami mengundang Anda ke pernikahan kami. Detail acara ada di berkas Undangan_Digital.apk, silakan unduh dan pasang.",
+    "keywords": [
+      "undangan",
+      "pernikahan",
+      "apk",
+      "surat undangan",
+      "undangan digital",
+      "tilang",
+      "surat tilang",
+      "install apk",
+      "resepsi"
+    ],
+    "is_fallback": false,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu penyebar berkas ini, kebiasaan korban apa yang kamu andalkan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Orang sungkan menolak undangan",
+            "tags": [
+              "umum_apk"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Orang jarang curiga pada pesan undangan",
+            "tags": [
+              "pengirim_tak_dikenal"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Orang terbiasa membuka berkas dari grup",
+            "tags": [
+              "berkas_apk"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Orang penasaran siapa yang menikah",
+            "tags": [
+              "umum_apk"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Orang percaya surat yang tampak resmi",
+            "tags": [
+              "surat_tampak_resmi"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Apa yang kamu minta supaya aplikasi palsumu bisa menguasai ponselnya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Pasang aplikasi dari luar toko resmi",
+            "tags": [
+              "berkas_apk"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Izinkan membaca SMS",
+            "tags": [
+              "izin_aplikasi"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Izinkan akses notifikasi",
+            "tags": [
+              "izin_aplikasi"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Hidupkan pemasangan dari sumber tak dikenal",
+            "tags": [
+              "berkas_apk"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Biarkan aplikasi berjalan di latar belakang",
+            "tags": [
+              "umum_apk"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Cek paling gampang apa yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Menghubungi si pengundang lewat nomor lama",
+            "tags": [
+              "pengirim_tak_dikenal"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Bertanya di grup keluarga",
+            "tags": [
+              "umum_apk"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Mengecek ekstensi berkas",
+            "tags": [
+              "berkas_apk"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Membandingkan dengan undangan resmi yang biasa diterima",
+            "tags": [
+              "surat_tampak_resmi"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Menolak memberi izin aplikasi",
+            "tags": [
+              "izin_aplikasi"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Undangan asli berupa gambar atau tautan situs, bukan berkas pasang aplikasi (.apk) yang bisa menguasai ponselmu.",
+        "counter": "Jangan pasang berkas .apk dari pesan. Minta undangan dalam bentuk gambar atau tautan situs resmi.",
+        "severity": 3,
+        "tags": [
+          "berkas_apk"
+        ]
+      },
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pengirim mengaku teman atau kenalan, atau memakai nomor yang tidak kamu simpan.",
+        "counter": "Konfirmasi ke si pengundang lewat nomor lama atau orang lain sebelum membuka apa pun.",
+        "severity": 2,
+        "tags": [
+          "pengirim_tak_dikenal"
+        ]
+      },
+      {
+        "id": "flaw_credential_request",
+        "tactic": "credential_request",
+        "explanation": "Aplikasi palsu meminta izin baca SMS dan notifikasi supaya bisa mencuri kode OTP dan mengakses akun.",
+        "counter": "Tolak izin yang tidak masuk akal untuk sebuah undangan, dan copot aplikasi yang sudah terlanjur dipasang.",
+        "severity": 3,
+        "tags": [
+          "izin_aplikasi"
+        ]
+      },
+      {
+        "id": "flaw_authority",
+        "tactic": "authority",
+        "explanation": "Judul \"surat undangan\" atau \"surat tilang\" berlogo instansi dipakai supaya kamu tidak ragu membukanya.",
+        "counter": "Surat resmi tidak dikirim sebagai aplikasi lewat pesan. Cek ke instansi terkait lewat kanal resmi.",
+        "severity": 2,
+        "tags": [
+          "surat_tampak_resmi"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Lainnya",
+      "checklist": [
+        {
+          "id": "step_no_install",
+          "text": "Jangan pasang berkas .apk dari pesan mana pun."
+        },
+        {
+          "id": "step_confirm_sender",
+          "text": "Tanyakan ke si pengirim lewat nomor lama bahwa undangan itu benar."
+        },
+        {
+          "id": "step_uninstall",
+          "text": "Jika sudah terpasang, putuskan internet, copot aplikasinya, dan ganti kata sandi akun penting."
+        }
+      ],
+      "warnings": {
+        "santai": "Eh, undangan yang berupa file .apk itu mencurigakan. Jangan dibuka dulu, tanya ke yang ngundang lewat nomor lama, yuk.",
+        "tegas": "Undangan sah tidak berupa aplikasi. Jangan pasang berkas .apk dan konfirmasi dulu ke pengirim lewat kanal lain."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "marketplace_cod_scam",
+    "category": "lainnya",
+    "title": "Kurir COD Minta Transfer",
+    "example_message": "Halo kak, saya kurir Kilat Antar. Paket COD Rp245rb atas nama keluargamu sudah di depan rumah. Karena kamu tidak di rumah, transfer ke rekening pribadi saya ya. Cek resi di lacak-kilat-fiktif[.]id.",
+    "keywords": [
+      "cod",
+      "paket",
+      "kurir",
+      "ekspedisi",
+      "bayar ditempat",
+      "resi",
+      "antar paket",
+      "tagihan cod"
+    ],
+    "is_fallback": false,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu kurir gadungan, siapa yang kamu incar?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Orang yang sering belanja online",
+            "tags": [
+              "umum_marketplace"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Orang yang sedang tidak di rumah",
+            "tags": [
+              "umum_marketplace"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Orang yang percaya pada seragam atau nama ekspedisi",
+            "tags": [
+              "kurir_gadungan"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Orang yang tidak ingat sudah memesan atau belum",
+            "tags": [
+              "umum_marketplace"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Orang yang segan membuat kurir menunggu",
+            "tags": [
+              "kurir_buru_buru"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Cara apa yang kamu pakai supaya uangnya masuk ke rekeningmu?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Minta transfer karena dia tidak di rumah",
+            "tags": [
+              "transfer_sebelum_terima"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Mengirim tautan lacak paket",
+            "tags": [
+              "tautan_resi_palsu"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Rekening pribadi dengan alasan kas kurir",
+            "tags": [
+              "kurir_gadungan"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Janji paket langsung diantar setelah transfer",
+            "tags": [
+              "transfer_sebelum_terima"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Menunjukkan foto paket sembarang",
+            "tags": [
+              "umum_marketplace"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Pertanyaan apa yang paling kamu hindari dari penerima paket?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Boleh bayar tunai saat paket tiba?",
+            "tags": [
+              "transfer_sebelum_terima"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Boleh cek nomor resi di aplikasi ekspedisi?",
+            "tags": [
+              "tautan_resi_palsu"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Kenapa rekeningnya atas nama pribadi?",
+            "tags": [
+              "kurir_gadungan"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Boleh dihubungi lewat kantor ekspedisi?",
+            "tags": [
+              "umum_marketplace"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Kenapa harus sekarang juga?",
+            "tags": [
+              "kurir_buru_buru"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pelaku mengaku kurir dan meminta transfer ke rekening pribadi, bukan membayar tunai ke kurir resmi.",
+        "counter": "Kurir resmi tidak meminta transfer ke rekening pribadi. Hubungi layanan ekspedisinya lewat aplikasi atau situs resmi.",
+        "severity": 3,
+        "tags": [
+          "kurir_gadungan"
+        ]
+      },
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "Alasan kurir sedang buru-buru membuat penerima mentransfer tanpa sempat mengecek pesanan.",
+        "counter": "Pesanan asli bisa dicek kapan saja di aplikasi toko. Tidak perlu terburu-buru.",
+        "severity": 2,
+        "tags": [
+          "kurir_buru_buru"
+        ]
+      },
+      {
+        "id": "flaw_upfront_fee",
+        "tactic": "upfront_fee",
+        "explanation": "Penerima diminta membayar lewat transfer sebelum paket benar-benar ada di tangan.",
+        "counter": "Bayar hanya saat paket sudah diterima dan kamu yakin itu pesananmu.",
+        "severity": 3,
+        "tags": [
+          "transfer_sebelum_terima"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Tautan \"lacak paket\" mengarah ke halaman tiruan yang mengumpulkan data atau mengambil uangmu.",
+        "counter": "Lacak paket hanya lewat aplikasi toko atau situs ekspedisi yang kamu buka sendiri.",
+        "severity": 2,
+        "tags": [
+          "tautan_resi_palsu"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Lainnya",
+      "checklist": [
+        {
+          "id": "step_no_transfer",
+          "text": "Jangan transfer ke rekening pribadi kurir."
+        },
+        {
+          "id": "step_check_order",
+          "text": "Cek pesananmu di aplikasi toko atau tanyakan ke anggota rumah yang ada."
+        },
+        {
+          "id": "step_cod_cash",
+          "text": "Bayar COD hanya tunai setelah paket diterima dan sesuai."
+        }
+      ],
+      "warnings": {
+        "santai": "Kak, kurir minta transfer ke rekening pribadi itu aneh. Cek dulu pesananmu di aplikasi ya sebelum bayar apa pun.",
+        "tegas": "Saya hanya membayar COD secara tunai saat paket diterima. Saya tidak akan mentransfer ke rekening pribadi."
+      },
+      "report_channels": [
+        {
+          "name": "Layanan pelanggan ekspedisi dan toko tempat pesanan",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        },
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        }
+      ]
+    }
+  },
+  {
+    "id": "romance_investment_pigbutchering",
+    "category": "pinjaman_investasi",
+    "title": "Kenalan Online Ajak Trading",
+    "example_message": "Pagi, jangan lupa sarapan ya. Aku lagi cek profit harian nih. Mau aku ajari trading di platform broker ini? Modal kecil dulu, nanti aku bimbing sampai untung.",
+    "keywords": [
+      "kencan",
+      "dating",
+      "trading",
+      "crypto",
+      "profit harian",
+      "broker",
+      "kripto",
+      "kenalan online",
+      "investasi emas"
+    ],
+    "is_fallback": false,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu pelaku, bagaimana membangun kepercayaan sebelum bicara uang?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Perhatian setiap hari, dari sarapan sampai kabar malam",
+            "tags": [
+              "profil_palsu"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Foto dan cerita hidup yang tampak sempurna",
+            "tags": [
+              "profil_palsu"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Menyebut dia spesial dan cocok denganku",
+            "tags": [
+              "umum_romance"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Pamer gaya hidup mewah dari hasil trading",
+            "tags": [
+              "profit_harian"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Selalu membalas dengan cepat dan sabar",
+            "tags": [
+              "umum_romance"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Bagaimana kamu mengajak dia mulai menyetor uang?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Pamer profit harian lewat tangkapan layar",
+            "tags": [
+              "profit_harian"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Mulai dari modal kecil yang bisa ditarik",
+            "tags": [
+              "platform_tak_resmi"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Mengarahkan ke aplikasi trading buatanku",
+            "tags": [
+              "platform_tak_resmi"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Bilang ini rahasia kita berdua",
+            "tags": [
+              "rahasiakan_dari_keluarga"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Berjanji menemaninya sampai untung",
+            "tags": [
+              "umum_romance"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Cek paling mudah apa yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Panggilan video langsung",
+            "tags": [
+              "profil_palsu"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Cek izin platform ke regulator",
+            "tags": [
+              "platform_tak_resmi"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Bercerita ke keluarga atau sahabat",
+            "tags": [
+              "rahasiakan_dari_keluarga"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Menunda transfer sampai akhir pekan",
+            "tags": [
+              "umum_romance"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Bertanya kenapa untungnya begitu pasti",
+            "tags": [
+              "profit_harian"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Foto dan cerita hidup yang sempurna, plus perhatian setiap hari, dipakai untuk membangun kedekatan palsu.",
+        "counter": "Minta panggilan video langsung. Kenalan online yang asli tidak keberatan menunjukkan wajahnya.",
+        "severity": 3,
+        "tags": [
+          "profil_palsu"
+        ]
+      },
+      {
+        "id": "flaw_too_good",
+        "tactic": "too_good",
+        "explanation": "Tangkapan layar untung harian dan gaya hidup mewah membuat investasi terdengar pasti untung.",
+        "counter": "Tidak ada investasi sah yang menjamin untung harian. Jangan percaya bukti yang hanya dari pihak mereka.",
+        "severity": 3,
+        "tags": [
+          "profit_harian"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Kamu diarahkan ke aplikasi atau situs trading buatan pelaku; angka untungnya palsu dan uangnya tidak bisa ditarik.",
+        "counter": "Cek izin platform ke regulator dan coba tarik dana kecil sebelum menambah modal.",
+        "severity": 3,
+        "tags": [
+          "platform_tak_resmi"
+        ]
+      },
+      {
+        "id": "flaw_isolation",
+        "tactic": "isolation",
+        "explanation": "Pelaku meminta ini jadi rahasia berdua atau bilang keluarga tidak akan mengerti, supaya tidak ada yang menghentikan.",
+        "counter": "Ceritakan ke orang terdekat sebelum mengirim uang. Ajakan yang dirahasiakan adalah tanda bahaya.",
+        "severity": 2,
+        "tags": [
+          "rahasiakan_dari_keluarga"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Pinjaman/Investasi",
+      "checklist": [
+        {
+          "id": "step_stop_send",
+          "text": "Hentikan setoran dan jangan tambah modal."
+        },
+        {
+          "id": "step_video_call",
+          "text": "Minta panggilan video, dan hentikan komunikasi jika dihindari."
+        },
+        {
+          "id": "step_tell_someone",
+          "text": "Ceritakan ke orang terdekat yang kamu percaya."
+        }
+      ],
+      "warnings": {
+        "santai": "Aku khawatir deh, kenalan online yang ngajak trading itu pola yang umum dipakai penipu. Yuk ngobrol dulu sebelum kirim uang.",
+        "tegas": "Saya tidak akan mengirim uang untuk investasi yang dikenalkan lewat kenalan online. Hentikan percakapan."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        },
+        {
+          "name": "Kanal pengaduan investasi ilegal (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  },
+  {
+    "id": "generic_emergency",
+    "category": "lainnya",
+    "title": "Situasi Lain yang Terasa Janggal",
+    "example_message": "Ada yang menghubungi dan minta sesuatu dengan buru-buru.",
+    "keywords": [
+      "darurat",
+      "cepat",
+      "sekarang",
+      "transfer",
+      "link",
+      "verifikasi",
+      "tolong",
+      "bantuan",
+      "segera"
+    ],
+    "is_fallback": true,
+    "questions": [
+      {
+        "id": "q1",
+        "step": 1,
+        "prompt": "Kalau kamu penipunya, perasaan apa yang kamu bangkitkan di korban?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q1_a",
+            "label": "Panik karena ada yang genting",
+            "tags": [
+              "minta_buru_buru"
+            ]
+          },
+          {
+            "id": "q1_b",
+            "label": "Takut dianggap tidak peduli",
+            "tags": [
+              "umum_generic"
+            ]
+          },
+          {
+            "id": "q1_c",
+            "label": "Percaya karena pengirimnya terdengar akrab",
+            "tags": [
+              "pengirim_tak_terverifikasi"
+            ]
+          },
+          {
+            "id": "q1_d",
+            "label": "Penasaran dengan tawaran menarik",
+            "tags": [
+              "umum_generic"
+            ]
+          },
+          {
+            "id": "q1_e",
+            "label": "Segan menolak",
+            "tags": [
+              "umum_generic"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q2",
+        "step": 2,
+        "prompt": "Apa yang kamu minta darinya?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q2_a",
+            "label": "Kode atau PIN",
+            "tags": [
+              "minta_data_pribadi"
+            ]
+          },
+          {
+            "id": "q2_b",
+            "label": "Data pribadi seperti KTP dan tanggal lahir",
+            "tags": [
+              "minta_data_pribadi"
+            ]
+          },
+          {
+            "id": "q2_c",
+            "label": "Klik tautan",
+            "tags": [
+              "tautan_asing"
+            ]
+          },
+          {
+            "id": "q2_d",
+            "label": "Pasang aplikasi",
+            "tags": [
+              "tautan_asing"
+            ]
+          },
+          {
+            "id": "q2_e",
+            "label": "Balas pesan saja dulu",
+            "tags": [
+              "umum_generic"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "q3",
+        "step": 3,
+        "prompt": "Cek mudah apa yang paling kamu hindari supaya tidak ketahuan?",
+        "min_select": 1,
+        "max_select": 2,
+        "allow_other": true,
+        "other_max_length": 80,
+        "options": [
+          {
+            "id": "q3_a",
+            "label": "Berhenti dan menunggu sepuluh menit",
+            "tags": [
+              "minta_buru_buru"
+            ]
+          },
+          {
+            "id": "q3_b",
+            "label": "Menghubungi pengirim lewat kanal yang sudah dikenal",
+            "tags": [
+              "pengirim_tak_terverifikasi"
+            ]
+          },
+          {
+            "id": "q3_c",
+            "label": "Bertanya ke orang yang dipercaya",
+            "tags": [
+              "umum_generic"
+            ]
+          },
+          {
+            "id": "q3_d",
+            "label": "Memeriksa alamat tautan",
+            "tags": [
+              "tautan_asing"
+            ]
+          },
+          {
+            "id": "q3_e",
+            "label": "Menanyakan kenapa data itu dibutuhkan",
+            "tags": [
+              "minta_data_pribadi"
+            ]
+          }
+        ]
+      }
+    ],
+    "flaws": [
+      {
+        "id": "flaw_urgency",
+        "tactic": "urgency",
+        "explanation": "Permintaan yang harus dipenuhi sekarang juga mempersempit waktu kamu untuk berpikir dan bertanya.",
+        "counter": "Berhenti sebentar. Hal yang sah masih bisa menunggu 10 menit sampai kamu mengecek.",
+        "severity": 2,
+        "tags": [
+          "minta_buru_buru"
+        ]
+      },
+      {
+        "id": "flaw_impersonation",
+        "tactic": "impersonation",
+        "explanation": "Pengirim mengaku orang atau lembaga yang kamu kenal, tetapi identitasnya belum bisa kamu buktikan.",
+        "counter": "Hubungi pihak yang dimaksud lewat kanal yang sudah kamu kenal, bukan lewat pesan tadi.",
+        "severity": 2,
+        "tags": [
+          "pengirim_tak_terverifikasi"
+        ]
+      },
+      {
+        "id": "flaw_credential_request",
+        "tactic": "credential_request",
+        "explanation": "Kode, PIN, atau data pribadi diminta tanpa alasan yang jelas dan sah.",
+        "counter": "Jangan berikan kode atau data pribadi. Tanyakan alasannya dan cek lewat kanal resmi.",
+        "severity": 3,
+        "tags": [
+          "minta_data_pribadi"
+        ]
+      },
+      {
+        "id": "flaw_link_or_apk",
+        "tactic": "link_or_apk",
+        "explanation": "Tautan atau aplikasi yang dikirim tiba-tiba bisa membawa ke halaman tiruan atau perangkat lunak berbahaya.",
+        "counter": "Jangan klik atau pasang. Ketik sendiri alamat resmi atau pakai toko aplikasi resmi.",
+        "severity": 2,
+        "tags": [
+          "tautan_asing"
+        ]
+      }
+    ],
+    "action_card": {
+      "category_label": "Lainnya",
+      "checklist": [
+        {
+          "id": "step_pause",
+          "text": "Berhenti sebentar sebelum membalas atau mengirim apa pun."
+        },
+        {
+          "id": "step_verify_channel",
+          "text": "Hubungi pihak yang dimaksud lewat kanal yang sudah kamu kenal."
+        },
+        {
+          "id": "step_share_data",
+          "text": "Jangan bagikan kode atau data pribadi sebelum identitas terbukti."
+        }
+      ],
+      "warnings": {
+        "santai": "Ada yang terasa janggal ya? Tahan dulu, jangan klik atau kirim apa pun. Yuk cek bareng lewat kanal yang resmi.",
+        "tegas": "Saya tidak akan mengirim uang, kode, atau data sebelum identitas Anda terbukti lewat kanal resmi."
+      },
+      "report_channels": [
+        {
+          "name": "Kanal pelaporan platform tempat kejadian",
+          "status": "placeholder",
+          "note": "Sementara, laporkan lewat fitur lapor di platform tempat pesan itu muncul."
+        },
+        {
+          "name": "Layanan pengaduan resmi (menunggu verifikasi)",
+          "status": "placeholder",
+          "note": "Placeholder; kanal resmi menunggu verifikasi tim."
+        }
+      ]
+    }
+  }
+]

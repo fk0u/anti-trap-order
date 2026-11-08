@@ -1,0 +1,55 @@
+{
+  "templates": [
+    {
+      "id": "tpl_adik",
+      "default_name": "Nadia",
+      "relation_id": "adik",
+      "avatar": "1-lingkar",
+      "arc_id": "arc_kerja_deposit"
+    },
+    {
+      "id": "tpl_ibu",
+      "default_name": "Ibu",
+      "relation_id": "ibu",
+      "avatar": "2-tumpuk",
+      "arc_id": "arc_rekening_beku"
+    },
+    {
+      "id": "tpl_teman",
+      "default_name": "Raka",
+      "relation_id": "teman_kuliah",
+      "avatar": "3-segitiga",
+      "arc_id": "arc_investasi"
+    },
+    {
+      "id": "tpl_adik_tingkat",
+      "default_name": "Salsa",
+      "relation_id": "adik_tingkat",
+      "avatar": "4-kotak",
+      "arc_id": "arc_kerja_deposit"
+    }
+  ],
+  "relations": [
+    {
+      "id": "adik",
+      "label": "Adik",
+      "arc_id": "arc_kerja_deposit"
+    },
+    {
+      "id": "teman_kuliah",
+      "label": "Teman Kuliah",
+      "arc_id": "arc_investasi"
+    },
+    {
+      "id": "ibu",
+      "label": "Ibu",
+      "arc_id": "arc_rekening_beku"
+    },
+    {
+      "id": "adik_tingkat",
+      "label": "Adik Tingkat",
+      "arc_id": "arc_kerja_deposit"
+    }
+  ],
+  "nickname_max_length": 20
+}

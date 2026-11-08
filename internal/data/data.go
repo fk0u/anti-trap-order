@@ -21,6 +21,7 @@ type Repository struct {
 	scenarioMap  map[string]model.Scenario
 	soulArcs     []model.SoulArc
 	soulArcMap   map[string]model.SoulArc
+	v1           *V1Content
 }
 
 var (
@@ -55,7 +56,13 @@ func Load() (*Repository, error) {
 		soulArcMap[a.ID] = a
 	}
 
+	v1, err := LoadV1()
+	if err != nil {
+		return nil, fmt.Errorf("konten v1 tidak valid: %w", err)
+	}
+
 	repo := &Repository{
+		v1:          v1,
 		scenarios:   scenarios,
 		scenarioMap: scenarioMap,
 		soulArcs:    soulArcs,
@@ -132,3 +139,6 @@ func (r *Repository) GetSoulArcByID(id string) (model.SoulArc, bool) {
 	a, ok := r.soulArcMap[id]
 	return a, ok
 }
+
+// V1 mengembalikan konten API v1 yang sudah divalidasi saat Load.
+func (r *Repository) V1() *V1Content { return r.v1 }
