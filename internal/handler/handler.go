@@ -59,6 +59,7 @@ func (s *Server) Routes() http.Handler {
 	mux.HandleFunc("GET /api/soul/arcs", s.handleListSoulArcs)
 	mux.HandleFunc("POST /api/soul/step", s.handleSoulStep)
 	mux.HandleFunc("POST /api/v1/lite/analyze", s.handleAnalyze)
+	s.registerV1(mux)
 
 	return mux
 }
