@@ -74,8 +74,9 @@ Cara membuat: ±150–250 contoh utuh di `handwritten.csv`, lalu `cmd/ml-gendata
 - **Kategori**: multinomial Naive Bayes 5 kelas, Laplace α = 1, log-prior dari frekuensi kelas. Keyakinan = softmax skor log. Keyakinan < 0,5 → `lainnya`.
 - **Taktik**: 8 model biner terpisah (ya/tidak), rumus sama. Ambang per taktik dipilih di validasi (split 80/20 berstrata, seed tetap): F1 tertinggi dengan presisi ≥ 0,8; jika tidak ada, presisi tertinggi.
 - **top_tokens**: maks. 3 token dari teks dengan log-rasio (ya vs tidak) terbesar untuk taktik itu.
-- Pangkas token yang muncul < 2 kali. Target `model.json` < 300 KB.
-- Format `model.json`: `{ version, tokenizer_version, labels: {categories, tactics}, category: {priors, likelihoods, totals}, tactics: {[id]: {threshold, priors, likelihoods, totals}}, vocab_size, unknown }` — `likelihoods[kelas][token]` berupa log, dibulatkan 4 desimal; `unknown[kelas]` = log-likelihood token yang tidak ada di vocab. Kunci map diurutkan (Go `encoding/json` sudah mengurutkan kunci map).
+- Pangkas token yang muncul < 2 kali. Target `model.json` < 300 KB. Agar muat, juga dibuang: token kategori dengan selisih log-likelihood antar kelas < 1,6; token taktik dengan selisih < 1,0 atau muncul < 6 kali (lihat `cmd/ml-train`).
+- Prior memakai Laplace juga: `(n+1)/(N+K)`.
+- Format `model.json`: `{ version, tokenizer_version, labels: {categories, tactics}, category: {priors, likelihoods, totals}, tactics: {[id]: {threshold, priors, likelihoods, totals}}, vocab_size, unknown }` — `likelihoods[kelas][token]` berupa log, dibulatkan 4 desimal, hanya token yang pernah muncul di kelas itu. `unknown` bersarang: `unknown["category"][kelas]` dan `unknown[tactic_id]["yes"|"no"]` = log(α / (total + α·V)). Aturan prediksi: token di vocab model tetapi tidak ada di `likelihoods[kelas]` → pakai `unknown`; token di luar vocab model → diabaikan. Kunci map diurutkan (Go `encoding/json` sudah mengurutkan kunci map).
 - **Deterministik**: dua kali training dengan data sama → `model.json` identik byte per byte. Tanpa timestamp jam sekarang.
 
 ## 6. `Analyze()` dan endpoint
