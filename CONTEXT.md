@@ -33,7 +33,7 @@
   - Memory-safe, concurrency-ready, zero-database architecture
   - Advanced Rule-Based Indonesian Social Engineering Tokenizer (`internal/reflect/nlp.go`)
 - **Infrastructure & Deployment:**
-  - AWS EC2 Singapore (`13.228.178.42`), Ubuntu 24.04 LTS
+  - AWS EC2 Singapore (alamat di secret deploy `DEPLOY_HOST`), Ubuntu 24.04 LTS
   - Nginx Reverse Proxy with Let's Encrypt SSL (`https://ato.kousozo.tech`)
   - PM2 Cluster Management (`anti-trap-order` on port 3120, `ato-backend` on port 8080)
   - `rsync`-based automated deployment pipeline (`scripts/deploy.sh`)

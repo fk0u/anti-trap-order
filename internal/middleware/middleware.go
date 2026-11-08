@@ -70,9 +70,9 @@ func RateLimit(next http.Handler) http.Handler {
 		ip := getClientIP(r)
 		if !limiter.allow(ip) {
 			w.Header().Set("Content-Type", "application/json; charset=utf-8")
-			w.Header().Set("Retry-After", "60")
+			w.Header().Set("Retry-After", "20") // hitung mundur S-20
 			w.WriteHeader(http.StatusTooManyRequests)
-			w.Write([]byte(`{"error":{"code":"RATE_LIMIT_EXCEEDED","message":"Terlalu banyak permintaan. Silakan coba lagi sebentar lagi."}}`))
+			w.Write([]byte(`{"error":{"code":"RATE_LIMITED","message":"Pelan-pelan dulu ya. Coba lagi 20 detik lagi.","retry_after":20}}`))
 			return
 		}
 		next.ServeHTTP(w, r)
@@ -98,28 +98,30 @@ func SecurityHeaders(next http.Handler) http.Handler {
 	})
 }
 
+// CORS mengizinkan hanya origin yang tertulis persis di CORS_ORIGIN (dipisah koma).
+// Kosong → http://localhost:3000 (dev). Origin lain tidak mendapat header izin.
 func CORS(next http.Handler) http.Handler {
-	allowedOrigin := os.Getenv("CORS_ORIGIN")
-	if allowedOrigin == "" {
-		allowedOrigin = "*"
+	allowed := map[string]bool{}
+	for _, o := range strings.Split(os.Getenv("CORS_ORIGIN"), ",") {
+		if o = strings.TrimSpace(o); o != "" {
+			allowed[o] = true
+		}
+	}
+	if len(allowed) == 0 {
+		allowed["http://localhost:3000"] = true
 	}
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		origin := r.Header.Get("Origin")
-		if allowedOrigin == "*" {
-			w.Header().Set("Access-Control-Allow-Origin", "*")
-		} else if origin != "" && strings.Contains(allowedOrigin, origin) {
+		w.Header().Add("Vary", "Origin")
+		if origin := r.Header.Get("Origin"); allowed[origin] {
 			w.Header().Set("Access-Control-Allow-Origin", origin)
-		} else {
-			w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+			w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+			w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+			w.Header().Set("Access-Control-Max-Age", "86400")
 		}
 
-		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
-		w.Header().Set("Access-Control-Max-Age", "86400")
-
 		if r.Method == http.MethodOptions {
-			w.WriteHeader(http.StatusOK)
+			w.WriteHeader(http.StatusNoContent)
 			return
 		}
 

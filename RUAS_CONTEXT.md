@@ -100,7 +100,7 @@ graph TD
 ## 4. Deployment & Operations Runbook
 
 - **Live URL:** `https://ato.kousozo.tech`
-- **Host:** `ubuntu@13.228.178.42` (AWS EC2 Singapore)
+- **Host:** lihat secret deploy `DEPLOY_HOST` (AWS EC2 Singapore)
 - **Deployment Script:** `./scripts/deploy.sh`
 - **PM2 Processes:**
   - ID 3: `anti-trap-order` (Next.js 16 on port 3120)

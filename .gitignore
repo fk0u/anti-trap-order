@@ -39,6 +39,3 @@ venv/
 .venv/
 __pycache__/
 *.pyc
-services/gemini-web2api/venv/
-services/gemini-web2api/__pycache__/
-services/gemini-web2api/.git/
