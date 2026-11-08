@@ -1,0 +1,320 @@
+[
+ {
+  "text": "biaya 150rb",
+  "tokens": [
+   "biaya",
+   "<uang>",
+   "biaya_<uang>"
+  ]
+ },
+ {
+  "text": "Rp150.000 saja",
+  "tokens": [
+   "<uang>",
+   "saja",
+   "<uang>_saja"
+  ]
+ },
+ {
+  "text": "gaji 1,5jt",
+  "tokens": [
+   "gaji",
+   "<uang>",
+   "gaji_<uang>"
+  ]
+ },
+ {
+  "text": "hadiah 2 juta",
+  "tokens": [
+   "hadiah",
+   "<uang>",
+   "hadiah_<uang>"
+  ]
+ },
+ {
+  "text": "transfer Rp 2.500.000 sekarang",
+  "tokens": [
+   "transfer",
+   "<uang>",
+   "sekarang",
+   "transfer_<uang>",
+   "<uang>_sekarang"
+  ]
+ },
+ {
+  "text": "Rp.50k aja kak",
+  "tokens": [
+   "<uang>",
+   "saja",
+   "kakak",
+   "<uang>_saja",
+   "saja_kakak"
+  ]
+ },
+ {
+  "text": "total 3 miliar rupiah",
+  "tokens": [
+   "total",
+   "<uang>",
+   "rupiah",
+   "total_<uang>",
+   "<uang>_rupiah"
+  ]
+ },
+ {
+  "text": "dalam 24 jam",
+  "tokens": [
+   "dalam",
+   "<angka>",
+   "jam",
+   "dalam_<angka>",
+   "<angka>_jam"
+  ]
+ },
+ {
+  "text": "BURUAAAN!!!",
+  "tokens": [
+   "segera",
+   "<seru>",
+   "segera_<seru>"
+  ]
+ },
+ {
+  "text": "oke!",
+  "tokens": [
+   "oke"
+  ]
+ },
+ {
+  "text": "klik <URL> atau hub <NOMOR>",
+  "tokens": [
+   "link",
+   "<url>",
+   "atau",
+   "hub",
+   "<nomor>",
+   "link_<url>",
+   "<url>_atau",
+   "atau_hub",
+   "hub_<nomor>"
+  ]
+ },
+ {
+  "text": "rek <REKENING> a.n. <EMAIL>",
+  "tokens": [
+   "rekening",
+   "<rekening>",
+   "a",
+   "n",
+   "<email>",
+   "rekening_<rekening>",
+   "<rekening>_a",
+   "a_n",
+   "n_<email>"
+  ]
+ },
+ {
+  "text": "tf dulu yg 😀 ke rek, kak.",
+  "tokens": [
+   "transfer",
+   "dulu",
+   "yang",
+   "ke",
+   "rekening",
+   "kakak",
+   "transfer_dulu",
+   "dulu_yang",
+   "yang_ke",
+   "ke_rekening",
+   "rekening_kakak"
+  ]
+ },
+ {
+  "text": "biaya seragam dulu",
+  "tokens": [
+   "biaya",
+   "seragam",
+   "dulu",
+   "biaya_seragam",
+   "seragam_dulu"
+  ]
+ },
+ {
+  "text": "SELAMAT ANDA MENANG UNDIAN!!! 🎉🎉 hubungi min",
+  "tokens": [
+   "selamat",
+   "anda",
+   "menang",
+   "giveaway",
+   "<seru>",
+   "hubungi",
+   "admin",
+   "selamat_anda",
+   "anda_menang",
+   "menang_giveaway",
+   "giveaway_<seru>",
+   "<seru>_hubungi",
+   "hubungi_admin"
+  ]
+ },
+ {
+  "text": "gimana kak, udh tf blm?",
+  "tokens": [
+   "bagaimana",
+   "kakak",
+   "sudah",
+   "transfer",
+   "belum",
+   "bagaimana_kakak",
+   "kakak_sudah",
+   "sudah_transfer",
+   "transfer_belum"
+  ]
+ },
+ {
+  "text": "pinjem duit 500rb gk? nanti tf balik",
+  "tokens": [
+   "pinjam",
+   "duit",
+   "<uang>",
+   "tidak",
+   "nanti",
+   "transfer",
+   "balik",
+   "pinjam_duit",
+   "duit_<uang>",
+   "<uang>_tidak",
+   "tidak_nanti",
+   "nanti_transfer",
+   "transfer_balik"
+  ]
+ },
+ {
+  "text": "kerja part time freelance gaji 300 ribu per hari",
+  "tokens": [
+   "kerja",
+   "part",
+   "time",
+   "paruhwaktu",
+   "gaji",
+   "<uang>",
+   "per",
+   "hari",
+   "kerja_part",
+   "part_time",
+   "time_paruhwaktu",
+   "paruhwaktu_gaji",
+   "gaji_<uang>",
+   "<uang>_per",
+   "per_hari"
+  ]
+ },
+ {
+  "text": "haloooo kakkk jangan kasih tau siapa2 ya",
+  "tokens": [
+   "halo",
+   "kakak",
+   "jangan",
+   "kasih",
+   "tau",
+   "siapa",
+   "<angka>",
+   "ya",
+   "halo_kakak",
+   "kakak_jangan",
+   "jangan_kasih",
+   "kasih_tau",
+   "tau_siapa",
+   "siapa_<angka>",
+   "<angka>_ya"
+  ]
+ },
+ {
+  "text": "wa saya 0812-3456-7890 cepet",
+  "tokens": [
+   "whatsapp",
+   "saya",
+   "<angka>",
+   "<angka>",
+   "<angka>",
+   "cepat",
+   "whatsapp_saya",
+   "saya_<angka>",
+   "<angka>_<angka>",
+   "<angka>_<angka>",
+   "<angka>_cepat"
+  ]
+ },
+ {
+  "text": "",
+  "tokens": []
+ },
+ {
+  "text": "   ",
+  "tokens": []
+ },
+ {
+  "text": "Kode OTP: 123456, jgn dikasih ke siapapun!!",
+  "tokens": [
+   "kode",
+   "otp",
+   "<angka>",
+   "jgn",
+   "dikasih",
+   "ke",
+   "siapapun",
+   "<seru>",
+   "kode_otp",
+   "otp_<angka>",
+   "<angka>_jgn",
+   "jgn_dikasih",
+   "dikasih_ke",
+   "ke_siapapun",
+   "siapapun_<seru>"
+  ]
+ },
+ {
+  "text": "cashback 10k s/d 50k, syarat & ketentuan berlaku",
+  "tokens": [
+   "cashback",
+   "<uang>",
+   "s",
+   "d",
+   "<uang>",
+   "syarat",
+   "ketentuan",
+   "berlaku",
+   "cashback_<uang>",
+   "<uang>_s",
+   "s_d",
+   "d_<uang>",
+   "<uang>_syarat",
+   "syarat_ketentuan",
+   "ketentuan_berlaku"
+  ]
+ },
+ {
+  "text": "ÉCOLE élève Ünïcode",
+  "tokens": [
+   "école",
+   "élève",
+   "ünïcode",
+   "école_élève",
+   "élève_ünïcode"
+  ]
+ },
+ {
+  "text": "ini 100% aman bgt (resmi)",
+  "tokens": [
+   "ini",
+   "<angka>",
+   "aman",
+   "banget",
+   "resmi",
+   "ini_<angka>",
+   "<angka>_aman",
+   "aman_banget",
+   "banget_resmi"
+  ]
+ }
+]
