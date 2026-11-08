@@ -3,8 +3,10 @@ package handler_test
 import (
 	"bytes"
 	"encoding/json"
+	"log"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"strings"
 	"testing"
 
@@ -166,5 +168,76 @@ func TestHandler_SoulStep(t *testing.T) {
 
 	if stepResp.NextNode == nil {
 		t.Error("expected next node to be non-nil")
+	}
+}
+
+func postAnalyze(app http.Handler, body string) *httptest.ResponseRecorder {
+	req := httptest.NewRequest(http.MethodPost, "/api/v1/lite/analyze", strings.NewReader(body))
+	rec := httptest.NewRecorder()
+	app.ServeHTTP(rec, req)
+	return rec
+}
+
+func TestHandler_Analyze_OK(t *testing.T) {
+	app := setupTestServer(t)
+	var logBuf bytes.Buffer
+	log.SetOutput(&logBuf)
+	defer log.SetOutput(os.Stderr)
+
+	const secret = "rahasiaunikxyz lowongan admin WFH tf biaya seragam 150rb sekarang juga ya kak"
+	rec := postAnalyze(app, `{"text":"`+secret+`"}`)
+	if rec.Code != http.StatusOK {
+		t.Fatalf("status %d: %s", rec.Code, rec.Body)
+	}
+	var body map[string]any
+	if err := json.Unmarshal(rec.Body.Bytes(), &body); err != nil {
+		t.Fatal(err)
+	}
+	if _, ok := body["tactics"].([]any); !ok {
+		t.Errorf("tactics harus array: %v", body["tactics"])
+	}
+	if body["disclaimer"] != "Ini alat bantu berpikir, bukan deteksi pasti." || body["model_version"] == "" {
+		t.Errorf("disclaimer/model_version salah: %v", body)
+	}
+	if strings.Contains(logBuf.String(), "rahasiaunikxyz") {
+		t.Error("teks user muncul di log")
+	}
+}
+
+func TestHandler_Analyze_Invalid(t *testing.T) {
+	app := setupTestServer(t)
+	var logBuf bytes.Buffer
+	log.SetOutput(&logBuf)
+	defer log.SetOutput(os.Stderr)
+
+	cases := map[string]string{
+		"field tak dikenal": `{"text":"rahasiaunikxyz halo semua","extra":1}`,
+		"kosong":            `{"text":""}`,
+		"spasi saja":        `{"text":"   \n  "}`,
+		"tanpa text":        `{}`,
+		"2001 rune":         `{"text":"` + strings.Repeat("é", 2001) + `"}`,
+		"json rusak":        `{"text":"rahasiaunikxyz`,
+		"data tambahan":     `{"text":"rahasiaunikxyz halo"}{"text":"x"}`,
+	}
+	for name, body := range cases {
+		rec := postAnalyze(app, body)
+		if rec.Code != http.StatusBadRequest {
+			t.Errorf("%s: status %d", name, rec.Code)
+			continue
+		}
+		var er model.ErrorResponse
+		if err := json.Unmarshal(rec.Body.Bytes(), &er); err != nil || er.Error.Code != "VALIDATION_ERROR" || er.Error.Field != "text" || er.Error.Message == "" {
+			t.Errorf("%s: error salah: %s", name, rec.Body)
+		}
+		if strings.Contains(rec.Body.String(), "rahasiaunikxyz") {
+			t.Errorf("%s: teks user ada di respons", name)
+		}
+	}
+	// 2000 rune persis masih boleh
+	if rec := postAnalyze(app, `{"text":"`+strings.Repeat("é", 2000)+`"}`); rec.Code != http.StatusOK {
+		t.Errorf("2000 rune harus 200, dapat %d", rec.Code)
+	}
+	if strings.Contains(logBuf.String(), "rahasiaunikxyz") {
+		t.Error("teks user muncul di log")
 	}
 }

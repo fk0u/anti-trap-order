@@ -1,0 +1,256 @@
+[
+ {
+  "text": "Halo kak, lowongan admin WFH gaji 300rb/hari. Daftar sekarang, cukup tf biaya seragam 150rb ke 1234567890123 ya!!",
+  "expected": {
+   "masked": "Halo kak, lowongan admin WFH gaji 300rb/hari. Daftar sekarang, cukup tf biaya seragam 150rb ke <REKENING> ya!!",
+   "masked_count": 1,
+   "too_short": false,
+   "category": {
+    "id": "tawaran_kerja",
+    "confidence": 1
+   },
+   "scenario_id": "wfh_admin_fee",
+   "tactics": [
+    {
+     "id": "upfront_fee",
+     "score": 1,
+     "top_tokens": [
+      "seragam",
+      "seragam_<uang>",
+      "biaya_seragam"
+     ]
+    },
+    {
+     "id": "too_good",
+     "score": 0.3681,
+     "top_tokens": [
+      "cukup"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Selamat! Kamu terpilih jadi pemenang giveaway dari akun resmi toko kami. Hadiah HP baru, klaim dengan kirim kode OTP yang masuk ke nomor kamu hari ini.",
+  "expected": {
+   "masked": "Selamat! Kamu terpilih jadi pemenang giveaway dari akun resmi toko kami. Hadiah HP baru, klaim dengan kirim kode OTP yang masuk ke nomor kamu hari ini.",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "giveaway",
+    "confidence": 1
+   },
+   "scenario_id": "giveaway_fake_verified",
+   "tactics": [
+    {
+     "id": "credential_request",
+     "score": 0.9971,
+     "top_tokens": [
+      "otp_yang",
+      "yang_masuk",
+      "kode"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Ma, ini nomor baru Dimas, HP yang lama rusak. Tolong transfer dulu 2 juta ke rekening temanku ya, penting banget jangan bilang papa.",
+  "expected": {
+   "masked": "Ma, ini nomor baru Dimas, HP yang lama rusak. Tolong transfer dulu 2 juta ke rekening temanku ya, penting banget jangan bilang papa.",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "akun_menyamar",
+    "confidence": 0.9968
+   },
+   "scenario_id": "impersonate_new_number",
+   "tactics": [
+    {
+     "id": "impersonation",
+     "score": 0.993,
+     "top_tokens": [
+      "dulu_<uang>",
+      "papa",
+      "rusak"
+     ]
+    },
+    {
+     "id": "upfront_fee",
+     "score": 0.9923,
+     "top_tokens": [
+      "transfer_dulu",
+      "dulu_<uang>",
+      "<uang>_ke"
+     ]
+    },
+    {
+     "id": "isolation",
+     "score": 0.771,
+     "top_tokens": [
+      "jangan_bilang",
+      "jangan",
+      "transfer_dulu"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Investasi cepat untung 30 persen per minggu, modal kecil mulai 500rb, dijamin profit tanpa risiko. Hubungi mentor kami lewat 081234567890 sekarang.",
+  "expected": {
+   "masked": "Investasi cepat untung 30 persen per minggu, modal kecil mulai 500rb, dijamin profit tanpa risiko. Hubungi mentor kami lewat <NOMOR> sekarang.",
+   "masked_count": 1,
+   "too_short": false,
+   "category": {
+    "id": "pinjaman_investasi",
+    "confidence": 1
+   },
+   "scenario_id": "loan_fast_no_check",
+   "tactics": [
+    {
+     "id": "too_good",
+     "score": 1,
+     "top_tokens": [
+      "dijamin",
+      "risiko",
+      "tanpa_risiko"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Pinjaman cepat cair 10 juta tanpa survei dan tanpa jaminan, cukup KTP. Bayar biaya admin 300rb dulu supaya pencairan diproses.",
+  "expected": {
+   "masked": "Pinjaman cepat cair 10 juta tanpa survei dan tanpa jaminan, cukup KTP. Bayar biaya admin 300rb dulu supaya pencairan diproses.",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "pinjaman_investasi",
+    "confidence": 1
+   },
+   "scenario_id": "loan_fast_no_check",
+   "tactics": [
+    {
+     "id": "upfront_fee",
+     "score": 1,
+     "top_tokens": [
+      "bayar_biaya",
+      "jaminan",
+      "<uang>_dulu"
+     ]
+    },
+    {
+     "id": "too_good",
+     "score": 0.9987,
+     "top_tokens": [
+      "dan_tanpa",
+      "tanpa",
+      "cukup"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Besok kuliah pagi jam 8 ya, jangan lupa bawa laptop dan tugas kelompok. Nanti kita makan siang bareng di kantin.",
+  "expected": {
+   "masked": "Besok kuliah pagi jam 8 ya, jangan lupa bawa laptop dan tugas kelompok. Nanti kita makan siang bareng di kantin.",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "lainnya",
+    "confidence": 1
+   },
+   "scenario_id": "generic_emergency",
+   "tactics": [],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Promo resmi toko kami diskon 20 persen sampai akhir bulan, belanja langsung di aplikasi resmi dan bayar di kasir.",
+  "expected": {
+   "masked": "Promo resmi toko kami diskon 20 persen sampai akhir bulan, belanja langsung di aplikasi resmi dan bayar di kasir.",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "lainnya",
+    "confidence": 1
+   },
+   "scenario_id": "generic_emergency",
+   "tactics": [],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Halo bang",
+  "expected": {
+   "masked": "Halo bang",
+   "masked_count": 0,
+   "too_short": true,
+   "category": {
+    "id": "lainnya",
+    "confidence": 0
+   },
+   "scenario_id": "generic_emergency",
+   "tactics": [],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Hubungi admin di <NOMOR> atau buka <URL> untuk daftar kerja online, transfer ke <REKENING> biaya pendaftaran 100rb ya kak!!",
+  "expected": {
+   "masked": "Hubungi admin di <NOMOR> atau buka <URL> untuk daftar kerja online, transfer ke <REKENING> biaya pendaftaran 100rb ya kak!!",
+   "masked_count": 0,
+   "too_short": false,
+   "category": {
+    "id": "lainnya",
+    "confidence": 0.9499
+   },
+   "scenario_id": "generic_emergency",
+   "tactics": [
+    {
+     "id": "upfront_fee",
+     "score": 0.9993,
+     "top_tokens": [
+      "pendaftaran_<uang>",
+      "<rekening>",
+      "ke_<rekening>"
+     ]
+    }
+   ],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ },
+ {
+  "text": "Kak, hubungi saya di 0812-3456-7890 atau email budi@contoh.id, nanti saya kirim detail lowongannya lewat https://contoh.id/daftar",
+  "expected": {
+   "masked": "Kak, hubungi saya di <NOMOR> atau email <EMAIL>, nanti saya kirim detail lowongannya lewat <URL>",
+   "masked_count": 3,
+   "too_short": false,
+   "category": {
+    "id": "lainnya",
+    "confidence": 1
+   },
+   "scenario_id": "generic_emergency",
+   "tactics": [],
+   "model_version": "1",
+   "disclaimer": "Ini alat bantu berpikir, bukan deteksi pasti."
+  }
+ }
+]

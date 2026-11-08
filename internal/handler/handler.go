@@ -2,10 +2,14 @@ package handler
 
 import (
 	"encoding/json"
+	"errors"
+	"io"
 	"net/http"
 	"strings"
+	"unicode/utf8"
 
 	"prototype-ato/internal/data"
+	"prototype-ato/internal/ml"
 	"prototype-ato/internal/model"
 	"prototype-ato/internal/reflect"
 	"prototype-ato/internal/soul"
@@ -15,6 +19,8 @@ type Server struct {
 	repo          *data.Repository
 	reflectEngine *reflect.Engine
 	soulEngine    *soul.Engine
+	mlModel       *ml.Model // nil jika model gagal dimuat
+	mlScenarios   []ml.Scenario
 }
 
 func NewServer(repo *data.Repository) *Server {
@@ -32,7 +38,11 @@ func NewServer(repo *data.Repository) *Server {
 		fullSoulArcs[i] = full
 	}
 
+	mlModel, _ := ml.Load() // gagal -> nil; endpoint analyze membalas 500
+
 	return &Server{
+		mlModel:       mlModel,
+		mlScenarios:   ml.IndexScenarios(repo),
 		repo:          repo,
 		reflectEngine: reflect.NewEngine(fullScenarios),
 		soulEngine:    soul.NewEngine(fullSoulArcs),
@@ -48,6 +58,7 @@ func (s *Server) Routes() http.Handler {
 	mux.HandleFunc("POST /api/reflect", s.handleReflect)
 	mux.HandleFunc("GET /api/soul/arcs", s.handleListSoulArcs)
 	mux.HandleFunc("POST /api/soul/step", s.handleSoulStep)
+	mux.HandleFunc("POST /api/v1/lite/analyze", s.handleAnalyze)
 
 	return mux
 }
@@ -148,4 +159,45 @@ func (s *Server) handleSoulStep(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, resp)
+}
+
+const (
+	analyzeMaxBody = 8 << 10
+	analyzeMaxText = 2000
+)
+
+func validationError(w http.ResponseWriter, msg string) {
+	writeJSON(w, http.StatusBadRequest, model.ErrorResponse{
+		Error: model.ErrorDetail{Code: "VALIDATION_ERROR", Message: msg, Field: "text"},
+	})
+}
+
+// handleAnalyze tidak pernah mencatat atau mengembalikan teks user, termasuk di pesan error.
+func (s *Server) handleAnalyze(w http.ResponseWriter, r *http.Request) {
+	if s.mlModel == nil {
+		writeError(w, http.StatusInternalServerError, "INTERNAL_ERROR", "Ada kendala di server. Coba lagi sebentar ya.")
+		return
+	}
+	dec := json.NewDecoder(http.MaxBytesReader(w, r.Body, analyzeMaxBody))
+	dec.DisallowUnknownFields()
+	var req struct {
+		Text *string `json:"text"`
+	}
+	if err := dec.Decode(&req); err != nil {
+		validationError(w, "Permintaan tidak bisa dibaca. Pastikan isinya hanya teks situasi.")
+		return
+	}
+	if _, err := dec.Token(); !errors.Is(err, io.EOF) {
+		validationError(w, "Permintaan tidak bisa dibaca. Pastikan isinya hanya teks situasi.")
+		return
+	}
+	if req.Text == nil || strings.TrimSpace(*req.Text) == "" {
+		validationError(w, "Tulis dulu situasinya ya, supaya bisa kami bantu pikirkan.")
+		return
+	}
+	if utf8.RuneCountInString(*req.Text) > analyzeMaxText {
+		validationError(w, "Teksnya terlalu panjang. Ringkas jadi maksimal 2000 karakter ya.")
+		return
+	}
+	writeJSON(w, http.StatusOK, ml.Analyze(s.mlModel, *req.Text, s.mlScenarios))
 }

@@ -1,0 +1,68 @@
+id,text,style,category,tactics,source
+ta-0001,"Dibutuhkan 15 orang operator warung digital, gaji 6 juta tanpa tes! Setor dulu uang seragam dan kartu pegawai 175rb, pendaftaran ditutup malam ini",tempel,tawaran_kerja,upfront_fee|too_good|urgency,sintetis
+ta-0002,Perkenalkan saya Bu Maya manajer rekrutmen PT Laut Biru Perkasa. Mohon kirim kode verifikasi yang masuk ke ponsel Anda untuk mengaktifkan akun pelamar,tempel,tawaran_kerja,impersonation|credential_request,sintetis
+ta-0003,PT Samudra Karya Mandiri resmi terbuka rekrutmen staf gudang. Isi data lewat <URL> dan bayar uang pendaftaran 120rb,tempel,tawaran_kerja,upfront_fee|authority|link_or_apk,sintetis
+ta-0004,"kerja ketik2 dari kamar bayarannya 450rb/hari, ga usah ngomong ke siapa2 ya soalnya kuotanya diatur ketat",tempel,tawaran_kerja,too_good|isolation,sintetis
+ta-0005,Lowongan terbatas! unduh aplikasi kerja kami <URL> sekarang atau posisi diberikan ke pelamar lain,tempel,tawaran_kerja,urgency|link_or_apk,sintetis
+ta-0006,"Bekerja dari sofa, penghasilan 15 juta sebulan menanti. Cukup kirimkan foto KTP dan nomor rekening",tempel,tawaran_kerja,too_good|credential_request,sintetis
+ta-0007,"Salam, saya Pak Bram staf personalia perusahaan terdaftar resmi. Karyawan baru dikenakan biaya laptop kantor 500rb",tempel,tawaran_kerja,impersonation|upfront_fee|authority,sintetis
+ta-0008,Selamat bergabung kak! Tinggal transfer deposit peralatan Rp 300.000 sebelum jam 8 malam atau kontrak batal,tempel,tawaran_kerja,upfront_fee|urgency,sintetis
+ta-0009,"Tawaran ini hanya untuk kamu, jangan bilang teman satu kos ya. Biaya pelatihan 200rb ke <REKENING>",tempel,tawaran_kerja,isolation|upfront_fee,sintetis
+ta-0010,"Perusahaan kami berizin resmi kementerian, pasti diterima dengan gaji awal 9 juta tanpa seleksi",tempel,tawaran_kerja,too_good|authority,sintetis
+ta-0011,"Kemarin aku dikabari lolos jadi admin e-commerce, tapi katanya harus bayar 250rb buat laptop dan batas bayarnya malam ini",cerita,tawaran_kerja,upfront_fee|urgency,sintetis
+ta-0012,"Seseorang mengaku manajer HRD kirim aku link buat isi biodata, link nya aneh banget",cerita,tawaran_kerja,impersonation|link_or_apk,sintetis
+ta-0013,"Sepupu cerita dia dijanjikan gaji 10 juta cuma nonton video, tapi disuruh diam-diam dan tidak lapor ke orang tuanya",cerita,tawaran_kerja,too_good|isolation,sintetis
+ta-0014,Pihak yang ngaku dari dinas ketenagakerjaan minta foto KTP dan kode OTP buat daftar kerja. Aku nggak jadi kirim,cerita,tawaran_kerja,credential_request|authority,sintetis
+ta-0015,"Ada yang mengaku staf rekrutmen perusahaan tambang, meminta uang pendaftaran 300rb padahal aku cuma lamar lewat email",cerita,tawaran_kerja,upfront_fee|impersonation,sintetis
+ta-0016,Pemenang hadiah televisi layar lebar adalah Anda! Segera klaim lewat <URL> sebelum 2 jam,tempel,giveaway,link_or_apk|urgency,sintetis
+ta-0017,"Saya Pak Rahmat panitia resmi undian Toko Cahaya Mas, kakak menang kulkas dua pintu",tempel,giveaway,impersonation|upfront_fee|authority,sintetis
+ta-0018,"Hadiah sepeda motor sudah siap kirim, tinggal lunasi bea cukai 400rb hari ini",tempel,giveaway,upfront_fee|urgency,sintetis
+ta-0019,"Kamu pasti menang 5 juta tanpa diundi, kirim nomor kartu dan PIN, rahasiakan ya ke orang lain",tempel,giveaway,too_good|credential_request|isolation,sintetis
+ta-0020,"Dapatkan saldo gratis 3 juta sekarang juga, install apk game di <URL> lalu tarik tunai",tempel,giveaway,too_good|link_or_apk,sintetis
+ta-0021,"Seorang kenalan online mengabari aku menang paket umroh gratis, harus transfer biaya visa dulu 2 juta, dia pura-pura dari agen perjalanan",cerita,giveaway,upfront_fee|too_good|impersonation,sintetis
+ta-0022,Postingan di sosmed bilang aku pemenang kuis dan disuruh buka link dalam sejam kalau tidak hangus,cerita,giveaway,urgency|link_or_apk,sintetis
+ta-0023,Admin akun belanja online ngabarin aku menang cashback besar dan minta kode OTP biar cair,cerita,giveaway,credential_request|too_good,sintetis
+ta-0024,Surat katanya dari kementerian bilang aku menang hadiah tapi harus bayar pajak dulu 500rb,cerita,giveaway,upfront_fee|authority,sintetis
+ta-0025,"Mama sayang, ini nomor baru mama ya. Cepat kirim pulsa 100rb dulu, mama lagi di rumah sakit",tempel,akun_menyamar,impersonation|credential_request|urgency,sintetis
+ta-0026,"Peringatan resmi dari bank Nusantara Jaya, akun Anda bakal ditutup 1 jam lagi, kirim kode OTP segera",tempel,akun_menyamar,credential_request|authority|urgency,sintetis
+ta-0027,"Hei ini Dito, nomor baru ku. Gue lagi kepepet, pinjemin 700rb jangan bilangin ke anak2 kos, klik <URL> buat bayar",tempel,akun_menyamar,impersonation|link_or_apk|isolation,sintetis
+ta-0028,"Kak, aku adik kelasmu dulu, lagi kesulitan bayar kuliah. Bisa tf 400rb ke <REKENING>?",tempel,akun_menyamar,upfront_fee|impersonation,sintetis
+ta-0029,"Kami tim keamanan e-wallet Dompet Kita, tutup risiko dengan install aplikasi pengaman di <URL> dan masukkan password",tempel,akun_menyamar,link_or_apk|credential_request|authority,sintetis
+ta-0030,"Bapak dari kepolisian, anak Anda tersangkut kasus. Harus damai hari ini, kirim uang 5 juta",tempel,akun_menyamar,impersonation|urgency|authority,sintetis
+ta-0031,"Ada orang chat pakai foto profil guruku tapi nomornya baru, lalu minta kirim kode OTP",cerita,akun_menyamar,impersonation|credential_request,sintetis
+ta-0032,"Ibu kos dichat orang ngaku anaknya yang pindah nomor, minta ditransfer dulu uang untuk beli obat",cerita,akun_menyamar,upfront_fee|impersonation,sintetis
+ta-0033,"Aku dapat SMS dari bank palsu bilang kartu ditutup, disuruh klik link dan secepatnya",cerita,akun_menyamar,link_or_apk|urgency,sintetis
+ta-0034,Temanku dichat bosnya (nomor baru) disuruh belikan voucher game dan nggak boleh bilang siapa pun,cerita,akun_menyamar,impersonation|isolation,sintetis
+ta-0035,Telepon dari yang ngaku resmi pihak kepolisian meminta PIN rekeningku. Langsung kututup,cerita,akun_menyamar,credential_request|authority,sintetis
+ta-0036,"Ayo ikut investasi bersama, profit 15% per hari, kuota member sisa 5 orang malam ini",tempel,pinjaman_investasi,too_good|urgency,sintetis
+ta-0037,"Pinjaman 12 juta tanpa jaminan dari koperasi digital resmi OJK, sebelum cair bayar biaya survey 350rb",tempel,pinjaman_investasi,upfront_fee|authority,sintetis
+ta-0038,"Hai aku Kevin, trader profesional. Ikutlah bersamaku, modal 2jt jadi 20jt dalam sebulan",tempel,pinjaman_investasi,impersonation|too_good,sintetis
+ta-0039,"Ajukan dana cepat via <URL>, siapkan foto KTP, selfie dan PIN ATM",tempel,pinjaman_investasi,credential_request|link_or_apk,sintetis
+ta-0040,"Setor tambahan 1,5jt supaya dana investasi bisa ditarik, jangan sampai orang rumah tahu, batas hari ini",tempel,pinjaman_investasi,upfront_fee|isolation|urgency,sintetis
+ta-0041,"Platform aset kripto resmi legal dan terjamin, untung 10 persen tiap hari. Download di <URL>",tempel,pinjaman_investasi,too_good|authority|link_or_apk,sintetis
+ta-0042,"Teman ngajak kumpulin uang buat investasi bareng, janjinya duit kami dobel, tapi harus bayar biaya registrasi",cerita,pinjaman_investasi,upfront_fee|too_good,sintetis
+ta-0043,"Seorang cewek kenalan lewat aplikasi, sering ngajak ngobrol, terus nyuruh aku download aplikasi trading dan setor",cerita,pinjaman_investasi,link_or_apk|credential_request|impersonation,sintetis
+ta-0044,"Penagih pinjol ngancam bakal lapor polisi kalau aku nggak transfer hari ini, katanya dari lembaga resmi",cerita,pinjaman_investasi,urgency|authority,sintetis
+ta-0045,"Aku dihubungi pihak pinjaman online, uangnya mau cair tapi harus transfer asuransi 400rb sekarang juga",cerita,pinjaman_investasi,upfront_fee|urgency,sintetis
+ta-0046,Pelaku bilang cuan pasti dijamin dan melarang aku cerita ke keluargaku,cerita,pinjaman_investasi,isolation|too_good,sintetis
+ta-0047,Paket Anda gagal kirim. Perbarui alamat lewat <URL> dalam 12 jam atau paket dikembalikan,tempel,lainnya,link_or_apk|urgency,sintetis
+ta-0048,"Aku penjual di toko online Warung Digital, tolong bayar dulu ongkir ke <REKENING>, barang langsung berangkat",tempel,lainnya,upfront_fee|impersonation,sintetis
+ta-0049,"Berikut undangan resepsi kami dalam bentuk file apk, silakan unduh <URL>",tempel,lainnya,link_or_apk,sintetis
+ta-0050,"Anda terkena tilang elektronik resmi dari kepolisian, bayar denda lewat <URL> dan masukkan PIN kartu",tempel,lainnya,credential_request|authority,sintetis
+ta-0051,"Sepatu original harga 80rb, bayar ongkir 30rb dulu ya sebelum dikirim",tempel,lainnya,too_good|upfront_fee,sintetis
+ta-0052,"Dikirimi screenshot paket yang katanya macet, disuruh klik tautan sekarang juga padahal aku nggak pernah belanja",cerita,lainnya,urgency|link_or_apk,sintetis
+ta-0053,"Kurir palsu menelepon, minta kode yang dikirim lewat sms untuk mengantar paket",cerita,lainnya,credential_request|impersonation,sintetis
+ta-0054,"Ada pembeli bilang mau beli barangku, tapi minta aku bayar dulu biaya verifikasi akun",cerita,lainnya,upfront_fee|too_good,sintetis
+ta-0055,"Ada yang kirim link foto-foto lama aku, disuruh jangan bilang ke siapa-siapa",cerita,lainnya,link_or_apk|isolation,sintetis
+ta-0056,"Besok aku nggak bisa ikut kelas pagi ya, tolong catatin materi dosen kalau sempat",normal,lainnya,,sintetis
+ta-0057,Pengumuman: pengambilan ijazah dilakukan di loket akademik pada jam kerja. Tidak ada biaya apa pun,normal,lainnya,,sintetis
+ta-0058,"Bank Nusantara Jaya mengingatkan nasabah agar tidak membagikan PIN dan OTP kepada siapa pun, termasuk yang mengaku petugas",normal,lainnya,,sintetis
+ta-0059,"Kak, aku pinjam 30rb dulu buat parkir, nanti aku ganti pas ketemu ya",normal,lainnya,,sintetis
+ta-0060,"Kurir kami sedang menuju alamat Anda, mohon siapkan nomor pesanan di aplikasi resmi toko",normal,lainnya,,sintetis
+ta-0061,"Promo kopi hari ini beli dua gratis satu, berlaku untuk pembelian di kedai saja, syarat berlaku",normal,lainnya,,sintetis
+ta-0062,"Info magang BUMN di kantor cabang kota, pendaftaran lewat situs resmi, tanpa pungutan biaya",normal,lainnya,,sintetis
+ta-0063,"Beasiswa dari yayasan pendidikan dibuka untuk mahasiswa semester 3 ke atas, seleksi berkas dan wawancara gratis",normal,lainnya,,sintetis
+ta-0064,"Mama sudah transfer uang bulanan ke rekeningmu, cek ya nak dan jangan lupa makan teratur",normal,lainnya,,sintetis
+ta-0065,"Kode verifikasi untuk masuk aplikasi Anda adalah 227190. Jangan bagikan ke siapa pun, tim kami tidak pernah memintanya",normal,lainnya,,sintetis
+ta-0066,"Nomor baruku <NOMOR>, tolong disimpan ya, besok aku telepon langsung kalau sudah sampai",normal,lainnya,,sintetis
+ta-0067,Selamat ulang tahun ya! Semoga sehat selalu. Nanti makan bareng di rumah jam 7 malam,normal,lainnya,,sintetis

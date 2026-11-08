@@ -1,0 +1,202 @@
+id,text,style,category,tactics,source
+hw-0001,"Lowongan admin online PT Sinar Kencana Abadi, gaji 4jt/bulan kerja dari rumah. Transfer biaya seragam Rp150.000 ke <REKENING> hari ini, slot tinggal 3 orang",tempel,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0002,"Dicari 10 orang part time input data, kerja 2 jam sehari gaji Rp 500rb per hari!!! tanpa pengalaman tanpa interview, langsung kerja",tempel,tawaran_kerja,upfront_fee|too_good,sintetis
+hw-0003,"Kak ada lowongan freelance review produk, komisi 300rb/hari. Klik <URL> dan daftar sekarang, kuota terbatas buruan",tempel,tawaran_kerja,urgency|link_or_apk,sintetis
+hw-0004,Selamat kak lolos seleksi. Kami perusahaan resmi terdaftar Kemnaker. Mohon bayar biaya admin 200rb dulu utk aktivasi akun karyawan,tempel,tawaran_kerja,upfront_fee|authority,sintetis
+hw-0005,"Kak kirim foto KTP dan kode OTP yg masuk ke hp ya, utk verifikasi data karyawan. Jangan bilang ke siapa2 dulu ini rahasia perusahaan",tempel,tawaran_kerja,isolation|credential_request,sintetis
+hw-0006,"tugas like dan subscribe youtube, tiap video dibayar 50rb. Deposit awal 100rb dulu biar akun kakak aktif, cepat ya sebelum ditutup",tempel,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0007,Gaji 8 juta per bulan cuma kerja dari HP. Download aplikasi kerjanya di <URL> lalu install apk nya,tempel,tawaran_kerja,too_good|link_or_apk,sintetis
+hw-0008,"Saya HRD dari PT Mitra Cahaya Nusantara. Kami resmi, ada SK dan izin usaha. Kakak tinggal bayar pelatihan 250rb ke <REKENING> ya",tempel,tawaran_kerja,impersonation|authority,sintetis
+hw-0009,"LOWONGAN ADMIN TOKO ONLINE!!! GAJI 5JT, bayar ongkir laptop kantor 300rb dulu, berlaku sampai malam ini aja",tempel,tawaran_kerja,urgency|upfront_fee,sintetis
+hw-0010,"Kak untuk mulai kerja transfer dulu uang jaminan 500rb, nanti dikembalikan bersama gaji pertama. Jangan cerita ke orang tua dulu ya biar tidak ribet",tempel,tawaran_kerja,upfront_fee|isolation,sintetis
+hw-0011,"Halo kak, kami butuh data akun bank utk transfer gaji. Kirim PIN dan password m-banking ya lewat link <URL>",tempel,tawaran_kerja,credential_request|link_or_apk,sintetis
+hw-0012,"dibutuhkan segera tenaga packing rumahan, upah 700rb per hari, daftar hari ini juga wa <NOMOR>",tempel,tawaran_kerja,urgency|too_good,sintetis
+hw-0013,"Kerjaan gampang, cuma klik klik iklan dibayar 1,5jt per minggu. Syaratnya bayar member 99rb dulu kak",tempel,tawaran_kerja,upfront_fee|too_good,sintetis
+hw-0014,"Atas nama Dinas Tenaga Kerja kami buka rekrutmen resmi tanpa tes. Biaya administrasi 175rb, resmi dan legal 100 persen",tempel,tawaran_kerja,authority|urgency,sintetis
+hw-0015,"kak jgn kasih tau teman2 dulu soal lowongan ini ya, slot terbatas. tf 120rb utk biaya pendaftaran ke <REKENING>",tempel,tawaran_kerja,impersonation|isolation,sintetis
+hw-0016,"Silakan isi formulir di <URL>, masukkan nomor KTP, foto selfie dengan KTP dan kode verifikasi dari SMS",tempel,tawaran_kerja,link_or_apk|credential_request,sintetis
+hw-0017,"admin cs online dibuka. wajib beli paket starter 400rb dulu, kalau telat daftar slot hangus besok pagi",tempel,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0018,"Saya recruiter dari perusahaan besar, gaji awal 10jt, cukup kirim 200rb untuk berkas. Ini peluang langka kak",tempel,tawaran_kerja,impersonation|too_good,sintetis
+hw-0019,"Segera kirim kode OTP yang barusan masuk, kalau tidak lamaran kakak dibatalkan dalam 10 menit",tempel,tawaran_kerja,urgency|credential_request,sintetis
+hw-0020,PT Bintang Timur Sejahtera resmi terdaftar. Karyawan baru wajib setor deposit alat kerja Rp 350.000,tempel,tawaran_kerja,upfront_fee|authority,sintetis
+hw-0021,"tadi ada yang chat ngaku HRD, katanya aku lolos kerja admin online gaji 5 juta tapi disuruh transfer 150rb buat seragam hari ini juga",cerita,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0022,"Temenku dapet tawaran kerja cuma ngetik di rumah katanya digaji 600rb sehari, tapi harus bayar biaya member dulu. Aneh gak sih",cerita,tawaran_kerja,upfront_fee|too_good,sintetis
+hw-0023,"Ada yg DM aku nawarin kerja online, terus bilang jangan kasih tau keluarga dulu soalnya rahasia perusahaan. Terus disuruh tf biaya admin",cerita,tawaran_kerja,impersonation|isolation,sintetis
+hw-0024,"Aku dikirimi link lowongan di wa, katanya daftar sekarang kuota tinggal 2 orang. Pas dibuka minta install aplikasi",cerita,tawaran_kerja,urgency|link_or_apk,sintetis
+hw-0025,"Katanya dia dari dinas tenaga kerja, resmi, lalu minta foto KTP sama kode OTP buat verifikasi. Aku jadi curiga",cerita,tawaran_kerja,authority|credential_request,sintetis
+hw-0026,Tadi ada yg ngaku recruiter perusahaan besar. Katanya gaji 8 juta tapi aku harus bayar biaya pelatihan 250rb dulu,cerita,tawaran_kerja,upfront_fee|impersonation,sintetis
+hw-0027,"adikku dihubungi katanya lolos magang online, disuruh bayar deposit 200rb sebelum jam 5 sore kalau gak hangus",cerita,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0028,"mama dapet pesan kerjaan klik iklan dibayar jutaan per minggu, harus download apk dulu. Mama udah mau install untung aku liat",cerita,tawaran_kerja,too_good|link_or_apk,sintetis
+hw-0029,"Tadi ada orang bilang aku dapat kerja freelance, tapi disuruh transfer dulu uang jaminan dan jangan cerita ke siapa pun. Bingung",cerita,tawaran_kerja,upfront_fee|isolation,sintetis
+hw-0030,"Ada pesan dari nomor baru ngaku dari perusahaan resmi terdaftar, minta bayar biaya admin sekarang karena slot terbatas",cerita,tawaran_kerja,urgency|authority,sintetis
+hw-0031,"Aku liat postingan loker admin gaji 7 juta tanpa pengalaman tanpa tes. Pas tanya, diminta transfer biaya berkas dulu",cerita,tawaran_kerja,upfront_fee|too_good,sintetis
+hw-0032,"Ada yg minta aku isi data di link buat lamaran kerja, ternyata minta PIN ATM sama password. Hampir aja aku isi",cerita,tawaran_kerja,credential_request|link_or_apk,sintetis
+hw-0033,"Temen kampus cerita dia ditelpon ngaku HRD perusahaan ternama, disuruh kirim 300rb biar diprioritaskan. Katanya kesempatan langka",cerita,tawaran_kerja,impersonation|too_good,sintetis
+hw-0034,"Kemarin aku daftar loker di instagram, tiba2 dihubungi wa katanya wajib bayar seragam 100rb. Nomornya baru dan ngaku dari kantor pusat",cerita,tawaran_kerja,upfront_fee|impersonation,sintetis
+hw-0035,"Dia bilang kerja ini rahasia dulu jangan bilang siapa2, dan harus bayar sekarang juga sebelum jam 9 malam",cerita,tawaran_kerja,urgency|isolation,sintetis
+hw-0036,SELAMAT!!! Anda terpilih jadi pemenang undian hadiah mobil. Klik <URL> untuk klaim hadiah Anda,tempel,giveaway,link_or_apk|too_good,sintetis
+hw-0037,"Giveaway akun toko kami: kakak menang voucher belanja 5 juta. Bayar ongkir dan pajak hadiah Rp 250.000 hari ini ya, kalau lewat hangus",tempel,giveaway,upfront_fee|urgency,sintetis
+hw-0038,Selamat anda mendapat hadiah dari Bank Nusantara Jaya resmi. Kirim kode OTP dan nomor kartu untuk pencairan hadiah,tempel,giveaway,credential_request|authority,sintetis
+hw-0039,Hadiah iPhone gratis untuk 50 pengikut pertama!!! klik <URL> sekarang sebelum kehabisan,tempel,giveaway,urgency|link_or_apk,sintetis
+hw-0040,"kak kamu menang giveaway 10 juta, tinggal transfer biaya admin 50rb ke <REKENING> hadiah langsung cair",tempel,giveaway,upfront_fee|too_good,sintetis
+hw-0041,"Selamat Anda pemenang undian. Mohon rahasiakan informasi ini sampai hadiah cair ya, jangan beri tahu siapapun. Konfirmasi di <NOMOR>",tempel,giveaway,impersonation|isolation,sintetis
+hw-0042,"Kami dari tim resmi marketplace Toko Pelangi Online. Anda pemenang undian tahunan, isi data di <URL>",tempel,giveaway,impersonation|authority,sintetis
+hw-0043,Menang hadiah emas 100 gram tanpa diundi! Kirim foto KTP dan kode verifikasi yg dikirim lewat sms utk pengambilan,tempel,giveaway,too_good|credential_request,sintetis
+hw-0044,"Giveaway terakhir hari ini, kak menang saldo 2jt. Bayar pajak hadiah 10% dulu ya sebelum jam 12 malam",tempel,giveaway,urgency|upfront_fee,sintetis
+hw-0045,"Pemberitahuan resmi: nomor Anda terdaftar sebagai pemenang program loyalitas, hadiah 25 juta. Hubungi petugas kami sekarang",tempel,giveaway,authority|too_good,sintetis
+hw-0046,"download aplikasi hadiah di <URL> lalu install apk-nya, kamu menang saldo gratis 1,5jt buruan",tempel,giveaway,link_or_apk|urgency,sintetis
+hw-0047,"Halo kak aku admin giveaway akun resmi. Kamu menang tapi jangan kasih tau org lain dulu ya, transfer 75rb biar diproses",tempel,giveaway,impersonation|upfront_fee|isolation,sintetis
+hw-0048,Anda memenangkan paket liburan gratis ke Bali. Cukup bayar biaya pengiriman voucher Rp 99rb,tempel,giveaway,upfront_fee|too_good,sintetis
+hw-0049,"Selamat kakak menang cashback 3 juta, balas dengan PIN dan password akun untuk pencairan ya",tempel,giveaway,credential_request|too_good,sintetis
+hw-0050,"Surat resmi hadiah undian berizin. Konfirmasi dalam 24 jam, kalau tidak hadiah dialihkan ke pemenang lain",tempel,giveaway,authority|urgency,sintetis
+hw-0051,"Tiba2 ada wa katanya aku menang undian mobil, disuruh klik link buat klaim. Aku ragu soalnya gak pernah ikut undian",cerita,giveaway,link_or_apk|too_good,sintetis
+hw-0052,Temen ku dapet pesan menang giveaway 5 juta tapi disuruh bayar pajak hadiah 200rb hari ini. Katanya kalau telat hangus,cerita,giveaway,upfront_fee|urgency,sintetis
+hw-0053,"Ada yg ngaku dari bank, katanya aku pemenang hadiah dan minta kode OTP buat pencairan. Untung aku tolak",cerita,giveaway,credential_request|too_good,sintetis
+hw-0054,"Tadi ada akun yang ngaku admin giveaway resmi, bilang aku menang voucher belanja. Tapi minta ongkir dulu",cerita,giveaway,impersonation|authority,sintetis
+hw-0055,"Katanya aku menang undian tapi jangan bilang ke siapa-siapa dulu sampai cair, terus disuruh transfer biaya admin",cerita,giveaway,impersonation|isolation,sintetis
+hw-0056,"Dikirimi pesan katanya menang hadiah emas 50 gram, cuma perlu bayar biaya pengiriman 100rb. Terlalu bagus buat jadi nyata",cerita,giveaway,upfront_fee|too_good,sintetis
+hw-0057,"Ibu dikirimi apk undian berhadiah, katanya resmi dari pemerintah. Pas mau diinstall aku larang",cerita,giveaway,link_or_apk|authority,sintetis
+hw-0058,"Ada DM katanya aku menang saldo gratis, tinggal tf pajak 50rb sekarang juga, kalau enggak hadiahnya dikasih ke orang lain",cerita,giveaway,urgency|upfront_fee,sintetis
+hw-0059,"Mereka bilang undian resmi terdaftar, terus minta foto KTP dan kode verifikasi dari sms. Aku curiga banget",cerita,giveaway,authority|credential_request,sintetis
+hw-0060,Aku dapat link menang iphone gratis di story orang. Pas klik minta login akun. Sepertinya palsu,cerita,giveaway,too_good|link_or_apk,sintetis
+hw-0061,"Ada akun toko nawarin hadiah gratis, tapi aku diminta bayar ongkir dan jangan cerita ke keluarga",cerita,giveaway,upfront_fee|isolation,sintetis
+hw-0062,"Mah ini aku, hp ku rusak jadi pakai nomor baru ya. Tolong transferin dulu 1,5jt ke <REKENING>, nanti aku ganti besok",tempel,akun_menyamar,impersonation|credential_request,sintetis
+hw-0063,"Halo ini Papa, nomor baru ya. Tolong segera kirim pulsa dan transfer 2jt, urgent banget sekarang",tempel,akun_menyamar,impersonation|urgency,sintetis
+hw-0064,"Hai ini aku Dina, ganti nomor. Tolong jgn kasih tau siapa2 dulu, aku butuh pinjem 800rb buat bayar kos hari ini",tempel,akun_menyamar,impersonation|isolation,sintetis
+hw-0065,Kami dari Bank Nusantara Jaya resmi. Akun Anda diblokir. Segera kirim kode OTP dan PIN untuk verifikasi,tempel,akun_menyamar,credential_request|authority,sintetis
+hw-0066,Pemberitahuan: rekening Anda akan dibekukan dalam 1 jam. Klik <URL> untuk verifikasi data sekarang,tempel,akun_menyamar,urgency|authority|link_or_apk,sintetis
+hw-0067,"Saya customer service resmi bank Nusantara Jaya. Ada transaksi mencurigakan di akun Anda, mohon sebutkan password dan OTP",tempel,akun_menyamar,impersonation|credential_request|authority,sintetis
+hw-0068,"Kak ini temanmu, hp ilang pake nomor temen. Tolong tf dulu 500rb ke <REKENING>, nanti aku ganti pas dapet hp baru",tempel,akun_menyamar,impersonation|upfront_fee,sintetis
+hw-0069,"Halo ini bos kamu, nomor baru. Tolong beli voucher 3 juta sekarang dan jangan bilang siapa2 dulu, ini rahasia",tempel,akun_menyamar,impersonation|credential_request|isolation,sintetis
+hw-0070,"Akun anda dibatasi, mohon install aplikasi keamanan di <URL> dan masukkan PIN serta kode OTP",tempel,akun_menyamar,credential_request|link_or_apk,sintetis
+hw-0071,"ini aku kak, nomor lama hilang. buruan transfer 700rb ke <REKENING> lagi butuh banget sekarang",tempel,akun_menyamar,impersonation|urgency,sintetis
+hw-0072,"Kami petugas resmi OJK terdaftar. Akun Anda terindikasi pencucian uang, segera hubungi <NOMOR> hari ini",tempel,akun_menyamar,impersonation|urgency|authority,sintetis
+hw-0073,"Sayang ini aku pake nomor baru. Tolong bayarin tagihan dulu 1jt ya, nanti aku kasih bonus dobel",tempel,akun_menyamar,impersonation|upfront_fee|too_good,sintetis
+hw-0074,Petugas resmi kepolisian: nomor Anda terkait kasus. Kirim foto KTP dan kode OTP untuk dibersihkan,tempel,akun_menyamar,authority|credential_request,sintetis
+hw-0075,"Kartu Anda terblokir. Perbarui data lewat <URL>, isi nomor kartu, PIN dan password segera",tempel,akun_menyamar,link_or_apk|credential_request,sintetis
+hw-0076,"Dek ini kakakmu, ganti nomor. Jangan kasih tau mama dulu, kakak lagi kena masalah, kirim 1jt ya",tempel,akun_menyamar,impersonation|isolation,sintetis
+hw-0077,"Tadi ada wa dari nomor baru ngaku jadi ibuku, minta transfer 1jt katanya hp rusak. Pas aku telpon ibu ternyata gak benar",cerita,akun_menyamar,impersonation|credential_request,sintetis
+hw-0078,"Ada sms ngaku dari bank resmi, bilang rekening diblokir dan minta kode OTP. Aku langsung blokir nomornya",cerita,akun_menyamar,credential_request|authority,sintetis
+hw-0079,"Temanku dichat ngaku sahabatnya pakai nomor baru, minta pinjem uang cepat banget hari ini juga",cerita,akun_menyamar,impersonation|urgency,sintetis
+hw-0080,"Mama dapat link dari yg ngaku petugas bank, katanya akun bakal ditutup sekarang kalau gak klik. Mama hampir klik",cerita,akun_menyamar,link_or_apk|urgency,sintetis
+hw-0081,"Ada yang ngaku jadi atasan di kantor, chat dari nomor baru, minta beliin voucher dan jangan bilang siapa-siapa",cerita,akun_menyamar,impersonation|isolation,sintetis
+hw-0082,"Ada telpon ngaku polisi katanya aku terkait kasus, minta foto KTP dan kode OTP yang masuk",cerita,akun_menyamar,authority|credential_request,sintetis
+hw-0083,"Kakakku dichat ngaku adiknya ganti nomor, minta tf dulu 500rb. Untung dia konfirmasi lewat telepon",cerita,akun_menyamar,impersonation|upfront_fee,sintetis
+hw-0084,Katanya akun m-banking ku bakal dibekukan hari ini kalau gak kirim PIN dan password. Panik banget tadi,cerita,akun_menyamar,urgency|credential_request,sintetis
+hw-0085,"Ada yang ngaku cs bank, nyuruh install aplikasi dari link biar akun aman. Padahal bank gak pernah minta gitu",cerita,akun_menyamar,link_or_apk|impersonation,sintetis
+hw-0086,"Dapet pesan dari nomor baru ngaku om, katanya nanti uangnya diganti dobel kalau aku transfer sekarang",cerita,akun_menyamar,impersonation|too_good,sintetis
+hw-0087,"Dia bilang ini rahasia ya jangan bilang mama, hp nya rusak jadi pake nomor baru. Lalu minta pulsa",cerita,akun_menyamar,impersonation|isolation,sintetis
+hw-0088,"Pesan resmi katanya dari OJK, terdaftar dan berizin, minta aku transfer ke rekening aman. Sumpah mencurigakan",cerita,akun_menyamar,authority|urgency,sintetis
+hw-0089,"Investasi profit 20% per minggu dijamin tanpa risiko. Join sekarang, kuota terbatas hari ini!!!",tempel,pinjaman_investasi,too_good|urgency,sintetis
+hw-0090,"Pinjaman cepat cair 5 juta tanpa jaminan, resmi terdaftar OJK. Bayar biaya admin 300rb dulu ke <REKENING>",tempel,pinjaman_investasi,upfront_fee|authority,sintetis
+hw-0091,"Trading kripto auto cuan, modal 500rb jadi 5 juta dalam seminggu. Rahasiakan strategi ini ya, jangan bilang orang lain",tempel,pinjaman_investasi,too_good|impersonation,sintetis
+hw-0092,Pinjol cair 10 menit tanpa BI checking. Download apk di <URL> dan ajukan sekarang kak,tempel,pinjaman_investasi,urgency|link_or_apk,sintetis
+hw-0093,"Mau dana 20 juta langsung cair? Transfer asuransi pinjaman 400rb dulu, bunga 0 persen",tempel,pinjaman_investasi,upfront_fee|too_good,sintetis
+hw-0094,"Ajukan pinjaman di <URL>, kirim foto KTP, selfie, dan kode OTP untuk verifikasi",tempel,pinjaman_investasi,credential_request|link_or_apk,sintetis
+hw-0095,"Saya mentor trading dari Platform Investasi Garuda. Member VIP profit pasti 30% sebulan, setor modal 2jt",tempel,pinjaman_investasi,impersonation|too_good,sintetis
+hw-0096,"Kesempatan emas! Untung 50% dalam 3 hari, garansi uang kembali. Daftar sebelum jam 12 malam",tempel,pinjaman_investasi,too_good|urgency,sintetis
+hw-0097,"Dana darurat siap cair, kami berizin resmi OJK. Tinggal bayar biaya pencairan Rp 450.000 sekarang",tempel,pinjaman_investasi,upfront_fee|authority,sintetis
+hw-0098,"Tambah modal dulu 1,5jt supaya penarikan profit bisa diproses. Jangan cerita ke keluarga ya, ini peluang eksklusif",tempel,pinjaman_investasi,upfront_fee|isolation,sintetis
+hw-0099,Pinjaman disetujui 15 juta. Kirim PIN dan password m-banking Anda segera agar dana ditransfer,tempel,pinjaman_investasi,credential_request|urgency,sintetis
+hw-0100,Robot trading AI profit tetap 5% per hari. Download aplikasinya <URL> lalu deposit minimal 1jt,tempel,pinjaman_investasi,too_good|link_or_apk,sintetis
+hw-0101,"Halo aku Tania, kenalan di sini ya. Aku punya platform investasi bagus, ayo deposit 3jt dulu bareng-bareng",tempel,pinjaman_investasi,impersonation|upfront_fee,sintetis
+hw-0102,"Pinjaman tanpa agunan, syarat cuma KTP. Biaya asuransi 250rb harus dibayar hari ini juga",tempel,pinjaman_investasi,upfront_fee|urgency,sintetis
+hw-0103,Koperasi digital resmi dan legal terdaftar. Investasi emas digital untung pasti 15 persen per bulan,tempel,pinjaman_investasi,authority|too_good,sintetis
+hw-0104,"Ada yang nawarin investasi katanya untung 30% seminggu pasti, tapi harus join sebelum besok. Aku ragu",cerita,pinjaman_investasi,too_good|urgency,sintetis
+hw-0105,"Aku ditawari pinjaman online cepat, katanya resmi OJK tapi disuruh bayar biaya admin dulu 300rb sebelum cair",cerita,pinjaman_investasi,upfront_fee|authority,sintetis
+hw-0106,"Temanku diajak trading kripto, katanya cuan pasti tanpa risiko dan jangan bilang siapa2. Dia udah setor 2 juta",cerita,pinjaman_investasi,too_good|isolation,sintetis
+hw-0107,"Kenalan di aplikasi ngajak investasi lewat apk yang harus diinstall, terus disuruh deposit. Kayaknya romance scam",cerita,pinjaman_investasi,link_or_apk|impersonation,sintetis
+hw-0108,"Pinjol ilegal minta aku kirim foto KTP dan kode OTP dulu, terus bayar asuransi pinjaman 200rb. Aku batalin",cerita,pinjaman_investasi,upfront_fee|credential_request,sintetis
+hw-0109,"Ada yang bilang profit dijamin 10% per hari, tinggal setor modal hari ini juga karena kuota tinggal sedikit",cerita,pinjaman_investasi,urgency|too_good,sintetis
+hw-0110,"Orang di wa minta tambah deposit supaya profit bisa ditarik, katanya jangan cerita ke keluarga. Aku mulai curiga",cerita,pinjaman_investasi,upfront_fee|isolation,sintetis
+hw-0111,"Dia ngaku mentor trading dari platform resmi terdaftar, ngajak join member VIP. Janjinya untung besar",cerita,pinjaman_investasi,impersonation|authority,sintetis
+hw-0112,"Pinjaman cepat katanya, tapi disuruh isi data di link lalu masukin PIN dan password. Itu jelas mau nipu",cerita,pinjaman_investasi,credential_request|link_or_apk,sintetis
+hw-0113,"Bapak ditelpon pinjaman cair 20 juta tanpa jaminan, tapi harus tf biaya admin 500rb hari ini",cerita,pinjaman_investasi,upfront_fee|urgency,sintetis
+hw-0114,"Ada orang nawarin investasi emas dobel dalam sebulan, rahasiakan dulu katanya. Terlalu bagus gak sih",cerita,pinjaman_investasi,too_good|impersonation,sintetis
+hw-0115,"Pacar online kenalan dua minggu terus nawarin ikut investasi, minta aku setor 5 juta ke rekening temannya",cerita,pinjaman_investasi,impersonation|too_good,sintetis
+hw-0116,"Paket kamu tertahan. Klik <URL> dan install apk kurir untuk lacak sekarang, batas hari ini",tempel,lainnya,link_or_apk|urgency,sintetis
+hw-0117,Undangan pernikahan digital. Buka dan install file apk undangan ini ya kak <URL>,tempel,lainnya,link_or_apk|urgency,sintetis
+hw-0118,"Kak barang COD sudah sampai, bayar ongkir 50rb dulu ke <REKENING> dan sebutkan kode OTP agar paket dikirim",tempel,lainnya,upfront_fee|credential_request,sintetis
+hw-0119,"Kami kurir resmi ekspedisi Cepat Jaya, paket Anda tertahan, klik <URL> untuk konfirmasi alamat",tempel,lainnya,impersonation|authority,sintetis
+hw-0120,"Pesanan kakak di toko kami belum dibayar, transfer sekarang sebelum dibatalkan hari ini",tempel,lainnya,upfront_fee|urgency,sintetis
+hw-0121,"Foto kenangan kita ada di <URL>, download apk galeri ini dulu ya",tempel,lainnya,link_or_apk|too_good,sintetis
+hw-0122,"Lihat tagihan listrik Anda di <URL>, masukkan nomor kartu dan kode OTP",tempel,lainnya,link_or_apk|credential_request,sintetis
+hw-0123,"Kak saya penjual di marketplace, pesanan kakak batal. Transfer langsung ke <REKENING> biar saya kirim, diskon 50 persen",tempel,lainnya,impersonation|upfront_fee,sintetis
+hw-0124,"Ada foto kamu di <URL>, buka aja sendiri jangan kasih tau siapa2 ya",tempel,lainnya,link_or_apk|isolation,sintetis
+hw-0125,"Petugas resmi pajak, tagihan Anda belum lunas. Kirim PIN dan foto KTP segera",tempel,lainnya,credential_request|authority,sintetis
+hw-0126,"Barang branded harga 100rb saja, transfer dulu ongkir 30rb, sistem COD ditutup hari ini",tempel,lainnya,upfront_fee|too_good,sintetis
+hw-0127,"ini admin toko, resi anda salah segera klik <URL> kalau tidak dikembalikan sekarang",tempel,lainnya,impersonation|urgency,sintetis
+hw-0128,Aku dikirimi file apk undangan nikah dari nomor gak dikenal. Katanya buka sekarang. Gak aku buka,cerita,lainnya,link_or_apk|urgency,sintetis
+hw-0129,Ada pesan paket tertahan minta klik link dan install aplikasi kurir. Padahal aku gak belanja apa-apa,cerita,lainnya,link_or_apk|urgency,sintetis
+hw-0130,Ada yang ngaku kurir minta bayar ongkir dulu dan kode OTP. Aku curiga soalnya barangnya gak pernah kupesan,cerita,lainnya,upfront_fee|credential_request,sintetis
+hw-0131,Ada penjual di marketplace nawarin barang murah banget tapi minta transfer langsung di luar aplikasi,cerita,lainnya,upfront_fee|too_good,sintetis
+hw-0132,"Katanya dia dari ekspedisi resmi, paket tertahan, minta klik link konfirmasi alamat. Aku cek ke resi asli, ternyata palsu",cerita,lainnya,impersonation|authority,sintetis
+hw-0133,"Temanku kena, dia klik link tagihan listrik terus masukin kode OTP dan sekarang saldonya habis",cerita,lainnya,link_or_apk|credential_request,sintetis
+hw-0134,"Dikirimi link foto-foto katanya ada fotoku, tapi disuruh jangan bilang siapa2. Ternyata minta install apk",cerita,lainnya,link_or_apk|isolation,sintetis
+hw-0135,"Pembeli minta kirim barang dulu lalu aku disuruh bayar ongkir jebakan hari ini, katanya kalau enggak transaksi batal",cerita,lainnya,urgency|upfront_fee,sintetis
+hw-0136,"Orang ngaku admin toko online ngirim link minta aku konfirmasi pesanan sekarang juga, padahal aku gak pesan",cerita,lainnya,impersonation|urgency,sintetis
+hw-0137,Nomor tak dikenal ngaku petugas pajak resmi minta kirim foto KTP. Takut tapi aku tanya dulu ke kantor pajak,cerita,lainnya,authority|too_good,sintetis
+hw-0138,"Halo semua, besok kuliah jam 8 di ruang B204 ya. Jangan lupa bawa laptop dan tugas kelompok",normal,lainnya,,sintetis
+hw-0139,"Paket kamu sudah sampai di rumah ya kak, tadi diterima ibu. Terima kasih sudah berbelanja di Toko Pelangi",normal,lainnya,,sintetis
+hw-0140,Promo akhir pekan di Toko Pelangi Online diskon 20% semua produk sampai Minggu. Syarat dan ketentuan berlaku di aplikasi resmi,normal,lainnya,,sintetis
+hw-0141,"Info lowongan asisten laboratorium kampus, daftar lewat bagian akademik fakultas tanpa biaya apapun. Terbuka sampai 20 November",normal,lainnya,,sintetis
+hw-0142,"Bro bisa pinjem 50rb dulu gak? dompetku ketinggalan di kos, nanti malam aku transfer balik. Maaf ya",normal,lainnya,,sintetis
+hw-0143,"Pengingat dari Bank Nusantara Jaya: jangan pernah memberikan OTP, PIN, atau password kepada siapa pun termasuk petugas bank",normal,lainnya,,sintetis
+hw-0144,"Pengumuman beasiswa prestasi kampus tahun ini sudah dibuka. Berkas diserahkan langsung ke bagian kemahasiswaan, gratis tidak dipungut biaya",normal,lainnya,,sintetis
+hw-0145,"Kurir Cepat Jaya: paket Anda dalam perjalanan, estimasi tiba besok. Lacak lewat aplikasi resmi atau nomor resi di struk",normal,lainnya,,sintetis
+hw-0146,Makasih ya kak udah transfer 150rb buat patungan kado. Nanti aku catat di grup,normal,lainnya,,sintetis
+hw-0147,Rapat panitia dimajukan jadi jam 3 sore hari ini di sekretariat. Mohon hadir tepat waktu,normal,lainnya,,sintetis
+hw-0148,"Tagihan listrik bulan ini sudah aku bayar lewat aplikasi, kamu tinggal transfer bagian kamu Rp 275.000 ke aku ya",normal,lainnya,,sintetis
+hw-0149,"Kak pesanan kopi kamu sudah jadi, bisa diambil di meja kasir. Terima kasih",normal,lainnya,,sintetis
+hw-0150,Info: portal nilai semester ganjil sudah bisa dilihat lewat akun mahasiswa masing-masing. Jika ada kendala hubungi bagian akademik,normal,lainnya,,sintetis
+hw-0151,"Aku lagi cari kerja part time buat nambah uang jajan, ada yang tau lowongan di sekitar kampus gak?",normal,lainnya,,sintetis
+hw-0152,"Mama: nak jangan lupa makan ya, nanti sore ibu masak sop ayam kesukaanmu",normal,lainnya,,sintetis
+hw-0153,"Bank Nusantara Jaya: Transaksi sebesar Rp 150.000 berhasil. Jika bukan Anda, hubungi layanan resmi di kartu Anda. Jangan bagikan OTP",normal,lainnya,,sintetis
+hw-0154,"Teman2 besok kita kerja kelompok di perpus jam 10, bawa catatan masing-masing ya!!",normal,lainnya,,sintetis
+hw-0155,"Ini nomor baru aku ya guys, yang lama udah mati. Boleh disave. Nanti aku kabarin lagi di grup",normal,lainnya,,sintetis
+hw-0156,"Diskon 30% khusus member di toko buku Aksara, berlaku sampai 30 November. Tukarkan di kasir dengan menunjukkan kartu member",normal,lainnya,,sintetis
+hw-0157,"Ada lowongan magang di perusahaan teknologi lokal, daftar lewat situs resmi perusahaan, proses seleksi gratis dan online",normal,lainnya,,sintetis
+hw-0158,Hasil rapat kemarin sudah aku kirim ke email kamu ya <EMAIL>. Tolong dicek sebelum jumat,normal,lainnya,,sintetis
+hw-0159,"Kak, uang kos bulan ini 900rb ya, bisa transfer ke rekening bu Sari sebelum tanggal 5. Terima kasih",normal,lainnya,,sintetis
+hw-0160,"Selamat ya kamu lolos seleksi beasiswa! Ayo ambil surat keterangan di kantor fakultas Senin depan, tidak ada biaya",normal,lainnya,,sintetis
+hw-0161,Jadwal ronda malam ini giliran blok C ya bapak2. Mohon dikonfirmasi,normal,lainnya,,sintetis
+hw-0162,"Hati-hati kalau ada pesan minta OTP atau kode dari yang ngaku bank, itu penipuan. Jangan diklik link nya",normal,lainnya,,sintetis
+hw-0163,"Tadi aku nonton film di bioskop sama temen, seru banget ceritanya, kamu harus nonton juga",normal,lainnya,,sintetis
+hw-0164,"Pak, laporan keuangan sudah saya kirim. Besok pagi saya bawa berkas aslinya ke kantor",normal,lainnya,,sintetis
+hw-0165,Pengumuman: pembayaran UKT semester depan dibuka tanggal 1 sampai 15 lewat bank mitra resmi kampus. Info lengkap di situs resmi,normal,lainnya,,sintetis
+hw-0166,Kak ada nasi goreng enak gak di deket kos? lagi laper banget nih,normal,lainnya,,sintetis
+hw-0167,Aplikasi toko kami sudah ada update terbaru di Play Store resmi. Silakan perbarui untuk fitur belanja yang lebih nyaman,normal,lainnya,,sintetis
+hw-0168,"Dek tolong transfer 200rb buat bayar iuran kelas ya, nanti bendahara kirim buktinya di grup",normal,lainnya,,sintetis
+hw-0169,"Info donasi banjir: bantuan bisa disalurkan lewat rekening resmi panitia kampus, laporan penggunaan dana dibagikan tiap minggu",normal,lainnya,,sintetis
+hw-0170,Kamu mau ikut kerja kelompok gak? Kita bagi tugas dulu biar cepat selesai sebelum deadline,normal,lainnya,,sintetis
+hw-0171,"Hai kak, kami dari Toko Pelangi. Pesanan #1234 sedang dikemas dan akan dikirim besok. Terima kasih",normal,lainnya,,sintetis
+hw-0172,"Maaf telat bales, tadi hp lowbat. Nanti malam kita telfon ya",normal,lainnya,,sintetis
+hw-0173,SELAMAT PAGI semuanya!!! Semangat kuliahnya hari ini 😀,normal,lainnya,,sintetis
+hw-0174,"Bro minggu depan jadi futsal kan? Lapangan udah aku booking, patungan 25rb per orang",normal,lainnya,,sintetis
+hw-0175,"Lowongan guru les privat matematika, honor 100rb per pertemuan, hubungi koordinator lewat kantor bimbel secara langsung",normal,lainnya,,sintetis
+hw-0176,"Bapak Ibu, rapat RT diadakan malam minggu pukul 19.30 di balai warga. Mohon kehadirannya",normal,lainnya,,sintetis
+hw-0177,"Dana pinjaman koperasi kampus cair setelah pengajuan disetujui pengurus, tanpa biaya admin. Hubungi sekretariat koperasi",normal,lainnya,,sintetis
+hw-0178,"Hadiah doorprize acara kemarin bisa diambil di sekretariat panitia, bawa kartu peserta ya",normal,lainnya,,sintetis
+hw-0179,"Kode OTP Anda 483921 untuk login. Jangan berikan kode ini kepada siapa pun, termasuk pihak yang mengaku dari kami",normal,lainnya,,sintetis
+hw-0180,"LOWONGAN KERJA ONLINE ADMIN CHAT, gaji 6jt!! bayar seragam 150rb skrg ya kak 😊 kuota tinggal 2",tempel,tawaran_kerja,upfront_fee|urgency,sintetis
+hw-0181,Kakak terpilih dpt hadiah saldo dana 2jt klik aja linknya <URL> skrg jg ya jgn sampe kelewat,tempel,giveaway,link_or_apk|urgency,sintetis
+hw-0182,hai aku lg di luar kota hp ketinggalan jd pake nomor temen jgn bilang siapa2 ya tolong tf 300rb dulu,tempel,akun_menyamar,impersonation|isolation,sintetis
+hw-0183,untung 40 persen tiap bulan pasti tanpa rugi cukup setor 1 juta lalu bayar biaya aktivasi 100rb,tempel,pinjaman_investasi,too_good|upfront_fee,sintetis
+hw-0184,kak paketnya tertahan di gudang transfer biaya simpan 35rb dulu ke <REKENING> terus klik <URL>,tempel,lainnya,link_or_apk|upfront_fee,sintetis
+hw-0185,"Tolong rahasiakan tawaran ini, gaji harian 900rb tanpa syarat apa pun cuma kirim data diri lewat <NOMOR>",tempel,tawaran_kerja,isolation|too_good,sintetis
+hw-0186,"Adik sepupu dapat telpon ngaku dari perusahaan resmi, disuruh daftar sekarang dan bayar deposit karena slot tinggal sedikit",cerita,tawaran_kerja,urgency|authority,sintetis
+hw-0187,"Teman cerita dapat pesan hadiah mobil gratis, harus klaim dalam 1 jam. Padahal dia gak pernah ikut undian",cerita,giveaway,too_good|urgency,sintetis
+hw-0188,"Tadi ada telepon ngaku anakku, bilang kecelakaan, minta transfer biaya rumah sakit sekarang. Ternyata penipuan",cerita,akun_menyamar,upfront_fee|impersonation,sintetis
+hw-0189,"Dia kirim link verifikasi bank, bilang kalau gak diklik dalam sejam akun ditutup. Aku cek ke bank, ternyata bohong",cerita,akun_menyamar,link_or_apk|urgency,sintetis
+hw-0190,"Teman kantor ikut investasi online, katanya untung dobel tiap bulan. Tapi dia harus bayar biaya admin tiap mau tarik",cerita,pinjaman_investasi,upfront_fee|too_good,sintetis
+hw-0191,"Ada yg nyuruh aku install apk dan jangan kasih tau siapapun, katanya biar paketku cepat sampai",cerita,lainnya,isolation|link_or_apk,sintetis
+hw-0192,"Halo kak, ini kurir Cepat Jaya. Paketnya sudah di depan rumah ya, mohon dicek. Tidak ada biaya tambahan",normal,lainnya,,sintetis
+hw-0193,Info dari bank Nusantara Jaya: layanan mobile banking akan maintenance pukul 01.00 sampai 03.00. Mohon maaf atas ketidaknyamanannya,normal,lainnya,,sintetis
+hw-0194,"yuk ikut seminar kewirausahaan gratis hari sabtu di aula kampus, daftar di sekretariat atau lewat formulir resmi panitia",normal,lainnya,,sintetis
+hw-0195,"mas bisa pinjem uang 100rb gk, buat bensin. besok gajian langsung aku balikin. makasih banyak",normal,lainnya,,sintetis
+hw-0196,Promo beli 1 gratis 1 di kedai Kopi Senja berlaku hari ini saja. Tunjukkan pesan ini ke kasir,normal,lainnya,,sintetis
+hw-0197,"dek tolong beliin pulsa 20rb dong nanti ibu ganti pas pulang kerja, nomor ibu yg biasa ya",normal,lainnya,,sintetis
+hw-0198,"Pendaftaran beasiswa daerah dibuka sampai akhir bulan. Seluruh proses gratis, informasi di situs resmi dinas pendidikan",normal,lainnya,,sintetis
+hw-0199,"Admin toko: terima kasih sudah belanja kak, kalau barangnya sudah sampai mohon beri ulasan bintang 5 ya ❤️",normal,lainnya,,sintetis
+hw-0200,"Kak, tugas kelompok kita kumpul hari ini jam 4 ya, tolong kirim bagian kamu sebelum itu",normal,lainnya,,sintetis
+hw-0201,"Aku baru dapet gaji pertama dari magang, traktir kalian makan malam ini. Kumpul di kafe biasa jam 7",normal,lainnya,,sintetis

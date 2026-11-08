@@ -4,7 +4,7 @@ Sumber kebenaran kontrak: [`openapi.yaml`](openapi.yaml). Tipe TypeScript: [`src
 
 ## Aturan utama
 
-- **Tidak ada teks tulisan user yang dikirim ke server.** Teks di S-03, isi "Lainnya" di S-04–06, dan nama panggilan karakter di S-10 hanya diproses di browser. Server menolak field tambahan (`additionalProperties: false`), jadi request yang berisi teks akan dibalas `400`.
+- **Teks S-03 hanya dikirim ke `POST /api/v1/lite/analyze`, dan wajib sudah dimasking di browser** (K12). Server tidak mencatat/menyimpan teks. Isi "Lainnya" di S-04–06 dan nama panggilan karakter di S-10 tetap hanya di browser. Server menolak field tambahan (`additionalProperties: false`), jadi request yang berisi teks akan dibalas `400`.
 - Server stateless: tanpa login, tanpa database.
 - `429` selalu membawa `Retry-After: 20` (hitung mundur S-20).
 - Jika API mati atau lebih dari 3 detik, frontend beralih ke mode terbatas (S-07 Error, S-19) dengan struktur data yang sama.
@@ -13,7 +13,7 @@ Sumber kebenaran kontrak: [`openapi.yaml`](openapi.yaml). Tipe TypeScript: [`src
 
 | Layar | Panggilan |
 |---|---|
-| S-03 Situasi | `GET /api/v1/lite/categories`, `GET /api/v1/lite/scenarios` (untuk pencocokan teks + "Contoh fiktif") lalu `analyzeText()` di browser |
+| S-03 Situasi | `GET /api/v1/lite/categories`, `GET /api/v1/lite/scenarios` ("Contoh fiktif"), `maskText()` di browser lalu `POST /api/v1/lite/analyze`; mode terbatas: model cadangan di browser |
 | S-04–06 Pertanyaan | `GET /api/v1/lite/scenarios/{id}` |
 | S-07 Loading → S-08 Hasil → S-09 Action Card | `POST /api/v1/lite/reflect`, `GET /api/v1/lite/tactics` (kartu taktik tambahan dari model) |
 | S-10 Pilih karakter | `GET /api/v1/soul/characters` |

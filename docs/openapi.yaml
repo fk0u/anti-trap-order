@@ -6,18 +6,20 @@ info:
     Kontrak API backend Go untuk MVP MIT-Week 2026, disusun mengikuti wireframe
     S-01 sampai S-20 (file Figma "Anti Trap Order - DESIGN").
 
-    ## Prinsip privasi (mengikuti layar S-16)
-    - **Tidak ada teks tulisan user yang dikirim ke server.** Teks yang ditempel di S-03,
-      isi "Lainnya" di S-04–06, dan nama panggilan karakter Soul di S-10 diproses
-      hanya di browser.
-    - Server hanya menerima ID: `scenario_id`, ID opsi jawaban, `arc_id`, ID pilihan misi,
-      dan nilai meter Soul.
+    ## Prinsip privasi
+    - Teks S-03 dikirim **hanya** ke `POST /api/v1/lite/analyze`, dan **sudah dimasking di
+      browser** (nomor HP, email, rekening, URL). Server memasking ulang sebagai lapisan
+      kedua, memproses di memori, lalu membuangnya: tidak dicatat di log, tidak disimpan,
+      tidak diteruskan ke pihak ketiga, tanpa LLM. (Keputusan K12; teks S-16 disesuaikan tim FE.)
+    - Isi "Lainnya" di S-04–06 dan nama panggilan karakter Soul di S-10 tetap hanya di browser.
+    - Endpoint lain hanya menerima ID: `scenario_id`, ID opsi jawaban, `arc_id`, ID pilihan
+      misi, dan nilai meter Soul.
     - Server tidak menyimpan apa pun (tanpa database, tanpa login).
 
     ## Pembagian kerja
     | Di browser | Di server (API ini) |
     |---|---|
-    | Masking nomor/email/rekening, model ML (kategori + taktik), memilih skenario dari teks, mengisi `{{nama}}`/`{{relasi}}` di narasi Soul, ekspor Action Card 4:5, 👍👎 | Konten skenario, ranking celah (found/missed), Action Card, alur misi Soul, peringkat akhir Soul |
+    | Masking nomor/email/rekening/URL sebelum kirim, model ML cadangan untuk mode terbatas (memakai `model.json` yang sama), mengisi `{{nama}}`/`{{relasi}}` di narasi Soul, ekspor Action Card 4:5, 👍👎 | Model ML utama (kategori + taktik + pilih skenario), konten skenario, ranking celah (found/missed), Action Card, alur misi Soul, peringkat akhir Soul |
 
     ## Mode terbatas (S-07 Error, S-19)
     Jika API tidak terjangkau atau lebih dari 3 detik, frontend memakai engine lokal yang
@@ -200,6 +202,50 @@ paths:
                       - { id: q3_d, label: Diminta wawancara video }
                       - { id: q3_e, label: Ditanya kenapa harus bayar dulu }
         '404': { $ref: '#/components/responses/NotFound' }
+
+  /api/v1/lite/analyze:
+    post:
+      tags: [Lite]
+      summary: Analisis teks situasi S-03 (model ML di server)
+      description: |
+        Menebak kategori, memilih skenario, dan mendeteksi taktik dari teks yang ditempel
+        atau diceritakan user. Model Naive Bayes, tanpa LLM. Teks wajib sudah dimasking di
+        browser; server memasking ulang dan tidak mencatat/menyimpan teks.
+
+        - `too_short: true` jika teks kurang dari 5 kata (state Error TextArea
+          "Tambahkan sedikit lagi…"); kategori `lainnya`, skenario `generic_emergency`,
+          `tactics` kosong.
+        - `tactics` kosong jika tidak ada taktik yang cukup yakin. `score` dan
+          `confidence` hanya untuk mengurutkan, **jangan ditampilkan** sebagai skor/persen.
+        - Mode terbatas: frontend menjalankan model cadangan yang menghasilkan struktur sama.
+      operationId: analyze
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: { $ref: '#/components/schemas/AnalyzeRequest' }
+            example:
+              text: 'Halo kak, lowongan admin WFH gaji 300rb/hari. Daftar sekarang, cukup tf biaya seragam 150rb ke <REKENING> ya!!'
+      responses:
+        '200':
+          description: Hasil analisis
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/AnalyzeResponse' }
+              example:
+                masked: 'Halo kak, lowongan admin WFH gaji 300rb/hari. Daftar sekarang, cukup tf biaya seragam 150rb ke <REKENING> ya!!'
+                masked_count: 0
+                too_short: false
+                category: { id: tawaran_kerja, confidence: 1 }
+                scenario_id: wfh_admin_fee
+                tactics:
+                  - { id: upfront_fee, score: 1, top_tokens: [seragam, seragam_<uang>, biaya_seragam] }
+                  - { id: too_good, score: 0.3681, top_tokens: [cukup] }
+                model_version: '1'
+                disclaimer: Ini alat bantu berpikir, bukan deteksi pasti.
+        '400': { $ref: '#/components/responses/ValidationError' }
+        '429': { $ref: '#/components/responses/RateLimited' }
+        '500': { $ref: '#/components/responses/ServerError' }
 
   /api/v1/lite/reflect:
     post:
@@ -539,6 +585,49 @@ components:
             0 hanya boleh jika user mengisi "Lainnya" saja. Isi teks "Lainnya" tidak dikirim;
             set `other_filled: true` sebagai penanda.
         other_filled: { type: boolean, default: false }
+
+    AnalyzeRequest:
+      type: object
+      required: [text]
+      additionalProperties: false
+      properties:
+        text:
+          type: string
+          minLength: 1
+          maxLength: 2000
+          description: Teks S-03 yang sudah dimasking di browser
+
+    DetectedTactic:
+      type: object
+      required: [id, score, top_tokens]
+      properties:
+        id: { $ref: '#/components/schemas/TacticId' }
+        score: { type: number, minimum: 0, maximum: 1, description: Hanya untuk mengurutkan; jangan ditampilkan }
+        top_tokens:
+          type: array
+          maxItems: 3
+          items: { type: string }
+          description: Token teks yang paling berpengaruh (untuk penjelasan, opsional ditampilkan)
+
+    AnalyzeResponse:
+      type: object
+      required: [masked, masked_count, too_short, category, scenario_id, tactics, model_version, disclaimer]
+      properties:
+        masked: { type: string, description: Teks setelah masking ulang di server }
+        masked_count: { type: integer, minimum: 0, description: 'Jumlah data yang disamarkan server (lapisan kedua). Teks yang sudah dimasking FE biasanya 0; chip "N data disamarkan" memakai hitungan maskText() di browser.' }
+        too_short: { type: boolean }
+        category:
+          type: object
+          required: [id, confidence]
+          properties:
+            id: { $ref: '#/components/schemas/CategoryId' }
+            confidence: { type: number, minimum: 0, maximum: 1, description: Hanya untuk logika; jangan ditampilkan }
+        scenario_id: { type: string, description: 'Skenario untuk S-04–06; fallback generic_emergency' }
+        tactics:
+          type: array
+          items: { $ref: '#/components/schemas/DetectedTactic' }
+        model_version: { type: string, description: Versi model.json; model cadangan FE harus sama }
+        disclaimer: { type: string, example: 'Ini alat bantu berpikir, bukan deteksi pasti.' }
 
     ReflectRequest:
       type: object
