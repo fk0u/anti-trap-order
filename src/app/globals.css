@@ -74,6 +74,14 @@
   --ato-radius-full: 999px;
 }
 
+/* Teks putih bergaris luar gelap — di Figma 06 berupa text stroke luar
+ * (label tombol CTA, judul hero, judul "Tiga langkah"). paint-order membuat
+ * stroke berada di belakang isi sehingga hanya separuh luarnya yang terlihat. */
+.ato-text-outline {
+  -webkit-text-stroke: var(--ato-outline-width, 2px) var(--ato-ink);
+  paint-order: stroke fill;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: light;
