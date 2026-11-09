@@ -2,7 +2,8 @@
  * Tipe kontrak API v1 Anti Trap Order.
  * Sumber kebenaran: docs/openapi.yaml — jika berbeda, ikuti openapi.yaml lalu perbarui file ini.
  *
- * Prinsip privasi: tidak ada teks tulisan user di request mana pun.
+ * Prinsip privasi: tidak ada teks tulisan user di request mana pun, KECUALI
+ * `AnalyzeRequest` (teks S-03 yang sudah dimasking di browser, K12).
  */
 
 // ---------- Umum ----------
@@ -105,6 +106,39 @@ export interface Answer {
   /** true jika user mengisi "Lainnya". Isi teksnya TIDAK dikirim. */
   other_filled?: boolean;
 }
+
+// ---------- Lite: analisis teks S-03 (K12) ----------
+
+/** Teks S-03 yang SUDAH dimasking di browser (maskText). Satu-satunya request berisi teks user. */
+export interface AnalyzeRequest {
+  text: string; // 1–2000 karakter
+}
+
+export interface DetectedTactic {
+  id: TacticId;
+  /** 0–1, hanya untuk mengurutkan; jangan ditampilkan. */
+  score: number;
+  /** Maks. 3 token paling berpengaruh. */
+  top_tokens: string[];
+}
+
+export interface AnalyzeResponse {
+  /** Teks setelah masking ulang di server. */
+  masked: string;
+  /** Hitungan masking lapisan kedua di server; chip "N data disamarkan" memakai hitungan maskText() di browser. */
+  masked_count: number;
+  /** true → state Error TextArea "Tambahkan sedikit lagi…". */
+  too_short: boolean;
+  /** `confidence` hanya untuk logika; jangan ditampilkan. */
+  category: { id: CategoryId; confidence: number };
+  /** Skenario untuk S-04–06; fallback generic_emergency. */
+  scenario_id: string;
+  tactics: DetectedTactic[];
+  model_version: string;
+  disclaimer: string;
+}
+
+export const ANALYZE_TEXT_MAX_LENGTH = 2000;
 
 export interface ReflectRequest {
   scenario_id: string;
