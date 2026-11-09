@@ -41,7 +41,15 @@ go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun dataset + latih mode
 
 ## Token desain
 
-Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailwind.config.ts` (awalan `ato-`, mis. `bg-ato-bg-0`, `text-ato-m-body`, `rounded-ato-lg`, `shadow-ato-gloss`). Font di `src/app/fonts.ts`; pasang `atoFontVariables` di wrapper halaman (layout root tidak dipakai untuk font ATO). Token dan class lama (`surface`, `brand`, `aero-*`, dll.) masih dipakai halaman lama, jangan dihapus.
+Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailwind.config.ts` (awalan `ato-`, mis. `bg-ato-bg-0`, `text-ato-m-body`, `rounded-ato-lg`, `shadow-ato-gloss`). Font di `src/app/fonts.ts`; pasang `atoFontVariables` di wrapper halaman (layout root tidak dipakai untuk font ATO). JetBrains Mono di-host sendiri (`src/app/fonts/`, lisensi OFL) karena versi Google Fonts tidak punya glyph "→". Token dan class lama (`surface`, `brand`, `aero-*`, dll.) masih dipakai halaman lama, jangan dihapus.
+
+Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`), disalin persis dari Figma.
+
+## Menunggu keputusan
+
+- **`src/components/landing/_legacy/`** — komponen landing lama (Navbar, Hero, HeroConsole, Marquee, Problem, A20System, ReverseReflexDemo, Trust, FinalCTA, Footer) yang sudah tidak dipakai S-01. Menunggu keputusan hapus dari lead; jangan dipakai di layar baru. `src/content/landing.ts` masih di-import oleh komponen ini.
+- **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Terkait konflik S-16 ("hanya di perangkatmu") vs K12 (teks S-03 terkirim ke `/api/v1/lite/analyze`).
+- **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 
 ## Untuk desainer
 
@@ -52,10 +60,12 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Elemen | 01 / 02 | 06 (dipakai) |
 |---|---|---|
 | Judul hero | `ATO/Mobile/Display` = Plus Jakarta Sans ExtraBold 32/35, gelap | Alice Regular 32/35.2, tracking −0.64, putih, `text-shadow 1px 1px 0 #000` |
-| Tombol CTA Lite | `#0E7490` solid, teks putih, sheen putih | Gradien `#00AAD9 58% → #FFF 98%`, border hitam 0.5px, Gloss shadow |
-| Tombol CTA Soul | `#B45309` solid | Gradien `#FFDA37 21% → #FFF 98%`, border hitam 0.5px, tanpa bayangan |
+| Tombol CTA Lite | `#0E7490` solid, teks putih, sheen putih | Gradien pucat: `#00AAD9` 60% di atas putih → putih, border hitam 0.5px, Gloss shadow. Kode ekspor Figma menyebut `#00AAD9 58% → #FFF 98%` (cyan pekat) tetapi render-nya pucat; kode mengikuti render (diukur dari piksel) |
+| Tombol CTA Soul | `#B45309` solid | Gradien pucat: `#FFDA37` 72% → putih, border hitam 0.5px, tanpa bayangan (ekspor: `21% → 98%`, sama seperti di atas) |
 | ⚠️ Teks tombol CTA | Putih di atas aksen gelap | Putih (dengan garis luar gelap) di atas gradien terang; kontras kemungkinan tidak lolos AA |
-| Tombol di kartu Dua Mode | Sama dengan Button | Titik gradien beda dari CTA hero (Lite `#00AAD9 62.5% → #FFF 105.8%`, Soul `#FFDA37 14.5% → #FFF 116.9%`) |
+| Tombol di kartu Dua Mode | Sama dengan Button | Lite sama dengan CTA hero; Soul lebih pekat: `#FFDA37` 85% → 27% (tidak sampai putih). Diukur dari render |
+| ⚠️ Garis luar teks putih | — | Label tombol, judul hero, dan "Tiga langkah" memakai text stroke gelap (tidak ada di kode ekspor, terlihat di render). Ditiru dengan `.ato-text-outline` (2px judul, 1px tombol) |
+| Hover / pressed / focus | 02 punya 6 state | 06 tidak menggambar state interaksi. Kode hanya menambah cincin fokus keyboard (aksesibilitas) |
 | Header: logo | Tanpa bayangan | `shadow 2px 2px 0 #000` |
 | Header: tombol menu | `bg/1`, border `border/subtle` | Gradien `#FFF → #97DCF0`, border hitam 0.5px, `shadow 2px 4px 0 #000` |
 | Stepper A→Ω | Lingkaran `lite/accent` solid | Lingkaran gradien (`#33BADF`/`#4CC2E3`/`#67CBE7` → putih), border hitam 0.3px, garis gradien `#7DE3FF → #0E7490` |
@@ -66,6 +76,17 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Latar atas "Aero sky" | Ellipse `aero/sky-*` dengan blur | Linear `rgba(95,227,247,.95) → transparan`, tinggi 560px |
 | Footer | Tanpa latar | Gradien `#FFF → #68E4F8` |
 | TacticBadge, item FAQ, kartu Dua Mode | — | Sama dengan 02 |
+| Stepper step selain 2 | — | 06 S-01 hanya menampilkan step 2; step lain mengikuti pola yang sama dan belum dicek |
+| FAQ terbuka | — | State terbuka tidak digambar di 06; kode menampilkan jawaban di bawah pertanyaan dan tanda "−" |
+
+**S-02 Pilih Mode (sheet dari tombol menu)**
+
+| Elemen | 01 / 02 | 06 (dipakai) |
+|---|---|---|
+| Scrim | — | `text/1` penuh (tidak transparan); halaman di belakang tidak terlihat |
+| Kartu mode | — | Lite: gradien `#78E8F9 → putih` (ke atas); Soul: `putih → #FFDA3F`; border hitam 0.5px |
+| Ikon kartu | Ikon Lucide warna aksen | Stroke gradien (`#7CE9F9`, `#FFDA42`); dipakai SVG asli dari Figma |
+| ⚠️ Link "Pelajari konsepnya di Tentang" | — | Warna `#82E9F9` di atas putih; kontras sangat rendah |
 
 **Token**
 
