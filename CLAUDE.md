@@ -83,7 +83,7 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 
 | Elemen | 01 / 02 | 06 (dipakai) |
 |---|---|---|
-| Scrim | — | `text/1` penuh (tidak transparan); halaman di belakang tidak terlihat |
+| Scrim | — | 06: `text/1` pekat penuh, halaman di belakang tidak terlihat. **Kode menyimpang atas keputusan Syafar (9 Nov 2026):** scrim `text/1` 50% + sheet meluncur dari bawah, supaya tidak terasa seperti pindah halaman. Mohon desainer memperbarui 06 |
 | Kartu mode | — | Lite: gradien `#78E8F9 → putih` (ke atas); Soul: `putih → #FFDA3F`; border hitam 0.5px |
 | Ikon kartu | Ikon Lucide warna aksen | Stroke gradien (`#7CE9F9`, `#FFDA42`); dipakai SVG asli dari Figma |
 | ⚠️ Link "Pelajari konsepnya di Tentang" | — | Warna `#82E9F9` di atas putih; kontras sangat rendah |

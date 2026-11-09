@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/lib/utils";
@@ -16,21 +16,48 @@ type BottomSheetProps = {
 
 const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
+/** Durasi animasi masuk/keluar (ms). Harus sama dengan `duration-300` di bawah. */
+const ANIMATION_MS = 300;
+
 /**
  * Bottom sheet — Figma 02 "Sheet" (node 52:300), gaya mengikuti 06 (S-02, node 56:8395).
- * Scrim di 06 berwarna `text/1` penuh (tidak transparan).
+ *
+ * Menyimpang dari 06 atas permintaan Syafar (9 Nov 2026): scrim di 06 `text/1`
+ * pekat penuh sehingga terasa seperti pindah halaman. Di sini scrim 50% agar
+ * halaman tetap terlihat, dan sheet meluncur dari bawah.
  */
 export function BottomSheet({ open, onClose, id, title, children, className }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const titleId = `${id}-title`;
+  // `mounted`: elemen ada di DOM; `shown`: posisi akhir animasi (terlihat).
+  const [mounted, setMounted] = useState(open);
+  const [shown, setShown] = useState(false);
 
   useEffect(() => {
-    if (!open) return;
+    if (open) {
+      setMounted(true);
+      // Dua frame: pastikan posisi awal (di bawah layar) sudah dirender sebelum transisi.
+      let raf2 = 0;
+      const raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => setShown(true));
+      });
+      return () => {
+        cancelAnimationFrame(raf1);
+        cancelAnimationFrame(raf2);
+      };
+    }
+    setShown(false);
+    const t = setTimeout(() => setMounted(false), ANIMATION_MS);
+    return () => clearTimeout(t);
+  }, [open]);
+
+  useEffect(() => {
+    if (!open || !mounted) return;
     const sheet = sheetRef.current;
     const previous = document.activeElement as HTMLElement | null;
     const { overflow } = document.body.style;
     document.body.style.overflow = "hidden";
-    sheet?.querySelector<HTMLElement>(FOCUSABLE)?.focus();
+    sheet?.querySelector<HTMLElement>(FOCUSABLE)?.focus({ preventScroll: true });
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -56,15 +83,22 @@ export function BottomSheet({ open, onClose, id, title, children, className }: B
     return () => {
       document.removeEventListener("keydown", onKeyDown);
       document.body.style.overflow = overflow;
-      previous?.focus();
+      previous?.focus({ preventScroll: true });
     };
-  }, [open, onClose]);
+  }, [open, mounted, onClose]);
 
-  if (!open) return null;
+  if (!mounted) return null;
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col justify-end">
-      <div aria-hidden className="absolute inset-0 bg-ato-text-1" onClick={onClose} />
+      <div
+        aria-hidden
+        onClick={onClose}
+        className={cn(
+          "absolute inset-0 bg-ato-text-1 transition-opacity duration-300 ease-out",
+          shown ? "opacity-50" : "opacity-0"
+        )}
+      />
       <div
         ref={sheetRef}
         id={id}
@@ -74,6 +108,8 @@ export function BottomSheet({ open, onClose, id, title, children, className }: B
         className={cn(
           "relative flex w-full flex-col gap-ato-16 overflow-hidden rounded-t-ato-lg bg-ato-bg-1 px-ato-20 pb-ato-32 pt-ato-12",
           "shadow-ato-glass-strong backdrop-blur-[20px]",
+          "transition-transform duration-300 ease-out",
+          shown ? "translate-y-0" : "translate-y-full",
           className
         )}
       >
