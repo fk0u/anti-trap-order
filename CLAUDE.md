@@ -1,5 +1,11 @@
 # CLAUDE.md — Anti Trap Order (ATO)
 
+## Aturan Git (wajib)
+
+- JANGAN push ke remote dan JANGAN membuat PR ke main tanpa perintah eksplisit dari Syafar.
+- Semua kerja di branch lokal. Commit lokal boleh.
+- Sebelum push atau membuat PR, tanya dulu dan tunggu jawaban "ya".
+
 Proyek lomba MIT-Week UNMUL 2026 (tema *Guardians of the Digital Space*). Next.js 16 (frontend) + Go (backend), sedang disesuaikan ke wireframe final untuk MVP 3 hari.
 
 ## Baca ini dulu, berurutan
