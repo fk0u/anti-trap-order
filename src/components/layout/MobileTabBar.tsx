@@ -9,6 +9,9 @@ import { Compass, MessageSquare, Zap, ShieldCheck, BookOpen } from "lucide-react
 export function MobileTabBar() {
   const pathname = usePathname();
 
+  // Landing S-01 (Figma 06) tidak memakai tab bar; navigasinya lewat menu header.
+  if (pathname === "/") return null;
+
   const tabs = [
     { label: "Latihan", href: "/drill", icon: Compass },
     { label: "Chat AI", href: "/realmulator", icon: MessageSquare },
