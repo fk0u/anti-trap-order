@@ -1,38 +1,40 @@
-import { Navbar } from "@/components/landing/Navbar";
-import { Hero } from "@/components/landing/Hero";
-import { Problem } from "@/components/landing/Problem";
-import { A20System } from "@/components/landing/A20System";
-import { ReverseReflexDemo } from "@/components/landing/ReverseReflexDemo";
-import { Trust } from "@/components/landing/Trust";
-import { FinalCTA } from "@/components/landing/FinalCTA";
-import { Footer } from "@/components/landing/Footer";
+import { atoFontVariables } from "@/app/fonts";
+import { AlphaOmegaPath } from "@/components/landing/AlphaOmegaPath";
+import { ExampleSection } from "@/components/landing/ExampleSection";
+import { FaqSection } from "@/components/landing/FaqSection";
+import { HeroSection } from "@/components/landing/HeroSection";
+import { HowItWorks } from "@/components/landing/HowItWorks";
+import { LandingHeader } from "@/components/landing/LandingHeader";
+import { ModesSection } from "@/components/landing/ModesSection";
+import { SiteFooter } from "@/components/ui/SiteFooter";
+import { landingS01 } from "@/content/landing-s01";
+import { cn } from "@/lib/utils";
 
+/**
+ * S-01 Landing (mobile) — Figma "06 | Prototype", node 56:6727.
+ * Desktop belum dikerjakan.
+ */
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-surface-base text-slate-900 selection:bg-sky-500/20 selection:text-sky-900">
-      {/* Floating 3-Pill Navbar */}
-      <Navbar />
+    <div className={cn(atoFontVariables, "relative min-h-screen overflow-x-clip bg-ato-bg-0 font-ato-ui text-ato-text-1")}>
+      {/* "Aero sky" — node 75:8204 */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-ato-sky to-[rgba(0,218,251,0)]"
+      />
 
-      {/* Hero Shell with Aurora, Spotlight, HeroConsole, and Marquee */}
-      <Hero />
+      <LandingHeader />
 
-      {/* 01: Problem Bento Section (Light Surface) */}
-      <Problem />
+      <main className="relative flex flex-col gap-ato-32 px-ato-16 pt-ato-8">
+        <HeroSection />
+        <AlphaOmegaPath />
+        <HowItWorks />
+        <ExampleSection />
+        <ModesSection />
+        <FaqSection />
+      </main>
 
-      {/* 02: A20 Culture Technology System (Dark Sticky Showcase) */}
-      <A20System />
-
-      {/* Core Interactive Demo: Reverse Reflex Simulator */}
-      <ReverseReflexDemo />
-
-      {/* 03: Trust, Privacy, & Radical Honesty (Light Surface) */}
-      <Trust />
-
-      {/* Final Bookend CTA */}
-      <FinalCTA />
-
-      {/* Footer */}
-      <Footer />
-    </main>
+      <SiteFooter className="relative" lines={landingS01.footer.lines} links={landingS01.footer.links} />
+    </div>
   );
 }

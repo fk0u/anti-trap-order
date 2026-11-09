@@ -8,8 +8,8 @@ import { GridBackground } from "@/components/ui/GridBackground";
 import { Aurora } from "@/components/ui/Aurora";
 import { CursorSpotlight } from "@/components/ui/CursorSpotlight";
 import { GradientText } from "@/components/ui/GradientText";
-import { HeroConsole } from "@/components/landing/HeroConsole";
-import { Marquee } from "@/components/landing/Marquee";
+import { HeroConsole } from "@/components/landing/_legacy/HeroConsole";
+import { Marquee } from "@/components/landing/_legacy/Marquee";
 import { cn } from "@/lib/utils";
 
 export function Hero() {
