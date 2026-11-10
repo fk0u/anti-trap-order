@@ -82,12 +82,8 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 ## Menunggu keputusan
 
 - **`src/components/landing/_legacy/`** — komponen landing lama (Navbar, Hero, HeroConsole, Marquee, Problem, A20System, ReverseReflexDemo, Trust, FinalCTA, Footer) yang sudah tidak dipakai S-01. Menunggu keputusan hapus dari lead; jangan dipakai di layar baru. `src/content/landing.ts` masih di-import oleh komponen ini.
-- **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Terkait konflik S-16 ("hanya di perangkatmu") vs K12 (teks S-03 terkirim ke `/api/v1/lite/analyze`).
-- **Klaim fakta S-15/S-16 — menunggu keputusan Syafar/lead.** Teks disalin persis dari 06 (ditandai di `src/content/info-pages.ts`), tetapi bertentangan dengan K12:
-  - S-16 "Teks yang kamu tempel atau tulis — hanya di perangkatmu, selama sesi." → teks S-03 (sudah dimasking) dikirim ke `/api/v1/lite/analyze`, diproses, lalu dibuang.
-  - S-15 "Berbasis aturan, tanpa model AI" / "…tanpa model AI." → analisis memakai model Naive Bayes di server Go (bukan AI generatif). Kalimat juri di KEPUTUSAN.md: "tanpa AI generatif".
-  - S-15 Atribusi tidak menyebut font Alice (OFL) yang dipakai judul.
-- **"Lihat di GitHub" (S-15)** disembunyikan — repo `fk0u/anti-trap-order` masih privat (404 untuk publik). TODO di `src/app/tentang/page.tsx`.
+- **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Konflik serupa di S-16 sudah diselesaikan (lihat "Keputusan desain mandiri" → S-15/S-16); teks S-01 belum diubah.
+- **"Lihat di GitHub" (S-15)** disembunyikan — repo `fk0u/anti-trap-order` masih privat (404 untuk publik). Disetujui Syafar (10 Nov 2026); tampilkan lagi saat repo publik. TODO di `src/app/tentang/page.tsx`.
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
@@ -215,6 +211,9 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | Avatar tim S-15 | SVG kuning `#FFDA37` (beda dari avatar S-10 `#FFCF00`) | Disimpan terpisah di `public/icons/ato/tentang/` |
 | Ikon S-16 | SVG Lucide 22px `lite/accent` | `lucide-react` |
 | Footer | Tidak ada di S-15/S-16 | Tidak ditambahkan |
+| S-16 butir pertama "Yang diproses sementara" | "Teks yang kamu tempel atau tulis — hanya di perangkatmu, selama sesi." (bertentangan dengan K12) | "Teks yang kamu tempel atau tulis disamarkan dulu di perangkatmu, lalu dikirim ke server untuk dianalisis dan langsung dibuang." (keputusan Syafar, 10 Nov 2026) |
+| S-15 "Cara hasil dibuat" | "tanpa model AI" (judul dan isi) | "tanpa AI generatif" — analisis memakai Naive Bayes di server (K12) |
+| S-15 Atribusi | Tanpa Alice | Ditambah "Alice (SIL Open Font License)" |
 
 **Token**
 

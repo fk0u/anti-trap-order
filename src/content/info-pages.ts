@@ -2,15 +2,11 @@
  * Teks S-15 Tentang dan S-16 Batasan & Privasi, disalin persis dari Figma
  * "06 | Prototype" (node 56:8211 dan 56:8292).
  *
- * ⚠️ MENUNGGU KONFIRMASI (klaim fakta — jangan diubah tanpa keputusan Syafar/lead):
- * - S-15 "Berbasis aturan, tanpa model AI" / "Hasil dibuat dengan aturan yang
- *   bisa dibaca, tanpa model AI": menurut K12, analisis teks S-03 memakai model
- *   Naive Bayes di server Go (bukan AI generatif).
- * - S-16 "Teks yang kamu tempel atau tulis — hanya di perangkatmu, selama sesi":
- *   menurut K12, teks S-03 (sudah dimasking) dikirim ke POST /api/v1/lite/analyze,
- *   diproses, lalu dibuang (tidak dicatat/disimpan).
- * - S-15 atribusi tidak menyebut font Alice (OFL) yang dipakai judul.
- * Lihat CLAUDE.md "Menunggu keputusan".
+ * Teks yang menyimpang dari 06 (keputusan Syafar, 10 Nov 2026 — disesuaikan dengan K12):
+ * - S-16 butir pertama "Yang diproses sementara": teks dikirim ke server (sudah disamarkan).
+ * - S-15 "tanpa model AI" → "tanpa AI generatif" (judul dan isi "Cara hasil dibuat").
+ * - S-15 Atribusi: ditambah font Alice.
+ * Lihat CLAUDE.md "Keputusan desain mandiri".
  */
 export const aboutCopy = {
   kicker: "TENTANG",
@@ -31,8 +27,8 @@ export const aboutCopy = {
   },
   how: {
     label: "CARA HASIL DIBUAT",
-    title: "Berbasis aturan, tanpa model AI",
-    body: "Hasil dibuat dengan aturan yang bisa dibaca, tanpa model AI. Masukan yang sama selalu menghasilkan keluaran yang sama, dan tidak ada tulisanmu yang disimpan.",
+    title: "Berbasis aturan, tanpa AI generatif",
+    body: "Hasil dibuat dengan aturan yang bisa dibaca, tanpa AI generatif. Masukan yang sama selalu menghasilkan keluaran yang sama, dan tidak ada tulisanmu yang disimpan.",
   },
   team: {
     label: "TIM",
@@ -47,7 +43,7 @@ export const aboutCopy = {
   attribution: {
     label: "ATRIBUSI",
     title: "Font dan ikon",
-    body: "Font: Plus Jakarta Sans dan JetBrains Mono (SIL Open Font License). Ikon: Lucide (lisensi ISC).",
+    body: "Font: Plus Jakarta Sans, JetBrains Mono, dan Alice (SIL Open Font License). Ikon: Lucide (lisensi ISC).",
   },
   /** Disembunyikan: repo GitHub masih privat (404 untuk publik). TODO di halaman /tentang. */
   github: "Lihat di GitHub",
@@ -66,7 +62,7 @@ export const privacyCopy = {
   processed: {
     label: "YANG DIPROSES SEMENTARA",
     items: [
-      "Teks yang kamu tempel atau tulis — hanya di perangkatmu, selama sesi.",
+      "Teks yang kamu tempel atau tulis disamarkan dulu di perangkatmu, lalu dikirim ke server untuk dianalisis dan langsung dibuang.",
       "Pilihan jawabanmu di tiga pertanyaan.",
       "Hasil celah dan Action Card yang sedang ditampilkan.",
     ],
