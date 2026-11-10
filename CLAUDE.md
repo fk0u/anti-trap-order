@@ -109,6 +109,15 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Kotak "PESAN (FIKTIF)" dilipat | — | State tertutup tidak digambar; kode menyembunyikan isi dan memutar "▾" |
 | Kartu "PESAN (FIKTIF)" saat user menempel teks sendiri | — | Kode menampilkan `example_message` skenario (sesuai label "FIKTIF"), bukan teks user |
 
+**S-07 Loading — keputusan desain mandiri (tidak ada di Figma 06; keputusan Syafar, 10 Nov 2026)**
+
+| Elemen | Figma 06 | Kode (`src/components/lite/LoadingScreen.tsx`) |
+|---|---|---|
+| Titik di judul | Teks statis "Menyusun celah yang kamu temukan…" (elipsis) | Elipsis diganti 3 titik beranimasi `""` → `.` → `..` → `...` setiap 400 ms (`DOT_STEP_MS`), berulang sampai hasil diterima. Ruang 3 titik selalu ada (titik belum muncul transparan) agar teks rata tengah tidak bergeser; `aria-hidden` |
+| Tips di bawah judul | Satu kalimat statis | Bergantian setiap 3 dtk (`TIP_INTERVAL_MS`) dengan fade keluar lalu masuk 300 ms (`TIP_FADE_MS`). Isi: kalimat Figma dulu, lalu `explanation` dari `GET /lite/tactics` (diambil sekali saat `/lite` dibuka; gagal → hanya kalimat Figma, tanpa sheet error). Tidak ada kalimat karangan. Tinggi area = tips terpanjang (semua tips ditumpuk di satu sel grid); `aria-live="off"` |
+| `prefers-reduced-motion` | — | Titik tetap `...`; tips berganti tanpa fade (`transition-none`) |
+| Tidak berubah | — | Alur, timer 3/10 dtk, chip "Agak lama?", state Error |
+
 **Token**
 
 - Token 01 yang belum terlihat dipakai di 06 dan karena itu belum ditambahkan ke kode: `danger`, `focus/ring`, `aero/sky-*`, `space/40`, `space/56`, `space/80`, semua text style desktop.
