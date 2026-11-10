@@ -167,7 +167,7 @@ const click = (page, name) => page.getByRole("button", { name, exact: true }).cl
   await page.waitForTimeout(200);
   await page.screenshot({ path: path.join(out, "35-s12-locked.png"), fullPage: true, animations: "disabled", caret: "hide" });
   n++;
-  await page.getByText("MISI 1 DARI 3", { exact: true }).waitFor();
+  await page.getByText(/^MISI 1 DARI 3( · KONSEKUENSI)?$/).waitFor();
   await page.unroute("**/api/v1/soul/step");
   await shot(page, "36-s13");
   for (const [m, k] of [[2, 0], [3, 2]]) {
@@ -175,7 +175,7 @@ const click = (page, name) => page.getByRole("button", { name, exact: true }).cl
     await page.getByText(`Misi ${m} dari 3`, { exact: true }).waitFor();
     await page.getByRole("radio").nth(k).click();
     await click(page, "Pilih →");
-    await page.getByText(`MISI ${m} DARI 3`, { exact: true }).waitFor();
+    await page.getByText(new RegExp(`^MISI ${m} DARI 3( · KONSEKUENSI)?$`)).waitFor();
   }
   await shot(page, "37-s13-k3");
   await click(page, "Lihat Status Penjagaan →");

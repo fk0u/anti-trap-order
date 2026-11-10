@@ -6,6 +6,7 @@ import { BUTTON_GRADIENTS, Button } from "@/components/ui/Button";
 import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
 import { CharacterCard, SoulScreen, SoulTop } from "@/components/soul/SoulParts";
 import { soulCopy } from "@/content/soul";
+import { TABLET_COLUMN } from "@/lib/layout";
 import type { NicknameCheck } from "@/lib/soul/rules";
 import { cn } from "@/lib/utils";
 import type { CharacterOptions } from "@/types/api-v1";
@@ -41,17 +42,19 @@ export function CharacterScreen(props: CharacterScreenProps) {
   const showError = selection?.kind === "custom" && !nicknameCheck.ok && nicknameCheck.reason !== "empty";
 
   return (
-    <SoulScreen>
-      <div className="relative flex w-full flex-1 flex-col gap-ato-16 px-ato-16 pb-ato-24 pt-ato-16">
+    // Desktop (node 58:3736): judul + tombol di kiri (400) | kartu 2×2 + "Buat sendiri" di kanan.
+    <SoulScreen desktopTop={80} desktopGrid="lg:grid-cols-[400px_minmax(0,1fr)] lg:grid-rows-[auto_1fr]">
+      <div className={cn("relative flex w-full flex-1 flex-col gap-ato-16 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
         <SoulTop back={{ label: copy.back, href: "/" }} progress={copy.progress} />
 
-        <div className="flex w-full flex-col gap-ato-8">
+        <div className="flex w-full flex-col gap-ato-8 lg:col-start-1 lg:row-start-1 lg:gap-ato-20">
           <ConsoleLabel tone="soul">{copy.kicker}</ConsoleLabel>
-          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white">{copy.title}</h1>
-          <p className="w-full font-ato-ui text-ato-m-body text-ato-text-2">{copy.body}</p>
+          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title}</h1>
+          <p className="w-full font-ato-ui text-ato-m-body text-ato-text-2 lg:text-ato-d-body-l">{copy.body}</p>
         </div>
 
-        <div role="radiogroup" aria-label={copy.title} className="flex w-full flex-col gap-ato-16">
+        <div className="contents lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:flex lg:flex-col lg:gap-ato-16">
+        <div role="radiogroup" aria-label={copy.title} className="flex w-full flex-col gap-ato-16 lg:grid lg:grid-cols-2">
           {options?.templates.map((t) => (
             <CharacterCard
               key={t.id}
@@ -72,16 +75,18 @@ export function CharacterScreen(props: CharacterScreenProps) {
         {options && (
           <section
             aria-labelledby={`${nickId}-h`}
-            className="relative flex w-full flex-col overflow-hidden rounded-ato-lg border border-ato-soul-accent bg-ato-soul-surface p-ato-20 backdrop-blur-[12px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_12px_32px_-8px_rgba(13,23,33,0.08)]"
+            className="relative flex w-full flex-col overflow-hidden rounded-ato-lg border border-ato-soul-accent bg-ato-soul-surface p-ato-20 backdrop-blur-[12px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_12px_32px_-8px_rgba(13,23,33,0.08)] lg:gap-ato-16 lg:p-ato-24"
           >
-            <h2 id={`${nickId}-h`} className="flex w-full items-center gap-ato-8 font-ato-ui text-ato-m-h3">
+            <h2 id={`${nickId}-h`} className="flex w-full items-center gap-ato-8 font-ato-ui text-ato-m-h3 lg:text-ato-d-h3">
               <span aria-hidden className="text-ato-soul-accent">
                 ＋
               </span>
               <span className="min-w-px flex-1 text-ato-text-1">{copy.custom}</span>
             </h2>
 
-            <div className="flex w-full flex-col">
+            {/* Desktop (node 58:3759): dua field berdampingan, jarak 16. */}
+            <div className="contents lg:flex lg:w-full lg:items-start lg:gap-ato-16">
+            <div className="flex w-full flex-col lg:min-w-px lg:flex-1">
               <div className="flex w-full items-start justify-between whitespace-nowrap font-ato-ui text-ato-caption">
                 <label htmlFor={nickId} className="text-ato-text-2">
                   {copy.nickname}
@@ -102,14 +107,14 @@ export function CharacterScreen(props: CharacterScreenProps) {
                 onFocus={() => selection?.kind !== "custom" && props.onCustomChange(nickname, relationId)}
                 onChange={(e) => props.onCustomChange(e.target.value, relationId)}
                 className={cn(
-                  "w-full rounded-ato-md border bg-ato-bg-1 px-ato-16 py-ato-12 font-ato-ui text-ato-m-body text-ato-text-1 outline-none",
+                  "w-full rounded-ato-md border bg-ato-bg-1 px-ato-16 py-ato-12 font-ato-ui text-ato-m-body text-ato-text-1 outline-none lg:text-ato-d-body",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-soul-accent",
                   showError ? "border-ato-soul-rose" : "border-ato-border-strong"
                 )}
               />
             </div>
 
-            <div className="flex w-full flex-col">
+            <div className="flex w-full flex-col lg:min-w-px lg:flex-1">
               <label htmlFor={relId} className="whitespace-nowrap font-ato-ui text-ato-caption text-ato-text-2">
                 {copy.relation}
               </label>
@@ -119,7 +124,7 @@ export function CharacterScreen(props: CharacterScreenProps) {
                   value={relationId}
                   onChange={(e) => props.onCustomChange(nickname, e.target.value)}
                   onFocus={() => selection?.kind !== "custom" && props.onCustomChange(nickname, relationId)}
-                  className="w-full appearance-none rounded-ato-md border border-ato-border-strong bg-ato-bg-1 px-ato-16 py-ato-12 pr-ato-32 font-ato-ui text-ato-m-body text-ato-text-1 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-soul-accent"
+                  className="w-full appearance-none rounded-ato-md border border-ato-border-strong bg-ato-bg-1 px-ato-16 py-ato-12 pr-ato-32 font-ato-ui text-ato-m-body text-ato-text-1 outline-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-soul-accent lg:text-ato-d-body"
                 >
                   {options.relations.map((r) => (
                     <option key={r.id} value={r.id}>
@@ -132,6 +137,7 @@ export function CharacterScreen(props: CharacterScreenProps) {
                 </span>
               </div>
             </div>
+            </div>
 
             {showError && (
               <p id={errId} role="alert" className="w-full font-ato-ui text-ato-caption text-ato-soul-rose">
@@ -140,11 +146,13 @@ export function CharacterScreen(props: CharacterScreenProps) {
             )}
           </section>
         )}
+        </div>
       </div>
 
-      <BottomActionBar glow="#ffda37" direction="column">
+      <BottomActionBar glow="#ffda37" direction="column" className="lg:col-start-1 lg:row-start-2 lg:mt-ato-20 lg:flex-col lg:items-start lg:justify-start">
         <Button
           variant="aqua"
+          desktop="soul"
           gradient={BUTTON_GRADIENTS.soulMode}
           className="shadow-none"
           labelClassName="text-[#151515]"

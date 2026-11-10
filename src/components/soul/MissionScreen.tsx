@@ -1,6 +1,7 @@
 "use client";
 
 import { BottomActionBar } from "@/components/ui/BottomActionBar";
+import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
 import { Button } from "@/components/ui/Button";
 import {
   ChoiceCard,
@@ -13,6 +14,8 @@ import {
   type ChoiceState,
 } from "@/components/soul/SoulParts";
 import { soulCopy } from "@/content/soul";
+import { TABLET_COLUMN } from "@/lib/layout";
+import { cn } from "@/lib/utils";
 import type { ChoiceId, Meters, Mission } from "@/types/api-v1";
 
 const copy = soulCopy.mission;
@@ -46,12 +49,14 @@ export function MissionScreen(props: MissionScreenProps) {
     id === selected ? "selected" : mode === "open" ? "default" : "locked";
 
   return (
-    <SoulScreen>
-      <div className="relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16">
-        <SoulTop back={{ label: copy.back, onClick: props.onChangeCharacter }} progress={copy.progress(mission.index, total)} />
+    // Desktop (node 58:3890): cerita (kiri) | keputusan (kanan), masing-masing setengah.
+    <SoulScreen desktopGrid="lg:grid-cols-2 lg:grid-rows-[auto_1fr]">
+      <div className={cn("relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
+        <div className="contents lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:flex lg:flex-col lg:gap-ato-24">
+        <SoulTop back={{ label: copy.back, onClick: props.onChangeCharacter }} progress={copy.progress(mission.index, total)} desktopBack />
 
         <div className="flex w-full items-center justify-between">
-          <h1 className="whitespace-nowrap font-ato-ui text-ato-m-h2 text-ato-text-1">{copy.title(mission.index, total)}</h1>
+          <h1 className="whitespace-nowrap font-ato-ui text-ato-m-h2 text-ato-text-1 lg:text-ato-d-h1">{copy.title(mission.index, total)}</h1>
           <ProgressDots step={mission.index} total={total} />
         </div>
 
@@ -60,8 +65,13 @@ export function MissionScreen(props: MissionScreenProps) {
         <GreenCard variant="story" label={copy.storyLabel}>
           {story}
         </GreenCard>
+        </div>
 
-        <div role="radiogroup" aria-label={copy.title(mission.index, total)} className="flex w-full flex-col gap-ato-12">
+        <div className="contents lg:col-start-2 lg:row-start-1 lg:flex lg:flex-col lg:gap-ato-16">
+        <ConsoleLabel tone="soul" className="hidden lg:block">
+          {copy.choicesLabel}
+        </ConsoleLabel>
+        <div role="radiogroup" aria-label={copy.title(mission.index, total)} className="flex w-full flex-col gap-ato-12 lg:gap-ato-16">
           {mission.choices.map((c) => (
             <ChoiceCard
               key={c.id}
@@ -73,13 +83,15 @@ export function MissionScreen(props: MissionScreenProps) {
             />
           ))}
         </div>
+        </div>
       </div>
 
-      <BottomActionBar glow="#ffda37">
+      <BottomActionBar glow="#ffda37" className="lg:col-start-2 lg:row-start-2 lg:mt-ato-16">
         <Button
           variant="aqua"
+          desktop="soul"
           gradient={SOUL_GRADIENTS.choose}
-          className="min-w-px flex-1"
+          className="min-w-px flex-1 lg:flex-none"
           labelClassName="text-[#1b1b1b]"
           disabled={selected === null}
           loading={mode === "locked"}

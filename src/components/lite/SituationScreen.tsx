@@ -140,7 +140,7 @@ export function SituationScreen(props: SituationScreenProps) {
         </LiteMain>
       </div>
 
-      <BottomActionBar glow="#69e5f8" className={LITE_ACTIONS}>
+      <BottomActionBar glow="#69e5f8" className={cn(LITE_ACTIONS, "lg:mt-ato-24")}>
         {/* Keputusan desain mandiri: chip sama dengan S-07 "Agak lama?", melayang di atas bar (tanpa geser layout). */}
         <div aria-live="polite" className="pointer-events-none absolute inset-x-0 bottom-full flex justify-center pb-ato-12">
           {busy && slow && (

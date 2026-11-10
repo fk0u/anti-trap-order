@@ -29,7 +29,7 @@ async function answer(page, n, k = 1) {
   await page.getByText(`Misi ${n} dari 3`, { exact: true }).waitFor();
   await page.getByRole("radio").nth(k).click();
   await click(page, "Pilih →");
-  await page.getByText(`MISI ${n} DARI 3`, { exact: true }).waitFor();
+  await page.getByText(new RegExp(`^MISI ${n} DARI 3( · KONSEKUENSI)?$`)).waitFor();
 }
 
 (async () => {
@@ -79,7 +79,7 @@ async function answer(page, n, k = 1) {
     assert.equal(await page.locator('[role=radio][aria-disabled="true"]').count(), 3, "semua pilihan terkunci saat mengirim");
     await shot(page, "soul-s12-locked");
     ok("saat mengirim: pilihan terkunci (lain redup), tombol loading");
-    await page.getByText("MISI 1 DARI 3", { exact: true }).waitFor();
+    await page.getByText(/^MISI 1 DARI 3( · KONSEKUENSI)?$/).waitFor();
     await page.unroute("**/api/v1/soul/step");
     assert.ok(await page.getByText("Keputusanmu: B").isVisible());
     await shot(page, "soul-s13");
@@ -107,7 +107,7 @@ async function answer(page, n, k = 1) {
 
     // Back browser: S-14 → S-13 → S-11 Misi 3 (hanya baca).
     await page.goBack();
-    await page.getByText("MISI 3 DARI 3", { exact: true }).waitFor();
+    await page.getByText(/^MISI 3 DARI 3( · KONSEKUENSI)?$/).waitFor();
     await page.goBack();
     await page.getByText("Misi 3 dari 3", { exact: true }).waitFor();
     assert.equal(await page.locator('[role=radio][aria-checked="true"]').count(), 1);
@@ -116,7 +116,7 @@ async function answer(page, n, k = 1) {
     assert.equal(await page.getByRole("radio").nth(0).getAttribute("aria-checked"), "true", "pilihan tidak boleh berubah");
     ok("Back → S-13 → S-11 Misi 3 hanya-baca (pilihan tetap, tidak bisa diganti)");
     await click(page, "Pilih →");
-    await page.getByText("MISI 3 DARI 3", { exact: true }).waitFor();
+    await page.getByText(/^MISI 3 DARI 3( · KONSEKUENSI)?$/).waitFor();
     assert.equal(bodies.length, 4, "misi terjawab tidak boleh dikirim ulang");
     ok("'Pilih →' di misi terjawab membuka akibatnya lagi tanpa request baru");
 
@@ -137,7 +137,7 @@ async function answer(page, n, k = 1) {
     await answer(page, 1);
     await click(page, "Lanjut ke Misi 2 →");
     await page.getByText("Misi 2 dari 3", { exact: true }).waitFor();
-    for (const want of ["MISI 1 DARI 3", "Misi 1 dari 3", "Siapa yang ingin kamu jaga?"]) {
+    for (const want of [/^MISI 1 DARI 3( · KONSEKUENSI)?$/, "Misi 1 dari 3", "Siapa yang ingin kamu jaga?"]) {
       await page.goBack();
       await page.getByText(want, { exact: true }).waitFor();
     }
@@ -185,7 +185,7 @@ async function answer(page, n, k = 1) {
     ok("500 di /soul/step → S-18");
     await page.unroute("**/api/v1/soul/step");
     await click(page, "Coba Lagi");
-    await page.getByText("MISI 1 DARI 3", { exact: true }).waitFor();
+    await page.getByText(/^MISI 1 DARI 3( · KONSEKUENSI)?$/).waitFor();
     ok("S-18 'Coba Lagi' mengirim ulang pilihan");
     await ctx.close();
   }

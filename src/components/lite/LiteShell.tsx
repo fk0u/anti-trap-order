@@ -62,8 +62,12 @@ export function LiteMain({ children, className }: { children: React.ReactNode; c
   return <div className={cn("contents lg:col-start-2 lg:row-start-1 lg:flex lg:min-w-px lg:flex-col", className)}>{children}</div>;
 }
 
-/** Kelas BottomActionBar di grid panel: baris kedua kolom konten, jarak 24 dari isi. */
-export const LITE_ACTIONS = "lg:col-start-2 lg:row-start-2 lg:mt-ato-24";
+/**
+ * Kelas BottomActionBar di grid panel: baris kedua kolom konten. Jarak dari isi
+ * diberikan per layar (S-03: 24, S-04–S-06: 20) — jangan digabung di sini karena
+ * `cn()` tidak mengenal skala spasi `ato-*` (kelas mt ganda tidak digabung).
+ */
+export const LITE_ACTIONS = "lg:col-start-2 lg:row-start-2";
 
 type FlowTopProps = {
   back: { label: string; href: string } | { label: string; onClick: () => void };

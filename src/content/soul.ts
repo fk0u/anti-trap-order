@@ -34,6 +34,8 @@ export const soulCopy = {
     title: (i: number, total: number) => `Misi ${i} dari ${total}`,
     storyLabel: "CERITA",
     choose: "Pilih →",
+    /** Hanya di desktop 06 (node 58:3909). */
+    choicesLabel: "APA YANG KAMU LAKUKAN?",
   },
 
   // Konfirmasi "Karakter" saat misi berjalan — keputusan desain mandiri (tidak ada di 06).
@@ -48,6 +50,8 @@ export const soulCopy = {
     back: (i: number) => `Misi ${i}`,
     progress: "SOUL · KONSEKUENSI",
     kicker: (i: number, total: number) => `MISI ${i} DARI ${total}`,
+    /** Desktop 06 (node 58:3974) menambahkan akhiran ini pada kicker ("MISI 1 DARI 3 · KONSEKUENSI"). */
+    desktopKickerSuffix: " · KONSEKUENSI",
     title: (choice: string) => `Keputusanmu: ${choice}`,
     whatLabel: "APA YANG TERJADI",
     whyLabel: "KENAPA BEGINI?",
