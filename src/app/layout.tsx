@@ -14,11 +14,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL("https://ato.kousozo.tech"),
   title: {
-    default: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    default: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     template: "%s | Anti Trap Order (ATO)",
   },
   description:
-    "Melatih refleks kritis masyarakat Indonesia membedah rekayasa sosial dan penipuan digital melalui pembalikan sudut pandang (Perspective Inversion).",
+    "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   applicationName: "Anti Trap Order",
   keywords: [
     "Anti Trap Order",
@@ -45,15 +45,15 @@ export const metadata: Metadata = {
     locale: "id_ID",
     url: "https://ato.kousozo.tech",
     siteName: "Anti Trap Order (ATO)",
-    title: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:
-      "Melatih refleks kritis masyarakat Indonesia membedah rekayasa sosial dan penipuan digital melalui pembalikan sudut pandang (Perspective Inversion).",
+      "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:
-      "Latih insting curiga menjadi refleks penjaga digital. Simulasi Perspective Inversion membedah manipulasi siber.",
+      "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   },
   appleWebApp: {
     capable: true,
