@@ -113,6 +113,7 @@ type LoadingScreenProps = {
    */
   tips: readonly string[];
   onRetry: () => void;
+  onLimited?: () => void;
 };
 
 /**
@@ -121,7 +122,7 @@ type LoadingScreenProps = {
  * bergradien pudar + cahaya bawah) tidak dipakai — keputusan Syafar, 10 Nov 2026.
  * Chip "Agak lama?" tetap muncul setelah SLOW_HINT_MS. Error: node 56:8446.
  */
-export function LoadingScreen({ state, tips, onRetry }: LoadingScreenProps) {
+export function LoadingScreen({ state, tips, onRetry, onLimited }: LoadingScreenProps) {
   const copy = liteCopy.loading;
   const reduced = useReducedMotion();
   return (
@@ -142,7 +143,7 @@ export function LoadingScreen({ state, tips, onRetry }: LoadingScreenProps) {
           </StatusIcon>
           <h1 className="w-full text-center font-ato-ui text-ato-m-h2 text-ato-text-1">{liteCopy.offline.title}</h1>
           <p className="w-full text-center font-ato-ui text-ato-m-body text-ato-text-2">{liteCopy.offline.body}</p>
-          <OfflineActions onRetry={onRetry} />
+          <OfflineActions onRetry={onRetry} onLimited={onLimited} />
         </div>
       ) : (
         <div role="status" aria-live="polite" className="relative flex w-full flex-col items-center gap-ato-24 md:max-lg:max-w-[560px] lg:mx-auto lg:max-w-[480px] lg:pt-ato-40">

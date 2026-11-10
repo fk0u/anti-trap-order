@@ -1,0 +1,42 @@
+name: Deploy
+
+# Deploy otomatis ke VPS (ato.kousozo.tech) setelah CI hijau di main.
+# NONAKTIF sampai variabel repo AUTO_DEPLOY = true dan secrets di bawah diisi (lihat deploy/AUTO-DEPLOY.md).
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    if: vars.AUTO_DEPLOY == 'true' && (github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - name: Siapkan SSH
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          printf '%s\n' "${{ secrets.DEPLOY_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+      - name: Sinkronkan kode
+        run: |
+          rsync -az --delete \
+            --exclude node_modules --exclude .next --exclude .next.prev --exclude .git \
+            --exclude '.env*' --exclude '*.pem' --exclude bin --exclude services \
+            --exclude demo --exclude e2e --exclude testdata --exclude deploy \
+            -e "ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes" \
+            ./ "${{ secrets.DEPLOY_HOST }}:/srv/anti-trap-order/"
+      - name: Build, restart, cek kesehatan (rollback otomatis bila gagal)
+        run: ssh -i ~/.ssh/deploy_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=yes "${{ secrets.DEPLOY_HOST }}" ato-deploy

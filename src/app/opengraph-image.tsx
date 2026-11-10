@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
+import { SITE_HOST } from "@/lib/site";
 
-export const alt = "Anti Trap Order (ATO) — A20 Culture Technology for Digital Guardians";
+export const alt = "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya.";
 export const size = {
   width: 1200,
   height: 630,
@@ -64,7 +65,7 @@ export default async function Image() {
                 fontWeight: 500,
               }}
             >
-              Digital Guardian Reflex System
+              Alat bantu berpikir
             </span>
           </div>
         </div>
@@ -92,7 +93,7 @@ export default async function Image() {
               fontWeight: 400,
             }}
           >
-            Melatih refleks kritis masyarakat Indonesia membedah rekayasa sosial dan penipuan digital melalui pembalikan sudut pandang (Perspective Inversion).
+            Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.
           </p>
         </div>
 
@@ -119,7 +120,7 @@ export default async function Image() {
                 fontWeight: 600,
               }}
             >
-              Perspective Inversion
+              A20 Lite · 3 menit
             </div>
             <div
               style={{
@@ -132,7 +133,7 @@ export default async function Image() {
                 fontWeight: 600,
               }}
             >
-              10 Modus Nyata Indonesia
+              A20 Soul · jaga seseorang
             </div>
             <div
               style={{
@@ -145,7 +146,7 @@ export default async function Image() {
                 fontWeight: 600,
               }}
             >
-              Stateless Zero-DB
+              Bukan deteksi pasti
             </div>
           </div>
 
@@ -157,7 +158,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            ato.kousozo.tech
+            {SITE_HOST}
           </span>
         </div>
       </div>

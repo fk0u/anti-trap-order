@@ -179,8 +179,8 @@ async function toQ3(page) {
     await page.getByText("Koneksi ke server terputus.").waitFor({ timeout: 12000 });
     const secs = ((Date.now() - t0) / 1000).toFixed(1);
     ok(`timeout → S-07 Error setelah ${secs} dtk`);
-    assert.ok(await page.getByRole("button", { name: "Lanjut mode terbatas" }).isDisabled());
-    ok("'Lanjut mode terbatas' tampil tapi nonaktif");
+    assert.equal(await page.getByRole("button", { name: "Lanjut mode terbatas" }).isEnabled(), true);
+    ok("'Lanjut mode terbatas' aktif di S-07 Error (Lite)");
     await shot(page, "e2e-s07-error", false);
     await page.unroute("**/api/v1/lite/reflect");
     await click(page, "Coba lagi");

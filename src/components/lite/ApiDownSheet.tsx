@@ -13,7 +13,17 @@ const SHEET_ID = "lite-api-down";
  * Area gelap tidak menutup sheet; Esc boleh menutup (LiteFlow lalu
  * menampilkan "Coba lagi" di layar agar tetap ada cara mencoba lagi).
  */
-export function ApiDownSheet({ open, onClose, onRetry }: { open: boolean; onClose: () => void; onRetry: () => void }) {
+export function ApiDownSheet({
+  open,
+  onClose,
+  onRetry,
+  onLimited,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onRetry: () => void;
+  onLimited?: () => void;
+}) {
   return (
     <BottomSheet
       id={SHEET_ID}
@@ -31,7 +41,7 @@ export function ApiDownSheet({ open, onClose, onRetry }: { open: boolean; onClos
         {liteCopy.offline.title}
       </h2>
       <p className="w-full text-center font-ato-ui text-ato-m-body text-ato-text-2">{liteCopy.offline.body}</p>
-      <OfflineActions onRetry={onRetry} />
+      <OfflineActions onRetry={onRetry} onLimited={onLimited} />
     </BottomSheet>
   );
 }
