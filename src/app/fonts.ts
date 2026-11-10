@@ -12,21 +12,13 @@ import localFont from "next/font/local";
  * family/ui — seluruh teks UI.
  * JANGAN menambah bobot di sini: rentang bobot mengubah file font variabel yang
  * diunduh dan menggeser rendering teks mobile (terbukti lewat e2e/visual.cjs).
- * Bobot lain dimuat sebagai font terpisah (lihat `atoUiHeavy`).
+ * Bobot lain harus dimuat sebagai font terpisah.
  */
 export const atoUi = Plus_Jakarta_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-ato-ui",
-});
-
-/** Plus Jakarta Sans 800 — hanya Desktop/Display (judul hero S-01 desktop), kelas `font-ato-ui-heavy`. */
-export const atoUiHeavy = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["800"],
-  display: "swap",
-  variable: "--font-ato-ui-heavy",
 });
 
 /**
@@ -62,7 +54,7 @@ export const atoConsole = localFont({
   variable: "--font-ato-console",
 });
 
-/** Judul hero S-01 (ukuran dari style Mobile/Display, family Alice di 06). */
+/** Judul hero S-01 (Mobile/Display; desktop 06 terbaru juga Alice, token `ato-d-display`). */
 export const atoDisplay = Alice({
   subsets: ["latin"],
   weight: ["400"],
@@ -70,4 +62,4 @@ export const atoDisplay = Alice({
   variable: "--font-ato-display",
 });
 
-export const atoFontVariables = [atoUi.variable, atoUiHeavy.variable, atoUiArrows.variable, atoConsole.variable, atoDisplay.variable].join(" ");
+export const atoFontVariables = [atoUi.variable, atoUiArrows.variable, atoConsole.variable, atoDisplay.variable].join(" ");
