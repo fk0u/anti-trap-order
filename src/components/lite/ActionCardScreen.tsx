@@ -72,7 +72,8 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
 
         <div className="flex w-full flex-col gap-ato-8">
           <ConsoleLabel>{copy.label(card.category_label)}</ConsoleLabel>
-          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title}</h1>
+          {/* Desktop 06 terbaru: judul putih bergaris luar seperti mobile. */}
+          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1">{copy.title}</h1>
         </div>
 
         {/* Desktop (node 56:9324): p40, dua kolom (amankan diri | peringatkan + laporkan), footer selebar kartu. */}
@@ -148,14 +149,22 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
         </article>
       </div>
 
-      {/* Desktop (node 56:9351): "Coba situasi lain" lalu "Coba A20 Soul →", rata kanan. */}
+      {/* Desktop (node 56:9351): "Coba situasi lain" lalu "Coba A20 Soul →", rata kanan. 06 terbaru: tombol Soul gaya Aero
+          (label hitam, keputusan Syafar), "Coba situasi lain" teks aksen dengan bayangan teks (node 56:9352). */}
       <BottomActionBar glow="#99ebf8" direction="column">
-        <Button variant="soul" href="/soul" desktop="soul" gradient={FLOW_GRADIENTS.soulAction} className="shadow-ato-gloss lg:order-2">
+        <Button variant="soul" href="/soul" desktop="aero" gradient={FLOW_GRADIENTS.soulAction} className="shadow-ato-gloss lg:order-2">
           {copy.soul}
         </Button>
         <div className="flex w-full gap-ato-12 lg:order-1 lg:w-auto">
           {/* TODO(ekspor 4:5): "Simpan gambar" disembunyikan — belum ada desain gambar di Figma 06. */}
-          <Button variant="ghost" size="md" desktop="ghost" className="min-w-px flex-1 lg:h-[52px] lg:px-ato-24" onClick={onRestart}>
+          <Button
+            variant="ghost"
+            size="md"
+            desktop="ghost"
+            className="min-w-px flex-1 lg:h-[52px] lg:px-ato-24"
+            labelClassName="lg:[text-shadow:0_4px_4px_rgba(0,0,0,0.5)]"
+            onClick={onRestart}
+          >
             {copy.again}
           </Button>
         </div>

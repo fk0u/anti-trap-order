@@ -91,7 +91,6 @@ const config: Config = {
         // ato-ui-arrows hanya berisi "→" dan "↻" (lihat src/app/fonts.ts).
         "ato-ui": ["var(--font-ato-ui-arrows)", "var(--font-ato-ui)", "system-ui", "sans-serif"],
         // Plus Jakarta Sans 800 terpisah (Desktop/Display) — lihat src/app/fonts.ts.
-        "ato-ui-heavy": ["var(--font-ato-ui-arrows)", "var(--font-ato-ui-heavy)", "system-ui", "sans-serif"],
         "ato-console": ["var(--font-ato-console)", "ui-monospace", "monospace"],
         "ato-display": ["var(--font-ato-display)", "Georgia", "serif"],
       },
@@ -107,7 +106,7 @@ const config: Config = {
         "ato-console": ["12px", { lineHeight: "18px", letterSpacing: "0.96px", fontWeight: "500" }],
         "ato-button": ["15px", { lineHeight: "20px", letterSpacing: "0px", fontWeight: "600" }],
         // Text style Figma desktop (frame BROWSER 1440, dipakai mulai breakpoint lg).
-        "ato-d-display": ["56px", { lineHeight: "61.6px", letterSpacing: "-1.12px", fontWeight: "800" }],
+        "ato-d-display": ["56px", { lineHeight: "61.6px", letterSpacing: "-1.12px", fontWeight: "400" }],
         "ato-d-h1": ["40px", { lineHeight: "48px", letterSpacing: "0px", fontWeight: "700" }],
         "ato-d-h2": ["28px", { lineHeight: "36.4px", letterSpacing: "0px", fontWeight: "700" }],
         "ato-d-h3": ["20px", { lineHeight: "28px", letterSpacing: "0px", fontWeight: "600" }],

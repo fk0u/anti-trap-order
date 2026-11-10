@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 
 const GLOSS = "border-[0.5px] border-ato-ink shadow-[inset_0_-2px_4px_0_rgba(13,23,33,0.14),inset_0_1px_0_0_rgba(255,255,255,0.45),0_6px_14px_-4px_rgba(13,23,33,0.2)]";
 
-/** Badge 36px diagram A→Ω (node 56:8229 / 56:8235 / 56:8241); desktop (node 56:9410 / 56:9424): A dan Ω aksen penuh. */
+/** Badge 36px diagram A→Ω (node 56:8229 / 56:8235 / 56:8241); desktop 06 terbaru (node 214:5389 / 214:5392) sama dengan mobile. */
 const STEP_BADGE = [
-  cn(GLOSS, "bg-gradient-to-b from-[#68e5f7] to-white text-ato-text-1", "lg:border-0 lg:bg-none lg:bg-ato-lite-accent lg:text-white lg:shadow-none"),
+  cn(GLOSS, "bg-gradient-to-b from-[#68e5f7] to-white text-ato-text-1"),
   "bg-ato-bg-2 text-ato-text-2",
-  cn(GLOSS, "bg-gradient-to-b from-[#73e7f7] to-white text-ato-text-1", "lg:border-0 lg:bg-none lg:bg-ato-lite-accent lg:text-white lg:shadow-none"),
+  cn(GLOSS, "bg-gradient-to-b from-[#73e7f7] to-white text-ato-text-1"),
 ];
 
 /**
@@ -74,12 +74,9 @@ export default function AboutPage() {
             {c.team.roles.map((r) => (
               <li key={r.name}>
                 <GlassCard className="h-[168px] gap-ato-12 lg:h-[160px]">
-                  {/* Desktop (node 56:9439…): avatar gaya 02 (oranye), sama dengan Soul desktop. */}
-                  <picture className="block size-14 shrink-0">
-                    <source media="(min-width: 1024px)" srcSet={`/icons/ato/soul/desktop-avatar-${r.avatar}.svg`} />
-                    {/* eslint-disable-next-line @next/next/no-img-element -- SVG statis kecil */}
-                    <img src={`/icons/ato/tentang/avatar-${r.avatar}.svg`} alt="" width={56} height={56} className="block size-14 shrink-0" />
-                  </picture>
+                  {/* Desktop 06 terbaru: avatar kuning sama dengan mobile. */}
+                  {/* eslint-disable-next-line @next/next/no-img-element -- SVG statis kecil */}
+                  <img src={`/icons/ato/tentang/avatar-${r.avatar}.svg`} alt="" width={56} height={56} className="block size-14 shrink-0" />
                   <span className="font-ato-ui text-ato-m-h3 text-ato-text-1 lg:text-ato-d-h3">{r.name}</span>
                 </GlassCard>
               </li>

@@ -23,7 +23,7 @@ export default function Home() {
         className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-ato-sky to-[rgba(0,218,251,0)] lg:h-[640px] lg:to-[rgba(95,227,247,0)]"
       />
 
-      <LandingHeader desktopVariant="landing" />
+      <LandingHeader />
 
       <main className={cn("relative flex flex-col gap-ato-32 px-ato-16 pt-ato-8", TABLET_COLUMN, DESKTOP_CONTAINER, "lg:gap-ato-80 lg:pb-ato-80 lg:pt-ato-56")}>
         <HeroSection />

@@ -24,7 +24,9 @@ export function ExampleSection() {
           <ConsoleLabel as="span" tone="text-3">
             {example.before}
           </ConsoleLabel>
-          <p className="w-full rounded-ato-md bg-ato-bg-2 px-ato-16 py-ato-12 font-ato-ui text-ato-d-body text-ato-text-1">{example.message}</p>
+          <p className="w-full rounded-ato-md border-[0.5px] border-ato-ink bg-gradient-to-b from-ato-bg-2 to-[#7aff55] px-ato-16 py-ato-12 font-ato-ui text-ato-d-body-l text-ato-text-1">
+            {example.message}
+          </p>
         </div>
         <ArrowRight aria-hidden size={24} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-lite-accent)" className="shrink-0" />
         <div className="flex min-w-px flex-1 flex-col gap-ato-8 overflow-hidden rounded-ato-lg border border-ato-lite-accent bg-ato-bg-1 p-ato-24 shadow-ato-glass backdrop-blur-[12px]">

@@ -152,7 +152,7 @@ export function SituationScreen(props: SituationScreenProps) {
         <Button
           variant="aqua"
           gradient={FLOW_GRADIENTS.next}
-          desktop="lite"
+          desktop="aero"
           className="min-w-px flex-1 lg:flex-none"
           disabled={!canContinue}
           loading={busy}

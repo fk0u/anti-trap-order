@@ -11,7 +11,7 @@ import { liteCopy } from "@/content/lite";
 export function OfflineActions({ onRetry, onLimited }: { onRetry: () => void; onLimited?: () => void }) {
   return (
     <div className="flex w-full flex-col gap-ato-12">
-      <Button variant="aqua" desktop="lite" gradient={FLOW_GRADIENTS.limited} labelClassName="text-ato-text-1" className="lg:w-full" disabled={!onLimited} onClick={onLimited}>
+        <Button variant="aqua" desktop="aero" gradient={FLOW_GRADIENTS.limited} labelClassName="text-ato-text-1" className="lg:w-full" disabled={!onLimited} onClick={onLimited}>
         {liteCopy.offline.limited}
       </Button>
       <Button

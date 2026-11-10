@@ -89,7 +89,7 @@ export function ResultScreen({ result, missed, onNext }: ResultScreenProps) {
       <aside className="sticky top-ato-24 hidden flex-col gap-ato-16 overflow-hidden rounded-ato-lg border border-ato-lite-accent bg-ato-bg-1 p-ato-24 shadow-ato-glass backdrop-blur-[12px] lg:flex">
         <ConsoleLabel as="h2">{liteCopy.desktop.nextLabel}</ConsoleLabel>
         <p className="font-ato-ui text-ato-d-body text-ato-text-1">{liteCopy.desktop.nextBody}</p>
-        <Button variant="aqua" desktop="lite" className="lg:w-full" onClick={onNext}>
+        <Button variant="aqua" desktop="aero" gradient={FLOW_GRADIENTS.next} className="lg:w-full" onClick={onNext}>
           {copy.next}
         </Button>
         <DisclaimerBanner>{liteCopy.disclaimer}</DisclaimerBanner>

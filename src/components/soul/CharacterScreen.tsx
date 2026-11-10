@@ -4,7 +4,7 @@ import { useId } from "react";
 import { BottomActionBar } from "@/components/ui/BottomActionBar";
 import { BUTTON_GRADIENTS, Button } from "@/components/ui/Button";
 import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
-import { CharacterCard, SoulScreen, SoulTop } from "@/components/soul/SoulParts";
+import { CharacterCard, SOUL_GRADIENTS, SoulScreen, SoulTop } from "@/components/soul/SoulParts";
 import { soulCopy } from "@/content/soul";
 import { TABLET_COLUMN } from "@/lib/layout";
 import type { NicknameCheck } from "@/lib/soul/rules";
@@ -152,10 +152,11 @@ export function CharacterScreen(props: CharacterScreenProps) {
       <BottomActionBar glow="#ffda37" direction="column" className="lg:col-start-1 lg:row-start-2 lg:mt-ato-20 lg:flex-col lg:items-start lg:justify-start">
         <Button
           variant="aqua"
-          desktop="soul"
+          desktop="aero"
           gradient={BUTTON_GRADIENTS.soulMode}
-          className="shadow-none"
-          labelClassName="text-[#151515]"
+          desktopGradient={SOUL_GRADIENTS.next}
+          className="shadow-none lg:h-11 lg:px-ato-20 lg:shadow-ato-gloss"
+          labelClassName="text-[#151515] lg:text-ato-text-1"
           disabled={!props.canStart}
           loading={props.busy}
           onClick={props.onStart}

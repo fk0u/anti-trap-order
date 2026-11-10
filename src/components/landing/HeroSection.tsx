@@ -11,21 +11,23 @@ const { hero } = landingS01;
 /**
  * S-01 Hero — Figma 06 node 56:6733.
  * Desktop (frame 56:8549, node "Hero"): teks kiri | kartu pratinjau Lite 520px kanan.
+ * Judul dan CTA desktop memakai gaya Aero mobile (06 terbaru, node 56:8557); label CTA
+ * hitam, bukan putih bergaris luar (keputusan Syafar, 10 Nov 2026).
  */
 export function HeroSection() {
   return (
     <section className="flex w-full flex-col gap-ato-16 lg:flex-row lg:items-center lg:gap-ato-0">
       <div className="contents lg:flex lg:min-w-px lg:flex-1 lg:flex-col lg:gap-ato-20">
         <ConsoleLabel>{hero.eyebrow}</ConsoleLabel>
-        <h1 className="ato-text-outline w-full font-ato-display text-ato-m-display text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui-heavy lg:text-ato-d-display">
+        <h1 className="ato-text-outline w-full font-ato-display text-ato-m-display text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:text-ato-d-display">
           {hero.title}
         </h1>
         <p className="w-full font-ato-ui text-ato-m-body-l text-ato-text-2 lg:text-ato-d-body-l">{hero.body}</p>
-        <div className="flex w-full flex-col gap-ato-12 lg:items-start">
-          <Button variant="lite" desktop="lite" href={hero.ctaLite.href}>
+        <div className="flex w-full flex-col gap-ato-12 lg:w-[372px]">
+          <Button variant="lite" desktop="aero" href={hero.ctaLite.href} className="lg:w-full">
             {hero.ctaLite.label}
           </Button>
-          <Button variant="soul" desktop="secondary" href={hero.ctaSoul.href}>
+          <Button variant="soul" desktop="aero" href={hero.ctaSoul.href} className="lg:w-full">
             {hero.ctaSoul.label}
           </Button>
         </div>
@@ -52,7 +54,11 @@ function PreviewCard() {
         <span className="text-ato-text-3">{p.mode}</span>
       </div>
       <StepperAlphaOmega variant="flow" step={1} />
-      <p className="w-full rounded-ato-md bg-ato-bg-2 px-ato-16 py-ato-12 font-ato-ui text-ato-m-body text-ato-text-1">{p.message}</p>
+      <div className="w-full rounded-ato-md bg-ato-bg-0 px-ato-16 py-ato-12">
+        <p className="w-full rounded-ato-md border-[0.5px] border-ato-ink bg-gradient-to-b from-ato-bg-2 to-[#7aff55] px-ato-16 py-ato-12 font-ato-ui text-ato-d-body-l text-ato-text-1">
+          {p.message}
+        </p>
+      </div>
       <p className="w-full font-ato-ui text-ato-d-h3 text-ato-text-1">{p.question}</p>
       <div className="flex w-full flex-col gap-ato-12">
         {p.options.map((o, i) => (
@@ -61,7 +67,7 @@ function PreviewCard() {
             className={cn(
               "relative flex w-full items-center gap-ato-12 rounded-[28px] px-[20px] py-ato-16",
               i === 0
-                ? "border-2 border-ato-lite-accent bg-gradient-to-b from-[#c2f7ff] to-[#5fdff2] [filter:drop-shadow(0_8px_9px_rgba(13,89,115,0.28))]"
+                ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-white to-[#5fdff2] [filter:drop-shadow(0_8px_9px_rgba(13,89,115,0.28))]"
                 : "border border-ato-border-subtle bg-ato-bg-1 [filter:drop-shadow(0_6px_8px_rgba(13,38,64,0.1))]"
             )}
           >

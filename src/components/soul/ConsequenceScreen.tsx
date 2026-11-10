@@ -43,7 +43,7 @@ export function ConsequenceScreen(props: ConsequenceScreenProps) {
             {copy.kicker(index, total)}
             <span className="hidden lg:inline">{copy.desktopKickerSuffix}</span>
           </ConsoleLabel>
-          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title(props.choice)}</h1>
+          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-bg-0">{copy.title(props.choice)}</h1>
         </div>
 
         <div className="contents lg:col-start-1 lg:row-start-2 lg:block">
@@ -54,7 +54,14 @@ export function ConsequenceScreen(props: ConsequenceScreenProps) {
 
         <div className="contents lg:col-start-2 lg:row-span-3 lg:row-start-1 lg:flex lg:flex-col lg:items-start lg:gap-ato-24">
           <MetersCard meters={props.meters} deltas={props.deltas} />
-          <Button variant="aqua" desktop="soul" className="hidden lg:flex" onClick={props.onNext}>
+          <Button
+            variant="aqua"
+            desktop="aero"
+            gradient={SOUL_GRADIENTS.next}
+            labelClassName="text-[#191919]"
+            className="hidden lg:flex lg:w-full"
+            onClick={props.onNext}
+          >
             {props.isLast ? copy.finish : copy.next(index + 1)}
           </Button>
         </div>
