@@ -80,7 +80,7 @@ npx -y -p playwright@1.49.1 node e2e/visual.cjs compare <folder-baseline> <folde
 
 - `< 768` — mobile Figma 06. **Tidak boleh berubah** (cek dengan `e2e/visual.cjs`).
 - `768–1023` — tablet tanpa desain: layout mobile, kolom maks. 560px di tengah (`TABLET_COLUMN`).
-- `≥ 1024` (`lg:`) — desktop: tata letak **dan gaya visual** frame BROWSER 1440 Figma 06, teks tetap versi mobile terbaru. Container 1120 di tengah (`DESKTOP_CONTAINER`). Header desktop `src/components/ui/DesktopHeader.tsx`.
+- `≥ 1024` (`lg:`) — desktop: tata letak **dan gaya visual** frame BROWSER 1440 Figma 06 (diperbarui desainer 10 Nov 2026: sebagian besar sudah gaya Aero mobile), teks tetap versi mobile terbaru. Container 1120 di tengah (`DESKTOP_CONTAINER`). Header desktop `src/components/ui/DesktopHeader.tsx`.
 - Gaya desktop hanya lewat kelas `lg:` (dan `md:max-lg:` untuk tablet). Pembungkus grid desktop memakai `display: contents` di bawah lg supaya urutan mobile tetap.
 - ⚠️ `cn()` (tailwind-merge) **tidak** mengenal skala spasi `ato-*`: dua kelas spasi `ato-*` yang bentrok pada varian yang sama tidak digabung, pemenangnya ditentukan urutan CSS. Jangan menumpuk kelas spasi bentrok; mendaftarkan skala spasi ke `cn()` sempat mengubah 4 state mobile (dibatalkan).
 
@@ -106,6 +106,8 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
 - **Mode terbatas Soul.** S-19 di Soul memakai sheet yang sama dengan Lite; "Lanjut mode terbatas" nonaktif (jawaban Syafar no. 12).
+- **Isi Soul desktop S-11 / S-13 / S-14 (Figma 06 diperbarui 10 Nov 2026).** 18 dari 24 frame desktop Soul sudah gaya Aero penuh (kartu cerita hijau, huruf pilihan kuning, tombol pucat, meter hijau, judul bergaris luar); hanya S-11 Misi 1 "Selected", S-13 Misi 1 "Positif", dan S-14 "Default" yang masih gaya 02 cokelat. Kode saat ini: header dan langit Aero, isi masih gaya 02. Menunggu keputusan Syafar: ikut mayoritas (Aero) atau tunggu desainer menyamakan.
+- **Kanvas Figma 06: 9 foto ("image 1–9")** di atas frame, bukan elemen UI. Tidak dipakai (aturan data fiktif); minta desainer menghapusnya.
 - **"Lihat cara mainnya" (S-10)** disembunyikan — `/tentang` belum menjelaskan cara main Soul. TODO di `CharacterScreen.tsx` (jawaban no. 6).
 - **Untuk tim konten (Soul) — data API dipakai apa adanya (jawaban no. 2 dan 3):**
   - S-10 06: kartu "Nadia, 17 / Adik", "Teman Kuliah / Teman", "Ibu / Orang tua", "Adik Tingkat / Adik tingkat". API: nama `default_name` (Nadia, Ibu, Raka, Salsa) + label relasi (Adik, Ibu, Teman Kuliah, Adik Tingkat). Avatar Ibu di API `2-tumpuk` (di 06 bentuk segitiga).
@@ -128,7 +130,7 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | Judul hero | `ATO/Mobile/Display` = Plus Jakarta Sans ExtraBold 32/35, gelap | Alice Regular 32/35.2, tracking −0.64, putih, `text-shadow 1px 1px 0 #000` |
 | Tombol CTA Lite | `#0E7490` solid, teks putih, sheen putih | Gradien pucat: `#00AAD9` 60% di atas putih → putih, border hitam 0.5px, Gloss shadow. Kode ekspor Figma menyebut `#00AAD9 58% → #FFF 98%` (cyan pekat) tetapi render-nya pucat; kode mengikuti render (diukur dari piksel) |
 | Tombol CTA Soul | `#B45309` solid | Gradien pucat: `#FFDA37` 72% → putih, border hitam 0.5px, tanpa bayangan (ekspor: `21% → 98%`, sama seperti di atas) |
-| Teks tombol CTA | Putih di atas aksen gelap | 06: putih bergaris luar gelap di atas gradien terang (sulit dibaca). **Kode menyimpang atas keputusan Syafar (10 Nov 2026):** label hitam tanpa garis luar, sama dengan tombol alur Lite 06 (varian `aqua`). Berlaku untuk semua tombol `Button` varian `lite`/`soul` di mobile: CTA hero, kartu Dua Mode, dan "Coba A20 Soul →" S-09. Gradien dan border tetap. Mohon desainer memperbarui 06 |
+| Teks tombol CTA | Putih di atas aksen gelap | 06: putih bergaris luar gelap di atas gradien terang (sulit dibaca). **Kode menyimpang atas keputusan Syafar (10 Nov 2026):** label hitam tanpa garis luar, sama dengan tombol alur Lite 06 (varian `aqua`). Berlaku untuk semua tombol `Button` varian `lite`/`soul`: CTA hero, kartu Dua Mode, dan "Coba A20 Soul →" S-09 — mobile dan desktop (desktop 06 terbaru juga putih bergaris luar). Gradien dan border tetap. Mohon desainer memperbarui 06 |
 | Tombol di kartu Dua Mode | Sama dengan Button | Lite sama dengan CTA hero; Soul lebih pekat: `#FFDA37` 85% → 27% (tidak sampai putih). Diukur dari render |
 | ⚠️ Garis luar teks putih | — | Judul hero dan "Tiga langkah" memakai text stroke gelap (tidak ada di kode ekspor, terlihat di render). Ditiru dengan `.ato-text-outline` (2px). Label tombol tidak lagi bergaris luar (lihat "Teks tombol CTA") |
 | Hover / pressed / focus | 02 punya 6 state | 06 tidak menggambar state interaksi. Kode hanya menambah cincin fokus keyboard (aksesibilitas) |
@@ -235,18 +237,24 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 
 **Desktop (≥ 1024) — frame BROWSER 1440 Figma 06; keputusan Syafar 10 Nov 2026: tata letak dan gaya ikut desktop 06, teks ikut mobile terbaru**
 
+Desainer memperbarui frame desktop 06 pada 10 Nov 2026 (gaya Aero mobile). Kode mengikuti versi terbaru; keputusan Syafar a–g (10 Nov 2026) dicatat di tabel ini.
+
 | Elemen | Figma 06 desktop | Kode |
 |---|---|---|
-| Gaya visual | Gaya 02: tombol solid + kilau, judul gelap, Soul cokelat `soul/accent`, langit peach, avatar oranye | Diikuti persis di `lg:`; mobile tetap gaya Aero 06 |
+| Gaya visual | Terbaru: gaya Aero mobile (tombol gradien pucat, judul putih bergaris luar, langit kuning) untuk header, S-01, alur Lite S-03 – S-09, S-10, S-15, S-16; isi Soul S-11/S-13/S-14 campuran (lihat "Menunggu keputusan") | Diikuti di `lg:` (`Button desktop="aero"`); isi S-11/S-13/S-14 masih gaya 02 (solid cokelat, meter cokelat) sampai ada keputusan |
 | Teks | Sebagian masih teks lama (mis. "Mulai Misi 1 →", "tanpa model AI") | Teks mobile terbaru dipakai di semua ukuran (termasuk koreksi K12) |
 | Teks khusus desktop | Panel S-03, "Langkah berikutnya" S-08, "APA YANG KAMU LAKUKAN?" S-11, "MISI n DARI 3 · KONSEKUENSI" S-13, kartu pratinjau S-01, "SEBELUM/SESUDAH" S-01, stepper vertikal | Dipakai (disalin dari Figma; tidak ada yang menyebut data/privasi) |
 | S-02 Pilih Mode | Tidak ada | Tidak dipakai di desktop — perannya diganti link nav header |
-| Header S-01 | Varian sendiri: link `#97ecfa`/`#ffe469` (ekspor menulis putih; diukur dari render), CTA gradien `#67e4f7 → putih` | `DesktopHeader variant="landing"`; warna link diganti `lite/accent` (Lite, Tentang) dan `soul/accent` (Soul) supaya kontras lolos AA (±5:1) — keputusan Syafar, 10 Nov 2026 |
-| Header layar lain | Link `text/2`, aktif = aksen, CTA solid | Lite/Tentang/Privasi aktif sesuai frame; Soul aksen cokelat |
-| Badge "Menunggu verifikasi" S-16 | Render rusak (bar cokelat tanpa teks) | Memakai badge mobile S-16 (disetujui Syafar, 10 Nov 2026) |
+| Header (semua layar) | Terbaru (node 214:4934): logo berbayangan keras, link pucat bergaris luar (ekspor menulis putih), CTA gradien `#67e4f7 → putih` (Soul `#ffda37 → putih`) berlabel `text/1`; link aktif tidak dibedakan | `DesktopHeader` satu gaya untuk semua layar; warna link `lite/accent` (Lite, Tentang) dan `soul/accent` (Soul) supaya kontras lolos AA (±5:1) — keputusan Syafar (a), 10 Nov 2026. Halaman aktif hanya `aria-current` |
+| Label CTA desktop (S-01 hero, Dua Mode, "Coba A20 Soul →" S-09) | Putih bergaris luar di atas gradien pucat | Hitam / tinta gelap (Dua Mode: `#04222a` / `#2a1a05` sesuai ekspor) — keputusan Syafar (b), sama dengan mobile |
+| Badge "Menunggu verifikasi" S-16 | Terbaru: peach dengan teks (dulu render rusak) | Tetap badge mobile S-16 (kuning) — keputusan Syafar (d), 10 Nov 2026 |
+| Tombol S-10 | Terbaru: "Mulai A20 Soul" (gradien `#ffda37 → putih`, label `text/1`) | Gaya diikuti; teks tetap "Mulai Misi 1" dari mobile — keputusan Syafar (c) |
+| S-14 desktop | Default: langit peach, jalur cokelat; Teguh: kuning; Pemula: Aero | Mengikuti varian Default (langit peach, `SoulScreen desktopSky="peach"`) — keputusan Syafar (f) |
+| "Coba situasi lain" S-09 | Teks aksen dengan bayangan teks `0 4px 4px rgba(0,0,0,.5)` (node 56:9352) | Diikuti |
+| Langit Soul desktop | Terbaru: kuning `#ffda37` (S-10, S-11, S-13) | `SoulScreen` bawaan kuning |
 | "Lihat cara mainnya" (S-10), "Simpan gambar" (S-09), "Lihat di GitHub" (S-15) | Ada di desktop | Tetap disembunyikan (keputusan sebelumnya berlaku untuk semua ukuran) |
 | Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Link GitHub disembunyikan di mobile dan desktop — repo masih privat (404 untuk publik); TODO di `src/content/landing-s01.ts` (keputusan Syafar, 10 Nov 2026) |
-| Stepper vertikal (panel Lite) | 06 hanya menggambar Alpha selesai | Titik tengah selesai = 12px aksen + garis aksen; Ω tercapai (S-07/S-08) = aksen penuh |
+| Stepper vertikal (panel Lite) | Terbaru: S-03 Alpha gradien `#78e7f7 → putih` bergaris hitam; S-05/S-06 langkah selesai `#78e7f7`; S-04 masih aksen pekat lama | Semua langkah memakai warna S-05/S-06 (`#78e7f7`, "A" `#04222a`); Ω tercapai (S-07/S-08) juga `#78e7f7` (keputusan desain mandiri) |
 | Perataan stepper vertikal | Komponen 02 (node 55:167): kolom titik selebar titiknya (28 / 12px), jadi titik kecil, garis, dan label bergeser ke kiri dari A/Ω | Semua titik di kolom 28px yang sama (pusat x 14), label mulai x 40, titik rata tengah dengan labelnya, garis menyambung pusat ke pusat; tinggi total tetap 188px (permintaan Syafar, 10 Nov 2026) |
 | Meter Soul turun (S-13/S-14 desktop) | Frame positif: semua cokelat | Naik/tetap cokelat; turun merah `#bf0003` (02 Meter State=down) |
 | S-07 Loading desktop | Tidak ada frame | Panel konteks (progres, stepper di "Hasil", disclaimer) + animasi di kolom kanan maks. 480 |
@@ -266,5 +274,5 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 **Token**
 
 - Token 01 yang belum terlihat dipakai di 06 dan karena itu belum ditambahkan ke kode: `danger`, `focus/ring`, `aero/sky-*`.
-- Token desktop dari frame BROWSER 06 (ditambahkan): text style `ato-d-display` (Plus Jakarta Sans 800, dimuat sebagai font terpisah `atoUiHeavy` / `font-ato-ui-heavy` — menambah 800 ke `atoUi` mengubah file font variabel dan menggeser rendering teks mobile), `ato-d-h1`, `ato-d-h2`, `ato-d-h3`, `ato-d-body-l`, `ato-d-body`; spasi `ato-40`, `ato-56`, `ato-80`.
+- Token desktop dari frame BROWSER 06 (ditambahkan): text style `ato-d-display` (Alice 56/61.6, tracking −1.12 — judul hero desktop 06 terbaru; Plus Jakarta Sans 800 tidak dipakai lagi dan fontnya dihapus. Catatan: menambah bobot ke `atoUi` mengubah file font variabel dan menggeser rendering teks mobile), `ato-d-h1`, `ato-d-h2`, `ato-d-h3`, `ato-d-body-l`, `ato-d-body`; spasi `ato-40`, `ato-56`, `ato-80`.
 - Nilai mentah di 06 yang bukan Variable Figma (ditambahkan sebagai token kode): `#000` (border/bayangan keras), `#00AAD9`, `#FFDA37`, `#97DCF0`, `#58FF2A`, `rgba(95,227,247,.95)`, `#68E4F8`.
