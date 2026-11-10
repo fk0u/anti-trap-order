@@ -2,12 +2,26 @@
  * Klien API v1 Anti Trap Order (kontrak: docs/openapi.yaml, tipe: src/types/api-v1.ts).
  *
  * - Tidak ada fallback diam-diam ke engine lokal. Kegagalan dilempar sebagai
- *   `ApiError` dengan `kind`, dan UI yang memutuskan (S-07 Error, S-19, S-20).
+ *   `ApiError` dengan `kind`; `errorScreen()` memetakannya ke layar
+ *   (S-07 Error / S-19, S-18, S-20).
+ * - Setiap respons divalidasi bentuknya (api-v1-validate.ts): data salah
+ *   menjadi error S-18, bukan crash saat render.
  * - Teks user hanya dikirim lewat `analyzeText()`, dan selalu dimasking dulu
  *   di sini (K12). Jangan mencatat teks ke console/log.
  * - Request lain hanya berisi ID.
  */
 import { maskText } from "@/lib/ml/contract";
+import {
+  ResponseShapeError,
+  UnknownIdError,
+  parseAnalyze,
+  parseCategories,
+  parseHealth,
+  parseReflect,
+  parseScenarioDetail,
+  parseScenarioSummaries,
+  parseTactics,
+} from "@/lib/api-v1-validate";
 import {
   ANALYZE_TEXT_MAX_LENGTH,
   type AnalyzeRequest,
@@ -40,11 +54,23 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 
 export type ApiErrorKind =
   | "network" // server tidak terjangkau / CORS / offline → S-19 atau S-07 Error
-  | "timeout" // lewat REQUEST_TIMEOUT_MS → S-07 Error
+  | "timeout" // lewat REQUEST_TIMEOUT_MS → S-19 atau S-07 Error
   | "rate_limited" // 429 → S-20
-  | "server" // 5xx atau respons rusak → S-18 / mode terbatas
-  | "validation" // 400 (dan 4xx lain) → bug di frontend atau input tidak valid
-  | "not_found"; // 404
+  | "server" // 5xx → S-18
+  | "validation" // 400 (dan 4xx lain) → S-18
+  | "not_found" // 404 dari API, atau ID kategori/taktik tak dikenal → S-18
+  | "invalid_response"; // JSON rusak / bentuk data salah → S-18
+
+/** Layar untuk sebuah error: "offline" = S-07 Error/S-19, "server" = S-18, "rate" = S-20, "ignore" = dibatalkan pemanggil. */
+export type ErrorScreen = "offline" | "server" | "rate" | "ignore";
+
+export function errorScreen(err: unknown): ErrorScreen {
+  if (isAbortError(err)) return "ignore";
+  if (!isApiError(err)) return "server";
+  if (err.kind === "network" || err.kind === "timeout") return "offline";
+  if (err.kind === "rate_limited") return "rate";
+  return "server";
+}
 
 export class ApiError extends Error {
   readonly kind: ApiErrorKind;
@@ -103,7 +129,13 @@ export type RequestOptions = {
   timeoutMs?: number;
 };
 
-async function request<T>(method: "GET" | "POST", path: string, body: unknown, opts: RequestOptions = {}): Promise<T> {
+async function request<T>(
+  method: "GET" | "POST",
+  path: string,
+  body: unknown,
+  parse: (data: unknown) => T,
+  opts: RequestOptions = {}
+): Promise<T> {
   const controller = new AbortController();
   let timedOut = false;
   const timer = setTimeout(() => {
@@ -149,12 +181,20 @@ async function request<T>(method: "GET" | "POST", path: string, body: unknown, o
       });
     }
 
+    let data: unknown;
     try {
-      return (await res.json()) as T;
+      data = await res.json();
     } catch (err) {
       if (timedOut) throw new ApiError("timeout", `Tidak ada jawaban dalam ${opts.timeoutMs ?? REQUEST_TIMEOUT_MS} ms`);
       if (external?.aborted) throw err;
-      throw new ApiError("server", "Respons server tidak valid", { status: res.status });
+      throw new ApiError("invalid_response", "Respons server bukan JSON yang valid", { status: res.status });
+    }
+    try {
+      return parse(data);
+    } catch (err) {
+      if (err instanceof UnknownIdError) throw new ApiError("not_found", err.message, { status: res.status });
+      if (err instanceof ResponseShapeError) throw new ApiError("invalid_response", err.message, { status: res.status });
+      throw err;
     }
   } finally {
     clearTimeout(timer);
@@ -166,28 +206,28 @@ async function request<T>(method: "GET" | "POST", path: string, body: unknown, o
 
 /** GET /api/v1/health */
 export function getHealth(opts?: RequestOptions): Promise<Health> {
-  return request<Health>("GET", "/api/v1/health", undefined, opts);
+  return request("GET", "/api/v1/health", undefined, parseHealth, opts);
 }
 
 /** GET /api/v1/lite/categories — CategoryChip S-03. */
 export function listCategories(opts?: RequestOptions): Promise<Category[]> {
-  return request<Category[]>("GET", "/api/v1/lite/categories", undefined, opts);
+  return request("GET", "/api/v1/lite/categories", undefined, parseCategories, opts);
 }
 
 /** GET /api/v1/lite/tactics — katalog TacticBadge + kartu "Yang mungkin belum kepikiran". */
 export function listTactics(opts?: RequestOptions): Promise<Tactic[]> {
-  return request<Tactic[]>("GET", "/api/v1/lite/tactics", undefined, opts);
+  return request("GET", "/api/v1/lite/tactics", undefined, parseTactics, opts);
 }
 
 /** GET /api/v1/lite/scenarios — ringkasan skenario ("Contoh fiktif", pilih skenario per kategori). */
 export function listScenarios(category?: CategoryId, opts?: RequestOptions): Promise<ScenarioSummary[]> {
   const query = category ? `?category=${encodeURIComponent(category)}` : "";
-  return request<ScenarioSummary[]>("GET", `/api/v1/lite/scenarios${query}`, undefined, opts);
+  return request("GET", `/api/v1/lite/scenarios${query}`, undefined, parseScenarioSummaries, opts);
 }
 
 /** GET /api/v1/lite/scenarios/{id} — 3 pertanyaan Mode Pelaku (S-04–06). */
 export function getScenario(id: string, opts?: RequestOptions): Promise<ScenarioDetail> {
-  return request<ScenarioDetail>("GET", `/api/v1/lite/scenarios/${encodeURIComponent(id)}`, undefined, opts);
+  return request("GET", `/api/v1/lite/scenarios/${encodeURIComponent(id)}`, undefined, parseScenarioDetail, opts);
 }
 
 /**
@@ -196,17 +236,19 @@ export function getScenario(id: string, opts?: RequestOptions): Promise<Scenario
  * Teks SELALU dimasking di sini (nomor HP, email, rekening, URL) sebelum
  * dikirim, jadi teks mentah tidak pernah keluar dari browser. Hitungan untuk
  * chip "N data disamarkan" ambil dari `maskText()` di UI, bukan dari respons.
+ *
+ * Token masking bisa sedikit lebih panjang dari aslinya (mis. 8 digit →
+ * `<REKENING>`), jadi hasil masking dipotong ke batas 2000 karakter agar
+ * tidak berujung 400 dari server.
  */
 export function analyzeText(text: string, opts?: RequestOptions): Promise<AnalyzeResponse> {
   const { masked } = maskText(text);
-  const trimmed = masked.trim();
-  if (trimmed.length === 0 || trimmed.length > ANALYZE_TEXT_MAX_LENGTH) {
-    return Promise.reject(
-      new ApiError("validation", `Teks harus 1–${ANALYZE_TEXT_MAX_LENGTH} karakter`, { code: "VALIDATION_ERROR", field: "text" })
-    );
+  const trimmed = masked.trim().slice(0, ANALYZE_TEXT_MAX_LENGTH).trim();
+  if (trimmed.length === 0) {
+    return Promise.reject(new ApiError("validation", "Teks kosong", { code: "VALIDATION_ERROR", field: "text" }));
   }
   const body: AnalyzeRequest = { text: trimmed };
-  return request<AnalyzeResponse>("POST", "/api/v1/lite/analyze", body, opts);
+  return request("POST", "/api/v1/lite/analyze", body, parseAnalyze, opts);
 }
 
 /**
@@ -224,5 +266,5 @@ export function reflect(req: ReflectRequest, opts?: RequestOptions): Promise<Ref
     })
   ) as ReflectRequest["answers"];
   const body: ReflectRequest = { scenario_id: req.scenario_id, answers };
-  return request<ReflectResponse>("POST", "/api/v1/lite/reflect", body, opts);
+  return request("POST", "/api/v1/lite/reflect", body, parseReflect, opts);
 }

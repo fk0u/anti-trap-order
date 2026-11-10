@@ -39,6 +39,15 @@ export type CategoryId =
   | "pinjaman_investasi"
   | "lainnya";
 
+/** Daftar CategoryId untuk validasi runtime (respons API). Harus sama dengan union di atas. */
+export const CATEGORY_IDS = [
+  "tawaran_kerja",
+  "giveaway",
+  "akun_menyamar",
+  "pinjaman_investasi",
+  "lainnya",
+] as const satisfies readonly CategoryId[];
+
 export interface Category {
   id: CategoryId;
   label: string;
@@ -54,6 +63,18 @@ export type TacticId =
   | "credential_request"
   | "link_or_apk"
   | "authority";
+
+/** Daftar TacticId untuk validasi runtime (respons API). Harus sama dengan union di atas. */
+export const TACTIC_IDS = [
+  "urgency",
+  "upfront_fee",
+  "impersonation",
+  "isolation",
+  "too_good",
+  "credential_request",
+  "link_or_apk",
+  "authority",
+] as const satisfies readonly TacticId[];
 
 export interface TacticRef {
   id: TacticId;
