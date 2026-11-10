@@ -23,7 +23,7 @@ type SummaryScreenProps = {
 export function SummaryScreen({ summary, deltas, onAgain }: SummaryScreenProps) {
   return (
     // Desktop (node 58:4508): status + tombol (kiri) | meter akhir + insight (kanan, 480).
-    <SoulScreen desktopTop={80} desktopGrid="lg:grid-cols-[minmax(0,1fr)_480px] lg:grid-rows-[auto_auto_1fr] lg:gap-y-ato-24">
+    <SoulScreen desktopSky="peach" desktopTop={80} desktopGrid="lg:grid-cols-[minmax(0,1fr)_480px] lg:grid-rows-[auto_auto_1fr] lg:gap-y-ato-24">
       <div className={cn("relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
         <SoulTop back={{ label: copy.back, href: "/" }} progress={copy.progress} />
         <SoulPath />

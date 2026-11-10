@@ -13,8 +13,9 @@ import type { AvatarId, ChoiceId, Meters } from "@/types/api-v1";
  * Warna mentah 06 yang bukan Variable Figma ditulis langsung di sini dan
  * dicatat di CLAUDE.md "Keputusan desain mandiri".
  *
- * Desktop (lg) mengikuti frame BROWSER 06 yang memakai palet berbeda dari
- * mobile: aksen `soul/accent` cokelat, langit peach, kartu `soul/surface`.
+ * Desktop (lg) mengikuti frame BROWSER 06. Frame terbaru: header Aero, langit
+ * kuning, S-10 bergaya mobile; isi S-11/S-13/S-14 masih palet 02 (aksen
+ * `soul/accent` cokelat, kartu `soul/surface`).
  * Semua gaya desktop hanya lewat kelas `lg:`; tampilan mobile tidak berubah.
  */
 
@@ -30,18 +31,21 @@ export const SOUL_GRADIENTS = {
 
 /**
  * Latar Soul: `bg/0` + "Aero sky" kuning 560px (node 75:82xx).
- * Desktop: langit peach `rgba(255,210,122,.95)` 640px, header desktop, grid
- * `desktopGrid` di container 1120 (pembungkus `display: contents` di bawah lg).
+ * Desktop: langit 640px — kuning `#FFDA37` (06 terbaru, S-10/S-11/S-13, node 75:8285)
+ * atau peach `rgba(255,210,122,.95)` (`desktopSky="peach"`, S-14 Default), header
+ * desktop, grid `desktopGrid` di container 1120 (pembungkus `display: contents` di bawah lg).
  */
 export function SoulScreen({
   children,
   className,
   desktopGrid,
   desktopTop = 56,
+  desktopSky = "yellow",
 }: {
   children: React.ReactNode;
   className?: string;
   desktopGrid?: string;
+  desktopSky?: "yellow" | "peach";
   /** Jarak atas konten desktop: 56 (S-11, S-13) atau 80 (S-10, S-14) sesuai frame 06. */
   desktopTop?: 56 | 80;
 }) {
@@ -49,7 +53,10 @@ export function SoulScreen({
     <div className={cn("relative flex min-h-screen flex-col bg-ato-bg-0", className)}>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-[rgba(255,218,55,0.95)] to-[rgba(255,218,55,0)] lg:h-[640px] lg:from-[rgba(255,210,122,0.95)] lg:to-[rgba(255,210,122,0)]"
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-[rgba(255,218,55,0.95)] to-[rgba(255,218,55,0)] lg:h-[640px]",
+          desktopSky === "peach" ? "lg:from-[rgba(255,210,122,0.95)] lg:to-[rgba(255,210,122,0)]" : "lg:from-[#ffda37]"
+        )}
       />
       <DesktopHeader active="soul" cta="soul" />
       <div
@@ -103,27 +110,24 @@ const AVATAR_SRC: Record<AvatarId, string> = {
 
 /**
  * Avatar geometris 56px. SVG "1 Lingkar" di 06 berukuran 59px dengan inset −2,68%.
- * Desktop memakai avatar frame BROWSER 06 (oranye/cokelat, 56px) lewat <picture>.
+ * Desktop 06 terbaru (S-10 node 58:3736) memakai avatar yang sama dengan mobile.
  */
 export function Avatar({ id }: { id: AvatarId }) {
   return (
     <span aria-hidden className="relative block size-14 shrink-0">
-      <picture>
-        <source media="(min-width: 1024px)" srcSet={`/icons/ato/soul/desktop-avatar-${id}.svg`} />
-        {/* eslint-disable-next-line @next/next/no-img-element -- SVG statis kecil */}
-        <img
-          src={AVATAR_SRC[id]}
-          alt=""
-          width={id === "1-lingkar" ? 59 : 56}
-          height={id === "1-lingkar" ? 59 : 56}
-          className={cn("absolute block max-w-none", id === "1-lingkar" ? "inset-[-2.68%] size-[105.36%] lg:inset-0 lg:size-full" : "inset-0 size-full")}
-        />
-      </picture>
+      {/* eslint-disable-next-line @next/next/no-img-element -- SVG statis kecil */}
+      <img
+        src={AVATAR_SRC[id]}
+        alt=""
+        width={id === "1-lingkar" ? 59 : 56}
+        height={id === "1-lingkar" ? 59 : 56}
+        className={cn("absolute block max-w-none", id === "1-lingkar" ? "inset-[-2.68%] size-[105.36%]" : "inset-0 size-full")}
+      />
     </span>
   );
 }
 
-/** CharacterCard (02 node 29:104 / 29:111, gaya 06 S-10). */
+/** CharacterCard (02 node 29:104 / 29:111, gaya 06 S-10; desktop 06 terbaru sama dengan mobile, node 214:5517). */
 export function CharacterCard({
   name,
   relation,
@@ -147,10 +151,8 @@ export function CharacterCard({
         "flex w-full items-center gap-ato-16 rounded-[20px] p-ato-16 text-left",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-soul-accent",
         selected
-          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-white to-[#ffda37] drop-shadow-[0_8px_9px_rgba(115,64,5,0.28)] lg:border-2 lg:border-ato-soul-accent lg:from-[#ffe6bf] lg:to-[#fbc57a]"
-          : "border border-ato-border-subtle bg-ato-bg-1 drop-shadow-[0_6px_8px_rgba(13,38,64,0.1)]",
-        // Desktop (node 58:3751): radius 36.
-        "lg:rounded-[36px]"
+          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-white to-[#ffda37] drop-shadow-[0_8px_9px_rgba(115,64,5,0.28)]"
+          : "border border-ato-border-subtle bg-ato-bg-1 drop-shadow-[0_6px_8px_rgba(13,38,64,0.1)]"
       )}
     >
       <Avatar id={avatar} />
