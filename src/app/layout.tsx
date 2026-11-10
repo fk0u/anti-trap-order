@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
+import { SITE_URL } from "@/lib/site";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -12,7 +13,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://antitraporder.web.id"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     template: "%s | Anti Trap Order (ATO)",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     "Social Engineering",
     "MIT-Week 2026",
   ],
-  authors: [{ name: "Anti Trap Order Team", url: "https://antitraporder.web.id" }],
+  authors: [{ name: "Anti Trap Order Team", url: SITE_URL }],
   creator: "Anti Trap Order",
   publisher: "Culture Technology Digital Guardians",
   formatDetection: {
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://antitraporder.web.id",
+    url: SITE_URL,
     siteName: "Anti Trap Order (ATO)",
     title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:

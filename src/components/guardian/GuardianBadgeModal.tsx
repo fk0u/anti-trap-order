@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
+import { SITE_HOST } from "@/lib/site";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Shield,
@@ -142,7 +143,7 @@ export function GuardianBadgeModal({
     ctx.fillStyle = "#64748B";
     ctx.font = "14px monospace";
     ctx.fillText(
-      "Anti Trap Order (ATO) · Decision Support & Perspective Inversion Engine · antitraporder.web.id",
+      "Anti Trap Order (ATO) · Decision Support & Perspective Inversion Engine · " + SITE_HOST,
       80,
       570
     );

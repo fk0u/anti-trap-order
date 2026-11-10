@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE_HOST } from "@/lib/site";
 
 export const alt = "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya.";
 export const size = {
@@ -157,7 +158,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            antitraporder.web.id
+            {SITE_HOST}
           </span>
         </div>
       </div>
