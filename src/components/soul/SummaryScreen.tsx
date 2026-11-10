@@ -23,7 +23,7 @@ type SummaryScreenProps = {
 export function SummaryScreen({ summary, deltas, onAgain }: SummaryScreenProps) {
   return (
     // Desktop (node 58:4508): status + tombol (kiri) | meter akhir + insight (kanan, 480).
-    <SoulScreen desktopSky="peach" desktopTop={80} desktopGrid="lg:grid-cols-[minmax(0,1fr)_480px] lg:grid-rows-[auto_auto_1fr] lg:gap-y-ato-24">
+    <SoulScreen desktopTop={80} desktopGrid="lg:grid-cols-[minmax(0,1fr)_480px] lg:grid-rows-[auto_auto_1fr] lg:gap-y-ato-24">
       <div className={cn("relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
         <SoulTop back={{ label: copy.back, href: "/" }} progress={copy.progress} />
         <SoulPath />
@@ -32,7 +32,7 @@ export function SummaryScreen({ summary, deltas, onAgain }: SummaryScreenProps) 
         </div>
 
         <div className="flex w-full flex-col items-start lg:col-start-1 lg:row-start-2 lg:gap-ato-24">
-          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title}</h1>
+          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-bg-0">{copy.title}</h1>
           <p className="flex items-center gap-ato-8 rounded-ato-full border-[1.5px] border-ato-soul-accent bg-ato-soul-surface px-ato-16 py-ato-8">
             <Check aria-hidden size={16} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-soul-accent)" className="lg:size-[18px]" />
             <span className="whitespace-nowrap font-ato-ui text-ato-m-h3 text-ato-soul-accent lg:text-ato-d-h3">{summary.rank_label}</span>
@@ -64,15 +64,23 @@ export function SummaryScreen({ summary, deltas, onAgain }: SummaryScreenProps) 
       </div>
 
       <BottomActionBar glow="#ffda37" direction="column" className="lg:col-start-1 lg:row-start-3 lg:flex-col lg:items-start lg:justify-start">
-        <Button variant="aqua" href="/lite" desktop="lite" gradient={SOUL_GRADIENTS.lite} labelClassName="text-[#1f1f1f]">
+        <Button
+          variant="aqua"
+          href="/lite"
+          desktop="aero"
+          gradient={SOUL_GRADIENTS.lite}
+          desktopGradient="linear-gradient(to bottom, #78d2eb 0%, #ffffff 100%)"
+          labelClassName="text-[#1f1f1f]"
+          className="lg:w-[336px]"
+        >
           {copy.lite}
         </Button>
         <Button
           variant="secondary"
           size="md"
-          desktop="secondary"
-          className="border-[0.5px] border-ato-ink bg-white lg:h-[52px] lg:px-ato-24"
-          labelClassName="bg-[linear-gradient(178.57deg,#0e7490_10.312%,#ffffff_90.845%)] bg-clip-text text-transparent"
+          desktop="aero"
+          className="border-[0.5px] border-ato-ink bg-white lg:h-[52px] lg:w-[336px] lg:border lg:border-ato-border-strong lg:px-ato-24"
+          labelClassName="bg-[linear-gradient(178.57deg,#0e7490_10.312%,#ffffff_90.845%)] bg-clip-text text-transparent lg:bg-[linear-gradient(to_bottom,#0e7490_0%,#ffffff_155%)]"
           onClick={onAgain}
         >
           {copy.again}

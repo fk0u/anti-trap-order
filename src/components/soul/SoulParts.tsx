@@ -13,9 +13,8 @@ import type { AvatarId, ChoiceId, Meters } from "@/types/api-v1";
  * Warna mentah 06 yang bukan Variable Figma ditulis langsung di sini dan
  * dicatat di CLAUDE.md "Keputusan desain mandiri".
  *
- * Desktop (lg) mengikuti frame BROWSER 06. Frame terbaru: header Aero, langit
- * kuning, S-10 bergaya mobile; isi S-11/S-13/S-14 masih palet 02 (aksen
- * `soul/accent` cokelat, kartu `soul/surface`).
+ * Desktop (lg) mengikuti frame BROWSER 06 terbaru yang sudah bergaya Aero
+ * (mayoritas frame; 3 frame yang masih palet 02 diabaikan — lihat CLAUDE.md).
  * Semua gaya desktop hanya lewat kelas `lg:`; tampilan mobile tidak berubah.
  */
 
@@ -31,21 +30,18 @@ export const SOUL_GRADIENTS = {
 
 /**
  * Latar Soul: `bg/0` + "Aero sky" kuning 560px (node 75:82xx).
- * Desktop: langit 640px — kuning `#FFDA37` (06 terbaru, S-10/S-11/S-13, node 75:8285)
- * atau peach `rgba(255,210,122,.95)` (`desktopSky="peach"`, S-14 Default), header
- * desktop, grid `desktopGrid` di container 1120 (pembungkus `display: contents` di bawah lg).
+ * Desktop: langit kuning `#FFDA37` 640px (06 terbaru, node 75:8285), header desktop,
+ * grid `desktopGrid` di container 1120 (pembungkus `display: contents` di bawah lg).
  */
 export function SoulScreen({
   children,
   className,
   desktopGrid,
   desktopTop = 56,
-  desktopSky = "yellow",
 }: {
   children: React.ReactNode;
   className?: string;
   desktopGrid?: string;
-  desktopSky?: "yellow" | "peach";
   /** Jarak atas konten desktop: 56 (S-11, S-13) atau 80 (S-10, S-14) sesuai frame 06. */
   desktopTop?: 56 | 80;
 }) {
@@ -53,10 +49,7 @@ export function SoulScreen({
     <div className={cn("relative flex min-h-screen flex-col bg-ato-bg-0", className)}>
       <div
         aria-hidden
-        className={cn(
-          "pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-[rgba(255,218,55,0.95)] to-[rgba(255,218,55,0)] lg:h-[640px]",
-          desktopSky === "peach" ? "lg:from-[rgba(255,210,122,0.95)] lg:to-[rgba(255,210,122,0)]" : "lg:from-[#ffda37]"
-        )}
+        className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-[rgba(255,218,55,0.95)] to-[rgba(255,218,55,0)] lg:h-[640px] lg:from-[#ffda37]"
       />
       <DesktopHeader active="soul" cta="soul" />
       <div
@@ -175,7 +168,7 @@ export function MeterMini({ label, value }: { label: string; value: number }) {
       <span className="whitespace-nowrap font-ato-ui text-ato-caption text-ato-text-2">{label}</span>
       <span aria-hidden className="flex w-full">
         {[0, 1, 2, 3, 4].map((i) => (
-          <span key={i} className={cn("h-1.5 min-w-px flex-1 rounded-ato-full", i < filled ? "bg-[#00c407] lg:bg-ato-soul-accent" : "bg-ato-border-subtle")} />
+          <span key={i} className={cn("h-1.5 min-w-px flex-1 rounded-ato-full", i < filled ? "bg-[#00c407] lg:bg-[#1fc814]" : "bg-ato-border-subtle")} />
         ))}
       </span>
     </div>
@@ -210,8 +203,8 @@ function DeltaBadge({ delta }: { delta: number }) {
 /** Meter S-13/S-14: judul H3 + badge, 5 segmen 8px (hijau naik/tetap, merah turun). */
 function MeterRow({ label, value, delta }: { label: string; value: number; delta: number }) {
   const filled = meterSegments(value);
-  // Desktop 06: naik/tetap `soul/accent`; turun tetap merah (02 Meter State=down).
-  const on = delta < 0 ? "bg-[#bf0003]" : "bg-[#1fc814] lg:bg-ato-soul-accent";
+  // Naik/tetap hijau, turun merah — sama di mobile dan desktop 06 terbaru.
+  const on = delta < 0 ? "bg-[#bf0003]" : "bg-[#1fc814]";
   return (
     <div className="flex w-full flex-col gap-ato-8">
       <div className="flex w-full items-center justify-between">
@@ -272,11 +265,11 @@ export function GreenCard({
         variant === "story"
           ? "gap-ato-12 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),4px_4px_3px_0_rgba(0,0,0,0.25),0_12px_32px_0_rgba(13,23,33,0.08)]"
           : "shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),4px_4px_3px_0_rgba(0,0,0,0.25),0_12px_32px_-8px_rgba(13,23,33,0.08)]",
-        // Desktop (node 58:3907 / 58:3976): `soul/surface` datar, garis 1px `soul/accent`.
-        "lg:border lg:border-ato-soul-accent lg:bg-none lg:bg-ato-soul-surface",
+        // Desktop 06 terbaru: cerita (node 58:4612) gradien sama, garis 1px hitam, bayangan lembut;
+        // konsekuensi (node 58:4041) `soul/surface` datar, garis 1px `soul/accent`, p32.
         variant === "story"
-          ? "lg:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_12px_16px_0_rgba(13,23,33,0.08)]"
-          : "lg:gap-ato-12 lg:p-ato-32 lg:shadow-ato-glass"
+          ? "lg:border lg:border-ato-ink lg:shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),0_12px_16px_0_rgba(13,23,33,0.08)]"
+          : "lg:gap-ato-12 lg:border lg:border-ato-soul-accent lg:bg-none lg:bg-ato-soul-surface lg:p-ato-32 lg:shadow-ato-glass"
       )}
     >
       <ConsoleLabel as="h2" tone="text-3" className="lg:text-ato-soul-accent">
@@ -336,9 +329,9 @@ export function ChoiceCard({
         selected
           ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-[#ffe6bf] to-[#ffda37] drop-shadow-[0_8px_9px_rgba(115,64,5,0.28)]"
           : "border border-ato-border-subtle bg-ato-bg-1 drop-shadow-[0_6px_8px_rgba(13,38,64,0.1)]",
-        // Desktop (node 58:3910–58:3912): radius 32, terpilih bergaris 2px `soul/accent`.
+        // Desktop 06 terbaru (node 58:4615–58:4617): radius 32, terpilih gradien `putih → #ffda37`.
         "lg:rounded-[32px]",
-        selected && "lg:border-2 lg:border-ato-soul-accent lg:to-[#f9b45e]",
+        selected && "lg:from-white",
         state === "locked" && "opacity-[0.55]",
         disabled && "cursor-default"
       )}
@@ -348,17 +341,13 @@ export function ChoiceCard({
         className={cn(
           "flex size-10 shrink-0 items-center justify-center rounded-ato-full font-ato-ui text-[18px] leading-[25.2px] text-[#ffda37]",
           selected ? "border-[0.5px] border-ato-ink bg-white font-normal" : "border-[1.5px] border-[#ffda37] font-semibold",
-          // Desktop: huruf `soul/accent`; terpilih = lingkaran `soul/accent` penuh, huruf putih.
-          selected ? "lg:border-0 lg:bg-ato-soul-accent lg:font-semibold lg:text-white" : "lg:border-ato-soul-accent lg:text-ato-soul-accent"
+          // Desktop 06 terbaru: terpilih = lingkaran `#ffda37` penuh, huruf putih; lainnya garis dan huruf `#ffda37` seperti mobile.
+          selected && "lg:border-0 lg:bg-[#ffda37] lg:font-semibold lg:text-white"
         )}
       >
         {id}
       </span>
       <span className="min-w-px flex-1 font-ato-ui text-ato-m-body text-ato-text-1">{label}</span>
-      {selected && (
-        // Kilau atas desktop (node I58:3911;75:403).
-        <span aria-hidden className="pointer-events-none absolute inset-x-[2px] top-px hidden h-[26px] rounded-[28px] bg-gradient-to-b from-white/60 to-white/0 lg:block" />
-      )}
     </button>
   );
 }
@@ -393,14 +382,19 @@ export function SoulPath() {
   );
 }
 
-/** "Path A→Ω" S-14 desktop (node 58:4515): Alpha 32, titik 12, Ω 80, semua `soul/accent`, jarak 8. */
+/**
+ * "Path A→Ω" S-14 desktop — 06 terbaru (node 214:6279, varian Pemula Waspada): Alpha 32,
+ * titik 12, Ω 80, gradien `#f6c900 → putih` bergaris hitam, garis `#f6c900`, jarak 8.
+ */
+const GOLD_DISC = "bg-gradient-to-b from-[#f6c900] to-white";
+
 export function SoulPathDesktop() {
-  const line = <span className="h-0.5 min-w-px flex-1 bg-ato-soul-accent" />;
-  const dot = <span className="size-3 shrink-0 rounded-ato-full bg-ato-soul-accent" />;
+  const line = <span className="h-0.5 min-w-px flex-1 bg-[#f6c900]" />;
+  const dot = <span className={cn("size-3 shrink-0 rounded-ato-full", HAIRLINE, GOLD_DISC)} />;
   return (
     <div aria-hidden className="hidden w-full items-center gap-ato-8 lg:flex">
-      <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-ato-full bg-ato-soul-accent", GLOSS_INNER)}>
-        <span className="font-ato-console text-ato-console uppercase text-white">A</span>
+      <span className={cn("flex size-8 shrink-0 items-center justify-center rounded-ato-full border-[0.5px] border-ato-ink", GOLD_DISC, GLOSS_INNER)}>
+        <span className="font-ato-console text-ato-console uppercase text-ato-text-1">A</span>
       </span>
       {line}
       {dot}
@@ -409,8 +403,8 @@ export function SoulPathDesktop() {
       {line}
       {dot}
       {line}
-      <span className={cn("flex size-20 shrink-0 items-center justify-center rounded-ato-full bg-ato-soul-accent", GLOSS_INNER)}>
-        <span className="font-ato-ui text-ato-d-h1 text-white">Ω</span>
+      <span className={cn("flex size-20 shrink-0 items-center justify-center rounded-ato-full border-[0.5px] border-ato-ink", GOLD_DISC, GLOSS_INNER)}>
+        <span className="font-ato-ui text-ato-d-h1 text-ato-text-1">Ω</span>
       </span>
     </div>
   );

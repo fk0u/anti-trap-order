@@ -106,7 +106,6 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
 - **Mode terbatas Soul.** S-19 di Soul memakai sheet yang sama dengan Lite; "Lanjut mode terbatas" nonaktif (jawaban Syafar no. 12).
-- **Isi Soul desktop S-11 / S-13 / S-14 (Figma 06 diperbarui 10 Nov 2026).** 18 dari 24 frame desktop Soul sudah gaya Aero penuh (kartu cerita hijau, huruf pilihan kuning, tombol pucat, meter hijau, judul bergaris luar); hanya S-11 Misi 1 "Selected", S-13 Misi 1 "Positif", dan S-14 "Default" yang masih gaya 02 cokelat. Kode saat ini: header dan langit Aero, isi masih gaya 02. Menunggu keputusan Syafar: ikut mayoritas (Aero) atau tunggu desainer menyamakan.
 - **Kanvas Figma 06: 9 foto ("image 1–9")** di atas frame, bukan elemen UI. Tidak dipakai (aturan data fiktif); minta desainer menghapusnya.
 - **"Lihat cara mainnya" (S-10)** disembunyikan — `/tentang` belum menjelaskan cara main Soul. TODO di `CharacterScreen.tsx` (jawaban no. 6).
 - **Untuk tim konten (Soul) — data API dipakai apa adanya (jawaban no. 2 dan 3):**
@@ -241,7 +240,8 @@ Desainer memperbarui frame desktop 06 pada 10 Nov 2026 (gaya Aero mobile). Kode 
 
 | Elemen | Figma 06 desktop | Kode |
 |---|---|---|
-| Gaya visual | Terbaru: gaya Aero mobile (tombol gradien pucat, judul putih bergaris luar, langit kuning) untuk header, S-01, alur Lite S-03 – S-09, S-10, S-15, S-16; isi Soul S-11/S-13/S-14 campuran (lihat "Menunggu keputusan") | Diikuti di `lg:` (`Button desktop="aero"`); isi S-11/S-13/S-14 masih gaya 02 (solid cokelat, meter cokelat) sampai ada keputusan |
+| Gaya visual | Terbaru: gaya Aero mobile (tombol gradien pucat, judul putih bergaris luar, langit kuning) di semua layar desktop | Diikuti di `lg:` (`Button desktop="aero"`); gaya tombol solid 02 desktop dihapus dari kode |
+| 3 frame Soul desktop gaya 02 | S-11 Misi 1 "Selected" (58:3890), S-13 Misi 1 "Positif" (58:3966), S-14 "Default" (58:4508) masih cokelat; 21 frame Soul desktop lainnya Aero | Ketiganya **diabaikan karena tidak konsisten**; dipakai versi Aero dari frame sejenis — S-11 "Misi 1 A" (58:4595), S-13 "Negatif" (58:4031), S-14 "Pemula Waspada" (61:6074). Keputusan Syafar, 10 Nov 2026 |
 | Teks | Sebagian masih teks lama (mis. "Mulai Misi 1 →", "tanpa model AI") | Teks mobile terbaru dipakai di semua ukuran (termasuk koreksi K12) |
 | Teks khusus desktop | Panel S-03, "Langkah berikutnya" S-08, "APA YANG KAMU LAKUKAN?" S-11, "MISI n DARI 3 · KONSEKUENSI" S-13, kartu pratinjau S-01, "SEBELUM/SESUDAH" S-01, stepper vertikal | Dipakai (disalin dari Figma; tidak ada yang menyebut data/privasi) |
 | S-02 Pilih Mode | Tidak ada | Tidak dipakai di desktop — perannya diganti link nav header |
@@ -249,17 +249,19 @@ Desainer memperbarui frame desktop 06 pada 10 Nov 2026 (gaya Aero mobile). Kode 
 | Label CTA desktop (S-01 hero, Dua Mode, "Coba A20 Soul →" S-09) | Putih bergaris luar di atas gradien pucat | Hitam / tinta gelap (Dua Mode: `#04222a` / `#2a1a05` sesuai ekspor) — keputusan Syafar (b), sama dengan mobile |
 | Badge "Menunggu verifikasi" S-16 | Terbaru: peach dengan teks (dulu render rusak) | Tetap badge mobile S-16 (kuning) — keputusan Syafar (d), 10 Nov 2026 |
 | Tombol S-10 | Terbaru: "Mulai A20 Soul" (gradien `#ffda37 → putih`, label `text/1`) | Gaya diikuti; teks tetap "Mulai Misi 1" dari mobile — keputusan Syafar (c) |
-| S-14 desktop | Default: langit peach, jalur cokelat; Teguh: kuning; Pemula: Aero | Mengikuti varian Default (langit peach, `SoulScreen desktopSky="peach"`) — keputusan Syafar (f) |
+| S-14 desktop | Default: langit peach, jalur cokelat; Teguh: campuran; Pemula Waspada: Aero penuh | Mengikuti Pemula Waspada (61:6074): langit kuning, jalur `#f6c900`, judul bergaris luar, "Jalankan Lite" gradien `#78d2eb → putih`, "Ulangi" teks gradien, keduanya 336px. Menggantikan keputusan (f) sebelumnya (ikut Default) |
+| Soul S-11 / S-13 desktop | Aero (58:4595 / 58:4031): kartu cerita gradien hijau bergaris hitam, pilihan terpilih `putih → #ffda37` dengan huruf di lingkaran `#ffda37`, meter hijau/merah, "Pilih →" / "Lanjut" gradien `#ffda37 → putih` label `#191919`; kartu "Apa yang terjadi" tetap `soul/surface` bergaris `soul/accent` | Diikuti |
+| S-06 desktop | Tombol berlabel "Lanjut →" | Tetap "Lihat hasil →" (teks mobile) |
 | "Coba situasi lain" S-09 | Teks aksen dengan bayangan teks `0 4px 4px rgba(0,0,0,.5)` (node 56:9352) | Diikuti |
-| Langit Soul desktop | Terbaru: kuning `#ffda37` (S-10, S-11, S-13) | `SoulScreen` bawaan kuning |
+| Langit Soul desktop | Terbaru: kuning `#ffda37` (S-10 – S-14) | `SoulScreen` kuning di semua layar Soul |
 | "Lihat cara mainnya" (S-10), "Simpan gambar" (S-09), "Lihat di GitHub" (S-15) | Ada di desktop | Tetap disembunyikan (keputusan sebelumnya berlaku untuk semua ukuran) |
 | Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Link GitHub disembunyikan di mobile dan desktop — repo masih privat (404 untuk publik); TODO di `src/content/landing-s01.ts` (keputusan Syafar, 10 Nov 2026) |
 | Stepper vertikal (panel Lite) | Terbaru: S-03 Alpha gradien `#78e7f7 → putih` bergaris hitam; S-05/S-06 langkah selesai `#78e7f7`; S-04 masih aksen pekat lama | Semua langkah memakai warna S-05/S-06 (`#78e7f7`, "A" `#04222a`); Ω tercapai (S-07/S-08) juga `#78e7f7` (keputusan desain mandiri) |
 | Perataan stepper vertikal | Komponen 02 (node 55:167): kolom titik selebar titiknya (28 / 12px), jadi titik kecil, garis, dan label bergeser ke kiri dari A/Ω | Semua titik di kolom 28px yang sama (pusat x 14), label mulai x 40, titik rata tengah dengan labelnya, garis menyambung pusat ke pusat; tinggi total tetap 188px (permintaan Syafar, 10 Nov 2026) |
-| Meter Soul turun (S-13/S-14 desktop) | Frame positif: semua cokelat | Naik/tetap cokelat; turun merah `#bf0003` (02 Meter State=down) |
+| Meter Soul (S-11/S-13/S-14 desktop) | Aero: naik/tetap hijau `#1fc814`, turun merah `#bf0003` | Sama dengan mobile |
 | S-07 Loading desktop | Tidak ada frame | Panel konteks (progres, stepper di "Hasil", disclaimer) + animasi di kolom kanan maks. 480 |
 | S-17 / S-18 / S-20 desktop | Tidak ada frame | Isi di tengah maks. 480 (tablet 560), tanpa header desktop |
-| S-19 dan "Ganti karakter?" desktop | Tidak ada frame | Modal 02 (node 52:312) 560px di tengah; tombol gaya desktop; aturan scrim/Esc sama dengan mobile |
+| S-19 dan "Ganti karakter?" desktop | Tidak ada frame | Modal 02 (node 52:312) 560px di tengah; tombol gaya Aero (sama dengan mobile, lebar penuh modal); aturan scrim/Esc sama dengan mobile |
 | S-09 desktop tanpa tombol "Hasil" | Desain desktop tidak punya tombol kembali | Kembali ke S-08 lewat Back browser |
 | BottomActionBar desktop | Tombol di akhir kolom, tidak menempel | Bar menjadi baris tombol biasa (`lg:relative`), rata kanan/kiri sesuai frame |
 

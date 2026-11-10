@@ -89,10 +89,11 @@ export function MissionScreen(props: MissionScreenProps) {
       <BottomActionBar glow="#ffda37" className="lg:col-start-2 lg:row-start-2 lg:mt-ato-16">
         <Button
           variant="aqua"
-          desktop="soul"
+          desktop="aero"
           gradient={SOUL_GRADIENTS.choose}
+          desktopGradient={SOUL_GRADIENTS.next}
           className="min-w-px flex-1 lg:flex-none"
-          labelClassName="text-[#1b1b1b]"
+          labelClassName="text-[#1b1b1b] lg:text-[#191919]"
           disabled={selected === null}
           loading={mode === "locked"}
           onClick={props.onChoose}

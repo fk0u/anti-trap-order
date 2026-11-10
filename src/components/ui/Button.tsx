@@ -85,26 +85,20 @@ const sizeClass: Record<ButtonSize, string> = {
  * Gaya tombol mulai breakpoint lg, mengikuti frame desktop 06 (BROWSER 1440).
  * - `aero`: sama dengan gaya mobile (gradien, border hitam 0.5px, label varian);
  *   hanya lebarnya mengikuti isi. Dipakai frame desktop 06 terbaru (alur Lite,
- *   landing, S-09, S-10). Gradien desktop bisa beda lewat `desktopGradient`.
- * - `lite`/`soul`: gaya 02 — solid + kilau atas + Gloss Button, label putih
- *   (masih dipakai isi S-11/S-13/S-14 dan "Jalankan Lite" S-14).
+ *   landing, S-09, Soul). Gradien desktop bisa beda lewat `desktopGradient`.
  * - `secondary`: putih bergaris `border/strong`; `ghost`: teks aksen Lite.
  * Lebar tombol di desktop mengikuti isi (bukan penuh).
  */
-export type DesktopButtonStyle = "aero" | "lite" | "soul" | "secondary" | "ghost";
+export type DesktopButtonStyle = "aero" | "secondary" | "ghost";
 
 const desktopClass: Record<DesktopButtonStyle, string> = {
   aero: "lg:w-auto",
-  lite: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-lite-accent lg:shadow-ato-gloss",
-  soul: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-soul-accent lg:shadow-ato-gloss",
   secondary: "lg:w-auto lg:border lg:border-solid lg:border-ato-border-strong lg:[background-image:none] lg:bg-ato-bg-1 lg:shadow-none",
   ghost: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-transparent lg:shadow-none",
 };
 
 const desktopLabelClass: Record<DesktopButtonStyle, string> = {
   aero: "",
-  lite: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
-  soul: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
   secondary: "lg:bg-none lg:text-ato-text-1 lg:[--ato-outline-width:0px]",
   ghost: "lg:bg-none lg:text-ato-lite-accent lg:[--ato-outline-width:0px]",
 };
@@ -160,10 +154,6 @@ export function Button(props: ButtonProps) {
       ? ({ ...(bg && { "--ato-btn-bg": bg }), ...(desktopGradient && { "--ato-btn-bg-lg": desktopGradient }) } as React.CSSProperties)
       : undefined;
   const labelClasses = cn(labelClassByVariant[variant], labelClassName, desktop && desktopLabelClass[desktop]);
-  const sheen =
-    desktop === "lite" || desktop === "soul" ? (
-      <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-1/2 rounded-t-ato-md bg-gradient-to-b from-white/[0.34] to-white/0 lg:block" />
-    ) : null;
   const label = (
     <span className={cn("relative min-w-px text-center font-ato-ui text-ato-button", labelClasses)}>
       {children}
@@ -173,7 +163,6 @@ export function Button(props: ButtonProps) {
   if (props.href !== undefined) {
     return (
       <Link href={props.href} onClick={props.onClick} className={classes} style={style}>
-        {sheen}
         {label}
       </Link>
     );
@@ -212,7 +201,6 @@ export function Button(props: ButtonProps) {
           className={cn("relative shrink-0 motion-safe:animate-spin", labelClasses)}
         />
       )}
-      {sheen}
       {label}
     </button>
   );
