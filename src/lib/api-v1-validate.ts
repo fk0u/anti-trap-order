@@ -4,8 +4,9 @@
  *
  * Yang dicek hanya field yang dipakai UI, sesuai docs/openapi.yaml.
  * - Bentuk salah → `ResponseShapeError` → ApiError kind "invalid_response".
- * - ID kategori/taktik di luar CATEGORY_IDS/TACTIC_IDS → `UnknownIdError`
- *   → ApiError kind "not_found" (keputusan: diperlakukan seperti data tidak ditemukan).
+ * - ID kategori/taktik di luar CATEGORY_IDS/TACTIC_IDS, atau relasi template
+ *   Soul yang tidak ada di daftar relasi → `UnknownIdError` → ApiError kind
+ *   "not_found" (keputusan: diperlakukan seperti data tidak ditemukan).
  */
 import {
   CATEGORY_IDS,
@@ -13,11 +14,17 @@ import {
   type AnalyzeResponse,
   type Category,
   type CategoryId,
+  type CharacterOptions,
   type GapCard,
   type Health,
+  type Meters,
+  type Mission,
   type ReflectResponse,
   type ScenarioDetail,
   type ScenarioSummary,
+  type SoulStartResponse,
+  type SoulStepResponse,
+  type SoulSummary,
   type Tactic,
   type TacticId,
   type TacticRef,
@@ -206,4 +213,96 @@ export function parseReflect(v: unknown): ReflectResponse {
     return x;
   });
   return v as ReflectResponse;
+}
+
+// ---------- Soul ----------
+
+const AVATAR_IDS = ["1-lingkar", "2-tumpuk", "3-segitiga", "4-kotak"] as const;
+const CHOICE_IDS = ["A", "B", "C"] as const;
+const RANK_IDS = ["pemula_waspada", "penjaga_siaga", "penjaga_teguh"] as const;
+const METER_KEYS = ["kepercayaan", "kewaspadaan", "keamanan"] as const;
+
+/** Meter 0–100 (UI: 5 segmen). `deltas` boleh negatif, jadi rentang hanya dicek untuk meter. */
+function meters(v: unknown, path: string, range = true): Meters {
+  const o = obj(v, path);
+  for (const k of METER_KEYS) {
+    const n = num(o[k], `${path}.${k}`);
+    if (range && (n < 0 || n > 100)) throw new ResponseShapeError(`${path}.${k}`, "harus 0–100");
+  }
+  return v as Meters;
+}
+
+function mission(v: unknown, path: string): Mission {
+  const o = obj(v, path);
+  str(o.id, `${path}.id`);
+  oneOf(String(o.index), `${path}.index`, ["1", "2", "3"] as const);
+  str(o.story, `${path}.story`);
+  const ids = arr(o.choices, `${path}.choices`, (x, p) => {
+    const c = obj(x, p);
+    str(c.label, `${p}.label`);
+    return oneOf(c.id, `${p}.id`, CHOICE_IDS);
+  });
+  if (ids.length !== 3 || new Set(ids).size !== 3) throw new ResponseShapeError(`${path}.choices`, "harus A, B, C");
+  return v as Mission;
+}
+
+export function parseCharacterOptions(v: unknown): CharacterOptions {
+  const o = obj(v, "characters");
+  const relations = arr(o.relations, "characters.relations", (x, p) => {
+    const r = obj(x, p);
+    str(r.label, `${p}.label`);
+    str(r.arc_id, `${p}.arc_id`);
+    return str(r.id, `${p}.id`);
+  });
+  if (relations.length === 0) throw new ResponseShapeError("characters.relations", "tidak boleh kosong");
+  arr(o.templates, "characters.templates", (x, p) => {
+    const t = obj(x, p);
+    str(t.id, `${p}.id`);
+    str(t.default_name, `${p}.default_name`);
+    str(t.arc_id, `${p}.arc_id`);
+    oneOf(t.avatar, `${p}.avatar`, AVATAR_IDS);
+    const rel = str(t.relation_id, `${p}.relation_id`);
+    if (!relations.includes(rel)) throw new UnknownIdError(`${p}.relation_id`, rel);
+    return x;
+  });
+  num(o.nickname_max_length, "characters.nickname_max_length");
+  return v as CharacterOptions;
+}
+
+export function parseSoulStart(v: unknown): SoulStartResponse {
+  const o = obj(v, "soul_start");
+  str(o.arc_id, "soul_start.arc_id");
+  num(o.total_missions, "soul_start.total_missions");
+  meters(o.meters, "soul_start.meters");
+  mission(o.mission, "soul_start.mission");
+  return v as SoulStartResponse;
+}
+
+function summary(v: unknown, path: string): SoulSummary {
+  const o = obj(v, path);
+  oneOf(o.rank_id, `${path}.rank_id`, RANK_IDS);
+  str(o.rank_label, `${path}.rank_label`);
+  str(o.description, `${path}.description`);
+  arr(o.insights, `${path}.insights`, str);
+  meters(o.final_meters, `${path}.final_meters`);
+  return v as SoulSummary;
+}
+
+export function parseSoulStep(v: unknown): SoulStepResponse {
+  const o = obj(v, "soul_step");
+  oneOf(String(o.mission_index), "soul_step.mission_index", ["1", "2", "3"] as const);
+  oneOf(o.choice_id, "soul_step.choice_id", CHOICE_IDS);
+  const c = obj(o.consequence, "soul_step.consequence");
+  oneOf(c.kind, "soul_step.consequence.kind", ["positif", "negatif", "campuran"] as const);
+  str(c.what_happened, "soul_step.consequence.what_happened");
+  str(c.why, "soul_step.consequence.why");
+  meters(o.deltas, "soul_step.deltas", false);
+  meters(o.meters, "soul_step.meters");
+  const hasNext = o.next_mission !== null && o.next_mission !== undefined;
+  const hasSummary = o.summary !== null && o.summary !== undefined;
+  // Tepat salah satu: misi berikutnya (S-11) atau ringkasan (S-14).
+  if (hasNext === hasSummary) throw new ResponseShapeError("soul_step", "harus berisi next_mission ATAU summary");
+  if (hasNext) mission(o.next_mission, "soul_step.next_mission");
+  else summary(o.summary, "soul_step.summary");
+  return v as SoulStepResponse;
 }

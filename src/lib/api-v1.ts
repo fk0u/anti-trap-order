@@ -8,7 +8,8 @@
  *   menjadi error S-18, bukan crash saat render.
  * - Teks user hanya dikirim lewat `analyzeText()`, dan selalu dimasking dulu
  *   di sini (K12). Jangan mencatat teks ke console/log.
- * - Request lain hanya berisi ID.
+ * - Request lain hanya berisi ID (Soul: juga meter angka; nama panggilan
+ *   tidak pernah dikirim).
  */
 import { maskText } from "@/lib/ml/contract";
 import {
@@ -16,10 +17,13 @@ import {
   UnknownIdError,
   parseAnalyze,
   parseCategories,
+  parseCharacterOptions,
   parseHealth,
   parseReflect,
   parseScenarioDetail,
   parseScenarioSummaries,
+  parseSoulStart,
+  parseSoulStep,
   parseTactics,
 } from "@/lib/api-v1-validate";
 import {
@@ -29,6 +33,7 @@ import {
   type Answer,
   type Category,
   type CategoryId,
+  type CharacterOptions,
   type ErrorCode,
   type ErrorResponse,
   type Health,
@@ -36,6 +41,10 @@ import {
   type ReflectResponse,
   type ScenarioDetail,
   type ScenarioSummary,
+  type SoulStartRequest,
+  type SoulStartResponse,
+  type SoulStepRequest,
+  type SoulStepResponse,
   type Tactic,
 } from "@/types/api-v1";
 
@@ -267,4 +276,35 @@ export function reflect(req: ReflectRequest, opts?: RequestOptions): Promise<Ref
   ) as ReflectRequest["answers"];
   const body: ReflectRequest = { scenario_id: req.scenario_id, answers };
   return request("POST", "/api/v1/lite/reflect", body, parseReflect, opts);
+}
+
+// ---------- Soul (S-10 – S-14) ----------
+//
+// Nama panggilan karakter TIDAK PERNAH dikirim: hanya arc_id, mission_id,
+// choice_id, dan meters. Narasi diisi di frontend dengan fillStory().
+
+/** GET /api/v1/soul/characters — template karakter + relasi (S-10). */
+export function listCharacters(opts?: RequestOptions): Promise<CharacterOptions> {
+  return request("GET", "/api/v1/soul/characters", undefined, parseCharacterOptions, opts);
+}
+
+/** POST /api/v1/soul/start — meter awal + Misi 1 (S-11). */
+export function startSoul(arcId: string, opts?: RequestOptions): Promise<SoulStartResponse> {
+  const body: SoulStartRequest = { arc_id: arcId };
+  return request("POST", "/api/v1/soul/start", body, parseSoulStart, opts);
+}
+
+/**
+ * POST /api/v1/soul/step — konsekuensi (S-13) + misi berikutnya, atau
+ * ringkasan (S-14) jika `next_mission` null. Server stateless: kirim ulang
+ * meter terakhir. Body dibangun ulang field per field.
+ */
+export function stepSoul(req: SoulStepRequest, opts?: RequestOptions): Promise<SoulStepResponse> {
+  const body: SoulStepRequest = {
+    arc_id: req.arc_id,
+    mission_id: req.mission_id,
+    choice_id: req.choice_id,
+    meters: { kepercayaan: req.meters.kepercayaan, kewaspadaan: req.meters.kewaspadaan, keamanan: req.meters.keamanan },
+  };
+  return request("POST", "/api/v1/soul/step", body, parseSoulStep, opts);
 }
