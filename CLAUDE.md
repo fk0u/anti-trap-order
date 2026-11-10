@@ -65,6 +65,7 @@ npx -y -p playwright@1.49.1 node e2e/visual.cjs compare <folder-baseline> <folde
 ```
 
   Pembandingan byte per byte (PNG Chromium yang sama identik jika pikselnya identik); animasi dimatikan.
+  **Selalu build bersih (`rm -rf .next`) sebelum memotret** — cache Turbopack bisa menyimpan file font lama dan menyembunyikan perubahan rendering.
 - `lite.cjs` dan `errors.cjs` masing-masing ±1–2 menit (ada uji timeout 10 dtk). Jalankan ulang setelah mengubah alur Lite.
 
 ## Cara kerja
@@ -263,5 +264,5 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 **Token**
 
 - Token 01 yang belum terlihat dipakai di 06 dan karena itu belum ditambahkan ke kode: `danger`, `focus/ring`, `aero/sky-*`.
-- Token desktop dari frame BROWSER 06 (ditambahkan): text style `ato-d-display` (Plus Jakarta Sans 800), `ato-d-h1`, `ato-d-h2`, `ato-d-h3`, `ato-d-body-l`, `ato-d-body`; spasi `ato-40`, `ato-56`, `ato-80`.
+- Token desktop dari frame BROWSER 06 (ditambahkan): text style `ato-d-display` (Plus Jakarta Sans 800, dimuat sebagai font terpisah `atoUiHeavy` / `font-ato-ui-heavy` — menambah 800 ke `atoUi` mengubah file font variabel dan menggeser rendering teks mobile), `ato-d-h1`, `ato-d-h2`, `ato-d-h3`, `ato-d-body-l`, `ato-d-body`; spasi `ato-40`, `ato-56`, `ato-80`.
 - Nilai mentah di 06 yang bukan Variable Figma (ditambahkan sebagai token kode): `#000` (border/bayangan keras), `#00AAD9`, `#FFDA37`, `#97DCF0`, `#58FF2A`, `rgba(95,227,247,.95)`, `#68E4F8`.

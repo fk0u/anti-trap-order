@@ -17,7 +17,7 @@ export function HeroSection() {
     <section className="flex w-full flex-col gap-ato-16 lg:flex-row lg:items-center lg:gap-ato-0">
       <div className="contents lg:flex lg:min-w-px lg:flex-1 lg:flex-col lg:gap-ato-20">
         <ConsoleLabel>{hero.eyebrow}</ConsoleLabel>
-        <h1 className="ato-text-outline w-full font-ato-display text-ato-m-display text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui lg:text-ato-d-display">
+        <h1 className="ato-text-outline w-full font-ato-display text-ato-m-display text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui-heavy lg:text-ato-d-display">
           {hero.title}
         </h1>
         <p className="w-full font-ato-ui text-ato-m-body-l text-ato-text-2 lg:text-ato-d-body-l">{hero.body}</p>

@@ -90,6 +90,8 @@ const config: Config = {
         // Variabel font diisi oleh src/app/fonts.ts (next/font) pada wrapper halaman.
         // ato-ui-arrows hanya berisi "→" dan "↻" (lihat src/app/fonts.ts).
         "ato-ui": ["var(--font-ato-ui-arrows)", "var(--font-ato-ui)", "system-ui", "sans-serif"],
+        // Plus Jakarta Sans 800 terpisah (Desktop/Display) — lihat src/app/fonts.ts.
+        "ato-ui-heavy": ["var(--font-ato-ui-arrows)", "var(--font-ato-ui-heavy)", "system-ui", "sans-serif"],
         "ato-console": ["var(--font-ato-console)", "ui-monospace", "monospace"],
         "ato-display": ["var(--font-ato-display)", "Georgia", "serif"],
       },

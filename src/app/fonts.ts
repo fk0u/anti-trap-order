@@ -8,13 +8,25 @@ import localFont from "next/font/local";
  * halaman yang memakai token `font-ato-*` (lihat tailwind.config.ts).
  */
 
-/** family/ui — seluruh teks UI. */
+/**
+ * family/ui — seluruh teks UI.
+ * JANGAN menambah bobot di sini: rentang bobot mengubah file font variabel yang
+ * diunduh dan menggeser rendering teks mobile (terbukti lewat e2e/visual.cjs).
+ * Bobot lain dimuat sebagai font terpisah (lihat `atoUiHeavy`).
+ */
 export const atoUi = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  // 800 = Desktop/Display (judul hero S-01 desktop).
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
   variable: "--font-ato-ui",
+});
+
+/** Plus Jakarta Sans 800 — hanya Desktop/Display (judul hero S-01 desktop), kelas `font-ato-ui-heavy`. */
+export const atoUiHeavy = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  weight: ["800"],
+  display: "swap",
+  variable: "--font-ato-ui-heavy",
 });
 
 /**
@@ -58,4 +70,4 @@ export const atoDisplay = Alice({
   variable: "--font-ato-display",
 });
 
-export const atoFontVariables = [atoUi.variable, atoUiArrows.variable, atoConsole.variable, atoDisplay.variable].join(" ");
+export const atoFontVariables = [atoUi.variable, atoUiHeavy.variable, atoUiArrows.variable, atoConsole.variable, atoDisplay.variable].join(" ");
