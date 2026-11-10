@@ -49,6 +49,7 @@ NEXT_PUBLIC_API_URL=http://localhost:8080 npm run build && npx next start -p 300
 npx -y -p playwright@1.49.1 node e2e/lite.cjs          # alur Lite S-03–S-09, privasi request, 429, timeout
 npx -y -p playwright@1.49.1 node e2e/errors.cjs        # S-17/S-18/S-19/S-20, validasi respons, Back/refresh
 npx -y -p playwright@1.49.1 node e2e/loading-anim.cjs  # animasi S-07 + reduced motion
+npx -y -p playwright@1.49.1 node e2e/soul.cjs          # alur Soul S-10–S-14, aturan nama, privasi, riwayat, error
 ```
 
 - `E2E_BASE_URL` (default `http://localhost:3000`) jika frontend di port lain; samakan dengan `CORS_ORIGIN`.
@@ -69,6 +70,8 @@ Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBad
 
 Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`). Setiap langkah = satu entri riwayat (`pushState`): Back browser dan tombol "Kembali"/"Hasil" mundur satu langkah; S-07 tidak tersisa di riwayat (Back dari S-08 → Q3). `replaceState` hanya sekali saat `/lite` dimuat. Refresh kembali ke S-03, dan Back dari situ langsung keluar dari `/lite` (entri dari sebelum refresh dilompati lewat `liteSession`/`liteIdx`). Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
 
+Alur Soul: `src/app/soul/page.tsx` → `src/components/soul/SoulFlow.tsx` (pola riwayat sama dengan Lite: `pushState` per langkah, refresh → S-10). Klien `listCharacters`/`startSoul`/`stepSoul` di `src/lib/api-v1.ts`; aturan nama panggilan dan segmen meter di `src/lib/soul/rules.ts`. **Nama panggilan dan relasi tidak pernah dikirim** — hanya dipakai `fillStory()` di browser; server hanya menerima `arc_id`, `mission_id`, `choice_id`, `meters`. Teks layar di `src/content/soul.ts`, avatar di `public/icons/ato/soul/`.
+
 MobileTabBar hanya tampil di route lama yang terdaftar di `ROUTES_WITH_TAB_BAR` (`src/lib/routes.ts`: `/drill`, `/realmulator`, `/docs`, `/tentang`). Layar 06 (`/`, `/lite`, `/soul`) dan 404 tidak memakainya.
 
 Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19 sheet (atau S-07 Error saat menunggu hasil); 5xx, 400, 404, JSON rusak, bentuk data salah, ID kategori/taktik tak dikenal → S-18; 429 → S-20. Bentuk respons divalidasi tanpa library di `src/lib/api-v1-validate.ts`. Layar error global: `src/app/not-found.tsx` (S-17), `src/app/error.tsx` dan `src/app/global-error.tsx` (S-18), komponen di `src/components/errors/ErrorScreens.tsx`, teks di `src/content/errors.ts`.
@@ -80,11 +83,16 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
+- **Mode terbatas Soul.** S-19 di Soul memakai sheet yang sama dengan Lite; "Lanjut mode terbatas" nonaktif (jawaban Syafar no. 12).
+- **"Lihat cara mainnya" (S-10)** disembunyikan — `/tentang` belum menjelaskan cara main Soul. TODO di `CharacterScreen.tsx` (jawaban no. 6).
+- **Untuk tim konten (Soul) — data API dipakai apa adanya (jawaban no. 2 dan 3):**
+  - S-10 06: kartu "Nadia, 17 / Adik", "Teman Kuliah / Teman", "Ibu / Orang tua", "Adik Tingkat / Adik tingkat". API: nama `default_name` (Nadia, Ibu, Raka, Salsa) + label relasi (Adik, Ibu, Teman Kuliah, Adik Tingkat). Avatar Ibu di API `2-tumpuk` (di 06 bentuk segitiga).
+  - Cerita, pilihan, konsekuensi, deskripsi peringkat, dan insight di API berbeda kata dengan contoh di 06.
+  - Template "Ibu" + cerita `{{nama}}, {{relasi}} kamu` menghasilkan "Ibu, ibu kamu". Dibiarkan; perlu diperbaiki di konten.
 - **"Simpan gambar" (ekspor 4:5) di S-09** disembunyikan — belum ada desain gambar di 06. TODO di `ActionCardScreen.tsx`; jangan tambah library.
 
 ## Belum dikerjakan
 
-- **S-10 – S-14 A20 Soul** — rencana PR 6 (`feat/soul-api-v1`) dan PR 7 (`feat/soul-ui`). `/soul` masih halaman lama.
 - **S-15 Tentang** — desain ada di Figma 06. `/tentang` masih halaman lama.
 - **S-16 Batasan & Privasi** — desain ada di Figma 06. Teksnya berisi klaim privasi: salin persis dari 06 dan cek dulu konflik "hanya di perangkatmu" vs K12 (lihat "Menunggu keputusan").
 
@@ -168,6 +176,29 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | S-03 menunggu > 3 dtk | — | Chip "Agak lama? Kami siapkan mode terbatas." (sama dengan S-07, `SLOW_HINT_MS`) melayang di atas BottomActionBar, tanpa menggeser layout |
 | S-09 salin gagal | 06 hanya "Tersalin ✓" | Label tombol menjadi "Gagal menyalin" selama 2 dtk, lalu kembali ke "Salin kalimat" |
 | Back browser setelah refresh di tengah alur | — | Refresh → S-03; Back langsung keluar dari `/lite`, entri lama dilompati (lihat "Token desain" → Alur Lite) |
+
+**A20 Soul (S-10 – S-14) — keputusan Syafar 10 Nov 2026 + keputusan desain mandiri**
+
+| Elemen | Figma 06 | Kode |
+|---|---|---|
+| Avatar | 02 (node 29:39): oranye/pink | 06 S-10: kuning/merah — dipakai SVG dari 06. "1 Lingkar" di 06 hanya ada versi isi pucat (`#F2FF93`); dipakai untuk semua state |
+| Avatar karakter buatan sendiri | Tidak digambar | Mengikuti relasi (avatar template dengan relasi sama). Belum ada tempat tampil di 06, jadi belum ditampilkan |
+| Ikon panah/centang | SVG Lucide | Memakai `lucide-react` (sama dengan Lite); `BackButton` prop `tone="soul"` (gradien `#ffb628`) |
+| "Buat sendiri" | Form selalu terbuka, tidak ada state terpilih | Mengetik/fokus di form = memilih karakter sendiri (kartu template tidak terpilih). Pesan error 06 hanya untuk isi berangka/email/URL; kosong → tombol nonaktif tanpa pesan |
+| Aturan nama | "tanpa nomor atau email" | Tolak angka APA PUN + email/URL (`maskText`), maks. 20, spasi dirapikan (jawaban no. 4) |
+| Relasi | Input dengan "▾" | `<select>` asli bergaya input 06 |
+| Tombol "Mulai Misi 1" | Ekspor `178.57deg #FFDA37 14.459% → putih 116.88%`, render pucat | `BUTTON_GRADIENTS.soulMode` (sama dengan S-18 "Beranda"), tanpa bayangan |
+| Warna label progres + ProgressDots S-11 | Frame "Selected" `#ffda37` (hampir tak terlihat di latar kuning); frame "None selected" `soul/accent` | Dipakai `soul/accent` di semua state |
+| ⚠️ Kartu konsekuensi S-13 | Ketiga varian (positif/negatif/campuran) memakai gradien hijau `#7aff55` yang sama | Diikuti; beda varian hanya dari badge dan warna meter |
+| Warna meter S-13/S-14 | Naik/tetap hijau `#1fc814`, turun merah `#bf0003` | Diikuti per meter dari `deltas`; S-14 memakai selisih `final_meters` − meter awal |
+| Segmen meter | 5 segmen | `round(nilai/20)` dijepit 0–5 (jawaban no. 9) |
+| Pilihan terkunci saat mengirim (S-12) | Tidak ada di 06 (S-12 hanya di 03 lama) | Pilihan lain redup memakai ChoiceCard "Locked" 02 (opacity 55%), tombol "Pilih →" loading (jawaban no. 7) |
+| Misi yang sudah dijawab (Back) | — | Hanya-baca: pilihan tetap, semua kartu terkunci; "Pilih →" membuka lagi S-13 tanpa request baru (jawaban no. 8b) |
+| "Karakter" saat misi berjalan | — | BottomSheet "Ganti karakter? Progres misi akan hilang." — "Lanjut misi" (utama, kuning) dan "Ganti" (sekunder) (jawaban no. 11) |
+| S-14 "Jalankan Lite…" | — | Link ke `/lite` (jawaban no. 10) |
+| ⚠️ S-14 "Ulangi dengan karakter lain" | Teks gradien `#0e7490 → putih` | Diikuti; kontras rendah di bagian bawah huruf |
+| Error Soul | Tidak digambar khusus Soul | Memakai S-18/S-19/S-20 yang sama dengan Lite (warna aqua) |
+| BottomActionBar | Tidak menempel di 06 (frame panjang) | Menempel di bawah layar (sticky), sama dengan Lite |
 
 **Token**
 
