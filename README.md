@@ -9,7 +9,7 @@
 [![Go 1.22](https://img.shields.io/badge/Go-1.22-00ADD8?logo=go)](https://go.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 
-**Live:** https://antitraporder.web.id (alias lama: https://ato.kousozo.tech)
+**Live:** https://ato.kousozo.tech
 
 ATO adalah **alat bantu berpikir, bukan deteksi pasti**. Alih-alih memberi skor bahaya, ATO melatih pengguna berpikir dari sudut pelaku (*perspective inversion*): "kalau kamu yang menipu, celah apa yang kamu manfaatkan?" — sehingga pengguna menemukan sendiri tanda bahayanya.
 
