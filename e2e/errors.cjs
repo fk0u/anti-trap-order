@@ -47,11 +47,13 @@ async function toQ3(page) {
   // ---------- Tab bar: daftar izin ----------
   {
     const { ctx, page } = await newPage(browser);
-    for (const [path, want] of [["/drill", 1], ["/tentang", 1], ["/soul", 0], ["/lite", 0], ["/", 0]]) {
-      await page.goto(`${BASE}${path}`, { waitUntil: "networkidle" });
+    for (const [path, want] of [["/drill", 1], ["/docs", 1], ["/tentang", 0], ["/privasi", 0], ["/soul", 0], ["/lite", 0], ["/", 0]]) {
+      // "load", bukan "networkidle": halaman lama /docs terus memanggil /api/health (klien lama).
+      await page.goto(`${BASE}${path}`, { waitUntil: "load" });
+      await page.waitForTimeout(300);
       assert.equal(await page.locator("nav.fixed").count(), want, `tab bar di ${path}`);
     }
-    ok("tab bar hanya di route lama (/drill, /tentang tampil; /soul, /lite, / tidak)");
+    ok("tab bar hanya di route lama (/drill, /docs tampil; /tentang, /privasi, /soul, /lite, / tidak)");
     await ctx.close();
   }
 
