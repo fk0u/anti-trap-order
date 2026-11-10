@@ -45,7 +45,7 @@ Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailw
 
 Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`, `BackButton`, `DisclaimerBanner`, `CategoryChip`, `OptionCard`, `OtherOption`, `BottomActionBar`, `GapCard`, `ChecklistItem`, `Segmented`, `ChannelItem`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`, `lite.ts`), disalin persis dari Figma.
 
-Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`, sinkron riwayat browser; refresh kembali ke S-03). Route tanpa MobileTabBar didaftar di `src/lib/routes.ts`. Tombol "Simulasi uji" S-07 hanya muncul saat `NODE_ENV=development`.
+Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`, sinkron riwayat browser; refresh kembali ke S-03). Route tanpa MobileTabBar didaftar di `src/lib/routes.ts`. Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
 
 ## Menunggu keputusan
 
@@ -116,6 +116,8 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Titik di judul | Teks statis "Menyusun celah yang kamu temukan…" (elipsis) | Elipsis diganti 3 titik beranimasi `""` → `.` → `..` → `...` setiap 400 ms (`DOT_STEP_MS`), berulang sampai hasil diterima. Ruang 3 titik selalu ada (titik belum muncul transparan) agar teks rata tengah tidak bergeser; `aria-hidden` |
 | Tips di bawah judul | Satu kalimat statis | Bergantian setiap 3 dtk (`TIP_INTERVAL_MS`) dengan fade keluar lalu masuk 300 ms (`TIP_FADE_MS`). Isi: kalimat Figma dulu, lalu `explanation` dari `GET /lite/tactics` (diambil sekali saat `/lite` dibuka; gagal → hanya kalimat Figma, tanpa sheet error). Tidak ada kalimat karangan. Tinggi area = tips terpanjang (semua tips ditumpuk di satu sel grid); `aria-live="off"` |
 | `prefers-reduced-motion` | — | Titik tetap `...`; tips berganti tanpa fade (`transition-none`) |
+| Satu tampilan loading | Dua frame: Default (judul gradien pudar + cahaya bawah) dan Lambat 3s (judul `text/1` solid, tanpa cahaya bawah) | Hanya desain **Lambat** yang dipakai sejak awal; chip "Agak lama?" tetap muncul setelah 3 dtk. Keputusan Syafar, 10 Nov 2026 |
+| Link "Simulasi uji" di bawah S-07 | 4 link alat uji prototype | Dihapus dari kode |
 | Tidak berubah | — | Alur, timer 3/10 dtk, chip "Agak lama?", state Error |
 
 **Token**

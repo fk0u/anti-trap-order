@@ -10,10 +10,6 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 import { cn } from "@/lib/utils";
 
 export type LoadingState = "waiting" | "slow" | "error";
-export type SimulateKind = "network" | "apiDown" | "server" | "tooFast";
-
-/** Tombol "Simulasi uji" di 06 adalah alat uji prototype: hanya untuk development. */
-const SHOW_SIMULATE = process.env.NODE_ENV === "development";
 
 // ---------- Animasi S-07 (keputusan desain mandiri, tidak ada di Figma 06) ----------
 
@@ -114,20 +110,19 @@ type LoadingScreenProps = {
    */
   tips: readonly string[];
   onRetry: () => void;
-  onSimulate: (kind: SimulateKind) => void;
 };
 
-/** S-07 Loading — Figma 06: Default (56:7268), Lambat 3s (56:8425), Error (56:8446). */
-export function LoadingScreen({ state, tips, onRetry, onSimulate }: LoadingScreenProps) {
+/**
+ * S-07 Loading — satu tampilan memakai desain Figma 06 "Lambat 3s" (56:8425):
+ * judul `text/1` solid, tanpa cahaya bawah. Desain "Default" (56:7268, judul
+ * bergradien pudar + cahaya bawah) tidak dipakai — keputusan Syafar, 10 Nov 2026.
+ * Chip "Agak lama?" tetap muncul setelah SLOW_HINT_MS. Error: node 56:8446.
+ */
+export function LoadingScreen({ state, tips, onRetry }: LoadingScreenProps) {
   const copy = liteCopy.loading;
   const reduced = useReducedMotion();
   return (
     <LiteScreen className="items-center justify-center px-ato-24">
-      {/* Cahaya bawah (node 149:5427) — hanya di state Default/Lambat, tidak ada di Error. */}
-      {state !== "error" && (
-        <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 h-[106px] bg-gradient-to-b from-white to-[#8ce9f8]" />
-      )}
-
       {state === "error" ? (
         <div role="alert" className="relative flex w-full flex-col items-center gap-ato-24">
           <StatusIcon>
@@ -140,15 +135,7 @@ export function LoadingScreen({ state, tips, onRetry, onSimulate }: LoadingScree
       ) : (
         <div role="status" aria-live="polite" className="relative flex w-full flex-col items-center gap-ato-24">
           <StepperAlphaOmega variant="flow" step={2} />
-          {/* Satu elemen untuk Default & Lambat agar animasi titik tidak mulai ulang saat chip muncul. */}
-          <h1
-            className={cn(
-              "w-full text-center font-ato-ui text-ato-m-h2",
-              state === "slow"
-                ? "text-ato-text-1"
-                : "bg-gradient-to-b from-ato-lite-accent from-[0.862%] to-white to-[150%] bg-clip-text text-transparent"
-            )}
-          >
+          <h1 className="w-full text-center font-ato-ui text-ato-m-h2 text-ato-text-1">
             {copy.title}
             <AnimatedDots reduced={reduced} />
           </h1>
@@ -158,21 +145,6 @@ export function LoadingScreen({ state, tips, onRetry, onSimulate }: LoadingScree
               {copy.slow}
             </p>
           )}
-        </div>
-      )}
-
-      {SHOW_SIMULATE && (
-        <div className="absolute inset-x-0 bottom-[26px] flex flex-col items-center gap-[6px]">
-          {(Object.keys(copy.simulate) as SimulateKind[]).map((kind) => (
-            <button
-              key={kind}
-              type="button"
-              onClick={() => onSimulate(kind)}
-              className="font-ato-ui text-ato-caption text-ato-text-3 underline-offset-2 hover:underline"
-            >
-              {copy.simulate[kind]}
-            </button>
-          ))}
         </div>
       )}
     </LiteScreen>

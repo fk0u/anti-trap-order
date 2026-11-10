@@ -19,7 +19,7 @@ import { pickMissed } from "@/lib/lite/pick-missed";
 import type { Answer, Category, CategoryId, DetectedTactic, ReflectRequest, ReflectResponse, ScenarioDetail } from "@/types/api-v1";
 import { ActionCardScreen } from "@/components/lite/ActionCardScreen";
 import { ApiDownSheet } from "@/components/lite/ApiDownSheet";
-import { LoadingScreen, type LoadingState, type SimulateKind } from "@/components/lite/LoadingScreen";
+import { LoadingScreen, type LoadingState } from "@/components/lite/LoadingScreen";
 import { EMPTY_DRAFT, QuestionScreen, type AnswerDraft } from "@/components/lite/QuestionScreen";
 import { RateLimitScreen } from "@/components/lite/RateLimitScreen";
 import { ResultScreen } from "@/components/lite/ResultScreen";
@@ -223,12 +223,6 @@ export function LiteFlow() {
     if (step !== "loading") reflectAbort.current?.abort();
   }, [step]);
 
-  const onSimulate = useCallback((kind: SimulateKind) => {
-    reflectAbort.current?.abort();
-    if (kind === "apiDown") setSheetRetry(() => runReflect);
-    else if (kind === "tooFast") setRateLimitSeconds(DEFAULT_RETRY_AFTER_S);
-    else setLoadState("error");
-  }, [runReflect]);
 
   const missed = useMemo(() => (result ? pickMissed(result.missed_candidates, detected) : []), [result, detected]);
 
@@ -294,7 +288,7 @@ export function LiteFlow() {
     );
   } else if (view === "loading") {
     screen = (
-      <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} onSimulate={onSimulate} />
+      <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} />
     );
   } else if (view === "result" && result) {
     screen = <ResultScreen result={result} missed={missed} onNext={() => go("action")} />;

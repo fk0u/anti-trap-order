@@ -51,12 +51,6 @@ export const liteCopy = {
     body: "Pelaku suka membuatmu merasa sempat tapi terburu-buru.",
     slow: "Agak lama? Kami siapkan mode terbatas.",
     /** Hanya tampil saat NODE_ENV=development (alat uji prototype). */
-    simulate: {
-      network: "Simulasi uji: koneksi terputus",
-      apiDown: "Simulasi uji: API down (sheet)",
-      server: "Simulasi uji: server error",
-      tooFast: "Simulasi uji: terlalu cepat",
-    },
   },
 
   // S-07 Error (node 56:8446) dan S-19 (node 56:8512)
