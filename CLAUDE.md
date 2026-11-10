@@ -55,6 +55,16 @@ npx -y -p playwright@1.49.1 node e2e/info.cjs          # S-15 /tentang dan S-16 
 
 - `E2E_BASE_URL` (default `http://localhost:3000`) jika frontend di port lain; samakan dengan `CORS_ORIGIN`.
 - Screenshot ke argumen pertama, `E2E_OUT`, atau `<temp>/ato-e2e`.
+- `E2E_VIEWPORT` = `390` (default), `768`, `1024`, `1440` (atau `LEBARxTINGGI`). Semua suite harus lolos di keempatnya.
+- **Regresi visual mobile (wajib sebelum commit yang menyentuh UI):** tampilan 390px tidak boleh berubah.
+
+```bash
+npx -y -p playwright@1.49.1 node e2e/visual.cjs capture <folder-baseline>   # sebelum mengubah kode
+npx -y -p playwright@1.49.1 node e2e/visual.cjs capture <folder-baru>       # sesudah build ulang
+npx -y -p playwright@1.49.1 node e2e/visual.cjs compare <folder-baseline> <folder-baru>   # harus "32 state identik"
+```
+
+  Pembandingan byte per byte (PNG Chromium yang sama identik jika pikselnya identik); animasi dimatikan.
 - `lite.cjs` dan `errors.cjs` masing-masing ±1–2 menit (ada uji timeout 10 dtk). Jalankan ulang setelah mengubah alur Lite.
 
 ## Cara kerja
@@ -64,6 +74,14 @@ npx -y -p playwright@1.49.1 node e2e/info.cjs          # S-15 /tentang dan S-16 
 - Jika menemukan konflik antara wireframe dan dokumen ini, berhenti dan tanyakan ke user.
 
 ## Token desain
+
+**Breakpoint (keputusan Syafar, 10 Nov 2026), konstanta di `src/lib/layout.ts`:**
+
+- `< 768` — mobile Figma 06. **Tidak boleh berubah** (cek dengan `e2e/visual.cjs`).
+- `768–1023` — tablet tanpa desain: layout mobile, kolom maks. 560px di tengah (`TABLET_COLUMN`).
+- `≥ 1024` (`lg:`) — desktop: tata letak **dan gaya visual** frame BROWSER 1440 Figma 06, teks tetap versi mobile terbaru. Container 1120 di tengah (`DESKTOP_CONTAINER`). Header desktop `src/components/ui/DesktopHeader.tsx`.
+- Gaya desktop hanya lewat kelas `lg:` (dan `md:max-lg:` untuk tablet). Pembungkus grid desktop memakai `display: contents` di bawah lg supaya urutan mobile tetap.
+- ⚠️ `cn()` (tailwind-merge) **tidak** mengenal skala spasi `ato-*`: dua kelas spasi `ato-*` yang bentrok pada varian yang sama tidak digabung, pemenangnya ditentukan urutan CSS. Jangan menumpuk kelas spasi bentrok; mendaftarkan skala spasi ke `cn()` sempat mengubah 4 state mobile (dibatalkan).
 
 Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailwind.config.ts` (awalan `ato-`, mis. `bg-ato-bg-0`, `text-ato-m-body`, `rounded-ato-lg`, `shadow-ato-gloss`). Font di `src/app/fonts.ts`; pasang `atoFontVariables` di wrapper halaman (layout root tidak dipakai untuk font ATO). JetBrains Mono di-host sendiri (`src/app/fonts/`, lisensi OFL) karena versi Google Fonts tidak punya glyph "→". Begitu juga glyph "→"/"↻" Plus Jakarta Sans (subset ±0,7 KB, `atoUiArrows`, ditaruh sebelum `atoUi` di stack font). Token dan class lama (`surface`, `brand`, `aero-*`, dll.) masih dipakai halaman lama, jangan dihapus.
 
@@ -97,7 +115,6 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 
 ## Belum dikerjakan
 
-- **Desktop** semua layar 06 (baru versi mobile).
 
 ## Keputusan desain mandiri
 
@@ -215,7 +232,37 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | S-15 "Cara hasil dibuat" | "tanpa model AI" (judul dan isi) | "tanpa AI generatif" — analisis memakai Naive Bayes di server (K12) |
 | S-15 Atribusi | Tanpa Alice | Ditambah "Alice (SIL Open Font License)" |
 
+**Desktop (≥ 1024) — frame BROWSER 1440 Figma 06; keputusan Syafar 10 Nov 2026: tata letak dan gaya ikut desktop 06, teks ikut mobile terbaru**
+
+| Elemen | Figma 06 desktop | Kode |
+|---|---|---|
+| Gaya visual | Gaya 02: tombol solid + kilau, judul gelap, Soul cokelat `soul/accent`, langit peach, avatar oranye | Diikuti persis di `lg:`; mobile tetap gaya Aero 06 |
+| Teks | Sebagian masih teks lama (mis. "Mulai Misi 1 →", "tanpa model AI") | Teks mobile terbaru dipakai di semua ukuran (termasuk koreksi K12) |
+| Teks khusus desktop | Panel S-03, "Langkah berikutnya" S-08, "APA YANG KAMU LAKUKAN?" S-11, "MISI n DARI 3 · KONSEKUENSI" S-13, kartu pratinjau S-01, "SEBELUM/SESUDAH" S-01, stepper vertikal | Dipakai (disalin dari Figma; tidak ada yang menyebut data/privasi) |
+| S-02 Pilih Mode | Tidak ada | Tidak dipakai di desktop — perannya diganti link nav header |
+| Header S-01 | Varian sendiri: link `#97ecfa`/`#ffe469` (ekspor menulis putih; diukur dari render), CTA gradien `#67e4f7 → putih` | `DesktopHeader variant="landing"`. ⚠️ Kontras link sangat rendah |
+| Header layar lain | Link `text/2`, aktif = aksen, CTA solid | Lite/Tentang/Privasi aktif sesuai frame; Soul aksen cokelat |
+| ⚠️ Badge "Menunggu verifikasi" S-16 | Render rusak (bar cokelat tanpa teks) | Memakai badge mobile S-16 |
+| "Lihat cara mainnya" (S-10), "Simpan gambar" (S-09), "Lihat di GitHub" (S-15) | Ada di desktop | Tetap disembunyikan (keputusan sebelumnya berlaku untuk semua ukuran) |
+| Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Sama dengan mobile. ⚠️ Link GitHub (mobile dan desktop) mengarah ke repo privat (404 untuk publik) — belum diubah, menunggu keputusan |
+| Stepper vertikal (panel Lite) | 06 hanya menggambar Alpha selesai | Titik tengah selesai = 12px aksen + garis aksen; Ω tercapai (S-07/S-08) = aksen penuh |
+| Meter Soul turun (S-13/S-14 desktop) | Frame positif: semua cokelat | Naik/tetap cokelat; turun merah `#bf0003` (02 Meter State=down) |
+| S-07 Loading desktop | Tidak ada frame | Panel konteks (progres, stepper di "Hasil", disclaimer) + animasi di kolom kanan maks. 480 |
+| S-17 / S-18 / S-20 desktop | Tidak ada frame | Isi di tengah maks. 480 (tablet 560), tanpa header desktop |
+| S-19 dan "Ganti karakter?" desktop | Tidak ada frame | Modal 02 (node 52:312) 560px di tengah; tombol gaya desktop; aturan scrim/Esc sama dengan mobile |
+| S-09 desktop tanpa tombol "Hasil" | Desain desktop tidak punya tombol kembali | Kembali ke S-08 lewat Back browser |
+| BottomActionBar desktop | Tombol di akhir kolom, tidak menempel | Bar menjadi baris tombol biasa (`lg:relative`), rata kanan/kiri sesuai frame |
+
+**Tablet (768–1023) — tanpa desain**
+
+| Elemen | Kode |
+|---|---|
+| Semua layar | Layout mobile, kolom konten maks. 560px di tengah; latar tetap selebar layar |
+| BottomActionBar | Tetap menempel di bawah selebar layar, isinya ikut kolom 560 |
+| Sheet (S-02, S-19, "Ganti karakter?") | Sheet bawah selebar 560 di tengah |
+
 **Token**
 
-- Token 01 yang belum terlihat dipakai di 06 dan karena itu belum ditambahkan ke kode: `danger`, `focus/ring`, `aero/sky-*`, `space/40`, `space/56`, `space/80`, semua text style desktop.
+- Token 01 yang belum terlihat dipakai di 06 dan karena itu belum ditambahkan ke kode: `danger`, `focus/ring`, `aero/sky-*`.
+- Token desktop dari frame BROWSER 06 (ditambahkan): text style `ato-d-display` (Plus Jakarta Sans 800), `ato-d-h1`, `ato-d-h2`, `ato-d-h3`, `ato-d-body-l`, `ato-d-body`; spasi `ato-40`, `ato-56`, `ato-80`.
 - Nilai mentah di 06 yang bukan Variable Figma (ditambahkan sebagai token kode): `#000` (border/bayangan keras), `#00AAD9`, `#FFDA37`, `#97DCF0`, `#58FF2A`, `rgba(95,227,247,.95)`, `#68E4F8`.
