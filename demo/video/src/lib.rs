@@ -1,67 +1,216 @@
-//! Video Proj: a single-scene fframes video.
+//! Video demo Anti Trap Order (ATO) untuk lomba MIT-Week UNMUL 2026.
 //!
-//! `render_frame` returns an SVG tree for every frame; `svgr!` is SVG with `{rust
-//! expressions}` in attributes and text. Check your work with the CLI in `main.rs`
-//! (`cargo run --release -- --help`).
+//! Naskah per adegan: `demo/NASKAH.md`. Layar di video adalah screenshot asli aplikasi
+//! (`media/*.png`, dibuat oleh `demo/shots.cjs` dan `demo/shots-soul.cjs`, data fiktif).
+//! Tanpa suara: narasi dan musik diisi di luar video. Tidak ada skor, persen, atau klaim
+//! deteksi pasti; kalimat privasi hanya yang sudah ada di aplikasi (S-01, S-16).
 use fframes::{
-    AudioMap, Color, Duration, FFramesContext, FontQuery, Frame, Svgr, Transform, Video,
-    animation::Easing, include_media_dir,
+    AnimateRuntimeInput, AudioMap, Color, Duration, FFramesContext, Frame, Overlap, Scene, Scenes,
+    Svgr, Transform, Video,
+    animation::{AnimationRuntime, Easing},
+    include_media_dir,
 };
-use std::sync::OnceLock;
+use std::sync::LazyLock;
 
-// Every file of `media/` is embedded into the binary. Fonts are used by family name.
 include_media_dir!(pub struct VideoProjMedia, "media");
 
 pub const WIDTH: usize = 1920;
 pub const HEIGHT: usize = 1080;
-/// 1.0 at 1080p, landscape or portrait: multiply sizes and distances by it.
-const UNIT: f32 = (if WIDTH < HEIGHT { WIDTH } else { HEIGHT }) as f32 / 1080.0;
 
 const FONT: &str = "DM Sans";
-/// The only weight in `media/`; add font files for more.
 const WEIGHT: u16 = 500;
-const INK: &str = "#0f172a";
-const MUTED: &str = "#475569";
-const ACCENT: &str = "#6366f1";
+const INK: &str = "#0b1b2a";
+const MUTED: &str = "#41586b";
+const LITE: &str = "#0e7490";
+const SOUL: &str = "#b45309";
+
+// Layar ponsel di kanan: 390x844 pt, gambar sumber 780 px lebar.
+const PHONE_X: f32 = 1180.0;
+const PHONE_Y: f32 = 72.0;
+const PHONE_W: f32 = 430.0;
+const PHONE_H: f32 = 930.0;
+const SRC_W: f32 = 780.0;
+
+#[derive(Clone, Copy, PartialEq)]
+enum Tone {
+    Lite,
+    Soul,
+    Neutral,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+enum Extra {
+    None,
+    Hook,
+    Privacy,
+    Closing,
+}
+
+/// Satu screenshot di dalam adegan. `h` = tinggi gambar sumber (px, lebar 780).
+struct Shot {
+    file: &'static str,
+    h: f32,
+    from: f32,
+    to: f32,
+    /// Halaman panjang: digulir dari atas ke bawah antara (pan.0, pan.1) detik.
+    pan: Option<(f32, f32)>,
+}
+
+struct Spec {
+    name: &'static str,
+    secs: f32,
+    kicker: &'static str,
+    lines: &'static [&'static str],
+    tone: Tone,
+    extra: Extra,
+    shots: &'static [Shot],
+}
+
+const fn shot(file: &'static str, h: f32, from: f32, to: f32, pan: Option<(f32, f32)>) -> Shot {
+    Shot { file, h, from, to, pan }
+}
+
+static SPECS: &[Spec] = &[
+    Spec {
+        name: "Masalah",
+        secs: 12.0,
+        kicker: "SETIAP HARI",
+        lines: &["Terasa janggal.", "Tapi di mana", "celahnya?"],
+        tone: Tone::Neutral,
+        extra: Extra::Hook,
+        shots: &[],
+    },
+    Spec {
+        name: "Pengantar",
+        secs: 13.0,
+        kicker: "A20 CULTURE TECHNOLOGY",
+        lines: &["Jangan hanya waspada.", "Jadilah penjaganya."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[shot("01-landing.png", 1688.0, 0.0, 13.0, None)],
+    },
+    Spec {
+        name: "Situasi",
+        secs: 15.0,
+        kicker: "A20 LITE · 3 MENIT",
+        lines: &["Tanpa login.", "Tanpa data pribadi."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[shot("03-situasi.png", 1688.0, 0.0, 15.0, None)],
+    },
+    Spec {
+        name: "Mode Pelaku",
+        secs: 25.0,
+        kicker: "A20 LITE · MODE PELAKU",
+        lines: &["Jadi pelakunya", "selama 30 detik."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[
+            shot("04-q1.png", 1688.0, 0.0, 8.8, None),
+            shot("04-q2.png", 1688.0, 8.4, 17.0, None),
+            shot("04-q3.png", 1688.0, 16.6, 25.0, None),
+        ],
+    },
+    Spec {
+        name: "Hasil",
+        secs: 20.0,
+        kicker: "A20 LITE · HASIL",
+        lines: &["Kamu yang", "menemukan celahnya."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[shot("05-hasil.png", 3914.0, 0.0, 20.0, Some((3.0, 18.0)))],
+    },
+    Spec {
+        name: "Action Card",
+        secs: 15.0,
+        kicker: "A20 LITE · ACTION CARD",
+        lines: &["Bawa ini", "bersamamu."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[shot("06-action.png", 2840.0, 0.0, 15.0, Some((3.0, 13.0)))],
+    },
+    Spec {
+        name: "Soul",
+        secs: 30.0,
+        kicker: "A20 SOUL · THE GUARDIAN ARC",
+        lines: &["Jaga seseorang", "lewat cerita."],
+        tone: Tone::Soul,
+        extra: Extra::None,
+        shots: &[
+            shot("07a-soul-karakter.png", 1688.0, 0.0, 5.6, None),
+            shot("07b-soul-misi1.png", 1712.0, 5.2, 10.6, None),
+            shot("07c-soul-konsekuensi1.png", 1848.0, 10.2, 17.6, Some((12.0, 16.5))),
+            shot("07d-soul-ringkasan.png", 2260.0, 17.2, 30.0, Some((20.0, 28.0))),
+        ],
+    },
+    Spec {
+        name: "Privasi",
+        secs: 20.0,
+        kicker: "BATASAN & PRIVASI",
+        lines: &["Kami tidak menyimpan", "apa yang kamu tulis."],
+        tone: Tone::Lite,
+        extra: Extra::Privacy,
+        shots: &[shot("08-privasi.png", 3244.0, 0.0, 20.0, Some((4.0, 18.5)))],
+    },
+    Spec {
+        name: "Mode Terbatas",
+        secs: 18.0,
+        kicker: "SERVER MATI? TETAP LANJUT",
+        lines: &["Hasilnya dibuat", "di perangkatmu."],
+        tone: Tone::Lite,
+        extra: Extra::None,
+        shots: &[
+            shot("09-offline-sheet.png", 1688.0, 0.0, 8.0, None),
+            shot("05-hasil.png", 3914.0, 7.6, 18.0, Some((9.0, 17.0))),
+        ],
+    },
+    Spec {
+        name: "Penutup",
+        secs: 12.0,
+        kicker: "MIT-WEEK UNMUL 2026 · GUARDIANS OF THE DIGITAL SPACE",
+        lines: &["Anti Trap Order"],
+        tone: Tone::Neutral,
+        extra: Extra::Closing,
+        shots: &[],
+    },
+];
+
+const TOTAL_SECONDS: f32 = 180.0;
+
+static EASE: LazyLock<AnimationRuntime> = LazyLock::new(|| AnimationRuntime::new(0.7, &Easing::EaseOut));
+static SPRING: LazyLock<AnimationRuntime> = LazyLock::new(|| {
+    AnimationRuntime::new(3.0, &Easing::Spring { mass: 1.0, stiffness: 170.0, damping: 20.0 })
+});
+
+/// 0 sampai 1 selama 0,7 dtk mulai `start` (detik dalam adegan).
+fn ramp(frame: &Frame, start: f32) -> f32 {
+    frame.animate_runtime(AnimateRuntimeInput { on_second: start, from: 0.0, to: 1.0, animation_runtime: &EASE })
+}
+
+/// Offset vertikal: pegas dari `from` px ke 0 mulai `start`.
+fn rise(frame: &Frame, start: f32, from: f32) -> f32 {
+    frame.animate_runtime(AnimateRuntimeInput { on_second: start, from, to: 0.0, animation_runtime: &SPRING })
+}
+
+fn smooth(x: f32) -> f32 {
+    let x = x.clamp(0.0, 1.0);
+    x * x * (3.0 - 2.0 * x)
+}
 
 pub struct VideoProjVideo<'a> {
     pub media: &'a VideoProjMedia,
-    greeting: String,
-    /// Font size of the greeting, measured once so it fits the width.
-    greeting_size: OnceLock<usize>,
+    beats: Vec<Beat>,
 }
 
 impl<'a> VideoProjVideo<'a> {
-    pub fn new(media: &'a VideoProjMedia, title: &str) -> Self {
-        Self {
-            media,
-            greeting: format!("Hello, {title}"),
-            greeting_size: OnceLock::new(),
-        }
-    }
-
-    /// Largest size up to 150 px (at 1080p) at which the greeting fits 80% of the width.
-    fn greeting_size<'b>(&'b self, frame: &mut Frame, ctx: &FFramesContext<'b, '_>) -> usize {
-        if let Some(size) = self.greeting_size.get() {
-            return *size;
-        }
-        let max_width = WIDTH as f32 * 0.8;
-        let mut size = (150. * UNIT) as usize;
-        loop {
-            let font = FontQuery { family: FONT, size, weight: WEIGHT, ..Default::default() };
-            match frame.text_width(ctx, font, &self.greeting) {
-                Some(width) if width as f32 > max_width && size > 24 => size -= 4,
-                // Only remember real measurements (fonts can be missing in the web editor).
-                Some(_) => return *self.greeting_size.get_or_init(|| size),
-                None => return size,
-            }
-        }
+    pub fn new(media: &'a VideoProjMedia, _title: &str) -> Self {
+        Self { media, beats: SPECS.iter().map(|spec| Beat { spec }).collect() }
     }
 }
 
 impl std::fmt::Debug for VideoProjVideo<'_> {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("VideoProjVideo").field("greeting", &self.greeting).finish()
+        f.debug_struct("VideoProjVideo").finish()
     }
 }
 
@@ -72,58 +221,209 @@ impl Video for VideoProjVideo<'_> {
     const BACKGROUND_COLOR: Color = Color::WHITE;
 
     fn duration(&self) -> Duration<'_> {
-        Duration::Seconds(6.0)
+        Duration::Auto
     }
 
     fn audio(&self) -> AudioMap<'_> {
-        // Put audio files into `media/` and place them on the timeline, e.g.:
-        //
-        // use fframes::{AudioTrack, AudioTimestamp::*};
-        // AudioMap::from([AudioTrack::new("music.mp3", Second(0.)..Eof).gain_db(-12.).fade_out(1.5)])
+        // Tanpa suara: narasi dan musik diisi Syafar (lihat demo/NASKAH.md).
         AudioMap::none()
     }
 
-    fn render_frame<'a>(&'a self, mut frame: Frame, ctx: &FFramesContext<'a, '_>) -> Svgr<'a> {
-        let spring = Easing::Spring { mass: 1.0, stiffness: 180.0, damping: 20.0 };
-        let size = self.greeting_size(&mut frame, ctx);
+    fn define_scenes(&self) -> Scenes<'_> {
+        Scenes::from(self.beats.iter().map(|b| b as &dyn Scene).collect::<Vec<_>>())
+    }
 
-        // The greeting springs up and fades in, the subtitle follows, everything fades out.
-        let rise = frame.animate(&fframes::timeline!(at 0.2, animate 80.0_f32 => 0.0, spring));
-        let fade_in = frame.animate(&fframes::timeline!(at 0.2 => 0.6, animate 0.0_f32 => 1.0, Easing::EaseOut));
-        let subtitle = frame.animate(&fframes::timeline!(at 0.9 => 1.4, animate 0.0_f32 => 1.0, Easing::EaseOut));
-        let fade_out = frame.animate(&fframes::timeline!(at 5.4 => 5.9, animate 1.0_f32 => 0.0, Easing::EaseIn));
-        // SVG skips zero-sized rects, so the underline grows from a hairline.
-        let underline = frame.animate(&fframes::timeline!(at 0.6 => 1.3, animate 0.5_f32 => 360.0, Easing::EaseInOut)) * UNIT;
-        // A slow drift keeps the background alive while the text holds.
-        let drift = frame.animate(&fframes::timeline!(at 0.0 => 6.0, animate 0.0_f32 => 160.0, Easing::EaseInOut)) * UNIT;
-
-        let (cx, cy) = (WIDTH as f32 / 2., HEIGHT as f32 / 2.);
-
+    fn render_frame<'a>(&'a self, frame: Frame, ctx: &FFramesContext<'a, '_>) -> Svgr<'a> {
+        let progress = (frame.seconds() / TOTAL_SECONDS * 1620.0).clamp(0.5, 1620.0);
         fframes::svgr!(
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox={format!("0 0 {WIDTH} {HEIGHT}")} width={WIDTH} height={HEIGHT}>
-                <defs>
-                    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
-                        <stop offset="0" stop-color="#c7d2fe" stop-opacity="0.9" />
-                        <stop offset="1" stop-color="#c7d2fe" stop-opacity="0" />
-                    </radialGradient>
-                </defs>
-                <rect width={WIDTH} height={HEIGHT} fill="#f8fafc" />
-                <circle cx={WIDTH as f32 * 0.78 - drift} cy={HEIGHT as f32 * 0.25 + drift * 0.5} r={620. * UNIT} fill="url(#glow)" />
-
-                <g opacity={fade_in * fade_out} transform={Transform::translate(0, rise * UNIT)}>
-                    <text x={cx} y={cy} font-family={FONT} font-size={size} font-weight={WEIGHT} fill={INK} text-anchor="middle">
-                        {self.greeting.as_str()}
-                    </text>
-                    <rect x={cx - underline / 2.} y={cy + 36. * UNIT} width={underline} height={10. * UNIT} rx={5. * UNIT} fill={ACCENT} />
-                    <text x={cx} y={cy + 120. * UNIT} font-family={FONT} font-size={44. * UNIT} font-weight={WEIGHT} fill={MUTED} text-anchor="middle" opacity={subtitle}>
-                        "made with fframes"
-                    </text>
-                </g>
-
-                <text x={48. * UNIT} y={HEIGHT as f32 - 48. * UNIT} font-family={FONT} font-size={26. * UNIT} font-weight={WEIGHT} fill={MUTED}>
-                    {format!("frame {} / {:.2}s", frame.index, frame.seconds())}
-                </text>
+            <svg xmlns="http://www.w3.org/2000/svg" width={WIDTH} height={HEIGHT} viewBox="0 0 1920 1080">
+                <rect width="1920" height="1080" fill="#f4fbfe" />
+                {ctx.render_scenes(&frame)}
+                <rect x="150" y="1046" width="1620" height="4" rx="2" fill="#0b1b2a" opacity="0.12" />
+                <rect x="150" y="1046" width={progress} height="4" rx="2" fill={LITE} />
             </svg>
         )
+    }
+}
+
+#[derive(Debug)]
+struct Beat {
+    spec: &'static Spec,
+}
+
+impl std::fmt::Debug for Spec {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.write_str(self.name)
+    }
+}
+
+impl Scene for Beat {
+    fn duration(&self) -> Duration<'_> {
+        Duration::Seconds(self.spec.secs)
+    }
+
+    fn name(&self) -> &'static str {
+        self.spec.name
+    }
+
+    fn overlap(&self) -> Overlap {
+        Overlap::None
+    }
+
+    fn render_frame<'a>(&'a self, frame: Frame, ctx: &FFramesContext<'a, '_>) -> Svgr<'a> {
+        let spec = self.spec;
+        let t = frame.seconds();
+        let accent = if spec.tone == Tone::Soul { SOUL } else { LITE };
+        let (sky_a, sky_b) = match spec.tone {
+            Tone::Lite => ("#c9f3fb", "#f4fbfe"),
+            Tone::Soul => ("#ffe98c", "#fff9e0"),
+            Tone::Neutral => ("#e4f6fb", "#f4fbfe"),
+        };
+        let has_phone = !spec.shots.is_empty();
+        let left = has_phone || spec.extra == Extra::Hook;
+        let text_x = if left { 150.0 } else { 960.0 };
+        let anchor = if left { "start" } else { "middle" };
+        let line_start = if spec.extra == Extra::Privacy { 330.0 } else { 440.0 };
+
+        let lines: Vec<Svgr> = spec
+            .lines
+            .iter()
+            .enumerate()
+            .map(|(i, line)| {
+                let start = 0.35 + i as f32 * 0.18;
+                let size = if spec.extra == Extra::Closing { 150 } else { 92 };
+                let y = if spec.extra == Extra::Closing { 640.0 } else { line_start + i as f32 * 112.0 };
+                fframes::svgr!(<text x={text_x} y={y + rise(&frame, start, 46.0)} font-size={size} letter-spacing="-2" fill={INK} text-anchor={anchor} opacity={ramp(&frame, start)}>{*line}</text>)
+            })
+            .collect();
+
+        let phone = if has_phone { self.phone(&frame, ctx, accent) } else { Svgr::empty() };
+        let extra = match spec.extra {
+            Extra::Hook => self.hook(&frame),
+            Extra::Privacy => self.privacy(&frame, accent),
+            Extra::Closing => self.closing(&frame, accent),
+            Extra::None => Svgr::empty(),
+        };
+        let kicker_y = if spec.extra == Extra::Closing { 860.0 } else if spec.extra == Extra::Privacy { 230.0 } else { 330.0 };
+        let kicker_size = if spec.extra == Extra::Closing { 30 } else { 34 };
+        // Tanpa overlap: tiap adegan memudar masuk/keluar lewat latar yang sama (tanpa kedip).
+        let env = smooth(t / 0.5).min(smooth((spec.secs - t) / 0.5));
+
+        fframes::svgr!(<g font-family={FONT} font-weight={WEIGHT} opacity={env}>
+            <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0" stop-color={sky_a} />
+                    <stop offset="1" stop-color={sky_b} />
+                </linearGradient>
+            </defs>
+            <rect width="1920" height="1080" fill="url(#sky)" />
+            <text x={text_x} y={kicker_y} font-size={kicker_size} letter-spacing="6" fill={accent} text-anchor={anchor} opacity={ramp(&frame, 0.1)}>{spec.kicker}</text>
+            {lines}
+            {extra}
+            {phone}
+        </g>)
+    }
+}
+
+impl Beat {
+    /// Ponsel dengan screenshot; halaman panjang digulir, beberapa screenshot bergantian.
+    fn phone<'a>(&'a self, frame: &Frame, ctx: &FFramesContext<'a, '_>, accent: &'a str) -> Svgr<'a> {
+        let t = frame.seconds();
+        let scale = PHONE_W / SRC_W;
+        let last = self.spec.shots.len() - 1;
+        let shots: Vec<Svgr> = self
+            .spec
+            .shots
+            .iter()
+            .enumerate()
+            .filter_map(|(i, s)| {
+                let fade_in = if i == 0 { 1.0 } else { smooth((t - s.from) / 0.5) };
+                let fade_out = if i == last { 1.0 } else { 1.0 - smooth((t - (s.to - 0.5)) / 0.5) };
+                let opacity = fade_in * fade_out;
+                if opacity <= 0.001 {
+                    return None;
+                }
+                let ih = s.h * scale;
+                let dy = match s.pan {
+                    Some((a, b)) if ih > PHONE_H => -(ih - PHONE_H) * smooth((t - a) / (b - a)),
+                    _ => 0.0,
+                };
+                let href = ctx.get_image(s.file)?.href();
+                Some(fframes::svgr!(<image href={href} x={PHONE_X} y={PHONE_Y + dy} width={PHONE_W} height={ih} opacity={opacity} />))
+            })
+            .collect();
+        let enter = rise(frame, 0.0, 140.0);
+        fframes::svgr!(<g opacity={ramp(frame, 0.0)} transform={Transform::translate(0, enter)}>
+            <defs>
+                <clipPath id="screen"><rect x={PHONE_X} y={PHONE_Y} width={PHONE_W} height={PHONE_H} rx="46" /></clipPath>
+            </defs>
+            <rect x={PHONE_X + 10.0} y={PHONE_Y + 12.0} width={PHONE_W} height={PHONE_H} rx="46" fill="#0b1b2a" />
+            <g clip-path="url(#screen)">
+                <rect x={PHONE_X} y={PHONE_Y} width={PHONE_W} height={PHONE_H} fill="#ffffff" />
+                {shots}
+            </g>
+            <rect x={PHONE_X} y={PHONE_Y} width={PHONE_W} height={PHONE_H} rx="46" fill="none" stroke="#0b1b2a" stroke-width="4" />
+            <rect x={PHONE_X + 20.0} y={PHONE_Y + PHONE_H + 22.0} width="120" height="8" rx="4" fill={accent} opacity="0.0" />
+        </g>)
+    }
+
+    /// Adegan 1: tiga potongan pesan fiktif muncul seperti chat, satu per satu.
+    fn hook(&self, frame: &Frame) -> Svgr<'_> {
+        let msgs = ["Dicari admin input data, Rp500rb/hari.", "Daftar hari ini, kuota terbatas.", "Biaya seragam Rp150rb."];
+        let bubbles: Vec<Svgr> = msgs
+            .iter()
+            .enumerate()
+            .map(|(i, m)| {
+                let start = 0.9 + i as f32 * 1.6;
+                let w = 90.0 + m.len() as f32 * 17.0;
+                let y = 250.0 + i as f32 * 150.0;
+                fframes::svgr!(<g opacity={ramp(frame, start)} transform={Transform::translate(rise(frame, start, 90.0), 0)}>
+                    <rect x="980" y={y} width={w} height="100" rx="30" fill="#ffffff" stroke="#0b1b2a" stroke-width="2.5" />
+                    <text x="1020" y={y + 63.0} font-size="34" fill={INK}>{*m}</text>
+                </g>)
+            })
+            .collect();
+        fframes::svgr!(<g>
+            {bubbles}
+            <text x="980" y="800" font-size="30" letter-spacing="3" fill={MUTED} opacity={ramp(frame, 5.4)}>"CONTOH PESAN (FIKTIF)"</text>
+        </g>)
+    }
+
+    /// Adegan privasi: alur teks → disamarkan → dianalisis → dibuang (fakta K12, sama dengan S-16).
+    fn privacy(&self, frame: &Frame, accent: &'static str) -> Svgr<'_> {
+        let steps = ["Teks kamu", "Disamarkan di perangkatmu", "Dianalisis", "Langsung dibuang"];
+        let items: Vec<Svgr> = steps
+            .iter()
+            .enumerate()
+            .map(|(i, label)| {
+                let start = 2.0 + i as f32 * 1.4;
+                let x = 150.0 + i as f32 * 0.0;
+                let y = 640.0 + i as f32 * 92.0;
+                let last = i == steps.len() - 1;
+                let fill = if last { accent } else { "#ffffff" };
+                let ink = if last { "#ffffff" } else { INK };
+                fframes::svgr!(<g opacity={ramp(frame, start)} transform={Transform::translate(rise(frame, start, 40.0), 0)}>
+                    <rect x={x} y={y - 54.0} width="700" height="72" rx="36" fill={fill} stroke="#0b1b2a" stroke-width="2.5" />
+                    <text x={x + 42.0} y={y - 6.0} font-size="36" fill={ink}>{*label}</text>
+                </g>)
+            })
+            .collect();
+        fframes::svgr!(<g>{items}</g>)
+    }
+
+    /// Penutup: logo A→Ω, disclaimer, nama tim.
+    fn closing(&self, frame: &Frame, accent: &'static str) -> Svgr<'_> {
+        let line = (ramp(frame, 0.3) * 440.0).max(0.5);
+        fframes::svgr!(<g>
+            <g opacity={ramp(frame, 0.0)} transform={Transform::translate(0, rise(frame, 0.0, 60.0))}>
+                <circle cx="720" cy="330" r="64" fill="#ffffff" stroke="#0b1b2a" stroke-width="4" />
+                <text x="720" y="352" font-size="64" fill={INK} text-anchor="middle">"A"</text>
+                <rect x="800" y="326" width={line} height="8" rx="4" fill={accent} />
+                <circle cx="1280" cy="330" r="64" fill="#ffffff" stroke="#0b1b2a" stroke-width="4" />
+                <path d="M-22 22 H-8 C-28 10 -32 -4 -32 -14 C-32 -33 -18 -44 0 -44 C18 -44 32 -33 32 -14 C32 -4 28 10 8 22 H22" transform="translate(1280 330)" fill="none" stroke={INK} stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+            </g>
+            <text x="960" y="760" font-size="42" fill={MUTED} text-anchor="middle" opacity={ramp(frame, 1.6)}>"Ini alat bantu berpikir, bukan deteksi pasti."</text>
+            <text x="960" y="950" font-size="52" letter-spacing="8" fill={INK} text-anchor="middle" opacity={ramp(frame, 3.0)}>"TIM CALON CEO"</text>
+        </g>)
     }
 }

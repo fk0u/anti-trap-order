@@ -21,6 +21,7 @@
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
+    "@elevenlabs/elevenlabs-js": "^2.77.0",
     "@fk0u/ruas": "^1.4.0",
     "@types/node": "^26.6.5",
     "@types/react": "^19.3.0",

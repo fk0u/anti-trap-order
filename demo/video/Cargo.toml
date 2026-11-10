@@ -10,7 +10,7 @@ fframes_skia_renderer = { version = "=1.4.1", features = ["metal"] }
 fframes_native_player = { version = "=1.4.1", default-features = false, features = ["metal", "audio"] }
 
 [target.'cfg(not(windows))'.dependencies]
-fframes = { version = "=1.4.1", features = ["h264", "libav-agree-gpl"] }
+fframes = { version = "=1.4.1", features = ["videotoolbox"] }
 
 [target.'cfg(all(any(target_os = "macos", target_os = "linux"), not(target_feature = "crt-static")))'.dependencies]
 fframes-dylib = { version = "=1.4.1", optional = true }

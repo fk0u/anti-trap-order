@@ -33,8 +33,8 @@ fn main() -> ExitCode {
         RenderOptions {
             media: Some(&media),
             video_encoder_options: EncoderOptions {
-                preferred_encoder: Some("libx264"),
-                codec_params: Some(&[("crf", "20"), ("preset", "medium"), ("tune", "animation")]),
+                preferred_encoder: Some("h264_videotoolbox"),
+                codec_params: Some(&[("b", "14M")]),
                 ..Default::default()
             },
             ..Default::default()
