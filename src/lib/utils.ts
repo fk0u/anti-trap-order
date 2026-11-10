@@ -21,6 +21,7 @@ const twMerge = extendTailwindMerge({
         "ato-button",
       ],
       radius: ["ato-sm", "ato-md", "ato-lg", "ato-full"],
+      shadow: ["ato-glass", "ato-glass-strong", "ato-gloss", "ato-hard-sm", "ato-hard-md", "ato-hard-lg"],
     },
   },
 });
