@@ -88,10 +88,25 @@ export const landingS01 = {
   faq: {
     label: "PERTANYAAN UMUM",
     items: [
-      { question: "Kenapa bukan skor bahaya?", answer: "" },
-      { question: "Apakah tulisanku disimpan?", answer: "" },
-      { question: "Apakah ini bisa memastikan sebuah pesan penipuan?", answer: "" },
-      { question: "Siapa yang membuat ini?", answer: "" },
+      {
+        question: "Kenapa bukan skor bahaya?",
+        answer:
+          "Manipulasi itu bermain di perasaan dan situasi, jadi tidak bisa dirangkum jadi satu angka. ATO melatih kamu menemukan celahnya sendiri, supaya kamu bisa mengenalinya lagi di pesan berikutnya.",
+      },
+      {
+        question: "Apakah tulisanku disimpan?",
+        answer:
+          "Tidak. Teks yang kamu tempel disamarkan dulu di perangkatmu (nomor, email, tautan, rekening), lalu dikirim ke server untuk dianalisis dan langsung dibuang. Di mode terbatas, semuanya diproses di perangkatmu. Pilihan jawabanmu hanya dikirim sebagai kode, dan nama panggilan di A20 Soul tidak pernah dikirim.",
+      },
+      {
+        question: "Apakah ini bisa memastikan sebuah pesan penipuan?",
+        answer:
+          "Tidak. Ini alat bantu berpikir, bukan deteksi pasti. Analisisnya hanya mengenali pola kata untuk memilih skenario latihan, jadi bisa keliru. Kalau ragu, cek lewat kanal resmi dan jangan transfer apa pun dulu.",
+      },
+      {
+        question: "Siapa yang membuat ini?",
+        answer: "Tim CALON CEO, untuk MIT-Week UNMUL 2026 dengan tema Guardians of the Digital Space.",
+      },
     ] satisfies readonly FaqItem[],
   },
 
