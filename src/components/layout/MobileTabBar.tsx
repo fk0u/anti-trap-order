@@ -4,13 +4,14 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ROUTES_WITHOUT_TAB_BAR } from "@/lib/routes";
 import { Compass, MessageSquare, Zap, ShieldCheck, BookOpen } from "lucide-react";
 
 export function MobileTabBar() {
   const pathname = usePathname();
 
-  // Landing S-01 (Figma 06) tidak memakai tab bar; navigasinya lewat menu header.
-  if (pathname === "/") return null;
+  // Layar yang sudah mengikuti Figma 06 tidak memakai tab bar (daftar di src/lib/routes.ts).
+  if (ROUTES_WITHOUT_TAB_BAR.includes(pathname)) return null;
 
   const tabs = [
     { label: "Latihan", href: "/drill", icon: Compass },
