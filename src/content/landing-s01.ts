@@ -86,7 +86,6 @@ export const landingS01 = {
     lines: ["Kami tidak menyimpan apa yang kamu tulis.", "Ini alat bantu berpikir, bukan deteksi pasti."],
     links: [
       { label: "Tentang", href: "/tentang" },
-      // Halaman /privasi (S-16) menyusul; sementara 404.
       { label: "Batasan & Privasi", href: "/privasi" },
       { label: "GitHub", href: "https://github.com/fk0u/anti-trap-order", external: true },
     ] satisfies readonly LandingLink[],
