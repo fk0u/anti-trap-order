@@ -1,7 +1,6 @@
 name: Deploy
 
-# Deploy otomatis ke VPS setelah CI hijau di main (ato.kousozo.tech dan, bila DNS siap, antitraporder.web.id —
-# keduanya dilayani satu aplikasi yang sama lewat nginx).
+# Deploy otomatis ke VPS (ato.kousozo.tech) setelah CI hijau di main.
 # NONAKTIF sampai variabel repo AUTO_DEPLOY = true dan secrets di bawah diisi (lihat deploy/AUTO-DEPLOY.md).
 on:
   workflow_run:
