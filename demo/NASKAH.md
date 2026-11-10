@@ -1,6 +1,6 @@
 # Naskah video demo — Anti Trap Order (ATO)
 
-Durasi target: **±3:00**. Format: animasi SVG (fframes) + cuplikan layar asli 390px. Subtitle Indonesia; narasi dibacakan Syafar (naskah di kolom "Narasi").
+Durasi video jadi: **2:15** (waktu di tabel di bawah adalah rancangan awal; durasi adegan sebenarnya ada di `demo/video/src/lib.rs`). Format: animasi SVG (fframes) + cuplikan layar asli 390px, subtitle Indonesia. Voice-over: suara macOS "Damayanti" (`scripts/voiceover-macos.sh`, teks di `demo/narasi.json`); bisa diganti ElevenLabs lewat `scripts/voiceover.mjs` setelah akunnya aktif (file `vo-XX.mp3` menggantikan `vo-XX.wav`, ubah nama file di `lib.rs`).
 Semua pesan, nama, dan nomor di layar fiktif. Tidak ada skor, persen, atau klaim "mendeteksi penipuan".
 Kalimat privasi hanya yang sudah dikonfirmasi di aplikasi (S-01, S-16); jangan menambah klaim baru.
 

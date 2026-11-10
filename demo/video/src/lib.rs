@@ -5,7 +5,7 @@
 //! Tanpa suara: narasi dan musik diisi di luar video. Tidak ada skor, persen, atau klaim
 //! deteksi pasti; kalimat privasi hanya yang sudah ada di aplikasi (S-01, S-16).
 use fframes::{
-    AnimateRuntimeInput, AudioMap, Color, Duration, FFramesContext, Frame, Overlap, Scene, Scenes,
+    AnimateRuntimeInput, AudioMap, AudioTimestamp::{Eof, Second}, AudioTrack, Color, Duration, FFramesContext, Frame, Overlap, Scene, Scenes,
     Svgr, Transform, Video,
     animation::{AnimationRuntime, Easing},
     include_media_dir,
@@ -58,7 +58,10 @@ struct Shot {
 
 struct Spec {
     name: &'static str,
+    /// Durasi adegan di video (detik).
     secs: f32,
+    /// Durasi yang dipakai saat menyusun waktu screenshot/gulir di `shots`; diskalakan ke `secs`.
+    base: f32,
     kicker: &'static str,
     lines: &'static [&'static str],
     tone: Tone,
@@ -73,7 +76,8 @@ const fn shot(file: &'static str, h: f32, from: f32, to: f32, pan: Option<(f32, 
 static SPECS: &[Spec] = &[
     Spec {
         name: "Masalah",
-        secs: 12.0,
+        secs: 10.0,
+        base: 12.0,
         kicker: "SETIAP HARI",
         lines: &["Terasa janggal.", "Tapi di mana", "celahnya?"],
         tone: Tone::Neutral,
@@ -83,6 +87,7 @@ static SPECS: &[Spec] = &[
     Spec {
         name: "Pengantar",
         secs: 13.0,
+        base: 13.0,
         kicker: "A20 CULTURE TECHNOLOGY",
         lines: &["Jangan hanya waspada.", "Jadilah penjaganya."],
         tone: Tone::Lite,
@@ -91,7 +96,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Situasi",
-        secs: 15.0,
+        secs: 14.0,
+        base: 15.0,
         kicker: "A20 LITE · 3 MENIT",
         lines: &["Tanpa login.", "Tanpa data pribadi."],
         tone: Tone::Lite,
@@ -100,7 +106,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Mode Pelaku",
-        secs: 25.0,
+        secs: 17.0,
+        base: 25.0,
         kicker: "A20 LITE · MODE PELAKU",
         lines: &["Jadi pelakunya", "selama 30 detik."],
         tone: Tone::Lite,
@@ -113,7 +120,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Hasil",
-        secs: 20.0,
+        secs: 13.0,
+        base: 20.0,
         kicker: "A20 LITE · HASIL",
         lines: &["Kamu yang", "menemukan celahnya."],
         tone: Tone::Lite,
@@ -122,7 +130,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Action Card",
-        secs: 15.0,
+        secs: 12.0,
+        base: 15.0,
         kicker: "A20 LITE · ACTION CARD",
         lines: &["Bawa ini", "bersamamu."],
         tone: Tone::Lite,
@@ -131,7 +140,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Soul",
-        secs: 30.0,
+        secs: 17.0,
+        base: 30.0,
         kicker: "A20 SOUL · THE GUARDIAN ARC",
         lines: &["Jaga seseorang", "lewat cerita."],
         tone: Tone::Soul,
@@ -145,7 +155,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Privasi",
-        secs: 20.0,
+        secs: 16.0,
+        base: 20.0,
         kicker: "BATASAN & PRIVASI",
         lines: &["Kami tidak menyimpan", "apa yang kamu tulis."],
         tone: Tone::Lite,
@@ -154,7 +165,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Mode Terbatas",
-        secs: 18.0,
+        secs: 13.0,
+        base: 18.0,
         kicker: "SERVER MATI? TETAP LANJUT",
         lines: &["Hasilnya dibuat", "di perangkatmu."],
         tone: Tone::Lite,
@@ -166,7 +178,8 @@ static SPECS: &[Spec] = &[
     },
     Spec {
         name: "Penutup",
-        secs: 12.0,
+        secs: 10.0,
+        base: 12.0,
         kicker: "MIT-WEEK UNMUL 2026 · GUARDIANS OF THE DIGITAL SPACE",
         lines: &["Anti Trap Order"],
         tone: Tone::Neutral,
@@ -175,7 +188,9 @@ static SPECS: &[Spec] = &[
     },
 ];
 
-const TOTAL_SECONDS: f32 = 180.0;
+const TOTAL_SECONDS: f32 = 135.0; // jumlah `secs` semua adegan
+/// Narasi mulai sedikit setelah adegan dimulai.
+const VO_DELAY: f32 = 0.8;
 
 static EASE: LazyLock<AnimationRuntime> = LazyLock::new(|| AnimationRuntime::new(0.7, &Easing::EaseOut));
 static SPRING: LazyLock<AnimationRuntime> = LazyLock::new(|| {
@@ -200,11 +215,23 @@ fn smooth(x: f32) -> f32 {
 pub struct VideoProjVideo<'a> {
     pub media: &'a VideoProjMedia,
     beats: Vec<Beat>,
+    /// (nama file, detik mulai) voice-over tiap adegan.
+    vo: Vec<(String, f32)>,
 }
 
 impl<'a> VideoProjVideo<'a> {
     pub fn new(media: &'a VideoProjMedia, _title: &str) -> Self {
-        Self { media, beats: SPECS.iter().map(|spec| Beat { spec }).collect() }
+        let mut at = 0.0;
+        let vo = SPECS
+            .iter()
+            .enumerate()
+            .map(|(i, spec)| {
+                let entry = (format!("vo-{:02}.wav", i + 1), at + VO_DELAY);
+                at += spec.secs;
+                entry
+            })
+            .collect();
+        Self { media, beats: SPECS.iter().map(|spec| Beat { spec }).collect(), vo }
     }
 }
 
@@ -225,8 +252,13 @@ impl Video for VideoProjVideo<'_> {
     }
 
     fn audio(&self) -> AudioMap<'_> {
-        // Tanpa suara: narasi dan musik diisi Syafar (lihat demo/NASKAH.md).
-        AudioMap::none()
+        // Voice-over per adegan (demo/narasi.json → scripts/voiceover-macos.sh atau voiceover.mjs).
+        AudioMap::from(
+            self.vo
+                .iter()
+                .map(|(file, start)| AudioTrack::new(file.as_str(), Second(*start)..Eof).voice())
+                .collect::<Vec<_>>(),
+        )
     }
 
     fn define_scenes(&self) -> Scenes<'_> {
@@ -328,7 +360,7 @@ impl Scene for Beat {
 impl Beat {
     /// Ponsel dengan screenshot; halaman panjang digulir, beberapa screenshot bergantian.
     fn phone<'a>(&'a self, frame: &Frame, ctx: &FFramesContext<'a, '_>, accent: &'a str) -> Svgr<'a> {
-        let t = frame.seconds();
+        let t = frame.seconds() * self.spec.base / self.spec.secs;
         let scale = PHONE_W / SRC_W;
         let last = self.spec.shots.len() - 1;
         let shots: Vec<Svgr> = self
