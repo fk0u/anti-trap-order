@@ -15,14 +15,15 @@ export const DESKTOP_SOLID = {
  * Hanya tampil mulai breakpoint lg; di bawahnya header mobile/flow tetap dipakai.
  */
 /**
- * Varian `landing` (S-01 desktop, frame 56:8549): logo berbayangan keras, link
- * berwarna pucat (diukur dari render — ekspor menulis putih), CTA gradien
- * `#67e4f7 → putih` bergaris hitam 0.5px. ⚠️ Kontras link sangat rendah.
+ * Varian `landing` (S-01 desktop, frame 56:8549): logo berbayangan keras, CTA
+ * gradien `#67e4f7 → putih` bergaris hitam 0.5px. Link di render 06 berwarna
+ * pucat (`#97ecfa` / `#ffe469`) dengan kontras jauh di bawah AA; diganti
+ * `lite/accent` dan `soul/accent` (keputusan Syafar, 10 Nov 2026).
  */
 const LANDING_LINK: Record<NavId, string> = {
-  lite: "text-[#97ecfa]",
-  soul: "text-[#ffe469]",
-  tentang: "text-[#97ecfa]",
+  lite: "text-ato-lite-accent",
+  soul: "text-ato-soul-accent",
+  tentang: "text-ato-lite-accent",
 };
 
 export function DesktopHeader({

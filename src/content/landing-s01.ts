@@ -2,8 +2,8 @@
  * Teks landing S-01 (mobile), disalin persis dari Figma "06 | Prototype",
  * node 56:6727. Jangan mengubah kalimat tanpa perubahan di Figma.
  *
- * Catatan privasi: kalimat `hero.trust`, `footer.lines`, dan FAQ
- * "Apakah tulisanku disimpan?" menunggu konfirmasi K12 (lihat CLAUDE.md).
+ * Catatan privasi: kalimat `hero.trust` dan `footer.lines` sudah dikonfirmasi
+ * sesuai fakta K12 (keputusan Syafar, 10 Nov 2026). Jawaban FAQ belum ada di Figma.
  */
 
 export interface LandingLink {
@@ -100,7 +100,8 @@ export const landingS01 = {
     links: [
       { label: "Tentang", href: "/tentang" },
       { label: "Batasan & Privasi", href: "/privasi" },
-      { label: "GitHub", href: "https://github.com/fk0u/anti-trap-order", external: true },
+      // TODO(GitHub): link "GitHub" (Figma 06) disembunyikan — repo masih privat (404 untuk publik).
+      // Tampilkan lagi saat repo publik: { label: "GitHub", href: "https://github.com/fk0u/anti-trap-order", external: true }
     ] satisfies readonly LandingLink[],
   },
 } as const;

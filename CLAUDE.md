@@ -100,7 +100,6 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 ## Menunggu keputusan
 
 - **`src/components/landing/_legacy/`** — komponen landing lama (Navbar, Hero, HeroConsole, Marquee, Problem, A20System, ReverseReflexDemo, Trust, FinalCTA, Footer) yang sudah tidak dipakai S-01. Menunggu keputusan hapus dari lead; jangan dipakai di layar baru. `src/content/landing.ts` masih di-import oleh komponen ini.
-- **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Konflik serupa di S-16 sudah diselesaikan (lihat "Keputusan desain mandiri" → S-15/S-16); teks S-01 belum diubah.
 - **"Lihat di GitHub" (S-15)** disembunyikan — repo `fk0u/anti-trap-order` masih privat (404 untuk publik). Disetujui Syafar (10 Nov 2026); tampilkan lagi saat repo publik. TODO di `src/app/tentang/page.tsx`.
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
@@ -240,11 +239,11 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | Teks | Sebagian masih teks lama (mis. "Mulai Misi 1 →", "tanpa model AI") | Teks mobile terbaru dipakai di semua ukuran (termasuk koreksi K12) |
 | Teks khusus desktop | Panel S-03, "Langkah berikutnya" S-08, "APA YANG KAMU LAKUKAN?" S-11, "MISI n DARI 3 · KONSEKUENSI" S-13, kartu pratinjau S-01, "SEBELUM/SESUDAH" S-01, stepper vertikal | Dipakai (disalin dari Figma; tidak ada yang menyebut data/privasi) |
 | S-02 Pilih Mode | Tidak ada | Tidak dipakai di desktop — perannya diganti link nav header |
-| Header S-01 | Varian sendiri: link `#97ecfa`/`#ffe469` (ekspor menulis putih; diukur dari render), CTA gradien `#67e4f7 → putih` | `DesktopHeader variant="landing"`. ⚠️ Kontras link sangat rendah |
+| Header S-01 | Varian sendiri: link `#97ecfa`/`#ffe469` (ekspor menulis putih; diukur dari render), CTA gradien `#67e4f7 → putih` | `DesktopHeader variant="landing"`; warna link diganti `lite/accent` (Lite, Tentang) dan `soul/accent` (Soul) supaya kontras lolos AA (±5:1) — keputusan Syafar, 10 Nov 2026 |
 | Header layar lain | Link `text/2`, aktif = aksen, CTA solid | Lite/Tentang/Privasi aktif sesuai frame; Soul aksen cokelat |
-| ⚠️ Badge "Menunggu verifikasi" S-16 | Render rusak (bar cokelat tanpa teks) | Memakai badge mobile S-16 |
+| Badge "Menunggu verifikasi" S-16 | Render rusak (bar cokelat tanpa teks) | Memakai badge mobile S-16 (disetujui Syafar, 10 Nov 2026) |
 | "Lihat cara mainnya" (S-10), "Simpan gambar" (S-09), "Lihat di GitHub" (S-15) | Ada di desktop | Tetap disembunyikan (keputusan sebelumnya berlaku untuk semua ukuran) |
-| Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Sama dengan mobile. ⚠️ Link GitHub (mobile dan desktop) mengarah ke repo privat (404 untuk publik) — belum diubah, menunggu keputusan |
+| Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Link GitHub disembunyikan di mobile dan desktop — repo masih privat (404 untuk publik); TODO di `src/content/landing-s01.ts` (keputusan Syafar, 10 Nov 2026) |
 | Stepper vertikal (panel Lite) | 06 hanya menggambar Alpha selesai | Titik tengah selesai = 12px aksen + garis aksen; Ω tercapai (S-07/S-08) = aksen penuh |
 | Meter Soul turun (S-13/S-14 desktop) | Frame positif: semua cokelat | Naik/tetap cokelat; turun merah `#bf0003` (02 Meter State=down) |
 | S-07 Loading desktop | Tidak ada frame | Panel konteks (progres, stepper di "Hasil", disclaimer) + animasi di kolom kanan maks. 480 |
