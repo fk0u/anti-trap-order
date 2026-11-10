@@ -16,7 +16,7 @@ Proyek lomba MIT-Week UNMUL 2026 (tema *Guardians of the Digital Space*). Next.j
 
 ## Aturan yang tidak boleh dilanggar
 
-- **UI/UX tidak boleh diubah.** Acuan UI adalah Figma file key `ZYHNsUzibVBzF0PzCfH3rv`, halaman **`06 | Prototype`** (node `14:8`, layar S-01 s.d. S-20). Halaman `03 | Wireframes`, `04 | Mobile`, dan `05 | Desktop` adalah desain lama, abaikan. Halaman `01 | Pondasi` dan `02 | Components` hanya dipakai jika sama dengan 06; jika berbeda, ikuti 06 dan catat di bagian "Untuk desainer". Jika kode atau kontrak berbeda dari 06, kode/kontrak yang menyesuaikan.
+- **UI/UX tidak boleh diubah.** Acuan UI adalah Figma file key `ZYHNsUzibVBzF0PzCfH3rv`, halaman **`06 | Prototype`** (node `14:8`, layar S-01 s.d. S-20). Halaman `03 | Wireframes`, `04 | Mobile`, dan `05 | Desktop` adalah desain lama, abaikan. Halaman `01 | Pondasi` dan `02 | Components` hanya dipakai jika sama dengan 06; jika berbeda, ikuti 06 dan catat di bagian "Keputusan desain mandiri". Jika kode atau kontrak berbeda dari 06, kode/kontrak yang menyesuaikan.
 - **Teks S-03 hanya boleh masuk ke `POST /api/v1/lite/analyze`** (K12), sudah dimasking di browser. Go memasking ulang, tidak mencatat/menyimpan teks. Endpoint lain hanya menerima ID. Model ML utama di Go (`internal/ml`); model cadangan di browser milik tim FE.
 - **Tidak ada LLM saat aplikasi berjalan.** Jangan menambah panggilan ke Gemini, Groq, OpenAI, atau sejenisnya. `services/gemini-web2api` akan dihapus.
 - **Tanpa skor, persen, atau "tingkat bahaya"** di layar mana pun. Selalu sertakan disclaimer "Ini alat bantu berpikir, bukan deteksi pasti."
@@ -45,7 +45,11 @@ Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailw
 
 Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`, `BackButton`, `DisclaimerBanner`, `CategoryChip`, `OptionCard`, `OtherOption`, `BottomActionBar`, `GapCard`, `ChecklistItem`, `Segmented`, `ChannelItem`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`, `lite.ts`), disalin persis dari Figma.
 
-Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`, sinkron riwayat browser; refresh kembali ke S-03). Route tanpa MobileTabBar didaftar di `src/lib/routes.ts`. Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
+Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`). Langkah tidak menambah riwayat browser (`replaceState`): Back browser keluar dari `/lite`, tombol "Kembali"/"Hasil" di layar pindah antarlangkah, refresh kembali ke S-03. Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
+
+MobileTabBar hanya tampil di route lama yang terdaftar di `ROUTES_WITH_TAB_BAR` (`src/lib/routes.ts`: `/drill`, `/realmulator`, `/docs`, `/tentang`). Layar 06 (`/`, `/lite`, `/soul`) dan 404 tidak memakainya.
+
+Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19 sheet (atau S-07 Error saat menunggu hasil); 5xx, 400, 404, JSON rusak, bentuk data salah, ID kategori/taktik tak dikenal → S-18; 429 → S-20. Bentuk respons divalidasi tanpa library di `src/lib/api-v1-validate.ts`. Layar error global: `src/app/not-found.tsx` (S-17), `src/app/error.tsx` dan `src/app/global-error.tsx` (S-18), komponen di `src/components/errors/ErrorScreens.tsx`, teks di `src/content/errors.ts`.
 
 ## Menunggu keputusan
 
@@ -55,11 +59,10 @@ Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
 - **"Simpan gambar" (ekspor 4:5) di S-09** disembunyikan — belum ada desain gambar di 06. TODO di `ActionCardScreen.tsx`; jangan tambah library.
-- **Error 500 → S-18** belum dibangun; sementara error server di Lite ditampilkan sebagai S-07 Error / S-19.
 
-## Untuk desainer
+## Keputusan desain mandiri
 
-Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode mengikuti 06 persis; daftar ini menunggu keputusan desainer. Tanda ⚠️ = berisiko (kontras/aturan desain sendiri).
+Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype` — kode mengikuti 06 persis — dan (2) semua bagian yang tidak ada desainnya di 06 dan dibuat sendiri dengan token `ato-*`, komponen yang ada, dan pola layar error yang ada. Teks berisi klaim fakta (privasi, penyimpanan data, hukum) tidak boleh dikarang; tandai dan tanyakan ke Syafar. Tanda ⚠️ = berisiko (kontras/aturan desain sendiri).
 
 **S-01 Landing (mobile)**
 
@@ -119,6 +122,24 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Satu tampilan loading | Dua frame: Default (judul gradien pudar + cahaya bawah) dan Lambat 3s (judul `text/1` solid, tanpa cahaya bawah) | Hanya desain **Lambat** yang dipakai sejak awal; chip "Agak lama?" tetap muncul setelah 3 dtk. Keputusan Syafar, 10 Nov 2026 |
 | Link "Simulasi uji" di bawah S-07 | 4 link alat uji prototype | Dihapus dari kode |
 | Tidak berubah | — | Alur, timer 3/10 dtk, chip "Agak lama?", state Error |
+
+**Error dan state yang tidak digambar di 06 (PR 0, keputusan Syafar 10 Nov 2026)**
+
+| Elemen | Figma 06 | Kode |
+|---|---|---|
+| S-17 (404) | Node 56:8468 | Diikuti persis. Tombol "Kembali ke Awal" tanpa Gloss shadow (sesuai render) |
+| S-18 (500) | Node 56:8489 | Diikuti persis. "Beranda": ekspor `178.5deg #FFDA37 14.459% → putih 116.88%`, render lebih pucat; diukur dari piksel = `BUTTON_GRADIENTS.soulMode` (#FFDA37 85% → 27%) |
+| S-18 di alur Lite | 06 hanya punya halaman penuh | Ditampilkan sebagai overlay penuh (`alertdialog`) di atas layar alur; "Coba Lagi" mengulang request yang gagal, "Beranda" ke `/` |
+| Pemetaan error | 06 hanya menggambar layarnya | 500 tidak lagi tampil sebagai "Koneksi ke server terputus." (S-19); lihat pemetaan di "Token desain" → Error API v1 |
+| ID kategori/taktik tak dikenal | — | Diperlakukan sebagai data tidak ditemukan → S-18 |
+| S-19: ketuk area gelap | 06: scrim pekat, perilaku tidak digambar | Area gelap tidak menutup sheet (`dismissOnScrim={false}` di `BottomSheet`); Esc tetap menutup |
+| S-03 setelah S-19 ditutup dengan Esc saat kategori gagal dimuat | — | Tombol ghost "Coba lagi" (teks dari S-07 Error) di tempat chip kategori |
+| 429 saat memuat kategori | — | S-20; setelah "OK", kategori dimuat ulang |
+| 429 saat menunggu hasil (S-07) | — | S-20; setelah "OK", kembali ke Q3 |
+| S-03 "Lanjut →" sedang memproses | 06 tidak menggambar; 02 punya state Loading | `Button` prop `loading`: spinner `LoaderCircle` 18px di depan label (berputar hanya jika `motion-safe`), klik diabaikan, `aria-busy`, tanpa redup 40% |
+| S-03 menunggu > 3 dtk | — | Chip "Agak lama? Kami siapkan mode terbatas." (sama dengan S-07, `SLOW_HINT_MS`) melayang di atas BottomActionBar, tanpa menggeser layout |
+| S-09 salin gagal | 06 hanya "Tersalin ✓" | Label tombol menjadi "Gagal menyalin" selama 2 dtk, lalu kembali ke "Salin kalimat" |
+| Back browser di alur Lite | — | Tidak lagi mundur per langkah (lihat "Token desain" → Alur Lite) |
 
 **Token**
 
