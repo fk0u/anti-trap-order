@@ -44,7 +44,7 @@ export const FLOW_GRADIENTS = {
 } as const;
 
 /**
- * - `lite` / `soul`: CTA landing — gradien, label putih bergaris luar.
+ * - `lite` / `soul`: CTA landing — gradien, label hitam (lihat labelClassByVariant).
  * - `aqua`: tombol utama alur Lite — gradien cyan, label hitam, Gloss shadow.
  * - `secondary`: putih, garis `border/strong` (mis. "Kembali", "Salin kalimat").
  * - `ghost`: tanpa latar, label aksen Lite (mis. "Coba situasi lain").
@@ -61,9 +61,10 @@ const variantClass: Record<ButtonVariant, string> = {
 };
 
 const labelClassByVariant: Record<ButtonVariant, string> = {
-  // Garis luar label tombol di 06 lebih tipis daripada judul.
-  lite: "ato-text-outline [--ato-outline-width:1px] text-white",
-  soul: "ato-text-outline [--ato-outline-width:1px] text-white",
+  // 06: putih bergaris luar di atas gradien pucat — sulit dibaca. Keputusan Syafar
+  // (10 Nov 2026): label hitam tanpa garis luar, sama dengan varian `aqua` (tombol alur Lite 06).
+  lite: "text-black",
+  soul: "text-black",
   aqua: "text-black",
   secondary: "text-ato-text-1",
   ghost: "text-ato-lite-accent",

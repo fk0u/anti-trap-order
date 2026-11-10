@@ -128,9 +128,9 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | Judul hero | `ATO/Mobile/Display` = Plus Jakarta Sans ExtraBold 32/35, gelap | Alice Regular 32/35.2, tracking −0.64, putih, `text-shadow 1px 1px 0 #000` |
 | Tombol CTA Lite | `#0E7490` solid, teks putih, sheen putih | Gradien pucat: `#00AAD9` 60% di atas putih → putih, border hitam 0.5px, Gloss shadow. Kode ekspor Figma menyebut `#00AAD9 58% → #FFF 98%` (cyan pekat) tetapi render-nya pucat; kode mengikuti render (diukur dari piksel) |
 | Tombol CTA Soul | `#B45309` solid | Gradien pucat: `#FFDA37` 72% → putih, border hitam 0.5px, tanpa bayangan (ekspor: `21% → 98%`, sama seperti di atas) |
-| ⚠️ Teks tombol CTA | Putih di atas aksen gelap | Putih (dengan garis luar gelap) di atas gradien terang; kontras kemungkinan tidak lolos AA |
+| Teks tombol CTA | Putih di atas aksen gelap | 06: putih bergaris luar gelap di atas gradien terang (sulit dibaca). **Kode menyimpang atas keputusan Syafar (10 Nov 2026):** label hitam tanpa garis luar, sama dengan tombol alur Lite 06 (varian `aqua`). Berlaku untuk semua tombol `Button` varian `lite`/`soul` di mobile: CTA hero, kartu Dua Mode, dan "Coba A20 Soul →" S-09. Gradien dan border tetap. Mohon desainer memperbarui 06 |
 | Tombol di kartu Dua Mode | Sama dengan Button | Lite sama dengan CTA hero; Soul lebih pekat: `#FFDA37` 85% → 27% (tidak sampai putih). Diukur dari render |
-| ⚠️ Garis luar teks putih | — | Label tombol, judul hero, dan "Tiga langkah" memakai text stroke gelap (tidak ada di kode ekspor, terlihat di render). Ditiru dengan `.ato-text-outline` (2px judul, 1px tombol) |
+| ⚠️ Garis luar teks putih | — | Judul hero dan "Tiga langkah" memakai text stroke gelap (tidak ada di kode ekspor, terlihat di render). Ditiru dengan `.ato-text-outline` (2px). Label tombol tidak lagi bergaris luar (lihat "Teks tombol CTA") |
 | Hover / pressed / focus | 02 punya 6 state | 06 tidak menggambar state interaksi. Kode hanya menambah cincin fokus keyboard (aksesibilitas) |
 | Header: logo | Tanpa bayangan | `shadow 2px 2px 0 #000` |
 | Header: tombol menu | `bg/1`, border `border/subtle` | Gradien `#FFF → #97DCF0`, border hitam 0.5px, `shadow 2px 4px 0 #000` |
