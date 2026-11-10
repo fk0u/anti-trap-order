@@ -45,7 +45,7 @@ Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailw
 
 Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`, `BackButton`, `DisclaimerBanner`, `CategoryChip`, `OptionCard`, `OtherOption`, `BottomActionBar`, `GapCard`, `ChecklistItem`, `Segmented`, `ChannelItem`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`, `lite.ts`), disalin persis dari Figma.
 
-Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`). Langkah tidak menambah riwayat browser (`replaceState`): Back browser keluar dari `/lite`, tombol "Kembali"/"Hasil" di layar pindah antarlangkah, refresh kembali ke S-03. Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
+Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`). Setiap langkah = satu entri riwayat (`pushState`): Back browser dan tombol "Kembali"/"Hasil" mundur satu langkah; S-07 tidak tersisa di riwayat (Back dari S-08 → Q3). `replaceState` hanya sekali saat `/lite` dimuat. Refresh kembali ke S-03, dan Back dari situ langsung keluar dari `/lite` (entri dari sebelum refresh dilompati lewat `liteSession`/`liteIdx`). Tombol "Simulasi uji" dari prototype S-07 tidak dibangun (dihapus, keputusan Syafar 10 Nov 2026).
 
 MobileTabBar hanya tampil di route lama yang terdaftar di `ROUTES_WITH_TAB_BAR` (`src/lib/routes.ts`: `/drill`, `/realmulator`, `/docs`, `/tentang`). Layar 06 (`/`, `/lite`, `/soul`) dan 404 tidak memakainya.
 
@@ -59,6 +59,12 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
 - **"Simpan gambar" (ekspor 4:5) di S-09** disembunyikan — belum ada desain gambar di 06. TODO di `ActionCardScreen.tsx`; jangan tambah library.
+
+## Belum dikerjakan
+
+- **S-10 – S-14 A20 Soul** — rencana PR 6 (`feat/soul-api-v1`) dan PR 7 (`feat/soul-ui`). `/soul` masih halaman lama.
+- **S-15 Tentang** — desain ada di Figma 06. `/tentang` masih halaman lama.
+- **S-16 Batasan & Privasi** — desain ada di Figma 06. Teksnya berisi klaim privasi: salin persis dari 06 dan cek dulu konflik "hanya di perangkatmu" vs K12 (lihat "Menunggu keputusan").
 
 ## Keputusan desain mandiri
 
@@ -139,7 +145,7 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | S-03 "Lanjut →" sedang memproses | 06 tidak menggambar; 02 punya state Loading | `Button` prop `loading`: spinner `LoaderCircle` 18px di depan label (berputar hanya jika `motion-safe`), klik diabaikan, `aria-busy`, tanpa redup 40% |
 | S-03 menunggu > 3 dtk | — | Chip "Agak lama? Kami siapkan mode terbatas." (sama dengan S-07, `SLOW_HINT_MS`) melayang di atas BottomActionBar, tanpa menggeser layout |
 | S-09 salin gagal | 06 hanya "Tersalin ✓" | Label tombol menjadi "Gagal menyalin" selama 2 dtk, lalu kembali ke "Salin kalimat" |
-| Back browser di alur Lite | — | Tidak lagi mundur per langkah (lihat "Token desain" → Alur Lite) |
+| Back browser setelah refresh di tengah alur | — | Refresh → S-03; Back langsung keluar dari `/lite`, entri lama dilompati (lihat "Token desain" → Alur Lite) |
 
 **Token**
 

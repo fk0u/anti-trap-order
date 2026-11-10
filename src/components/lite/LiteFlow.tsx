@@ -27,6 +27,7 @@ import { ResultScreen } from "@/components/lite/ResultScreen";
 import { SituationScreen } from "@/components/lite/SituationScreen";
 
 type Step = "situation" | "q1" | "q2" | "q3" | "loading" | "result" | "action";
+const STEPS: readonly Step[] = ["situation", "q1", "q2", "q3", "loading", "result", "action"];
 const QUESTION_STEPS = ["q1", "q2", "q3"] as const;
 
 const wordCount = (s: string) => s.trim().split(/\s+/).filter(Boolean).length;
@@ -36,9 +37,9 @@ type RateLimit = { seconds: number; after?: () => void };
 /**
  * Alur A20 Lite (S-03 → S-09) dalam satu route `/lite`.
  *
- * - Langkah TIDAK ditambahkan ke riwayat browser (replaceState): Back browser
- *   keluar dari /lite, tombol "Kembali" di layar pindah antarlangkah. Dengan
- *   begitu tidak ada entri riwayat basi setelah refresh (refresh → S-03).
+ * - Setiap langkah dicatat di riwayat browser (pushState): Back browser dan
+ *   tombol "Kembali" mundur satu langkah. State tidak disimpan: refresh → S-03,
+ *   dan Back dari situ langsung keluar dari /lite (entri lama dilompati).
  * - Error API (lihat `errorScreen()` di api-v1.ts):
  *   jaringan/timeout → S-19 sheet, atau S-07 Error saat menunggu hasil;
  *   5xx/4xx/data rusak/ID tak dikenal → S-18; 429 → S-20.
@@ -74,12 +75,58 @@ export function LiteFlow() {
 
   const reflectAbort = useRef<AbortController | null>(null);
 
-  // ---------- Navigasi (tanpa entri riwayat baru) ----------
+  // ---------- Riwayat browser ----------
+  //
+  // Setiap langkah = satu entri (pushState), jadi Back browser mundur satu
+  // langkah. Entri diberi `liteSession` (unik per pemuatan halaman) dan
+  // `liteIdx` (posisi dari entri /lite pertama). Setelah refresh, entri lama
+  // masih ada di riwayat tetapi datanya sudah hilang: Back ke entri lama
+  // langsung melompat keluar dari /lite.
 
-  const go = useCallback((next: Step) => {
-    window.history.replaceState({ ...(window.history.state ?? {}), liteStep: next }, "");
+  const session = useRef("");
+  const idx = useRef(0);
+
+  const go = useCallback((next: Step, mode: "push" | "replace" = "push") => {
+    if (mode === "push") idx.current += 1;
+    const state = { ...(window.history.state ?? {}), liteStep: next, liteSession: session.current, liteIdx: idx.current };
+    if (mode === "push") window.history.pushState(state, "");
+    else window.history.replaceState(state, "");
     setStep(next);
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    session.current = Math.random().toString(36).slice(2);
+    // Satu-satunya replaceState saat dimuat: entri ini menjadi S-03, posisinya
+    // tetap (liteIdx lama dipertahankan agar lompatan keluar tepat).
+    const prev = window.history.state as { liteIdx?: number } | null;
+    const base = typeof prev?.liteIdx === "number" ? prev.liteIdx : 0;
+    idx.current = base;
+    window.history.replaceState(
+      { ...(window.history.state ?? {}), liteStep: "situation", liteSession: session.current, liteIdx: base },
+      ""
+    );
+
+    const onPop = (e: PopStateEvent) => {
+      const st = e.state as { liteStep?: Step; liteSession?: string; liteIdx?: number } | null;
+      if (st?.liteSession !== session.current) {
+        // Entri dari pemuatan sebelumnya (sebelum refresh).
+        const i = typeof st?.liteIdx === "number" ? st.liteIdx : 0;
+        if (i < base) window.history.go(-(i + 1)); // mundur: keluar dari /lite
+        else window.history.go(base - i); // maju ke entri basi: kembali ke entri sekarang
+        return;
+      }
+      idx.current = st.liteIdx ?? 0;
+      const s = st.liteStep;
+      // Entri S-07 (Back lalu Forward): request-nya sudah batal → Q3.
+      const target: Step = s && STEPS.includes(s) ? (s === "loading" ? "q3" : s) : "situation";
+      setStep(target);
+      setSheetRetry(null);
+      setServerRetry(null);
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
   }, []);
 
   // ---------- Error ----------
@@ -224,7 +271,7 @@ export function LiteFlow() {
     try {
       const res = await reflect({ scenario_id: scenario.id, answers }, { signal: ctrl.signal });
       setResult(res);
-      go("result");
+      go("result", "replace"); // S-07 tidak tersisa di riwayat: Back dari S-08 → Q3.
     } catch (err) {
       const screen = errorScreen(err);
       if (screen === "ignore") return;
@@ -233,7 +280,7 @@ export function LiteFlow() {
         return;
       }
       // 429: kembali ke Q3 supaya bisa kirim ulang. 5xx/data rusak: S-18 di atas S-07.
-      handleError(err, () => void runReflect(), () => go("q3"));
+      handleError(err, () => void runReflect(), () => window.history.back());
     } finally {
       clearTimeout(slowTimer);
     }
@@ -297,7 +344,7 @@ export function LiteFlow() {
         message={scenario.example_message}
         draft={drafts[question.id] ?? EMPTY_DRAFT}
         onDraftChange={(d) => setDrafts((all) => ({ ...all, [question.id]: d }))}
-        onBack={() => go(qIndex === 0 ? "situation" : QUESTION_STEPS[qIndex - 1])}
+        onBack={() => window.history.back()}
         onNext={() => {
           if (qIndex < 2) {
             go(QUESTION_STEPS[qIndex + 1]);
@@ -314,7 +361,7 @@ export function LiteFlow() {
   } else if (view === "result" && result) {
     screen = <ResultScreen result={result} missed={missed} onNext={() => go("action")} />;
   } else if (view === "action" && result) {
-    screen = <ActionCardScreen card={result.action_card} onBack={() => go("result")} onRestart={restart} />;
+    screen = <ActionCardScreen card={result.action_card} onBack={() => window.history.back()} onRestart={restart} />;
   }
 
   return (
