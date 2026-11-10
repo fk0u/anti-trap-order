@@ -2,7 +2,7 @@
 // dan internal/data/v1/characters.json — jalur "teguh: kerja" (B, C, A). Data fiktif.
 const { chromium, BASE } = require("../e2e/_setup.cjs");
 const fs = require("node:fs"); const path = require("node:path"); const { isDeepStrictEqual } = require("node:util");
-const OUT = path.join(__dirname, "video", "assets");
+const OUT = path.join(__dirname, "video", "media");
 const fx = JSON.parse(fs.readFileSync(path.join(__dirname, "../testdata/fixtures/soul-v1.json"), "utf8"));
 const chars = fs.readFileSync(path.join(__dirname, "../internal/data/v1/characters.json"), "utf8");
 const H = { "Access-Control-Allow-Origin": BASE, "Content-Type": "application/json" };
@@ -10,7 +10,10 @@ const H = { "Access-Control-Allow-Origin": BASE, "Content-Type": "application/js
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
-  const shot = (n, full = true) => page.screenshot({ path: `${OUT}/${n}.png`, fullPage: full });
+  const shot = async (n, full = true) => {
+    if (full) await page.addStyleTag({ content: "[class*='sticky'],[class*='fixed']{position:static !important}" });
+    await page.screenshot({ path: `${OUT}/${n}.png`, fullPage: full });
+  };
   await page.route("**/api/v1/soul/**", async (r) => {
     const req = r.request(); const url = new URL(req.url());
     if (req.method() === "OPTIONS") return r.fulfill({ status: 204, headers: { ...H, "Access-Control-Allow-Headers": "*", "Access-Control-Allow-Methods": "*" } });

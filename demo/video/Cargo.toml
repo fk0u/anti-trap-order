@@ -41,3 +41,10 @@ opt-level = 3
 incremental = true
 codegen-units = 16
 
+
+# cargo-fframes 1.4.1 belum terbit di crates.io; pakai commit yang sama dengan alat CLI-nya.
+[patch.crates-io]
+fframes = { git = "https://github.com/dmtrKovalenko/fframes", rev = "e8f01b9" }
+fframes_skia_renderer = { git = "https://github.com/dmtrKovalenko/fframes", rev = "e8f01b9" }
+fframes_native_player = { git = "https://github.com/dmtrKovalenko/fframes", rev = "e8f01b9" }
+fframes-dylib = { git = "https://github.com/dmtrKovalenko/fframes", rev = "e8f01b9" }

@@ -2,13 +2,17 @@
 // jadi seluruh alur Lite berjalan lewat mode terbatas (tanpa backend, data fiktif).
 const { chromium, BASE } = require("../e2e/_setup.cjs");
 const path = require("node:path");
-const OUT = path.join(__dirname, "video", "assets");
+const OUT = path.join(__dirname, "video", "media");
 const click = (p, t) => p.getByRole("button", { name: t, exact: true }).click();
 (async () => {
   const browser = await chromium.launch();
   const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
-  const shot = (n, full = false) => page.screenshot({ path: `${OUT}/${n}.png`, fullPage: full });
+  // Halaman panjang: bar tombol yang menempel dilepas supaya tidak melayang di tengah gambar saat di-pan di video.
+  const shot = async (n, full = false) => {
+    if (full) await page.addStyleTag({ content: "[class*='sticky'],[class*='fixed']{position:static !important}" });
+    await page.screenshot({ path: `${OUT}/${n}.png`, fullPage: full });
+  };
   await page.route("**/api/v1/**", (r) => r.abort("connectionrefused"));
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" }); await page.evaluate(() => document.fonts.ready);
   await shot("01-landing");
