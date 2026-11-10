@@ -11,9 +11,16 @@ type BackButtonProps = {
 
 const circleClass =
   "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-ato-full border-[0.5px] border-ato-text-1 " +
-  "bg-gradient-to-b from-white shadow-[3px_1px_0_0_var(--ato-ink)] " +
-  // Desktop 06 (node 77:7861): putih, garis 2px `text/1`, bayangan lembut.
-  "lg:border-2 lg:bg-none lg:bg-ato-bg-1 lg:shadow-[0_4px_10px_-2px_rgba(13,38,64,0.12)]";
+  "bg-gradient-to-b from-white shadow-[3px_1px_0_0_var(--ato-ink)]";
+
+/**
+ * Desktop: Lite memakai gaya mobile (frame desktop 06 terbaru, node 214:5343).
+ * Soul desktop (S-11 – S-14, node 77:7960) masih gaya 02: putih, garis 2px `text/1`, bayangan lembut.
+ */
+const desktopClass = {
+  lite: "",
+  soul: "lg:border-2 lg:bg-none lg:bg-ato-bg-1 lg:shadow-[0_4px_10px_-2px_rgba(13,38,64,0.12)]",
+} as const;
 
 const toneClass = { lite: "to-[#9edff1]", soul: "to-[#ffb628]" } as const;
 
@@ -24,7 +31,7 @@ const rootClass =
 export function BackButton({ label, tone = "lite", className, href, onClick }: BackButtonProps) {
   const content = (
     <>
-      <span aria-hidden className={cn(circleClass, toneClass[tone])}>
+      <span aria-hidden className={cn(circleClass, toneClass[tone], desktopClass[tone])}>
         <ArrowLeft size={20} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-text-1)" />
       </span>
       <span className="whitespace-nowrap font-ato-ui text-ato-m-h3 text-ato-text-1">{label}</span>

@@ -11,6 +11,8 @@ type CategoryChipProps = {
 /**
  * CategoryChip — gaya 06 (S-03, node 56:6856 / 56:6947): pil 44px dengan
  * bayangan keras. Terpilih: gradien `#C2F7FF → #5FDFF2`, border hitam 0.5px.
+ * Desktop 06 terbaru (node 214:5246 / 214:5292): belum terpilih tanpa garis;
+ * terpilih gradien `putih → #79E6F7`.
  */
 export function CategoryChip({ icon: Icon, label, selected, onClick }: CategoryChipProps) {
   return (
@@ -22,8 +24,8 @@ export function CategoryChip({ icon: Icon, label, selected, onClick }: CategoryC
         "flex h-11 shrink-0 items-center justify-center gap-ato-8 rounded-ato-full px-ato-16 [filter:drop-shadow(2px_3px_0_var(--ato-ink))]",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent",
         selected
-          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-[#c2f7ff] to-[#5fdff2]"
-          : "border border-ato-border-subtle bg-ato-bg-1"
+          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-[#c2f7ff] to-[#5fdff2] lg:from-white lg:to-[#79e6f7]"
+          : "border border-ato-border-subtle bg-ato-bg-1 lg:border-0"
       )}
     >
       <Icon

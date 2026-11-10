@@ -82,14 +82,19 @@ const sizeClass: Record<ButtonSize, string> = {
 };
 
 /**
- * Gaya tombol mulai breakpoint lg, mengikuti frame desktop 06 (BROWSER 1440),
- * yang memakai gaya 02: `lite`/`soul` solid + kilau atas + Gloss Button, label
- * putih; `secondary` putih bergaris `border/strong`; `ghost` teks aksen Lite.
+ * Gaya tombol mulai breakpoint lg, mengikuti frame desktop 06 (BROWSER 1440).
+ * - `aero`: sama dengan gaya mobile (gradien, border hitam 0.5px, label varian);
+ *   hanya lebarnya mengikuti isi. Dipakai frame desktop 06 terbaru (alur Lite,
+ *   landing, S-09, S-10). Gradien desktop bisa beda lewat `desktopGradient`.
+ * - `lite`/`soul`: gaya 02 — solid + kilau atas + Gloss Button, label putih
+ *   (masih dipakai isi S-11/S-13/S-14 dan "Jalankan Lite" S-14).
+ * - `secondary`: putih bergaris `border/strong`; `ghost`: teks aksen Lite.
  * Lebar tombol di desktop mengikuti isi (bukan penuh).
  */
-export type DesktopButtonStyle = "lite" | "soul" | "secondary" | "ghost";
+export type DesktopButtonStyle = "aero" | "lite" | "soul" | "secondary" | "ghost";
 
 const desktopClass: Record<DesktopButtonStyle, string> = {
+  aero: "lg:w-auto",
   lite: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-lite-accent lg:shadow-ato-gloss",
   soul: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-soul-accent lg:shadow-ato-gloss",
   secondary: "lg:w-auto lg:border lg:border-solid lg:border-ato-border-strong lg:[background-image:none] lg:bg-ato-bg-1 lg:shadow-none",
@@ -97,6 +102,7 @@ const desktopClass: Record<DesktopButtonStyle, string> = {
 };
 
 const desktopLabelClass: Record<DesktopButtonStyle, string> = {
+  aero: "",
   lite: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
   soul: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
   secondary: "lg:bg-none lg:text-ato-text-1 lg:[--ato-outline-width:0px]",
@@ -109,6 +115,8 @@ type CommonProps = {
   desktop?: DesktopButtonStyle;
   size?: ButtonSize;
   gradient?: string;
+  /** Gradien khusus mulai lg (mis. "Lanjut →" desktop 06 memakai `FLOW_GRADIENTS.next`). */
+  desktopGradient?: string;
   className?: string;
   labelClassName?: string;
   children: React.ReactNode;
@@ -134,12 +142,23 @@ const baseClass =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent";
 
 export function Button(props: ButtonProps) {
-  const { variant, size = "lg", gradient, className, labelClassName, children, desktop } = props;
+  const { variant, size = "lg", gradient, desktopGradient, className, labelClassName, children, desktop } = props;
   const bg = gradient ?? defaultGradient[variant];
   // Gradien lewat variabel CSS (bukan style backgroundImage langsung) supaya kelas lg: bisa menimpanya.
   // className terakhir: penyesuaian per pemakaian (mis. lg:w-full di modal) menang atas gaya desktop bawaan.
-  const classes = cn(baseClass, sizeClass[size], variantClass[variant], bg && "[background-image:var(--ato-btn-bg)]", desktop && desktopClass[desktop], className);
-  const style = bg ? ({ "--ato-btn-bg": bg } as React.CSSProperties) : undefined;
+  const classes = cn(
+    baseClass,
+    sizeClass[size],
+    variantClass[variant],
+    bg && "[background-image:var(--ato-btn-bg)]",
+    desktop && desktopClass[desktop],
+    desktopGradient && "lg:[background-image:var(--ato-btn-bg-lg)]",
+    className
+  );
+  const style =
+    bg || desktopGradient
+      ? ({ ...(bg && { "--ato-btn-bg": bg }), ...(desktopGradient && { "--ato-btn-bg-lg": desktopGradient }) } as React.CSSProperties)
+      : undefined;
   const labelClasses = cn(labelClassByVariant[variant], labelClassName, desktop && desktopLabelClass[desktop]);
   const sheen =
     desktop === "lite" || desktop === "soul" ? (
@@ -164,6 +183,7 @@ export function Button(props: ButtonProps) {
     variant: _v,
     size: _s,
     gradient: _g,
+    desktopGradient: _dg,
     desktop: _d,
     className: _c,
     labelClassName: _l,

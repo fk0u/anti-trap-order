@@ -57,12 +57,12 @@ export function QuestionScreen({ question, message, draft, onDraftChange, onBack
         <LitePanel>
         <FlowTop back={{ label: liteCopy.header.back, onClick: onBack }} progress={liteCopy.progress.question(step)} step={step} desktopStep={step} />
 
-        {/* Context card (node 146:5334); desktop node 56:8973: `bg/2`, tanpa garis dan bayangan. */}
+        {/* Context card (node 146:5334); desktop node 56:8973: gradien hijau dan garis sama, radius md, tanpa bayangan. */}
         <section
           className={cn(
             "relative flex w-full flex-col gap-ato-8 overflow-hidden rounded-ato-lg border-[0.5px] border-ato-ink p-ato-16 backdrop-blur-[12px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),4px_4px_3px_0_rgba(0,0,0,0.25),0_12px_32px_-8px_rgba(13,23,33,0.08)]",
             "[background-image:linear-gradient(to_bottom,#ffffff,#7aff55_99.98%)]",
-            "lg:rounded-ato-md lg:border-0 lg:bg-ato-bg-2 lg:shadow-none lg:backdrop-blur-none lg:[background-image:none]"
+            "lg:rounded-ato-md lg:shadow-none lg:backdrop-blur-none"
           )}
         >
           <button
@@ -126,8 +126,9 @@ export function QuestionScreen({ question, message, draft, onDraftChange, onBack
         </Button>
         <Button
           variant="aqua"
-          desktop="lite"
+          desktop="aero"
           gradient={FLOW_GRADIENTS.question}
+          desktopGradient={FLOW_GRADIENTS.next}
           className="min-w-px flex-1 lg:flex-none"
           disabled={!isDraftValid(draft)}
           onClick={onNext}
