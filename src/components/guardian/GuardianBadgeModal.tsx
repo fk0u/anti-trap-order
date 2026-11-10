@@ -160,7 +160,7 @@ export function GuardianBadgeModal({
     a.click();
   };
 
-  const shareText = `Saya baru saja menyelesaikan ujian refleks digital di Anti Trap Order (ATO) dengan gelar ${rankTitle} (${xp} XP, ${streak} Hari Streak). Latih refleksmu membedah trik penipuan online dari sudut pandang pelaku di: https://antitraporder.web.id/drill`;
+  const shareText = `Saya baru saja menyelesaikan ujian refleks digital di Anti Trap Order (ATO) dengan gelar ${rankTitle} (${xp} XP, ${streak} Hari Streak). Latih refleksmu membedah trik penipuan online dari sudut pandang pelaku di: https://ato.kousozo.tech/drill`;
 
   const handleShareWhatsApp = () => {
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
