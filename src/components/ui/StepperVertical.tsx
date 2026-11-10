@@ -10,6 +10,13 @@ import { cn } from "@/lib/utils";
  * - Belum: titik 12px `border/strong`, label `text/3`.
  * - Ω: 28px `bg/2` bergaris `border/strong`; saat dicapai (S-07/S-08) terisi aksen
  *   seperti stepper horizontal S-08 desktop (keputusan desain mandiri).
+ *
+ * Perataan (keputusan desain mandiri, permintaan Syafar 10 Nov 2026): di Figma
+ * kolom titik selebar titiknya sendiri (28 / 12px), jadi titik, garis, dan label
+ * bergeser. Di sini semua titik berada di kolom 28px yang sama (pusat x = 14),
+ * label mulai di x = 40, setiap titik rata tengah dengan baris labelnya, dan
+ * garis menyambung dari pusat titik ke pusat titik berikutnya. Tinggi total sama
+ * dengan Figma (188px untuk 5 langkah: jarak antarbaris 40px).
  */
 export function StepperVertical({ steps, current, className }: { steps: readonly string[]; current: number; className?: string }) {
   const last = steps.length - 1;
@@ -43,12 +50,24 @@ export function StepperVertical({ steps, current, className }: { steps: readonly
           dot = <span className={cn("size-3 rounded-ato-full", done ? "bg-ato-lite-accent" : "bg-ato-border-strong")} />;
         }
         return (
-          <li key={label} aria-current={now ? "step" : undefined} className="flex w-full items-start gap-ato-12">
-            <span aria-hidden className="flex shrink-0 flex-col items-center">
+          <li
+            key={label}
+            aria-current={now ? "step" : undefined}
+            className={cn("relative flex w-full items-start gap-ato-12", i < last && "pb-ato-12")}
+          >
+            {/* Garis: dari pusat titik ini (y = 14) sampai pusat titik berikutnya (tinggi baris = 28 + 12). */}
+            {i < last && (
+              <span
+                aria-hidden
+                className={cn("absolute left-[13px] top-[14px] h-full w-[2px]", lineOn ? "bg-ato-lite-accent" : "bg-ato-border-strong")}
+              />
+            )}
+            <span aria-hidden className="relative flex size-7 shrink-0 items-center justify-center">
               {dot}
-              {i < last && <span className={cn("h-6 w-[2px]", lineOn ? "bg-ato-lite-accent" : "bg-ato-border-strong")} />}
             </span>
-            <span className={cn("min-w-px flex-1 font-ato-ui text-ato-d-body", now ? "text-ato-text-1" : "text-ato-text-3")}>{label}</span>
+            <span className={cn("flex min-h-7 min-w-px flex-1 items-center font-ato-ui text-ato-d-body", now ? "text-ato-text-1" : "text-ato-text-3")}>
+              {label}
+            </span>
           </li>
         );
       })}

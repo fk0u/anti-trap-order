@@ -247,6 +247,7 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | "Lihat cara mainnya" (S-10), "Simpan gambar" (S-09), "Lihat di GitHub" (S-15) | Ada di desktop | Tetap disembunyikan (keputusan sebelumnya berlaku untuk semua ukuran) |
 | Footer S-01 | Link Tentang · Batasan & Privasi · GitHub | Link GitHub disembunyikan di mobile dan desktop — repo masih privat (404 untuk publik); TODO di `src/content/landing-s01.ts` (keputusan Syafar, 10 Nov 2026) |
 | Stepper vertikal (panel Lite) | 06 hanya menggambar Alpha selesai | Titik tengah selesai = 12px aksen + garis aksen; Ω tercapai (S-07/S-08) = aksen penuh |
+| Perataan stepper vertikal | Komponen 02 (node 55:167): kolom titik selebar titiknya (28 / 12px), jadi titik kecil, garis, dan label bergeser ke kiri dari A/Ω | Semua titik di kolom 28px yang sama (pusat x 14), label mulai x 40, titik rata tengah dengan labelnya, garis menyambung pusat ke pusat; tinggi total tetap 188px (permintaan Syafar, 10 Nov 2026) |
 | Meter Soul turun (S-13/S-14 desktop) | Frame positif: semua cokelat | Naik/tetap cokelat; turun merah `#bf0003` (02 Meter State=down) |
 | S-07 Loading desktop | Tidak ada frame | Panel konteks (progres, stepper di "Hasil", disclaimer) + animasi di kolom kanan maks. 480 |
 | S-17 / S-18 / S-20 desktop | Tidak ada frame | Isi di tengah maks. 480 (tablet 560), tanpa header desktop |
