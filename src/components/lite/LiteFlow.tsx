@@ -10,8 +10,10 @@ import {
   isApiError,
   listCategories,
   listScenarios,
+  listTactics,
   reflect,
 } from "@/lib/api-v1";
+import { liteCopy } from "@/content/lite";
 import { MIN_WORDS, maskText } from "@/lib/ml/contract";
 import { pickMissed } from "@/lib/lite/pick-missed";
 import type { Answer, Category, CategoryId, DetectedTactic, ReflectRequest, ReflectResponse, ScenarioDetail } from "@/types/api-v1";
@@ -57,6 +59,7 @@ export function LiteFlow() {
   // S-07–S-09
   const [loadState, setLoadState] = useState<LoadingState>("waiting");
   const [result, setResult] = useState<ReflectResponse | null>(null);
+  const [tacticTips, setTacticTips] = useState<string[]>([]);
 
   // Overlay error
   const [sheetRetry, setSheetRetry] = useState<(() => void) | null>(null);
@@ -110,6 +113,21 @@ export function LiteFlow() {
   }, [handleError]);
 
   useEffect(() => loadCategories(), [loadCategories]);
+
+  // Tips S-07: `explanation` taktik dari API. Tidak kritis — kalau gagal, S-07
+  // cukup menampilkan teks Figma, tanpa sheet error.
+  useEffect(() => {
+    const ctrl = new AbortController();
+    listTactics({ signal: ctrl.signal })
+      .then((list) => setTacticTips(list.map((t) => t.explanation).filter((s) => typeof s === "string" && s.trim() !== "")))
+      .catch(() => {});
+    return () => ctrl.abort();
+  }, []);
+
+  const loadingTips = useMemo(
+    () => [...new Set([liteCopy.loading.body, ...tacticTips])],
+    [tacticTips]
+  );
 
   const maskedCount = useMemo(() => maskText(text).maskedCount, [text]);
   const enoughText = wordCount(text) >= MIN_WORDS;
@@ -275,7 +293,9 @@ export function LiteFlow() {
       />
     );
   } else if (view === "loading") {
-    screen = <LoadingScreen state={loadState} onRetry={() => void runReflect()} onSimulate={onSimulate} />;
+    screen = (
+      <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} onSimulate={onSimulate} />
+    );
   } else if (view === "result" && result) {
     screen = <ResultScreen result={result} missed={missed} onNext={() => go("action")} />;
   } else if (view === "action" && result) {

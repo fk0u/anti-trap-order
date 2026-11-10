@@ -45,7 +45,9 @@ export const liteCopy = {
 
   // S-07 (node 56:7268 / 56:8425)
   loading: {
-    title: "Menyusun celah yang kamu temukan…",
+    /** Figma: "Menyusun celah yang kamu temukan…" — elipsis diganti tiga titik beranimasi (LoadingScreen). */
+    title: "Menyusun celah yang kamu temukan",
+    /** Tips pertama; tips berikutnya = `explanation` taktik dari GET /lite/tactics. */
     body: "Pelaku suka membuatmu merasa sempat tapi terburu-buru.",
     slow: "Agak lama? Kami siapkan mode terbatas.",
     /** Hanya tampil saat NODE_ENV=development (alat uji prototype). */
