@@ -5,12 +5,12 @@ export default function manifest(): MetadataRoute.Manifest {
     name: "Anti Trap Order (ATO) — Digital Guardian",
     short_name: "ATO Guardian",
     description:
-      "A20 Culture Technology for Digital Guardians — Latihan Refleks Kritis Melawan Rekayasa Sosial & Penipuan Digital",
-    start_url: "/drill",
+      "Jangan hanya waspada. Jadilah penjaganya. Ini alat bantu berpikir, bukan deteksi pasti.",
+    start_url: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#07090D",
-    theme_color: "#07090D",
+    background_color: "#FFFFFF",
+    theme_color: "#E0F2FE",
     icons: [
       {
         src: "/icons/icon-192.png",

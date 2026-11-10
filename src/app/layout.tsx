@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { MobileTabBar } from "@/components/layout/MobileTabBar";
+import { SITE_URL } from "@/lib/site";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -12,13 +13,13 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ato.kousozo.tech"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    default: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     template: "%s | Anti Trap Order (ATO)",
   },
   description:
-    "Melatih refleks kritis masyarakat Indonesia membedah rekayasa sosial dan penipuan digital melalui pembalikan sudut pandang (Perspective Inversion).",
+    "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   applicationName: "Anti Trap Order",
   keywords: [
     "Anti Trap Order",
@@ -32,7 +33,7 @@ export const metadata: Metadata = {
     "Social Engineering",
     "MIT-Week 2026",
   ],
-  authors: [{ name: "Anti Trap Order Team", url: "https://ato.kousozo.tech" }],
+  authors: [{ name: "Anti Trap Order Team", url: SITE_URL }],
   creator: "Anti Trap Order",
   publisher: "Culture Technology Digital Guardians",
   formatDetection: {
@@ -43,17 +44,17 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://ato.kousozo.tech",
+    url: SITE_URL,
     siteName: "Anti Trap Order (ATO)",
-    title: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:
-      "Melatih refleks kritis masyarakat Indonesia membedah rekayasa sosial dan penipuan digital melalui pembalikan sudut pandang (Perspective Inversion).",
+      "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Anti Trap Order (ATO) — Culture Technology for Digital Guardians",
+    title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:
-      "Latih insting curiga menjadi refleks penjaga digital. Simulasi Perspective Inversion membedah manipulasi siber.",
+      "Saat ada pesan yang terasa janggal, berpikirlah seperti pelakunya — dan temukan celahnya sendiri.",
   },
   appleWebApp: {
     capable: true,

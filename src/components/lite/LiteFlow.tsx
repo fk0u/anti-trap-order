@@ -4,15 +4,10 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
   DEFAULT_RETRY_AFTER_S,
   SLOW_HINT_MS,
-  analyzeText,
   errorScreen,
-  getScenario,
   isApiError,
-  listCategories,
-  listScenarios,
-  listTactics,
-  reflect,
 } from "@/lib/api-v1";
+import { loadLocalEngine, remoteEngine, type LiteEngine } from "@/lib/lite/engine";
 import { liteCopy } from "@/content/lite";
 import { MIN_WORDS, maskText } from "@/lib/ml/contract";
 import { pickMissed } from "@/lib/lite/pick-missed";
@@ -74,6 +69,11 @@ export function LiteFlow() {
   const [rateLimit, setRateLimit] = useState<RateLimit | null>(null); // S-20
 
   const reflectAbort = useRef<AbortController | null>(null);
+
+  // Sumber data: API v1, atau mesin lokal setelah user memilih "Lanjut mode
+  // terbatas" (tidak pernah beralih sendiri). Di mode lokal teks tidak keluar
+  // dari browser sama sekali.
+  const engine = useRef<LiteEngine>(remoteEngine);
 
   // ---------- Riwayat browser ----------
   //
@@ -159,12 +159,29 @@ export function LiteFlow() {
     }
   }, []);
 
+  /**
+   * "Lanjut mode terbatas": pindah ke mesin lokal lalu ulangi aksi yang gagal.
+   * Gagal memuat mesin → tetap di layar error (user masih bisa "Coba lagi").
+   */
+  const goLimited = useCallback(async (retry: (() => void) | null) => {
+    try {
+      const local = await loadLocalEngine();
+      engine.current = local;
+      const tips = await local.listTactics();
+      setTacticTips(tips.map((t) => t.explanation).filter((x) => x.trim() !== ""));
+    } catch {
+      return;
+    }
+    setSheetRetry(null);
+    retry?.();
+  }, []);
+
   // ---------- S-03 ----------
 
   const loadCategories = useCallback(() => {
     const ctrl = new AbortController();
     setCategoriesFailed(false);
-    listCategories({ signal: ctrl.signal })
+    engine.current.listCategories({ signal: ctrl.signal })
       .then(setCategories)
       .catch((err) => {
         if (errorScreen(err) === "ignore") return;
@@ -180,7 +197,7 @@ export function LiteFlow() {
   // cukup menampilkan teks Figma, tanpa layar error.
   useEffect(() => {
     const ctrl = new AbortController();
-    listTactics({ signal: ctrl.signal })
+    engine.current.listTactics({ signal: ctrl.signal })
       .then((list) => setTacticTips(list.map((t) => t.explanation).filter((s) => s.trim() !== "")))
       .catch(() => {});
     return () => ctrl.abort();
@@ -199,7 +216,7 @@ export function LiteFlow() {
 
   const onExample = useCallback(async () => {
     try {
-      const list = await listScenarios();
+      const list = await engine.current.listScenarios();
       const pool = list.filter((s) => s.example_message && s.example_message !== text);
       const pick = pool[Math.floor(Math.random() * pool.length)];
       if (pick) {
@@ -221,7 +238,7 @@ export function LiteFlow() {
       let tactics: DetectedTactic[] = [];
       if (enoughText) {
         // Teks lebih spesifik daripada chip, jadi didahulukan.
-        const an = await analyzeText(text);
+        const an = await engine.current.analyzeText(text);
         if (an.too_short) {
           setTooShortFromServer(true);
           return;
@@ -229,14 +246,14 @@ export function LiteFlow() {
         scenarioId = an.scenario_id;
         tactics = an.tactics;
       } else if (categoryId) {
-        const list = await listScenarios(categoryId);
+        const list = await engine.current.listScenarios(categoryId);
         const pick = list.find((s) => s.is_fallback) ?? list[0];
         if (!pick) throw new Error("Kategori tanpa skenario"); // → S-18
         scenarioId = pick.id;
       } else {
         return;
       }
-      const detail = await getScenario(scenarioId);
+      const detail = await engine.current.getScenario(scenarioId);
       setScenario(detail);
       setDetected(tactics);
       setDrafts({});
@@ -269,7 +286,7 @@ export function LiteFlow() {
     }) as ReflectRequest["answers"];
 
     try {
-      const res = await reflect({ scenario_id: scenario.id, answers }, { signal: ctrl.signal });
+      const res = await engine.current.reflect({ scenario_id: scenario.id, answers }, { signal: ctrl.signal });
       setResult(res);
       go("result", "replace"); // S-07 tidak tersisa di riwayat: Back dari S-08 → Q3.
     } catch (err) {
@@ -357,7 +374,12 @@ export function LiteFlow() {
       />
     );
   } else if (view === "loading") {
-    screen = <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} />;
+    screen = <LoadingScreen
+        state={loadState}
+        tips={loadingTips}
+        onRetry={() => void runReflect()}
+        onLimited={() => void goLimited(() => void runReflect())}
+      />;
   } else if (view === "result" && result) {
     screen = <ResultScreen result={result} missed={missed} onNext={() => go("action")} />;
   } else if (view === "action" && result) {
@@ -375,6 +397,7 @@ export function LiteFlow() {
           setSheetRetry(null);
           retry?.();
         }}
+        onLimited={() => void goLimited(sheetRetry)}
       />
       {serverRetry && (
         <ServerErrorScreen
