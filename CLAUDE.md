@@ -115,6 +115,7 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 
 ## Belum dikerjakan
 
+- Tidak ada layar 06 yang tersisa: S-01 – S-20 sudah dibangun untuk mobile, tablet (layout mobile 560), dan desktop. Yang masih tertunda ada di "Menunggu keputusan".
 
 ## Keputusan desain mandiri
 
