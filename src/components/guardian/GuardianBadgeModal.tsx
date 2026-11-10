@@ -142,7 +142,7 @@ export function GuardianBadgeModal({
     ctx.fillStyle = "#64748B";
     ctx.font = "14px monospace";
     ctx.fillText(
-      "Anti Trap Order (ATO) · Decision Support & Perspective Inversion Engine · ato.kousozo.tech",
+      "Anti Trap Order (ATO) · Decision Support & Perspective Inversion Engine · antitraporder.web.id",
       80,
       570
     );
@@ -159,7 +159,7 @@ export function GuardianBadgeModal({
     a.click();
   };
 
-  const shareText = `Saya baru saja menyelesaikan ujian refleks digital di Anti Trap Order (ATO) dengan gelar ${rankTitle} (${xp} XP, ${streak} Hari Streak). Latih refleksmu membedah trik penipuan online dari sudut pandang pelaku di: https://ato.kousozo.tech/drill`;
+  const shareText = `Saya baru saja menyelesaikan ujian refleks digital di Anti Trap Order (ATO) dengan gelar ${rankTitle} (${xp} XP, ${streak} Hari Streak). Latih refleksmu membedah trik penipuan online dari sudut pandang pelaku di: https://antitraporder.web.id/drill`;
 
   const handleShareWhatsApp = () => {
     const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;

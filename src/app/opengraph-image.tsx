@@ -157,7 +157,7 @@ export default async function Image() {
               fontWeight: 600,
             }}
           >
-            ato.kousozo.tech
+            antitraporder.web.id
           </span>
         </div>
       </div>

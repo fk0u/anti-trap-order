@@ -12,7 +12,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ato.kousozo.tech"),
+  metadataBase: new URL("https://antitraporder.web.id"),
   title: {
     default: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     template: "%s | Anti Trap Order (ATO)",
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     "Social Engineering",
     "MIT-Week 2026",
   ],
-  authors: [{ name: "Anti Trap Order Team", url: "https://ato.kousozo.tech" }],
+  authors: [{ name: "Anti Trap Order Team", url: "https://antitraporder.web.id" }],
   creator: "Anti Trap Order",
   publisher: "Culture Technology Digital Guardians",
   formatDetection: {
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
-    url: "https://ato.kousozo.tech",
+    url: "https://antitraporder.web.id",
     siteName: "Anti Trap Order (ATO)",
     title: "Anti Trap Order (ATO) — Jangan hanya waspada. Jadilah penjaganya",
     description:
