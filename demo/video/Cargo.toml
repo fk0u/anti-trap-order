@@ -1,0 +1,43 @@
+[package]
+name = "video-proj"
+version = "0.1.0"
+edition = "2024"
+publish = false
+
+[dependencies]
+fframes = { version = "=1.4.1", features = ["compile-time-svgtree", "cli"] }
+fframes_skia_renderer = { version = "=1.4.1", features = ["metal"] }
+fframes_native_player = { version = "=1.4.1", default-features = false, features = ["metal", "audio"] }
+
+[target.'cfg(not(windows))'.dependencies]
+fframes = { version = "=1.4.1", features = ["h264", "libav-agree-gpl"] }
+
+[target.'cfg(all(any(target_os = "macos", target_os = "linux"), not(target_feature = "crt-static")))'.dependencies]
+fframes-dylib = { version = "=1.4.1", optional = true }
+
+[features]
+default = ["dynamic-linking"]
+dynamic-linking = ["dep:fframes-dylib"]
+
+[lib]
+name = "video_proj"
+path = "src/lib.rs"
+doctest = false
+
+[[bin]]
+name = "video-proj"
+path = "src/main.rs"
+
+[workspace]
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
+
+# Cache scene edits with the usual release optimizations and codegen unit count.
+[profile.release]
+incremental = true
+codegen-units = 16
+

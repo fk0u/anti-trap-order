@@ -15,11 +15,11 @@ Kalimat privasi hanya yang sudah dikonfirmasi di aplikasi (S-01, S-16); jangan m
 | 7 | 1:40–2:10 | S-10 pilih karakter fiktif → S-11 misi, S-12 pilihan, S-13 konsekuensi dan meter bergerak → S-14 peringkat. | "A20 Soul: pilih seseorang yang ingin kamu jaga, misalnya adik atau ibu. Setiap keputusanmu berdampak pada kepercayaan, kewaspadaan, dan keamanannya." | Jaga seseorang lewat cerita |
 | 8 | 2:10–2:30 | Diagram sederhana: teks → disamarkan di browser → analisis → dibuang. S-16 "Batasan & Privasi". | "Teks yang kamu tulis disamarkan dulu di perangkatmu, dianalisis, lalu langsung dibuang. Tidak ada AI generatif. Analisisnya Naive Bayes yang bisa dijelaskan." | Kami tidak menyimpan apa yang kamu tulis |
 | 9 | 2:30–2:48 | Rekaman: server diputus (mode pesawat atau route Playwright) → S-19 "Koneksi ke server terputus" → ketuk "Lanjut mode terbatas" → Lite tetap sampai hasil. | "Bahkan saat server mati atau sinyal hilang, kamu tetap bisa lanjut. Mode terbatas menjalankan semuanya di perangkatmu." | Hasilnya dibuat di perangkatmu |
-| 10 | 2:48–3:00 | Layar penutup: logo, "Ini alat bantu berpikir, bukan deteksi pasti." Tim dan lomba (MIT-Week UNMUL 2026 · Guardians of the Digital Space). | "Anti Trap Order. Bukan deteksi pasti, tapi latihan untuk jadi penjaga digital." | Ini alat bantu berpikir, bukan deteksi pasti. |
+| 10 | 2:48–3:00 | Layar penutup: logo, "Ini alat bantu berpikir, bukan deteksi pasti." Tim **CALON CEO** · MIT-Week UNMUL 2026 · Guardians of the Digital Space. | "Anti Trap Order. Bukan deteksi pasti, tapi latihan untuk jadi penjaga digital." | Ini alat bantu berpikir, bukan deteksi pasti. |
 
 ## Yang perlu diisi Syafar
 
-- Nama tim dan anggota untuk layar penutup (no. 10).
+- Nama tim sudah ditetapkan: **CALON CEO** (layar penutup no. 10). Nama anggota belum diberikan, jadi tidak ditampilkan.
 - Suara narasi dan musik latar (bebas royalti). Naskah bisa dipangkas jika terlalu panjang.
 - Persetujuan akhir narasi no. 8: klaim privasi harus tetap sama dengan teks di S-01/S-16.
 
