@@ -33,6 +33,28 @@ npx @stoplight/prism-cli@5 mock docs/openapi.yaml -p 4010   # mock API v1
 go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun dataset + latih model ML
 ```
 
+### Test e2e (Playwright)
+
+Script di `e2e/`, memakai backend Go asli; error (500/502/429/JSON rusak/timeout) dipicu lewat route Playwright. Playwright **tidak** ada di `package.json` — selalu lewat npx (versi dikunci 1.49.1); `e2e/_setup.cjs` mencari modulnya dari folder npx di PATH.
+
+```bash
+npx -y playwright@1.49.1 install chromium            # sekali saja
+
+# Terminal 1 — CORS_ORIGIN harus sama persis dengan origin frontend
+PORT=8080 CORS_ORIGIN=http://localhost:3000 go run ./cmd/server
+# Terminal 2 — build produksi (timing lebih stabil daripada npm run dev)
+NEXT_PUBLIC_API_URL=http://localhost:8080 npm run build && npx next start -p 3000
+
+# Terminal 3
+npx -y -p playwright@1.49.1 node e2e/lite.cjs          # alur Lite S-03–S-09, privasi request, 429, timeout
+npx -y -p playwright@1.49.1 node e2e/errors.cjs        # S-17/S-18/S-19/S-20, validasi respons, Back/refresh
+npx -y -p playwright@1.49.1 node e2e/loading-anim.cjs  # animasi S-07 + reduced motion
+```
+
+- `E2E_BASE_URL` (default `http://localhost:3000`) jika frontend di port lain; samakan dengan `CORS_ORIGIN`.
+- Screenshot ke argumen pertama, `E2E_OUT`, atau `<temp>/ato-e2e`.
+- `lite.cjs` dan `errors.cjs` masing-masing ±1–2 menit (ada uji timeout 10 dtk). Jalankan ulang setelah mengubah alur Lite.
+
 ## Cara kerja
 
 - Kerjakan di branch baru, bukan `main`. Commit kecil per tugas dengan pesan bahasa Indonesia.
