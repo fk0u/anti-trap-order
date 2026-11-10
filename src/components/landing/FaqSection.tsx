@@ -17,10 +17,12 @@ export function FaqSection() {
   const baseId = useId();
 
   return (
-    <section aria-labelledby={`${baseId}-label`} className="flex w-full flex-col gap-ato-8">
+    <section aria-labelledby={`${baseId}-label`} className="flex w-full flex-col gap-ato-8 lg:gap-ato-24">
       <ConsoleLabel as="h2" id={`${baseId}-label`}>
         {faq.label}
       </ConsoleLabel>
+      {/* Desktop (node "FAQ grid"): dua kolom, jarak 16. */}
+      <div className="contents lg:grid lg:w-full lg:grid-cols-2 lg:items-start lg:gap-ato-16">
       {faq.items.map((item, i) => {
         const hasAnswer = item.answer.trim().length > 0;
         const isOpen = hasAnswer && openIndex === i;
@@ -35,12 +37,12 @@ export function FaqSection() {
                 aria-controls={hasAnswer ? panelId : undefined}
                 onClick={() => setOpenIndex(isOpen ? null : i)}
                 className={cn(
-                  "flex w-full items-center gap-ato-12 p-ato-16 text-left",
+                  "flex w-full items-center gap-ato-12 p-ato-16 text-left lg:min-h-[58px] lg:px-ato-20 lg:py-ato-0",
                   "focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ato-lite-accent",
                   !hasAnswer && "cursor-default"
                 )}
               >
-                <span className="min-w-px flex-1 font-ato-ui text-ato-m-body text-ato-text-1">{item.question}</span>
+                <span className="min-w-px flex-1 font-ato-ui text-ato-m-body text-ato-text-1 lg:text-ato-d-body">{item.question}</span>
                 <span aria-hidden className="whitespace-nowrap font-ato-console text-ato-console uppercase text-ato-lite-accent">
                   {isOpen ? "−" : "+"}
                 </span>
@@ -54,6 +56,7 @@ export function FaqSection() {
           </div>
         );
       })}
+      </div>
     </section>
   );
 }

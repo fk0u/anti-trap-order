@@ -15,13 +15,13 @@ const SHEET_ID = "mode-sheet";
  * Header S-01 + sheet S-02 yang dibuka dari tombol menu (mobile/tablet).
  * Desktop: header bar dengan link nav (S-02 tidak dipakai, perannya diganti nav).
  */
-export function LandingHeader({ active = null }: { active?: NavId | null }) {
+export function LandingHeader({ active = null, desktopVariant = "default" }: { active?: NavId | null; desktopVariant?: "default" | "landing" }) {
   const [open, setOpen] = useState(false);
   const close = useCallback(() => setOpen(false), []);
 
   return (
     <>
-      <DesktopHeader active={active} />
+      <DesktopHeader active={active} variant={desktopVariant} />
       <SiteHeader
         className={cn("relative z-10 lg:hidden", TABLET_COLUMN)}
         logoMark={landingS01.header.logoMark}

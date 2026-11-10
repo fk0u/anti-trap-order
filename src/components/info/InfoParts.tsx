@@ -1,19 +1,24 @@
 import { LandingHeader } from "@/components/landing/LandingHeader";
 import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
+import { DESKTOP_CONTAINER, TABLET_COLUMN } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 
 /**
  * Bagian bersama S-15 Tentang dan S-16 Batasan & Privasi (Figma 06 node
  * 56:8211 / 56:8292): header landing, judul Alice, seksi, kartu kaca.
+ * Desktop (node 56:9392 / 56:9483): container 1120, seksi berjarak 56,
+ * judul Desktop H1 gelap (Plus Jakarta Sans, bukan Alice).
  */
 
 /** Latar: "Aero sky" cyan 560px + gradien bawah ke cyan (`bottom` = warna akhir dari 06). */
 export function InfoPage({ children, from, stop, bottom }: { children: React.ReactNode; from: string; stop: string; bottom: string }) {
   return (
     <div className="relative min-h-screen overflow-x-clip font-ato-ui text-ato-text-1" style={{ backgroundImage: `linear-gradient(to bottom, ${from} ${stop}, ${bottom} 100%)` }}>
-      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-ato-sky to-[rgba(95,227,247,0)]" />
-      <LandingHeader />
-      <main className="relative flex w-full flex-col gap-ato-32 px-ato-16 pb-[40px] pt-ato-8">{children}</main>
+      <div aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-ato-sky to-[rgba(95,227,247,0)] lg:h-[640px]" />
+      <LandingHeader active="tentang" />
+      <main className={cn("relative flex w-full flex-col gap-ato-32 px-ato-16 pb-[40px] pt-ato-8", TABLET_COLUMN, DESKTOP_CONTAINER, "lg:gap-ato-56 lg:pb-ato-80 lg:pt-ato-56")}>
+        {children}
+      </main>
     </div>
   );
 }
@@ -23,7 +28,9 @@ export function InfoTitle({ kicker, title, children }: { kicker: string; title: 
   return (
     <header className="flex w-full flex-col gap-ato-8">
       <ConsoleLabel>{kicker}</ConsoleLabel>
-      <h1 className="ato-text-outline w-full font-ato-display text-[28px] font-normal leading-[33.6px] text-white [text-shadow:1px_1px_0_var(--ato-ink)]">{title}</h1>
+      <h1 className="ato-text-outline w-full font-ato-display text-[28px] font-normal leading-[33.6px] text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px] lg:[text-shadow:none]">
+        {title}
+      </h1>
       {children}
     </header>
   );
@@ -34,7 +41,7 @@ export function InfoSection({ label, title, children }: { label: string; title?:
   return (
     <section className="flex w-full flex-col gap-ato-12">
       <ConsoleLabel as="h2">{label}</ConsoleLabel>
-      {title && <p className="w-full font-ato-ui text-ato-m-h2 text-ato-text-1">{title}</p>}
+      {title && <p className="w-full font-ato-ui text-ato-m-h2 text-ato-text-1 lg:text-ato-d-h2">{title}</p>}
       {children}
     </section>
   );

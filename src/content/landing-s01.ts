@@ -33,6 +33,16 @@ export const landingS01 = {
     trust: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti",
   },
 
+  /** Kartu pratinjau Lite di hero desktop (Figma 06 node "Preview card Lite", frame 56:8549). Ilustrasi statis. */
+  preview: {
+    progress: "LITE · 1/3",
+    mode: "MODE PELAKU",
+    message: "Dicari admin input data, Rp500rb/hari, daftar & bayar seragam Rp150rb",
+    question: "Kalau kamu yang menipu, apa yang kamu manfaatkan darinya?",
+    options: ["Dia butuh uang cepat", "Dia tidak sempat mengecek", "Dia takut ketinggalan kesempatan"],
+    found: "Celah ditemukan: Urgensi",
+  },
+
   path: {
     label: "JALUR ALPHA → OMEGA",
     caption: "Dari ragu, lewat tiga pertanyaan, sampai insting penjaga.",
@@ -50,6 +60,9 @@ export const landingS01 = {
 
   example: {
     label: "CONTOH (FIKTIF)",
+    /** Hanya desktop (node "Sebelum" / "Sesudah"). */
+    before: "SEBELUM",
+    after: "SESUDAH",
     message: "Dicari admin input data, Rp500rb/hari, daftar & bayar seragam Rp150rb",
     badges: [
       { icon: "trending-up", label: "Imbalan terlalu besar" },

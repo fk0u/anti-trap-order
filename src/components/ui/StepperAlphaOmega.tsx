@@ -172,3 +172,33 @@ export function StepperAlphaOmega({
     </div>
   );
 }
+
+/**
+ * Stepper A→Ω gaya desktop 06 (S-01 "Cara kerja", S-08): warna aksen Lite datar.
+ * Selesai = titik 12 aksen; sekarang = 16 `lite/accent-soft` bergaris aksen;
+ * berikut = `border/strong`; Ω = `bg/2` atau aksen penuh jika step 4.
+ */
+export function StepperAlphaOmegaDesktop({ step, className }: { step: StepperStep; className?: string }) {
+  const line = (on: boolean) => <span className={cn("h-[2px] min-w-px flex-1", on ? "bg-ato-lite-accent" : "bg-ato-border-strong")} />;
+  const node = (i: number) =>
+    step > i ? (
+      <span className="size-3 shrink-0 rounded-ato-full bg-ato-lite-accent" />
+    ) : step === i ? (
+      <span className="size-4 shrink-0 rounded-ato-full border border-ato-lite-accent bg-ato-lite-accent-soft" />
+    ) : (
+      <span className="size-3 shrink-0 rounded-ato-full bg-ato-border-strong" />
+    );
+  return (
+    <div aria-hidden className={cn("flex h-7 w-full items-center", className)}>
+      <span className={cn(capClass, "border border-ato-lite-accent bg-ato-lite-accent text-white")}>A</span>
+      {[1, 2, 3].map((i) => (
+        <span key={i} className="contents">
+          {line(step >= i)}
+          {node(i)}
+        </span>
+      ))}
+      {line(step >= 4)}
+      <span className={cn(capClass, step >= 4 ? "bg-ato-lite-accent text-white shadow-ato-gloss" : omegaIdleClass)}>Ω</span>
+    </div>
+  );
+}

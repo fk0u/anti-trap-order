@@ -11,7 +11,8 @@ import localFont from "next/font/local";
 /** family/ui — seluruh teks UI. */
 export const atoUi = Plus_Jakarta_Sans({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  // 800 = Desktop/Display (judul hero S-01 desktop).
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   variable: "--font-ato-ui",
 });

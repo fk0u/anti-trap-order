@@ -236,7 +236,8 @@ async function toQ3(page) {
     await page.waitForURL(`${BASE}/`);
     await page.waitForTimeout(600);
     assert.equal(page.url(), `${BASE}/`, "masih di: " + page.url());
-    assert.equal(await page.getByText("LITE · 1/3").count(), 0);
+    // Bukan entri Q1 basi: tidak ada checkbox opsi (kartu pratinjau landing hanya ilustrasi tanpa peran).
+    assert.equal(await page.getByRole("checkbox").count(), 0);
     ok("Back setelah refresh → langsung keluar dari /lite (entri lama dilompati)");
     await ctx.close();
   }

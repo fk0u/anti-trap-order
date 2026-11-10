@@ -22,6 +22,8 @@ export function SiteFooter({ lines, links, className }: SiteFooterProps) {
       className={cn(
         "flex flex-col items-start gap-ato-12 border-t border-ato-border-subtle bg-gradient-to-b from-white to-ato-footer-glow",
         "px-ato-16 pb-ato-32 pt-ato-24 font-ato-ui text-ato-caption",
+        // Desktop (node "Footer", frame 56:8549): satu baris, teks kiri | link kanan, tanpa gradien.
+        "lg:flex-row lg:items-center lg:justify-between lg:bg-none lg:px-[max(32px,calc((100%-1120px)/2))] lg:py-ato-24",
         className
       )}
     >

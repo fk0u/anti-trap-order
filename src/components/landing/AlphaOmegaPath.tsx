@@ -9,7 +9,7 @@ export function AlphaOmegaPath() {
   return (
     <section
       aria-labelledby="landing-path"
-      className="relative flex w-full flex-col gap-ato-16 overflow-hidden rounded-ato-lg border-[0.5px] border-ato-ink bg-white p-ato-20 shadow-[4px_4px_0_0_var(--ato-ink),0_6px_14px_-4px_rgba(13,23,33,0.2),inset_0_-2px_4px_0_rgba(13,23,33,0.14),inset_0_1px_0_0_rgba(255,255,255,0.45)]"
+      className="relative flex w-full flex-col gap-ato-16 overflow-hidden rounded-ato-lg border-[0.5px] border-ato-ink bg-white p-ato-20 lg:hidden shadow-[4px_4px_0_0_var(--ato-ink),0_6px_14px_-4px_rgba(13,23,33,0.2),inset_0_-2px_4px_0_rgba(13,23,33,0.14),inset_0_1px_0_0_rgba(255,255,255,0.45)]"
     >
       <ConsoleLabel as="h2" id="landing-path" tone="text-1">
         {path.label}
