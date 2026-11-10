@@ -11,8 +11,8 @@ Dibuat 10 Nov 2026 dari audit frontend. Centang `[x]` saat selesai dan terverifi
 
 ## Fase 0 — Peralatan (blokir semuanya)
 
-- [x] Pasang Node, Go, Rust lewat Homebrew (`~/homebrew`), disetujui Syafar.
-- [x] `npm ci`, `tsc`, `npm run build` hijau. **Go tidak tersedia** di mesin ini (Homebrew Intel tier 3 tanpa bottle) — `go test` hanya via CI. Node 22 dipasang manual di `~/.local/node-22` (`export PATH=$HOME/.local/node-22/bin:$PATH`). `npm run lint` rusak (`next lint` dihapus di Next 16).
+- [~] Node 22 terpasang manual. Go dan Rust gagal via Homebrew (tanpa bottle; LLVM dikompilasi dari nol). Rust untuk fframes: pakai rustup resmi (minta izin dulu).
+- [x] `npm ci`, `tsc`, `npm run build` hijau. **Go tidak tersedia** di mesin ini (Homebrew Intel tier 3 tanpa bottle) — `go test` hanya via CI. Node 22 dipasang manual di `~/.local/node-22` (`export PATH=$HOME/.local/node-22/bin:$PATH`). Skrip `lint` yang rusak (`next lint`, ESLint tidak terpasang) diganti `npm run typecheck`.
 - [ ] Ambil baseline visual: `e2e/visual.cjs capture` sebelum menyentuh UI.
 
 ## Fase 1 — Mode terbatas (celah terbesar untuk demo)
@@ -32,7 +32,7 @@ Tujuan: tombol "Lanjut mode terbatas" (S-07 Error dan S-19) berfungsi dan Lite b
 
 ## Fase 2 — Bersihkan sisa versi lama
 
-- [ ] Putuskan nasib `/drill`, `/realmulator`, `/docs`, `api/realmulator/chat`, `src/components/landing/_legacy/`, `src/lib/api.ts`, `reflect-local.ts`, `soul-local.ts`. Hapus bila tidak dipakai layar 06 (butuh persetujuan Syafar: ini penghapusan).
+- [ ] (Syafar 10 Nov: biarkan dulu, jangan dihapus) Putuskan nasib `/drill`, `/realmulator`, `/docs`, `api/realmulator/chat`, `src/components/landing/_legacy/`, `src/lib/api.ts`, `reflect-local.ts`, `soul-local.ts`. Hapus bila tidak dipakai layar 06 (butuh persetujuan Syafar: ini penghapusan).
 - [ ] `MobileTabBar` dan font Geist di `layout.tsx` hanya jika masih ada route yang memakainya.
 - [ ] `manifest.ts`: `start_url` ke `/`, warna dan nama sesuai 06.
 - [ ] Metadata dan OG (`layout.tsx`, `opengraph-image.tsx`): teks selaras layar 06; tanpa klaim "pembalikan sudut pandang" yang sudah tidak ada di UI.

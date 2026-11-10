@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
     "test:data": "tsx scripts/validate-data.ts",
     "deploy": "bash scripts/deploy.sh"
   },
