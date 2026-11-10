@@ -41,15 +41,21 @@ go run ./cmd/ml-gendata && go run ./cmd/ml-train   # bangun dataset + latih mode
 
 ## Token desain
 
-Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailwind.config.ts` (awalan `ato-`, mis. `bg-ato-bg-0`, `text-ato-m-body`, `rounded-ato-lg`, `shadow-ato-gloss`). Font di `src/app/fonts.ts`; pasang `atoFontVariables` di wrapper halaman (layout root tidak dipakai untuk font ATO). JetBrains Mono di-host sendiri (`src/app/fonts/`, lisensi OFL) karena versi Google Fonts tidak punya glyph "→". Token dan class lama (`surface`, `brand`, `aero-*`, dll.) masih dipakai halaman lama, jangan dihapus.
+Token dari Figma 06 ada di `src/app/globals.css` (variabel `--ato-*`) dan `tailwind.config.ts` (awalan `ato-`, mis. `bg-ato-bg-0`, `text-ato-m-body`, `rounded-ato-lg`, `shadow-ato-gloss`). Font di `src/app/fonts.ts`; pasang `atoFontVariables` di wrapper halaman (layout root tidak dipakai untuk font ATO). JetBrains Mono di-host sendiri (`src/app/fonts/`, lisensi OFL) karena versi Google Fonts tidak punya glyph "→". Begitu juga glyph "→"/"↻" Plus Jakarta Sans (subset ±0,7 KB, `atoUiArrows`, ditaruh sebelum `atoUi` di stack font). Token dan class lama (`surface`, `brand`, `aero-*`, dll.) masih dipakai halaman lama, jangan dihapus.
 
-Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`), disalin persis dari Figma.
+Komponen UI reusable sesuai 06 ada di `src/components/ui/` (`Button`, `TacticBadge`, `StepperAlphaOmega`, `IconButton`, `SiteHeader`, `SiteFooter`, `BottomSheet`, `ConsoleLabel`, `BackButton`, `DisclaimerBanner`, `CategoryChip`, `OptionCard`, `OtherOption`, `BottomActionBar`, `GapCard`, `ChecklistItem`, `Segmented`, `ChannelItem`). Teks layar disimpan di `src/content/` (mis. `landing-s01.ts`, `mode-sheet.ts`, `lite.ts`), disalin persis dari Figma.
+
+Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state, panggilan API v1 lewat `src/lib/api-v1.ts`, sinkron riwayat browser; refresh kembali ke S-03). Route tanpa MobileTabBar didaftar di `src/lib/routes.ts`. Tombol "Simulasi uji" S-07 hanya muncul saat `NODE_ENV=development`.
 
 ## Menunggu keputusan
 
 - **`src/components/landing/_legacy/`** — komponen landing lama (Navbar, Hero, HeroConsole, Marquee, Problem, A20System, ReverseReflexDemo, Trust, FinalCTA, Footer) yang sudah tidak dipakai S-01. Menunggu keputusan hapus dari lead; jangan dipakai di layar baru. `src/content/landing.ts` masih di-import oleh komponen ini.
 - **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Terkait konflik S-16 ("hanya di perangkatmu") vs K12 (teks S-03 terkirim ke `/api/v1/lite/analyze`).
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
+- **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
+- **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
+- **"Simpan gambar" (ekspor 4:5) di S-09** disembunyikan — belum ada desain gambar di 06. TODO di `ActionCardScreen.tsx`; jangan tambah library.
+- **Error 500 → S-18** belum dibangun; sementara error server di Lite ditampilkan sebagai S-07 Error / S-19.
 
 ## Untuk desainer
 
@@ -87,6 +93,21 @@ Perbedaan antara `01 | Pondasi` / `02 | Components` dan `06 | Prototype`. Kode m
 | Kartu mode | — | Lite: gradien `#78E8F9 → putih` (ke atas); Soul: `putih → #FFDA3F`; border hitam 0.5px |
 | Ikon kartu | Ikon Lucide warna aksen | Stroke gradien (`#7CE9F9`, `#FFDA42`); dipakai SVG asli dari Figma |
 | ⚠️ Link "Pelajari konsepnya di Tentang" | — | Warna `#82E9F9` di atas putih; kontras sangat rendah |
+
+**A20 Lite (S-03 – S-09, S-19, S-20)**
+
+| Elemen | 01 / 02 | 06 (dipakai) |
+|---|---|---|
+| ⚠️ Tampilan masking di TextArea S-03 | — | 06 menampilkan isi kotak sudah tersamar (`••••••••123`, `••••@mail.com`). **Kode belum mengubah isi kotak** (kursor bisa melompat saat mengetik) — hanya chip "N data disamarkan". Yang dikirim ke server tetap token `<NOMOR>`/`<EMAIL>`. Format tampilan menunggu keputusan desainer (keputusan Syafar, 10 Nov 2026) |
+| ⚠️ "Contoh fiktif ↻" | — | Di 06 label 250px + tombol melebihi baris sehingga "↻" terpotong tepi frame. Kode meniru (label satu baris, sisa terpotong); area sentuh diperluas ke ±45px |
+| Stepper A→Ω per langkah | Satu gaya | Warna titik/garis berbeda per layar (S-03 abu `#B1C7D5`, S-04–S-08 `#4FC3E3`, titik 2 selalu 16px). Diikuti per langkah di `StepperAlphaOmega` varian `flow` |
+| Border 0.3px stepper | — | Browser menggambar min. 1 piksel pekat; ditiru dengan 0.5px hitam 60% agar setipis render 06 (juga di landing) |
+| ChannelItem (S-09) | `warning` | Kode ekspor menulis `warning` pekat tanpa opacity; render 06 peach. Diukur dari piksel: latar 8%, garis 40%, badge 21% `warning` di atas putih |
+| OtherOption terbuka/terisi | 02 (node 52:66/52:73) | Tidak ada di 06 → memakai 02 |
+| Opsi ke-3 saat sudah pilih 2 | — | Tidak digambar di 06; kode menolak pilihan ke-3 tanpa perubahan visual (aria-disabled) |
+| "Lanjut mode terbatas" nonaktif | 02 Disabled = opacity 40% | Mode terbatas belum ada; tombol tampil dengan opacity 40% |
+| Kotak "PESAN (FIKTIF)" dilipat | — | State tertutup tidak digambar; kode menyembunyikan isi dan memutar "▾" |
+| Kartu "PESAN (FIKTIF)" saat user menempel teks sendiri | — | Kode menampilkan `example_message` skenario (sesuai label "FIKTIF"), bukan teks user |
 
 **Token**
 
