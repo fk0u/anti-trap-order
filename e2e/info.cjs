@@ -35,9 +35,10 @@ const ok = (m) => { pass++; console.log("  ✓", m); };
   await page.getByRole("heading", { level: 1, name: "Tentang ATO" }).waitFor();
   assert.equal(await page.locator("nav.fixed").count(), 0, "tab bar tidak boleh tampil");
   assert.equal(await page.locator('img[src*="/icons/ato/tentang/avatar-"]').count(), 4);
-  for (const img of await page.locator('img[src*="/icons/ato/tentang/avatar-"]').all()) {
-    assert.ok(await img.evaluate((el) => el.complete && el.naturalWidth > 0), "avatar gagal dimuat");
-  }
+  // Server jauh / navigasi klien: beri waktu gambar selesai dimuat.
+  await page
+    .waitForFunction(() => [...document.querySelectorAll('img[src*="/icons/ato/tentang/avatar-"]')].every((el) => el.complete && el.naturalWidth > 0), null, { timeout: 8000 })
+    .catch(() => assert.fail("avatar gagal dimuat"));
   assert.equal(await page.getByRole("link", { name: "Lihat di GitHub" }).count(), 0, "tombol GitHub disembunyikan (repo privat)");
   await page.screenshot({ path: `${out}/info-tentang.png`, fullPage: true });
   ok(`${DESKTOP ? "nav desktop 'Tentang'" : "menu → 'Pelajari konsepnya di Tentang'"} → S-15 tampil (4 avatar tim), tanpa tab bar`);
