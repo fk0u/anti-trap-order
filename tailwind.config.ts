@@ -72,6 +72,9 @@ const config: Config = {
         "ato-20": "var(--ato-space-20)",
         "ato-24": "var(--ato-space-24)",
         "ato-32": "var(--ato-space-32)",
+        "ato-40": "var(--ato-space-40)",
+        "ato-56": "var(--ato-space-56)",
+        "ato-80": "var(--ato-space-80)",
       },
       borderRadius: {
         "ato-sm": "var(--ato-radius-sm)",
@@ -99,6 +102,13 @@ const config: Config = {
         "ato-caption": ["13px", { lineHeight: "20px", letterSpacing: "0px", fontWeight: "500" }],
         "ato-console": ["12px", { lineHeight: "18px", letterSpacing: "0.96px", fontWeight: "500" }],
         "ato-button": ["15px", { lineHeight: "20px", letterSpacing: "0px", fontWeight: "600" }],
+        // Text style Figma desktop (frame BROWSER 1440, dipakai mulai breakpoint lg).
+        "ato-d-display": ["56px", { lineHeight: "61.6px", letterSpacing: "-1.12px", fontWeight: "800" }],
+        "ato-d-h1": ["40px", { lineHeight: "48px", letterSpacing: "0px", fontWeight: "700" }],
+        "ato-d-h2": ["28px", { lineHeight: "36.4px", letterSpacing: "0px", fontWeight: "700" }],
+        "ato-d-h3": ["20px", { lineHeight: "28px", letterSpacing: "0px", fontWeight: "600" }],
+        "ato-d-body-l": ["18px", { lineHeight: "27.9px", letterSpacing: "0px", fontWeight: "400" }],
+        "ato-d-body": ["16px", { lineHeight: "24.8px", letterSpacing: "0px", fontWeight: "400" }],
       },
       boxShadow: {
         // Efek style Figma

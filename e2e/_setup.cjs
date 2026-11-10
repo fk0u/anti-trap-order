@@ -40,4 +40,19 @@ const BASE = (process.env.E2E_BASE_URL || "http://localhost:3000").replace(/\/$/
 const OUT = process.argv[2] || process.env.E2E_OUT || path.join(os.tmpdir(), "ato-e2e");
 fs.mkdirSync(OUT, { recursive: true });
 
-module.exports = { ...loadPlaywright(), BASE, OUT };
+/**
+ * Viewport uji: E2E_VIEWPORT = "390" | "768" | "1024" | "1440" (atau "LEBARxTINGGI").
+ * Default 390×844 (mobile). `DESKTOP` = lebar ≥ 1024 (layout desktop Figma 06).
+ */
+function parseViewport(v) {
+  const presets = { 390: [390, 844], 768: [768, 1024], 1024: [1024, 768], 1440: [1440, 900] };
+  if (!v) return { width: 390, height: 844 };
+  const m = /^(\d+)(?:x(\d+))?$/.exec(v);
+  if (!m) throw new Error(`E2E_VIEWPORT tidak valid: ${v}`);
+  const [w, h] = presets[m[1]] ?? [Number(m[1]), Number(m[2] ?? 900)];
+  return { width: w, height: m[2] ? Number(m[2]) : h };
+}
+const VIEWPORT = parseViewport(process.env.E2E_VIEWPORT);
+const DESKTOP = VIEWPORT.width >= 1024;
+
+module.exports = { ...loadPlaywright(), BASE, OUT, VIEWPORT, DESKTOP };

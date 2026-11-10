@@ -32,6 +32,9 @@ const ANIMATION_MS = 300;
 /**
  * Bottom sheet — Figma 02 "Sheet" (node 52:300), gaya mengikuti 06 (S-02, node 56:8395).
  *
+ * Desktop (lg): tampil sebagai modal di tengah, mengikuti 02 "Modal" (node 52:312) —
+ * 06 tidak punya frame desktop untuk sheet (keputusan desain mandiri).
+ *
  * Menyimpang dari 06 atas permintaan Syafar (9 Nov 2026): scrim di 06 `text/1`
  * pekat penuh sehingga terasa seperti pindah halaman. Di sini scrim 50% agar
  * halaman tetap terlihat, dan sheet meluncur dari bawah.
@@ -109,7 +112,7 @@ export function BottomSheet({
   if (!mounted) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col justify-end">
+    <div className="fixed inset-0 z-50 flex flex-col justify-end lg:items-center lg:justify-center lg:p-ato-32">
       <div
         aria-hidden
         onClick={dismissOnScrim ? onClose : undefined}
@@ -129,15 +132,21 @@ export function BottomSheet({
           "shadow-ato-glass-strong backdrop-blur-[20px]",
           "transition-transform duration-300 ease-out",
           shown ? "translate-y-0" : "translate-y-full",
+          // Tablet: lebar mengikuti kolom konten (maks. 560) di tengah.
+          "md:max-lg:mx-auto md:max-lg:max-w-[560px]",
+          // Desktop: modal 02 (node 52:312) — 560px di tengah, p32, gap 20, border subtle.
+          "lg:max-h-full lg:w-[560px] lg:gap-ato-20 lg:overflow-y-auto lg:rounded-ato-lg lg:border lg:border-ato-border-subtle lg:p-ato-32",
+          "lg:transition-[opacity,transform]",
+          shown ? "lg:opacity-100" : "lg:translate-y-4 lg:opacity-0",
           className
         )}
       >
-        <div aria-hidden className="flex w-full justify-center">
+        <div aria-hidden className="flex w-full justify-center lg:hidden">
           <span className="h-1 w-10 rounded-ato-full bg-ato-border-strong" />
         </div>
         {!headerless && (
           <div className="flex w-full items-center justify-between">
-            <h2 id={titleId} className="font-ato-ui text-ato-m-h2 text-ato-text-1">
+            <h2 id={titleId} className="font-ato-ui text-ato-m-h2 text-ato-text-1 lg:text-ato-d-h2">
               {title}
             </h2>
             <IconButton variant="soft" aria-label="Tutup" onClick={onClose}>

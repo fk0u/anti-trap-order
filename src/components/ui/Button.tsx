@@ -80,8 +80,32 @@ const sizeClass: Record<ButtonSize, string> = {
   md: "h-11 px-ato-20",
 };
 
+/**
+ * Gaya tombol mulai breakpoint lg, mengikuti frame desktop 06 (BROWSER 1440),
+ * yang memakai gaya 02: `lite`/`soul` solid + kilau atas + Gloss Button, label
+ * putih; `secondary` putih bergaris `border/strong`; `ghost` teks aksen Lite.
+ * Lebar tombol di desktop mengikuti isi (bukan penuh).
+ */
+export type DesktopButtonStyle = "lite" | "soul" | "secondary" | "ghost";
+
+const desktopClass: Record<DesktopButtonStyle, string> = {
+  lite: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-lite-accent lg:shadow-ato-gloss",
+  soul: "lg:w-auto lg:border-0 lg:[background-image:linear-gradient(to_bottom,#c96a14,var(--ato-soul-accent))] lg:shadow-ato-gloss",
+  secondary: "lg:w-auto lg:border lg:border-solid lg:border-ato-border-strong lg:[background-image:none] lg:bg-ato-bg-1 lg:shadow-none",
+  ghost: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-transparent lg:shadow-none",
+};
+
+const desktopLabelClass: Record<DesktopButtonStyle, string> = {
+  lite: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
+  soul: "lg:bg-none lg:text-white lg:[--ato-outline-width:0px]",
+  secondary: "lg:bg-none lg:text-ato-text-1 lg:[--ato-outline-width:0px]",
+  ghost: "lg:bg-none lg:text-ato-lite-accent lg:[--ato-outline-width:0px]",
+};
+
 type CommonProps = {
   variant: ButtonVariant;
+  /** Gaya di breakpoint lg (desktop). Tanpa ini tombol tampil sama di semua ukuran. */
+  desktop?: DesktopButtonStyle;
   size?: ButtonSize;
   gradient?: string;
   className?: string;
@@ -109,12 +133,18 @@ const baseClass =
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent";
 
 export function Button(props: ButtonProps) {
-  const { variant, size = "lg", gradient, className, labelClassName, children } = props;
-  const classes = cn(baseClass, sizeClass[size], variantClass[variant], className);
+  const { variant, size = "lg", gradient, className, labelClassName, children, desktop } = props;
   const bg = gradient ?? defaultGradient[variant];
-  const style = bg ? { backgroundImage: bg } : undefined;
+  // Gradien lewat variabel CSS (bukan style backgroundImage langsung) supaya kelas lg: bisa menimpanya.
+  const classes = cn(baseClass, sizeClass[size], variantClass[variant], bg && "[background-image:var(--ato-btn-bg)]", className, desktop && desktopClass[desktop]);
+  const style = bg ? ({ "--ato-btn-bg": bg } as React.CSSProperties) : undefined;
+  const labelClasses = cn(labelClassByVariant[variant], labelClassName, desktop && desktopLabelClass[desktop]);
+  const sheen =
+    desktop === "lite" || desktop === "soul" ? (
+      <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 hidden h-1/2 rounded-t-ato-md bg-gradient-to-b from-white/[0.34] to-white/0 lg:block" />
+    ) : null;
   const label = (
-    <span className={cn("min-w-px text-center font-ato-ui text-ato-button", labelClassByVariant[variant], labelClassName)}>
+    <span className={cn("relative min-w-px text-center font-ato-ui text-ato-button", labelClasses)}>
       {children}
     </span>
   );
@@ -122,6 +152,7 @@ export function Button(props: ButtonProps) {
   if (props.href !== undefined) {
     return (
       <Link href={props.href} onClick={props.onClick} className={classes} style={style}>
+        {sheen}
         {label}
       </Link>
     );
@@ -131,6 +162,7 @@ export function Button(props: ButtonProps) {
     variant: _v,
     size: _s,
     gradient: _g,
+    desktop: _d,
     className: _c,
     labelClassName: _l,
     children: _ch,
@@ -155,9 +187,10 @@ export function Button(props: ButtonProps) {
           aria-hidden
           size={18}
           strokeWidth={2}
-          className={cn("shrink-0 motion-safe:animate-spin", labelClassByVariant[variant], labelClassName)}
+          className={cn("relative shrink-0 motion-safe:animate-spin", labelClasses)}
         />
       )}
+      {sheen}
       {label}
     </button>
   );
