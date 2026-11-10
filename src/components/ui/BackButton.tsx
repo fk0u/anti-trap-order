@@ -4,21 +4,25 @@ import { cn } from "@/lib/utils";
 
 type BackButtonProps = {
   label: string;
+  /** Warna gradien lingkaran: Lite `#9edff1`, Soul `#ffb628` (06 S-10 – S-14). */
+  tone?: "lite" | "soul";
   className?: string;
 } & ({ href: string; onClick?: undefined } | { href?: undefined; onClick: () => void });
 
 const circleClass =
   "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-ato-full border-[0.5px] border-ato-text-1 " +
-  "bg-gradient-to-b from-white to-[#9edff1] shadow-[3px_1px_0_0_var(--ato-ink)]";
+  "bg-gradient-to-b from-white shadow-[3px_1px_0_0_var(--ato-ink)]";
+
+const toneClass = { lite: "to-[#9edff1]", soul: "to-[#ffb628]" } as const;
 
 const rootClass =
   "flex items-center gap-ato-12 rounded-ato-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent";
 
 /** BackButton — Figma 02 (node 77:409), gaya 06: tombol bulat 44px + judul H3. */
-export function BackButton({ label, className, href, onClick }: BackButtonProps) {
+export function BackButton({ label, tone = "lite", className, href, onClick }: BackButtonProps) {
   const content = (
     <>
-      <span aria-hidden className={circleClass}>
+      <span aria-hidden className={cn(circleClass, toneClass[tone])}>
         <ArrowLeft size={20} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-text-1)" />
       </span>
       <span className="whitespace-nowrap font-ato-ui text-ato-m-h3 text-ato-text-1">{label}</span>
