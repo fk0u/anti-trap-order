@@ -10,12 +10,14 @@ import { liteCopy } from "@/content/lite";
 export function OfflineActions({ onRetry }: { onRetry: () => void }) {
   return (
     <div className="flex w-full flex-col gap-ato-12">
-      <Button variant="aqua" gradient={FLOW_GRADIENTS.limited} labelClassName="text-ato-text-1" disabled>
+      <Button variant="aqua" desktop="lite" gradient={FLOW_GRADIENTS.limited} labelClassName="text-ato-text-1" className="lg:w-full" disabled>
         {liteCopy.offline.limited}
       </Button>
       <Button
         variant="ghost"
         size="md"
+        desktop="ghost"
+        className="lg:w-full"
         onClick={onRetry}
         labelClassName="bg-gradient-to-b from-ato-lite-accent to-white to-[160%] bg-clip-text text-transparent"
       >

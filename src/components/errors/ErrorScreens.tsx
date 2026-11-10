@@ -40,7 +40,8 @@ function ErrorShell({
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-[560px] bg-gradient-to-b from-ato-sky to-[rgba(95,227,247,0)]"
       />
-      <div className="relative flex w-full flex-col items-center gap-ato-24">{children}</div>
+      {/* Tablet: kolom maks. 560; desktop: maks. 480 di tengah (tanpa frame desktop di 06 — keputusan desain mandiri). */}
+      <div className="relative flex w-full flex-col items-center gap-ato-24 md:max-lg:max-w-[560px] lg:max-w-[480px]">{children}</div>
     </div>
   );
 }

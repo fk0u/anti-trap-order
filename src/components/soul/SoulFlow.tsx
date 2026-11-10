@@ -331,10 +331,10 @@ export function SoulFlow() {
       {/* Keputusan desain mandiri: konfirmasi ganti karakter (tidak ada di 06). */}
       <BottomSheet id="soul-change-character" open={confirmOpen} onClose={() => setConfirmOpen(false)} title={soulCopy.changeCharacter.title}>
         <div className="flex w-full flex-col gap-ato-12">
-          <Button variant="aqua" gradient={SOUL_GRADIENTS.next} labelClassName="text-[#1b1b1b]" onClick={() => setConfirmOpen(false)}>
+          <Button variant="aqua" desktop="soul" gradient={SOUL_GRADIENTS.next} labelClassName="text-[#1b1b1b]" className="lg:w-full" onClick={() => setConfirmOpen(false)}>
             {soulCopy.changeCharacter.cancel}
           </Button>
-          <Button variant="secondary" size="md" onClick={resetToCharacter}>
+          <Button variant="secondary" size="md" desktop="secondary" className="lg:w-full" onClick={resetToCharacter}>
             {soulCopy.changeCharacter.confirm}
           </Button>
         </div>

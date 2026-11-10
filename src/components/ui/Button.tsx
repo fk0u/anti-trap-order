@@ -136,7 +136,8 @@ export function Button(props: ButtonProps) {
   const { variant, size = "lg", gradient, className, labelClassName, children, desktop } = props;
   const bg = gradient ?? defaultGradient[variant];
   // Gradien lewat variabel CSS (bukan style backgroundImage langsung) supaya kelas lg: bisa menimpanya.
-  const classes = cn(baseClass, sizeClass[size], variantClass[variant], bg && "[background-image:var(--ato-btn-bg)]", className, desktop && desktopClass[desktop]);
+  // className terakhir: penyesuaian per pemakaian (mis. lg:w-full di modal) menang atas gaya desktop bawaan.
+  const classes = cn(baseClass, sizeClass[size], variantClass[variant], bg && "[background-image:var(--ato-btn-bg)]", desktop && desktopClass[desktop], className);
   const style = bg ? ({ "--ato-btn-bg": bg } as React.CSSProperties) : undefined;
   const labelClasses = cn(labelClassByVariant[variant], labelClassName, desktop && desktopLabelClass[desktop]);
   const sheen =
