@@ -15,6 +15,9 @@ rsync -avz --delete \
   --exclude '.next' \
   --exclude '.git' \
   --exclude '.env' \
+  --exclude 'demo/video/target' \
+  --exclude 'demo/video/out.mp4' \
+  --exclude 'e2e/node_modules' \
   --exclude '*.pem' \
   -e "${SSH[*]}" \
   ./ "$DEPLOY_HOST:$DEPLOY_DIR/"
