@@ -23,12 +23,15 @@ export function InfoPage({ children, from, stop, bottom }: { children: React.Rea
   );
 }
 
-/** Kicker konsol + judul Alice 28/33.6 putih, garis luar gelap + bayangan keras 1px (sama dengan judul hero S-01). */
+/**
+ * Kicker konsol + judul Alice 28/33.6 putih, garis luar gelap + bayangan keras 1px (sama dengan judul hero S-01).
+ * Desktop 06 terbaru (node 56:9400 / 56:9491): Plus Jakarta Sans Desktop/H1 `bg/0` bergaris luar gelap, tanpa bayangan.
+ */
 export function InfoTitle({ kicker, title, children }: { kicker: string; title: string; children?: React.ReactNode }) {
   return (
     <header className="flex w-full flex-col gap-ato-8">
       <ConsoleLabel>{kicker}</ConsoleLabel>
-      <h1 className="ato-text-outline w-full font-ato-display text-[28px] font-normal leading-[33.6px] text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px] lg:[text-shadow:none]">
+      <h1 className="ato-text-outline w-full font-ato-display text-[28px] font-normal leading-[33.6px] text-white [text-shadow:1px_1px_0_var(--ato-ink)] lg:font-ato-ui lg:text-ato-d-h1 lg:text-ato-bg-0 lg:[text-shadow:none]">
         {title}
       </h1>
       {children}
