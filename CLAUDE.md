@@ -50,6 +50,7 @@ npx -y -p playwright@1.49.1 node e2e/lite.cjs          # alur Lite S-03–S-09, 
 npx -y -p playwright@1.49.1 node e2e/errors.cjs        # S-17/S-18/S-19/S-20, validasi respons, Back/refresh
 npx -y -p playwright@1.49.1 node e2e/loading-anim.cjs  # animasi S-07 + reduced motion
 npx -y -p playwright@1.49.1 node e2e/soul.cjs          # alur Soul S-10–S-14, aturan nama, privasi, riwayat, error
+npx -y -p playwright@1.49.1 node e2e/info.cjs          # S-15 /tentang dan S-16 /privasi
 ```
 
 - `E2E_BASE_URL` (default `http://localhost:3000`) jika frontend di port lain; samakan dengan `CORS_ORIGIN`.
@@ -72,7 +73,9 @@ Alur Lite: `src/app/lite/page.tsx` → `src/components/lite/LiteFlow.tsx` (state
 
 Alur Soul: `src/app/soul/page.tsx` → `src/components/soul/SoulFlow.tsx` (pola riwayat sama dengan Lite: `pushState` per langkah, refresh → S-10). Klien `listCharacters`/`startSoul`/`stepSoul` di `src/lib/api-v1.ts`; aturan nama panggilan dan segmen meter di `src/lib/soul/rules.ts`. **Nama panggilan dan relasi tidak pernah dikirim** — hanya dipakai `fillStory()` di browser; server hanya menerima `arc_id`, `mission_id`, `choice_id`, `meters`. Teks layar di `src/content/soul.ts`, avatar di `public/icons/ato/soul/`.
 
-MobileTabBar hanya tampil di route lama yang terdaftar di `ROUTES_WITH_TAB_BAR` (`src/lib/routes.ts`: `/drill`, `/realmulator`, `/docs`, `/tentang`). Layar 06 (`/`, `/lite`, `/soul`) dan 404 tidak memakainya.
+S-15 `/tentang` dan S-16 `/privasi`: `src/app/tentang/page.tsx`, `src/app/privasi/page.tsx`, bagian bersama di `src/components/info/InfoParts.tsx` (header = `LandingHeader` + sheet Pilih Mode), teks di `src/content/info-pages.ts`.
+
+MobileTabBar hanya tampil di route lama yang terdaftar di `ROUTES_WITH_TAB_BAR` (`src/lib/routes.ts`: `/drill`, `/realmulator`, `/docs`). Layar 06 (`/`, `/lite`, `/soul`, `/tentang`, `/privasi`) dan 404 tidak memakainya.
 
 Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19 sheet (atau S-07 Error saat menunggu hasil); 5xx, 400, 404, JSON rusak, bentuk data salah, ID kategori/taktik tak dikenal → S-18; 429 → S-20. Bentuk respons divalidasi tanpa library di `src/lib/api-v1-validate.ts`. Layar error global: `src/app/not-found.tsx` (S-17), `src/app/error.tsx` dan `src/app/global-error.tsx` (S-18), komponen di `src/components/errors/ErrorScreens.tsx`, teks di `src/content/errors.ts`.
 
@@ -80,6 +83,11 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 
 - **`src/components/landing/_legacy/`** — komponen landing lama (Navbar, Hero, HeroConsole, Marquee, Problem, A20System, ReverseReflexDemo, Trust, FinalCTA, Footer) yang sudah tidak dipakai S-01. Menunggu keputusan hapus dari lead; jangan dipakai di layar baru. `src/content/landing.ts` masih di-import oleh komponen ini.
 - **Teks privasi S-01 — menunggu konfirmasi K12.** Dipakai apa adanya sesuai 06: "Tanpa login · Tanpa data pribadi · Bukan deteksi pasti", "Kami tidak menyimpan apa yang kamu tulis.", dan FAQ "Apakah tulisanku disimpan?". Terkait konflik S-16 ("hanya di perangkatmu") vs K12 (teks S-03 terkirim ke `/api/v1/lite/analyze`).
+- **Klaim fakta S-15/S-16 — menunggu keputusan Syafar/lead.** Teks disalin persis dari 06 (ditandai di `src/content/info-pages.ts`), tetapi bertentangan dengan K12:
+  - S-16 "Teks yang kamu tempel atau tulis — hanya di perangkatmu, selama sesi." → teks S-03 (sudah dimasking) dikirim ke `/api/v1/lite/analyze`, diproses, lalu dibuang.
+  - S-15 "Berbasis aturan, tanpa model AI" / "…tanpa model AI." → analisis memakai model Naive Bayes di server Go (bukan AI generatif). Kalimat juri di KEPUTUSAN.md: "tanpa AI generatif".
+  - S-15 Atribusi tidak menyebut font Alice (OFL) yang dipakai judul.
+- **"Lihat di GitHub" (S-15)** disembunyikan — repo `fk0u/anti-trap-order` masih privat (404 untuk publik). TODO di `src/app/tentang/page.tsx`.
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
 - **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
@@ -93,8 +101,7 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 
 ## Belum dikerjakan
 
-- **S-15 Tentang** — desain ada di Figma 06. `/tentang` masih halaman lama.
-- **S-16 Batasan & Privasi** — desain ada di Figma 06. Teksnya berisi klaim privasi: salin persis dari 06 dan cek dulu konflik "hanya di perangkatmu" vs K12 (lihat "Menunggu keputusan").
+- **Desktop** semua layar 06 (baru versi mobile).
 
 ## Keputusan desain mandiri
 
@@ -199,6 +206,15 @@ Desainer tidak tersedia. Bagian ini mencatat (1) perbedaan antara `01 | Pondasi`
 | ⚠️ S-14 "Ulangi dengan karakter lain" | Teks gradien `#0e7490 → putih` | Diikuti; kontras rendah di bagian bawah huruf |
 | Error Soul | Tidak digambar khusus Soul | Memakai S-18/S-19/S-20 yang sama dengan Lite (warna aqua) |
 | BottomActionBar | Tidak menempel di 06 (frame panjang) | Menempel di bawah layar (sticky), sama dengan Lite |
+
+**S-15 Tentang / S-16 Batasan & Privasi**
+
+| Elemen | Figma 06 | Kode |
+|---|---|---|
+| Judul Alice | Ekspor: putih + `text-shadow 1px 1px 0 #000` | Render 06 bergaris luar seperti judul hero S-01 → `.ato-text-outline` + bayangan |
+| Avatar tim S-15 | SVG kuning `#FFDA37` (beda dari avatar S-10 `#FFCF00`) | Disimpan terpisah di `public/icons/ato/tentang/` |
+| Ikon S-16 | SVG Lucide 22px `lite/accent` | `lucide-react` |
+| Footer | Tidak ada di S-15/S-16 | Tidak ditambahkan |
 
 **Token**
 
