@@ -26,22 +26,65 @@ export const BUTTON_GRADIENTS = {
   soulMode: `linear-gradient(180deg, ${mix("--ato-cta-soul", 85)} 0%, ${mix("--ato-cta-soul", 27)} 100%)`,
 } as const;
 
-type ButtonVariant = "lite" | "soul";
+/** Gradien tombol alur Lite (S-03–S-09, S-07 Error, S-20) — dari kode ekspor 06. */
+export const FLOW_GRADIENTS = {
+  /** S-03 "Lanjut →" (aktif & nonaktif). */
+  next: "linear-gradient(to bottom, #97dcef 0%, #ffffff 136.54%)",
+  /** S-04–S-06 "Lanjut →" / "Lihat hasil →". */
+  question: "linear-gradient(to bottom, #a9e2f1 0%, #ffffff 100%)",
+  /** S-08 "Lihat Action Card →". */
+  result: "linear-gradient(to bottom, #68e5f8 10.577%, #ffffff 100%)",
+  /** S-07 Error / S-19 "Lanjut mode terbatas". */
+  limited: "linear-gradient(to bottom, #6fe6f8 0%, #ffffff 100%)",
+  /** S-20 "OK". */
+  ok: "linear-gradient(to bottom, #67e4f7 0%, #ffffff 100%)",
+  /** S-09 "Coba A20 Soul →". */
+  soulAction: "linear-gradient(to bottom, var(--ato-cta-soul) 0%, #ffffff 90.385%)",
+} as const;
+
+/**
+ * - `lite` / `soul`: CTA landing — gradien, label putih bergaris luar.
+ * - `aqua`: tombol utama alur Lite — gradien cyan, label hitam, Gloss shadow.
+ * - `secondary`: putih, garis `border/strong` (mis. "Kembali", "Salin kalimat").
+ * - `ghost`: tanpa latar, label aksen Lite (mis. "Coba situasi lain").
+ */
+type ButtonVariant = "lite" | "soul" | "aqua" | "secondary" | "ghost";
+type ButtonSize = "lg" | "md";
 
 const variantClass: Record<ButtonVariant, string> = {
-  lite: "shadow-ato-gloss",
-  soul: "",
+  lite: "border-[0.5px] border-ato-ink shadow-ato-gloss",
+  soul: "border-[0.5px] border-ato-ink",
+  aqua: "border-[0.5px] border-ato-ink shadow-ato-gloss",
+  secondary: "border border-ato-border-strong bg-ato-bg-1",
+  ghost: "",
 };
 
-const defaultGradient: Record<ButtonVariant, string> = {
+const labelClassByVariant: Record<ButtonVariant, string> = {
+  // Garis luar label tombol di 06 lebih tipis daripada judul.
+  lite: "ato-text-outline [--ato-outline-width:1px] text-white",
+  soul: "ato-text-outline [--ato-outline-width:1px] text-white",
+  aqua: "text-black",
+  secondary: "text-ato-text-1",
+  ghost: "text-ato-lite-accent",
+};
+
+const defaultGradient: Partial<Record<ButtonVariant, string>> = {
   lite: BUTTON_GRADIENTS.liteHero,
   soul: BUTTON_GRADIENTS.soulHero,
+  aqua: FLOW_GRADIENTS.question,
+};
+
+const sizeClass: Record<ButtonSize, string> = {
+  lg: "h-[52px] px-ato-24",
+  md: "h-11 px-ato-20",
 };
 
 type CommonProps = {
   variant: ButtonVariant;
+  size?: ButtonSize;
   gradient?: string;
   className?: string;
+  labelClassName?: string;
   children: React.ReactNode;
 };
 
@@ -51,19 +94,21 @@ type ButtonAsButton = CommonProps & { href?: undefined } & React.ButtonHTMLAttri
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
 const baseClass =
-  "relative flex h-[52px] w-full items-center justify-center gap-ato-8 overflow-hidden rounded-ato-md " +
-  "border-[0.5px] border-ato-ink px-ato-24 " +
+  "relative flex w-full items-center justify-center gap-ato-8 overflow-hidden rounded-ato-md " +
+  // Nonaktif di 06: opacity 40%.
+  "disabled:cursor-not-allowed disabled:opacity-40 " +
   "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent";
 
-// Garis luar label tombol di 06 lebih tipis daripada judul.
-const labelClass =
-  "ato-text-outline [--ato-outline-width:1px] min-w-px flex-1 text-center font-ato-ui text-ato-button text-white";
-
 export function Button(props: ButtonProps) {
-  const { variant, gradient, className, children } = props;
-  const classes = cn(baseClass, variantClass[variant], className);
-  const style = { backgroundImage: gradient ?? defaultGradient[variant] };
-  const label = <span className={labelClass}>{children}</span>;
+  const { variant, size = "lg", gradient, className, labelClassName, children } = props;
+  const classes = cn(baseClass, sizeClass[size], variantClass[variant], className);
+  const bg = gradient ?? defaultGradient[variant];
+  const style = bg ? { backgroundImage: bg } : undefined;
+  const label = (
+    <span className={cn("min-w-px text-center font-ato-ui text-ato-button", labelClassByVariant[variant], labelClassName)}>
+      {children}
+    </span>
+  );
 
   if (props.href !== undefined) {
     return (
@@ -73,7 +118,17 @@ export function Button(props: ButtonProps) {
     );
   }
 
-  const { variant: _v, gradient: _g, className: _c, children: _ch, href: _h, type, ...rest } = props;
+  const {
+    variant: _v,
+    size: _s,
+    gradient: _g,
+    className: _c,
+    labelClassName: _l,
+    children: _ch,
+    href: _h,
+    type,
+    ...rest
+  } = props;
   return (
     <button type={type ?? "button"} className={classes} style={style} {...rest}>
       {label}

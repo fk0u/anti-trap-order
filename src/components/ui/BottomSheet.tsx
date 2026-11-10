@@ -10,6 +10,11 @@ type BottomSheetProps = {
   onClose: () => void;
   id: string;
   title: string;
+  /**
+   * true = tanpa baris judul + tombol tutup (mis. S-19). Isi sheet wajib
+   * memuat elemen judul dengan id `${id}-title` untuk aria-labelledby.
+   */
+  headerless?: boolean;
   children: React.ReactNode;
   className?: string;
 };
@@ -26,7 +31,7 @@ const ANIMATION_MS = 300;
  * pekat penuh sehingga terasa seperti pindah halaman. Di sini scrim 50% agar
  * halaman tetap terlihat, dan sheet meluncur dari bawah.
  */
-export function BottomSheet({ open, onClose, id, title, children, className }: BottomSheetProps) {
+export function BottomSheet({ open, onClose, id, title, headerless = false, children, className }: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const titleId = `${id}-title`;
   // `mounted`: elemen ada di DOM; `shown`: posisi akhir animasi (terlihat).
@@ -116,14 +121,16 @@ export function BottomSheet({ open, onClose, id, title, children, className }: B
         <div aria-hidden className="flex w-full justify-center">
           <span className="h-1 w-10 rounded-ato-full bg-ato-border-strong" />
         </div>
-        <div className="flex w-full items-center justify-between">
-          <h2 id={titleId} className="font-ato-ui text-ato-m-h2 text-ato-text-1">
-            {title}
-          </h2>
-          <IconButton variant="soft" aria-label="Tutup" onClick={onClose}>
-            <X aria-hidden size={20} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-text-1)" />
-          </IconButton>
-        </div>
+        {!headerless && (
+          <div className="flex w-full items-center justify-between">
+            <h2 id={titleId} className="font-ato-ui text-ato-m-h2 text-ato-text-1">
+              {title}
+            </h2>
+            <IconButton variant="soft" aria-label="Tutup" onClick={onClose}>
+              <X aria-hidden size={20} strokeWidth={1.75} absoluteStrokeWidth color="var(--ato-text-1)" />
+            </IconButton>
+          </div>
+        )}
         {children}
       </div>
     </div>

@@ -83,7 +83,8 @@ const config: Config = {
         sans: ["var(--font-geist-sans)", "system-ui", "sans-serif"],
         mono: ["var(--font-geist-mono)", "monospace"],
         // Variabel font diisi oleh src/app/fonts.ts (next/font) pada wrapper halaman.
-        "ato-ui": ["var(--font-ato-ui)", "system-ui", "sans-serif"],
+        // ato-ui-arrows hanya berisi "→" dan "↻" (lihat src/app/fonts.ts).
+        "ato-ui": ["var(--font-ato-ui-arrows)", "var(--font-ato-ui)", "system-ui", "sans-serif"],
         "ato-console": ["var(--font-ato-console)", "ui-monospace", "monospace"],
         "ato-display": ["var(--font-ato-display)", "Georgia", "serif"],
       },
