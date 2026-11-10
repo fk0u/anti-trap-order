@@ -1,8 +1,1 @@
-<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Avatar">
-<rect x="1.5" y="1.5" width="53" height="53" rx="26.5" fill="white"/>
-<rect x="1.5" y="1.5" width="53" height="53" rx="26.5" stroke="#FFCF00" stroke-width="3"/>
-<circle id="Ellipse" cx="20" cy="28" r="14" fill="#FFCF00"/>
-<circle id="Ellipse_2" cx="36" cy="28" r="14" fill="#BE123C"/>
-</g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none" overflow="visible" preserveAspectRatio="none" style="display:block" viewBox="0 0 56 56"><g id="Avatar"><rect width="53" height="53" x="1.5" y="1.5" fill="#fff" rx="26.5"/><rect width="53" height="53" x="1.5" y="1.5" stroke="#FFCF00" stroke-width="3" rx="26.5"/><circle id="Ellipse" cx="20" cy="28" r="14" fill="#FFCF00"/><circle id="Ellipse_2" cx="36" cy="28" r="14" fill="#BE123C"/></g></svg>
