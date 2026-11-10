@@ -15,6 +15,11 @@ type BottomSheetProps = {
    * memuat elemen judul dengan id `${id}-title` untuk aria-labelledby.
    */
   headerless?: boolean;
+  /**
+   * false = ketuk area gelap tidak menutup sheet (mis. S-19, supaya tidak
+   * tertutup tanpa sengaja). Esc tetap menutup.
+   */
+  dismissOnScrim?: boolean;
   children: React.ReactNode;
   className?: string;
 };
@@ -31,7 +36,16 @@ const ANIMATION_MS = 300;
  * pekat penuh sehingga terasa seperti pindah halaman. Di sini scrim 50% agar
  * halaman tetap terlihat, dan sheet meluncur dari bawah.
  */
-export function BottomSheet({ open, onClose, id, title, headerless = false, children, className }: BottomSheetProps) {
+export function BottomSheet({
+  open,
+  onClose,
+  id,
+  title,
+  headerless = false,
+  dismissOnScrim = true,
+  children,
+  className,
+}: BottomSheetProps) {
   const sheetRef = useRef<HTMLDivElement>(null);
   const titleId = `${id}-title`;
   // `mounted`: elemen ada di DOM; `shown`: posisi akhir animasi (terlihat).
@@ -98,7 +112,7 @@ export function BottomSheet({ open, onClose, id, title, headerless = false, chil
     <div className="fixed inset-0 z-50 flex flex-col justify-end">
       <div
         aria-hidden
-        onClick={onClose}
+        onClick={dismissOnScrim ? onClose : undefined}
         className={cn(
           "absolute inset-0 bg-ato-text-1 transition-opacity duration-300 ease-out",
           shown ? "opacity-50" : "opacity-0"

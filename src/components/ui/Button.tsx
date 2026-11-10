@@ -1,9 +1,10 @@
 import Link from "next/link";
+import { LoaderCircle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 /**
  * Tombol utama sesuai Figma "06 | Prototype" (bukan varian halaman 02 —
- * perbedaannya dicatat di CLAUDE.md "Untuk desainer").
+ * perbedaannya dicatat di CLAUDE.md "Keputusan desain mandiri").
  *
  * - `lite`: gradien cyan, border hitam 0.5px, Gloss shadow.
  * - `soul`: gradien kuning, border hitam 0.5px, tanpa bayangan.
@@ -88,8 +89,16 @@ type CommonProps = {
   children: React.ReactNode;
 };
 
-type ButtonAsLink = CommonProps & { href: string; onClick?: () => void };
-type ButtonAsButton = CommonProps & { href?: undefined } & React.ButtonHTMLAttributes<HTMLButtonElement>;
+type ButtonAsLink = CommonProps & { href: string; onClick?: () => void; loading?: undefined };
+type ButtonAsButton = CommonProps & {
+  href?: undefined;
+  /**
+   * State Loading (pola Figma 02 Button "Loading"): spinner di depan label,
+   * klik diabaikan, tanpa redup 40% (bukan nonaktif). Keputusan desain
+   * mandiri — 06 tidak menggambar state ini.
+   */
+  loading?: boolean;
+} & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 export type ButtonProps = ButtonAsLink | ButtonAsButton;
 
@@ -126,11 +135,29 @@ export function Button(props: ButtonProps) {
     labelClassName: _l,
     children: _ch,
     href: _h,
+    loading,
     type,
+    onClick,
     ...rest
   } = props;
   return (
-    <button type={type ?? "button"} className={classes} style={style} {...rest}>
+    <button
+      type={type ?? "button"}
+      className={cn(classes, loading && "cursor-wait")}
+      style={style}
+      {...rest}
+      aria-busy={loading || rest["aria-busy"] || undefined}
+      aria-disabled={loading || rest["aria-disabled"] || undefined}
+      onClick={loading ? undefined : onClick}
+    >
+      {loading && (
+        <LoaderCircle
+          aria-hidden
+          size={18}
+          strokeWidth={2}
+          className={cn("shrink-0 motion-safe:animate-spin", labelClassByVariant[variant], labelClassName)}
+        />
+      )}
       {label}
     </button>
   );

@@ -25,6 +25,10 @@ type SituationScreenProps = {
   showTooShort: boolean;
   canContinue: boolean;
   busy: boolean;
+  /** busy lebih dari SLOW_HINT_MS → chip "Agak lama?" di atas tombol. */
+  slow: boolean;
+  /** Kategori gagal dimuat dan sheet S-19 sudah ditutup → tampilkan "Coba lagi". */
+  onRetryCategories?: () => void;
   onExample: () => void;
   onNext: () => void;
 };
@@ -34,7 +38,7 @@ export function SituationScreen(props: SituationScreenProps) {
   const textId = useId();
   const helperId = useId();
   const errorId = useId();
-  const { categories, categoryId, text, maskedCount, showTooShort, canContinue, busy } = props;
+  const { categories, categoryId, text, maskedCount, showTooShort, canContinue, busy, slow } = props;
 
   return (
     <LiteScreen>
@@ -54,6 +58,12 @@ export function SituationScreen(props: SituationScreenProps) {
               onClick={() => props.onSelectCategory(c.id)}
             />
           ))}
+          {/* Keputusan desain mandiri: tidak ada di 06. Pola tombol ghost "Coba lagi" dari S-07 Error. */}
+          {!categories && props.onRetryCategories && (
+            <Button variant="ghost" size="md" className="w-auto px-ato-0" onClick={props.onRetryCategories}>
+              {liteCopy.offline.retry}
+            </Button>
+          )}
         </div>
 
         <div aria-hidden className="flex w-full items-center gap-ato-12">
@@ -123,12 +133,20 @@ export function SituationScreen(props: SituationScreenProps) {
       </div>
 
       <BottomActionBar glow="#69e5f8">
+        {/* Keputusan desain mandiri: chip sama dengan S-07 "Agak lama?", melayang di atas bar (tanpa geser layout). */}
+        <div aria-live="polite" className="pointer-events-none absolute inset-x-0 bottom-full flex justify-center pb-ato-12">
+          {busy && slow && (
+            <p className="rounded-ato-full border border-ato-border-subtle bg-ato-bg-1 px-ato-16 font-ato-ui text-ato-caption text-ato-text-2 shadow-ato-glass backdrop-blur-[12px]">
+              {liteCopy.loading.slow}
+            </p>
+          )}
+        </div>
         <Button
           variant="aqua"
           gradient={FLOW_GRADIENTS.next}
           className="min-w-px flex-1"
-          disabled={!canContinue || busy}
-          aria-busy={busy || undefined}
+          disabled={!canContinue}
+          loading={busy}
           onClick={props.onNext}
         >
           {copy.next}

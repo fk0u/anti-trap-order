@@ -49,8 +49,8 @@ export const liteCopy = {
     title: "Menyusun celah yang kamu temukan",
     /** Tips pertama; tips berikutnya = `explanation` taktik dari GET /lite/tactics. */
     body: "Pelaku suka membuatmu merasa sempat tapi terburu-buru.",
+    /** Juga dipakai di S-03 saat "Lanjut" menunggu lebih dari 3 dtk (keputusan desain mandiri). */
     slow: "Agak lama? Kami siapkan mode terbatas.",
-    /** Hanya tampil saat NODE_ENV=development (alat uji prototype). */
   },
 
   // S-07 Error (node 56:8446) dan S-19 (node 56:8512)
@@ -86,6 +86,8 @@ export const liteCopy = {
     ] as const,
     copy: "Salin kalimat",
     copied: "Tersalin ✓",
+    /** Tidak ada di 06 — keputusan desain mandiri (CLAUDE.md). */
+    copyFailed: "Gagal menyalin",
     reportLabel: "3 · LAPORKAN",
     pending: "Menunggu verifikasi",
     disclaimer: "Ini alat bantu berpikir, bukan deteksi pasti.",

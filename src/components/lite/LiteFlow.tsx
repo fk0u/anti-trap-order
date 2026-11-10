@@ -5,8 +5,8 @@ import {
   DEFAULT_RETRY_AFTER_S,
   SLOW_HINT_MS,
   analyzeText,
+  errorScreen,
   getScenario,
-  isAbortError,
   isApiError,
   listCategories,
   listScenarios,
@@ -17,6 +17,7 @@ import { liteCopy } from "@/content/lite";
 import { MIN_WORDS, maskText } from "@/lib/ml/contract";
 import { pickMissed } from "@/lib/lite/pick-missed";
 import type { Answer, Category, CategoryId, DetectedTactic, ReflectRequest, ReflectResponse, ScenarioDetail } from "@/types/api-v1";
+import { ServerErrorScreen } from "@/components/errors/ErrorScreens";
 import { ActionCardScreen } from "@/components/lite/ActionCardScreen";
 import { ApiDownSheet } from "@/components/lite/ApiDownSheet";
 import { LoadingScreen, type LoadingState } from "@/components/lite/LoadingScreen";
@@ -26,18 +27,21 @@ import { ResultScreen } from "@/components/lite/ResultScreen";
 import { SituationScreen } from "@/components/lite/SituationScreen";
 
 type Step = "situation" | "q1" | "q2" | "q3" | "loading" | "result" | "action";
-const STEPS: readonly Step[] = ["situation", "q1", "q2", "q3", "loading", "result", "action"];
 const QUESTION_STEPS = ["q1", "q2", "q3"] as const;
 
 const wordCount = (s: string) => s.trim().split(/\s+/).filter(Boolean).length;
 
+type RateLimit = { seconds: number; after?: () => void };
+
 /**
  * Alur A20 Lite (S-03 → S-09) dalam satu route `/lite`.
  *
- * - Setiap langkah dicatat di riwayat browser (pushState) supaya tombol Back
- *   kembali ke langkah sebelumnya. State tidak disimpan: refresh → S-03.
- * - Error API: 429 → S-20; jaringan/timeout/server → S-19 (sheet) atau
- *   S-07 Error saat menunggu hasil.
+ * - Langkah TIDAK ditambahkan ke riwayat browser (replaceState): Back browser
+ *   keluar dari /lite, tombol "Kembali" di layar pindah antarlangkah. Dengan
+ *   begitu tidak ada entri riwayat basi setelah refresh (refresh → S-03).
+ * - Error API (lihat `errorScreen()` di api-v1.ts):
+ *   jaringan/timeout → S-19 sheet, atau S-07 Error saat menunggu hasil;
+ *   5xx/4xx/data rusak/ID tak dikenal → S-18; 429 → S-20.
  * - Privasi: teks S-03 hanya lewat analyzeText() (dimasking dulu); isi
  *   "Lainnya" tidak pernah dikirim (cukup other_filled).
  */
@@ -46,10 +50,12 @@ export function LiteFlow() {
 
   // S-03
   const [categories, setCategories] = useState<Category[] | null>(null);
+  const [categoriesFailed, setCategoriesFailed] = useState(false);
   const [categoryId, setCategoryId] = useState<CategoryId | null>(null);
   const [text, setText] = useState("");
   const [tooShortFromServer, setTooShortFromServer] = useState(false);
   const [busy, setBusy] = useState(false);
+  const [busySlow, setBusySlow] = useState(false);
 
   // S-04–S-06
   const [scenario, setScenario] = useState<ScenarioDetail | null>(null);
@@ -62,64 +68,73 @@ export function LiteFlow() {
   const [tacticTips, setTacticTips] = useState<string[]>([]);
 
   // Overlay error
-  const [sheetRetry, setSheetRetry] = useState<(() => void) | null>(null);
-  const [rateLimitSeconds, setRateLimitSeconds] = useState<number | null>(null);
+  const [sheetRetry, setSheetRetry] = useState<(() => void) | null>(null); // S-19
+  const [serverRetry, setServerRetry] = useState<(() => void) | null>(null); // S-18
+  const [rateLimit, setRateLimit] = useState<RateLimit | null>(null); // S-20
 
   const reflectAbort = useRef<AbortController | null>(null);
 
-  // ---------- Riwayat browser ----------
+  // ---------- Navigasi (tanpa entri riwayat baru) ----------
 
-  const go = useCallback((next: Step, mode: "push" | "replace" = "push") => {
-    const state = { ...(window.history.state ?? {}), liteStep: next };
-    if (mode === "push") window.history.pushState(state, "");
-    else window.history.replaceState(state, "");
+  const go = useCallback((next: Step) => {
+    window.history.replaceState({ ...(window.history.state ?? {}), liteStep: next }, "");
     setStep(next);
     window.scrollTo(0, 0);
   }, []);
 
-  useEffect(() => {
-    window.history.replaceState({ ...(window.history.state ?? {}), liteStep: "situation" }, "");
-    const onPop = (e: PopStateEvent) => {
-      const s = (e.state as { liteStep?: Step } | null)?.liteStep;
-      // Entri S-07 dari riwayat (Back lalu Forward): request-nya sudah batal → kembali ke Q3.
-      const target: Step = s && STEPS.includes(s) ? (s === "loading" ? "q3" : s) : "situation";
-      setStep(target);
-      setSheetRetry(null);
-      window.scrollTo(0, 0);
-    };
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
-
   // ---------- Error ----------
 
-  const handleError = useCallback((err: unknown, retry: () => void) => {
-    if (isAbortError(err)) return;
-    if (isApiError(err) && err.kind === "rate_limited") {
-      setRateLimitSeconds(err.retryAfter ?? DEFAULT_RETRY_AFTER_S);
-      return;
+  const clearErrors = useCallback(() => {
+    setSheetRetry(null);
+    setServerRetry(null);
+  }, []);
+
+  /**
+   * Petakan error ke layar. `retry` dipanggil dari "Coba lagi"/"Coba Lagi";
+   * `afterRate` dipanggil saat S-20 ditutup (mis. muat ulang kategori).
+   */
+  const handleError = useCallback((err: unknown, retry: () => void, afterRate?: () => void) => {
+    switch (errorScreen(err)) {
+      case "ignore":
+        return;
+      case "rate":
+        setRateLimit({
+          seconds: (isApiError(err) && err.retryAfter) || DEFAULT_RETRY_AFTER_S,
+          after: afterRate,
+        });
+        return;
+      case "offline":
+        setSheetRetry(() => retry);
+        return;
+      case "server":
+        setServerRetry(() => retry);
+        return;
     }
-    setSheetRetry(() => retry);
   }, []);
 
   // ---------- S-03 ----------
 
   const loadCategories = useCallback(() => {
     const ctrl = new AbortController();
+    setCategoriesFailed(false);
     listCategories({ signal: ctrl.signal })
       .then(setCategories)
-      .catch((err) => handleError(err, loadCategories));
+      .catch((err) => {
+        if (errorScreen(err) === "ignore") return;
+        setCategoriesFailed(true);
+        handleError(err, loadCategories, loadCategories);
+      });
     return () => ctrl.abort();
   }, [handleError]);
 
   useEffect(() => loadCategories(), [loadCategories]);
 
   // Tips S-07: `explanation` taktik dari API. Tidak kritis — kalau gagal, S-07
-  // cukup menampilkan teks Figma, tanpa sheet error.
+  // cukup menampilkan teks Figma, tanpa layar error.
   useEffect(() => {
     const ctrl = new AbortController();
     listTactics({ signal: ctrl.signal })
-      .then((list) => setTacticTips(list.map((t) => t.explanation).filter((s) => typeof s === "string" && s.trim() !== "")))
+      .then((list) => setTacticTips(list.map((t) => t.explanation).filter((s) => s.trim() !== "")))
       .catch(() => {});
     return () => ctrl.abort();
   }, []);
@@ -151,7 +166,9 @@ export function LiteFlow() {
 
   const onSituationNext = useCallback(async () => {
     setBusy(true);
-    setSheetRetry(null);
+    setBusySlow(false);
+    clearErrors();
+    const slowTimer = setTimeout(() => setBusySlow(true), SLOW_HINT_MS);
     try {
       let scenarioId: string;
       let tactics: DetectedTactic[] = [];
@@ -167,7 +184,7 @@ export function LiteFlow() {
       } else if (categoryId) {
         const list = await listScenarios(categoryId);
         const pick = list.find((s) => s.is_fallback) ?? list[0];
-        if (!pick) throw new Error("Kategori tanpa skenario");
+        if (!pick) throw new Error("Kategori tanpa skenario"); // → S-18
         scenarioId = pick.id;
       } else {
         return;
@@ -181,9 +198,11 @@ export function LiteFlow() {
     } catch (err) {
       handleError(err, onSituationNext);
     } finally {
+      clearTimeout(slowTimer);
       setBusy(false);
+      setBusySlow(false);
     }
-  }, [enoughText, text, categoryId, go, handleError]);
+  }, [enoughText, text, categoryId, go, handleError, clearErrors]);
 
   // ---------- S-07: reflect ----------
 
@@ -193,7 +212,7 @@ export function LiteFlow() {
     const ctrl = new AbortController();
     reflectAbort.current = ctrl;
     setLoadState("waiting");
-    setSheetRetry(null);
+    clearErrors();
     const slowTimer = setTimeout(() => setLoadState((s) => (s === "waiting" ? "slow" : s)), SLOW_HINT_MS);
 
     const answers = scenario.questions.map((q): Answer => {
@@ -205,24 +224,25 @@ export function LiteFlow() {
     try {
       const res = await reflect({ scenario_id: scenario.id, answers }, { signal: ctrl.signal });
       setResult(res);
-      go("result", "replace"); // S-07 tidak masuk riwayat: Back dari S-08 kembali ke Q3.
+      go("result");
     } catch (err) {
-      if (isAbortError(err)) return;
-      if (isApiError(err) && err.kind === "rate_limited") {
-        setRateLimitSeconds(err.retryAfter ?? DEFAULT_RETRY_AFTER_S);
+      const screen = errorScreen(err);
+      if (screen === "ignore") return;
+      if (screen === "offline") {
+        setLoadState("error"); // S-07 Error
         return;
       }
-      setLoadState("error");
+      // 429: kembali ke Q3 supaya bisa kirim ulang. 5xx/data rusak: S-18 di atas S-07.
+      handleError(err, () => void runReflect(), () => go("q3"));
     } finally {
       clearTimeout(slowTimer);
     }
-  }, [scenario, drafts, go]);
+  }, [scenario, drafts, go, handleError, clearErrors]);
 
-  // Batalkan reflect saat meninggalkan S-07 (mis. tombol Back).
+  // Batalkan reflect saat meninggalkan S-07.
   useEffect(() => {
     if (step !== "loading") reflectAbort.current?.abort();
   }, [step]);
-
 
   const missed = useMemo(() => (result ? pickMissed(result.missed_candidates, detected) : []), [result, detected]);
 
@@ -239,7 +259,7 @@ export function LiteFlow() {
 
   // ---------- Render ----------
 
-  // Langkah dari riwayat yang datanya sudah tidak ada → kembali ke S-03.
+  // Langkah yang datanya sudah tidak ada → kembali ke langkah yang masih valid.
   const qIndex = QUESTION_STEPS.indexOf(step as (typeof QUESTION_STEPS)[number]);
   let view: Step = step;
   if ((qIndex >= 0 || step === "loading") && !scenario) view = "situation";
@@ -261,6 +281,9 @@ export function LiteFlow() {
         showTooShort={showTooShort}
         canContinue={canContinue}
         busy={busy}
+        slow={busySlow}
+        // Sheet S-19 ditutup dengan Esc → tetap ada cara mencoba lagi.
+        onRetryCategories={categoriesFailed && !sheetRetry && !rateLimit && !serverRetry ? () => loadCategories() : undefined}
         onExample={onExample}
         onNext={onSituationNext}
       />
@@ -274,7 +297,7 @@ export function LiteFlow() {
         message={scenario.example_message}
         draft={drafts[question.id] ?? EMPTY_DRAFT}
         onDraftChange={(d) => setDrafts((all) => ({ ...all, [question.id]: d }))}
-        onBack={() => window.history.back()}
+        onBack={() => go(qIndex === 0 ? "situation" : QUESTION_STEPS[qIndex - 1])}
         onNext={() => {
           if (qIndex < 2) {
             go(QUESTION_STEPS[qIndex + 1]);
@@ -287,13 +310,11 @@ export function LiteFlow() {
       />
     );
   } else if (view === "loading") {
-    screen = (
-      <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} />
-    );
+    screen = <LoadingScreen state={loadState} tips={loadingTips} onRetry={() => void runReflect()} />;
   } else if (view === "result" && result) {
     screen = <ResultScreen result={result} missed={missed} onNext={() => go("action")} />;
   } else if (view === "action" && result) {
-    screen = <ActionCardScreen card={result.action_card} onBack={() => window.history.back()} onRestart={restart} />;
+    screen = <ActionCardScreen card={result.action_card} onBack={() => go("result")} onRestart={restart} />;
   }
 
   return (
@@ -308,14 +329,24 @@ export function LiteFlow() {
           retry?.();
         }}
       />
-      {rateLimitSeconds !== null && (
+      {serverRetry && (
+        <ServerErrorScreen
+          overlay
+          onRetry={() => {
+            const retry = serverRetry;
+            setServerRetry(null);
+            retry();
+          }}
+        />
+      )}
+      {rateLimit && (
         <RateLimitScreen
-          key={rateLimitSeconds}
-          seconds={rateLimitSeconds}
+          key={rateLimit.seconds}
+          seconds={rateLimit.seconds}
           onClose={() => {
-            setRateLimitSeconds(null);
-            // 429 saat menunggu hasil: kembali ke Q3 supaya bisa kirim ulang.
-            if (step === "loading") window.history.back();
+            const after = rateLimit.after;
+            setRateLimit(null);
+            after?.();
           }}
         />
       )}

@@ -8,10 +8,22 @@ import { StatusIcon } from "@/components/lite/LiteShell";
 
 const SHEET_ID = "lite-api-down";
 
-/** S-19 API down (sheet) — Figma 06 node 56:8512. */
+/**
+ * S-19 API down (sheet) — Figma 06 node 56:8512.
+ * Area gelap tidak menutup sheet; Esc boleh menutup (LiteFlow lalu
+ * menampilkan "Coba lagi" di layar agar tetap ada cara mencoba lagi).
+ */
 export function ApiDownSheet({ open, onClose, onRetry }: { open: boolean; onClose: () => void; onRetry: () => void }) {
   return (
-    <BottomSheet id={SHEET_ID} open={open} onClose={onClose} title={liteCopy.offline.title} headerless className="items-center">
+    <BottomSheet
+      id={SHEET_ID}
+      open={open}
+      onClose={onClose}
+      title={liteCopy.offline.title}
+      headerless
+      dismissOnScrim={false}
+      className="items-center"
+    >
       <StatusIcon size={72}>
         <WifiOff size={36} strokeWidth={1.75} color="var(--ato-text-2)" />
       </StatusIcon>

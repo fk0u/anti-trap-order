@@ -28,7 +28,12 @@ async function copyText(text: string): Promise<boolean> {
     el.style.opacity = "0";
     document.body.appendChild(el);
     el.select();
-    const ok = document.execCommand("copy");
+    let ok = false;
+    try {
+      ok = document.execCommand("copy");
+    } catch {
+      ok = false;
+    }
     el.remove();
     return ok;
   }
@@ -47,14 +52,15 @@ type ActionCardScreenProps = {
 export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenProps) {
   const [checked, setChecked] = useState<Record<string, boolean>>({});
   const [tone, setTone] = useState<Tone>("santai");
-  const [copied, setCopied] = useState(false);
+  const [copyState, setCopyState] = useState<"idle" | "copied" | "failed">("idle");
   const [feedback, setFeedback] = useState<"up" | "down" | null>(null);
 
+  // "Tersalin ✓" (06) / "Gagal menyalin" (keputusan desain mandiri) tampil 2 detik.
   useEffect(() => {
-    if (!copied) return;
-    const t = setTimeout(() => setCopied(false), 2000);
+    if (copyState === "idle") return;
+    const t = setTimeout(() => setCopyState("idle"), 2000);
     return () => clearTimeout(t);
-  }, [copied]);
+  }, [copyState]);
 
   const phrase = card.warnings[tone];
 
@@ -89,7 +95,7 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
               value={tone}
               onChange={(t) => {
                 setTone(t);
-                setCopied(false);
+                setCopyState("idle");
               }}
             />
             <div className="w-full rounded-ato-md bg-ato-bg-2 p-ato-16">
@@ -99,9 +105,9 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
               variant="secondary"
               size="md"
               aria-live="polite"
-              onClick={async () => setCopied(await copyText(phrase))}
+              onClick={async () => setCopyState((await copyText(phrase)) ? "copied" : "failed")}
             >
-              {copied ? copy.copied : copy.copy}
+              {copyState === "copied" ? copy.copied : copyState === "failed" ? copy.copyFailed : copy.copy}
             </Button>
           </section>
 
