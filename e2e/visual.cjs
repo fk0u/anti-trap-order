@@ -103,11 +103,11 @@ const click = (page, name) => page.getByRole("button", { name, exact: true }).cl
   await shot(page, "17-s07-waiting");
   await page.getByText("Agak lama?").waitFor();
   await shot(page, "18-s07-slow");
-  await page.getByText("LITE · HASIL").waitFor({ timeout: 10000 });
+  await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor({ timeout: 10000 });
   await page.unroute("**/api/v1/lite/reflect");
   await shot(page, "19-s08");
   await click(page, "Lihat Action Card →");
-  await page.getByText("LITE · AKSI").waitFor();
+  await page.getByRole("heading", { name: "Bawa ini bersamamu" }).waitFor();
   await shot(page, "20-s09");
   await page.goBack();
   await page.goBack();

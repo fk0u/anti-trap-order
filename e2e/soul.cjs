@@ -1,5 +1,5 @@
 // Uji E2E /soul (S-10 → S-14) dengan backend Go asli: alur, aturan nama, privasi request, riwayat, error.
-const { chromium, BASE, OUT: out } = require("./_setup.cjs");
+const { chromium, BASE, OUT: out, VIEWPORT, DESKTOP } = require("./_setup.cjs");
 const assert = require("node:assert/strict");
 const HDR = { "Access-Control-Allow-Origin": BASE, "Access-Control-Expose-Headers": "Retry-After", "Content-Type": "application/json" };
 
@@ -9,7 +9,7 @@ const shot = (page, name, full = true) => page.screenshot({ path: `${out}/${name
 const click = (page, name) => page.getByRole("button", { name, exact: true }).click();
 
 async function newPage(browser) {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   const bodies = [];
   page.on("request", (r) => { if (r.url().includes("/api/v1/soul/") && r.method() === "POST") bodies.push({ url: r.url(), body: r.postData() }); });

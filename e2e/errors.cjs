@@ -1,5 +1,5 @@
 // Uji PR 0 (perbaikan error) dengan backend Go asli + route Playwright untuk memicu error.
-const { chromium, BASE, OUT: out } = require("./_setup.cjs");
+const { chromium, BASE, OUT: out, VIEWPORT, DESKTOP } = require("./_setup.cjs");
 const assert = require("node:assert/strict");
 const HDR = { "Access-Control-Allow-Origin": BASE, "Access-Control-Expose-Headers": "Retry-After", "Content-Type": "application/json" };
 
@@ -10,7 +10,7 @@ const click = (page, text) => page.getByRole("button", { name: text, exact: true
 const TEXT = "Halo kak ada lowongan admin gaji harian tinggi, daftar sekarang ya";
 
 async function newPage(browser) {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
   return { ctx, page: await ctx.newPage() };
 }
 async function toQ3(page) {
@@ -114,7 +114,7 @@ async function toQ3(page) {
     ok("ID taktik tak dikenal di reflect → S-18 (data tidak ditemukan)");
     await page.unroute("**/api/v1/lite/reflect");
     await click(page, "Coba Lagi");
-    await page.getByText("LITE · HASIL").waitFor();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
     ok("S-18 'Coba Lagi' mengirim ulang reflect");
     await ctx.close();
   }
@@ -246,9 +246,9 @@ async function toQ3(page) {
     const { ctx, page } = await newPage(browser);
     await toQ3(page);
     await click(page, "Lihat hasil →");
-    await page.getByText("LITE · HASIL").waitFor();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
     await click(page, "Lihat Action Card →");
-    await page.getByText("LITE · AKSI").waitFor();
+    await page.getByRole("heading", { name: "Bawa ini bersamamu" }).waitFor();
     await page.evaluate(() => {
       Object.defineProperty(navigator, "clipboard", { value: { writeText: () => Promise.reject(new Error("x")) } });
       document.execCommand = () => false;

@@ -38,12 +38,12 @@ export function ChannelItem({ name, note, status, pendingLabel, url }: ChannelIt
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="font-ato-ui text-ato-m-h3 text-ato-text-1 underline underline-offset-2"
+          className="font-ato-ui text-ato-m-h3 text-ato-text-1 underline underline-offset-2 lg:text-ato-d-h3"
         >
           {name}
         </a>
       ) : (
-        <p className="font-ato-ui text-ato-m-h3 text-ato-text-1">{name}</p>
+        <p className="font-ato-ui text-ato-m-h3 text-ato-text-1 lg:text-ato-d-h3">{name}</p>
       )}
       <p className="font-ato-ui text-ato-caption text-ato-text-2">{note}</p>
     </div>

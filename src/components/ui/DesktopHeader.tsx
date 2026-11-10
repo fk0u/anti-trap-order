@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 /** Tombol solid desktop (02 Button primary, gaya frame BROWSER 06): isi aksen, kilau atas, Gloss Button. */
 export const DESKTOP_SOLID = {
   lite: "bg-ato-lite-accent text-white",
-  soul: "bg-gradient-to-b from-[#c96a14] to-ato-soul-accent text-white",
+  soul: "bg-ato-soul-accent text-white",
 } as const;
 
 /**

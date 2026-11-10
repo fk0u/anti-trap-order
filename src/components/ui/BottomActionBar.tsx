@@ -27,7 +27,7 @@ export function BottomActionBar({
         "[background-image:var(--ato-bar-bg)]",
         direction === "column" ? "flex-col" : "items-start",
         "md:max-lg:px-[max(16px,calc(50%-264px))]",
-        "lg:static lg:z-auto lg:flex-row lg:items-center lg:justify-end lg:border-0 lg:p-0 lg:backdrop-blur-none lg:[background-image:none]",
+        "lg:relative lg:z-auto lg:flex-row lg:items-center lg:justify-end lg:border-0 lg:p-0 lg:backdrop-blur-none lg:[background-image:none]",
         className
       )}
       style={{ "--ato-bar-bg": `linear-gradient(to bottom, var(--ato-bg-0), ${glow})` } as React.CSSProperties}

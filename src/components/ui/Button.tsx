@@ -90,7 +90,7 @@ export type DesktopButtonStyle = "lite" | "soul" | "secondary" | "ghost";
 
 const desktopClass: Record<DesktopButtonStyle, string> = {
   lite: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-lite-accent lg:shadow-ato-gloss",
-  soul: "lg:w-auto lg:border-0 lg:[background-image:linear-gradient(to_bottom,#c96a14,var(--ato-soul-accent))] lg:shadow-ato-gloss",
+  soul: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-ato-soul-accent lg:shadow-ato-gloss",
   secondary: "lg:w-auto lg:border lg:border-solid lg:border-ato-border-strong lg:[background-image:none] lg:bg-ato-bg-1 lg:shadow-none",
   ghost: "lg:w-auto lg:border-0 lg:[background-image:none] lg:bg-transparent lg:shadow-none",
 };

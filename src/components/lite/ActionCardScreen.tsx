@@ -9,6 +9,7 @@ import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
 import { Segmented } from "@/components/ui/Segmented";
 import { FlowTop, LiteScreen } from "@/components/lite/LiteShell";
 import { liteCopy } from "@/content/lite";
+import { TABLET_COLUMN } from "@/lib/layout";
 import { cn } from "@/lib/utils";
 import type { ActionCard } from "@/types/api-v1";
 
@@ -65,17 +66,18 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
   const phrase = card.warnings[tone];
 
   return (
-    <LiteScreen>
-      <div className="relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16">
-        <FlowTop back={{ label: liteCopy.header.result, onClick: onBack }} progress={liteCopy.progress.action} />
+    <LiteScreen desktopGrid="lg:grid-cols-1 lg:gap-y-ato-24">
+      <div className={cn("relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:gap-ato-24 lg:p-0")}>
+        <FlowTop back={{ label: liteCopy.header.result, onClick: onBack }} progress={liteCopy.progress.action} hideOnDesktop />
 
         <div className="flex w-full flex-col gap-ato-8">
           <ConsoleLabel>{copy.label(card.category_label)}</ConsoleLabel>
-          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white">{copy.title}</h1>
+          <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h1 text-white lg:text-ato-d-h1 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title}</h1>
         </div>
 
-        <article className="relative flex w-full flex-col gap-ato-24 overflow-hidden rounded-ato-lg border border-ato-lite-accent bg-ato-bg-1 p-ato-20 shadow-ato-glass-strong backdrop-blur-[20px]">
-          <section className="flex w-full flex-col gap-ato-4">
+        {/* Desktop (node 56:9324): p40, dua kolom (amankan diri | peringatkan + laporkan), footer selebar kartu. */}
+        <article className="relative flex w-full flex-col gap-ato-24 overflow-hidden rounded-ato-lg border border-ato-lite-accent bg-ato-bg-1 p-ato-20 shadow-ato-glass-strong backdrop-blur-[20px] lg:grid lg:grid-cols-2 lg:gap-x-ato-56 lg:gap-y-ato-32 lg:p-ato-40">
+          <section className="flex w-full flex-col gap-ato-4 lg:row-span-2 lg:gap-ato-8">
             <ConsoleLabel as="h2">{copy.secureLabel}</ConsoleLabel>
             {card.checklist.map((item) => (
               <ChecklistItem
@@ -99,11 +101,13 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
               }}
             />
             <div className="w-full rounded-ato-md bg-ato-bg-2 p-ato-16">
-              <p className="font-ato-ui text-ato-m-body text-ato-text-1">{phrase}</p>
+              <p className="font-ato-ui text-ato-m-body text-ato-text-1 lg:text-ato-d-body">{phrase}</p>
             </div>
             <Button
               variant="secondary"
               size="md"
+              desktop="secondary"
+              className="lg:self-start"
               aria-live="polite"
               onClick={async () => setCopyState((await copyText(phrase)) ? "copied" : "failed")}
             >
@@ -112,7 +116,7 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
           </section>
 
           {card.report_channels.length > 0 && (
-            <section className="flex w-full flex-col gap-ato-12">
+            <section className="flex w-full flex-col gap-ato-12 lg:col-start-2">
               <ConsoleLabel as="h2">{copy.reportLabel}</ConsoleLabel>
               {card.report_channels.map((ch) => (
                 <ChannelItem key={ch.name} name={ch.name} note={ch.note} status={ch.status} url={ch.url} pendingLabel={copy.pending} />
@@ -120,10 +124,10 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
             </section>
           )}
 
-          <footer className="flex w-full flex-col gap-ato-12">
+          <footer className="flex w-full flex-col gap-ato-12 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between lg:border-t lg:border-ato-border-subtle lg:pt-ato-16">
             <p className="font-ato-ui text-ato-caption text-ato-text-3">{copy.disclaimer}</p>
             <div className="flex items-center gap-ato-12">
-              <span className="font-ato-ui text-ato-caption text-ato-text-2">{copy.helpful}</span>
+              <span className="font-ato-ui text-ato-caption text-ato-text-2 lg:text-ato-d-body">{copy.helpful}</span>
               {(["up", "down"] as const).map((v) => (
                 <button
                   key={v}
@@ -144,13 +148,14 @@ export function ActionCardScreen({ card, onBack, onRestart }: ActionCardScreenPr
         </article>
       </div>
 
+      {/* Desktop (node 56:9351): "Coba situasi lain" lalu "Coba A20 Soul →", rata kanan. */}
       <BottomActionBar glow="#99ebf8" direction="column">
-        <Button variant="soul" href="/soul" gradient={FLOW_GRADIENTS.soulAction} className="shadow-ato-gloss">
+        <Button variant="soul" href="/soul" desktop="soul" gradient={FLOW_GRADIENTS.soulAction} className="shadow-ato-gloss lg:order-2">
           {copy.soul}
         </Button>
-        <div className="flex w-full gap-ato-12">
+        <div className="flex w-full gap-ato-12 lg:order-1 lg:w-auto">
           {/* TODO(ekspor 4:5): "Simpan gambar" disembunyikan — belum ada desain gambar di Figma 06. */}
-          <Button variant="ghost" size="md" className="min-w-px flex-1" onClick={onRestart}>
+          <Button variant="ghost" size="md" desktop="ghost" className="min-w-px flex-1 lg:h-[52px] lg:px-ato-24" onClick={onRestart}>
             {copy.again}
           </Button>
         </div>

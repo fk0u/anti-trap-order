@@ -3,7 +3,10 @@
 import { useEffect, useState } from "react";
 import { WifiOff } from "lucide-react";
 import { StepperAlphaOmega } from "@/components/ui/StepperAlphaOmega";
-import { LiteScreen, StatusIcon } from "@/components/lite/LiteShell";
+import { DisclaimerBanner } from "@/components/ui/DisclaimerBanner";
+import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
+import { StepperVertical } from "@/components/ui/StepperVertical";
+import { LITE_PANEL_GRID, LiteScreen, StatusIcon } from "@/components/lite/LiteShell";
 import { OfflineActions } from "@/components/lite/OfflineActions";
 import { liteCopy } from "@/content/lite";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
@@ -122,9 +125,18 @@ export function LoadingScreen({ state, tips, onRetry }: LoadingScreenProps) {
   const copy = liteCopy.loading;
   const reduced = useReducedMotion();
   return (
-    <LiteScreen className="items-center justify-center px-ato-24">
+    <LiteScreen
+      className="items-center justify-center px-ato-24 lg:items-stretch lg:justify-start lg:px-0"
+      desktopGrid={LITE_PANEL_GRID}
+    >
+      {/* Desktop (tanpa frame di 06 — keputusan desain mandiri): panel konteks seperti S-03–S-06, langkah "Hasil". */}
+      <aside className="hidden flex-col gap-ato-20 overflow-hidden rounded-ato-lg border border-ato-border-subtle bg-ato-bg-1 p-ato-24 shadow-ato-glass backdrop-blur-[12px] lg:flex">
+        <ConsoleLabel as="span">{liteCopy.progress.result}</ConsoleLabel>
+        <StepperVertical steps={liteCopy.desktop.steps} current={4} />
+        <DisclaimerBanner>{liteCopy.disclaimer}</DisclaimerBanner>
+      </aside>
       {state === "error" ? (
-        <div role="alert" className="relative flex w-full flex-col items-center gap-ato-24">
+        <div role="alert" className="relative flex w-full flex-col items-center gap-ato-24 md:max-lg:max-w-[560px] lg:mx-auto lg:max-w-[480px] lg:pt-ato-40">
           <StatusIcon>
             <WifiOff size={40} strokeWidth={1.75} color="var(--ato-text-2)" />
           </StatusIcon>
@@ -133,8 +145,8 @@ export function LoadingScreen({ state, tips, onRetry }: LoadingScreenProps) {
           <OfflineActions onRetry={onRetry} />
         </div>
       ) : (
-        <div role="status" aria-live="polite" className="relative flex w-full flex-col items-center gap-ato-24">
-          <StepperAlphaOmega variant="flow" step={2} />
+        <div role="status" aria-live="polite" className="relative flex w-full flex-col items-center gap-ato-24 md:max-lg:max-w-[560px] lg:mx-auto lg:max-w-[480px] lg:pt-ato-40">
+          <StepperAlphaOmega variant="flow" step={2} className="lg:hidden" />
           <h1 className="w-full text-center font-ato-ui text-ato-m-h2 text-ato-text-1">
             {copy.title}
             <AnimatedDots reduced={reduced} />

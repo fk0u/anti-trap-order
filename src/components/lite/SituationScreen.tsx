@@ -6,7 +6,8 @@ import { BottomActionBar } from "@/components/ui/BottomActionBar";
 import { Button, FLOW_GRADIENTS } from "@/components/ui/Button";
 import { CategoryChip } from "@/components/ui/CategoryChip";
 import { DisclaimerBanner } from "@/components/ui/DisclaimerBanner";
-import { FlowTop, LiteScreen } from "@/components/lite/LiteShell";
+import { FlowTop, LITE_ACTIONS, LITE_PANEL_GRID, LiteMain, LitePanel, LiteScreen } from "@/components/lite/LiteShell";
+import { TABLET_COLUMN } from "@/lib/layout";
 import { liteCopy } from "@/content/lite";
 import { iconFor } from "@/lib/icons";
 import { cn } from "@/lib/utils";
@@ -41,14 +42,18 @@ export function SituationScreen(props: SituationScreenProps) {
   const { categories, categoryId, text, maskedCount, showTooShort, canContinue, busy, slow } = props;
 
   return (
-    <LiteScreen>
-      <div className="relative flex w-full flex-1 flex-col gap-ato-16 px-ato-16 pb-ato-24 pt-ato-16">
-        <FlowTop back={{ label: liteCopy.header.home, href: "/" }} progress={liteCopy.progress.situation} step={0} />
-        <DisclaimerBanner>{liteCopy.disclaimer}</DisclaimerBanner>
+    <LiteScreen desktopGrid={LITE_PANEL_GRID}>
+      <div className={cn("relative flex w-full flex-1 flex-col gap-ato-16 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
+        <LitePanel>
+          <FlowTop back={{ label: liteCopy.header.home, href: "/" }} progress={liteCopy.progress.situation} step={0} desktopStep={0} />
+          <p className="hidden font-ato-ui text-ato-d-body text-ato-text-2 lg:block">{liteCopy.desktop.situationIntro}</p>
+          <DisclaimerBanner>{liteCopy.disclaimer}</DisclaimerBanner>
+        </LitePanel>
 
-        <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h2 text-white">{copy.title}</h1>
+        <LiteMain className="lg:gap-ato-24">
+        <h1 className="ato-text-outline w-full font-ato-ui text-ato-m-h2 text-white lg:text-ato-d-h2 lg:text-ato-text-1 lg:[--ato-outline-width:0px]">{copy.title}</h1>
 
-        <div className="flex w-full flex-wrap gap-ato-8" role="group" aria-label={copy.title}>
+        <div className="flex w-full flex-wrap gap-ato-8 lg:gap-ato-12" role="group" aria-label={copy.title}>
           {categories?.map((c) => (
             <CategoryChip
               key={c.id}
@@ -74,7 +79,7 @@ export function SituationScreen(props: SituationScreenProps) {
 
         {/* Label row (node 56:6865): di 06 label 250px satu baris dan "↻" terpotong tepi frame. */}
         <div className="flex w-full items-center justify-between overflow-hidden">
-          <label htmlFor={textId} className="w-[250px] shrink-0 whitespace-nowrap font-ato-ui text-ato-m-h3 text-ato-text-1">
+          <label htmlFor={textId} className="w-[250px] shrink-0 whitespace-nowrap font-ato-ui text-ato-m-h3 text-ato-text-1 lg:w-auto lg:text-ato-d-h3">
             {copy.textLabel}
           </label>
           <Button
@@ -93,6 +98,8 @@ export function SituationScreen(props: SituationScreenProps) {
         <div
           className={cn(
             "flex h-[150px] w-full flex-col gap-ato-8 overflow-hidden rounded-ato-md bg-white p-ato-16 shadow-[4px_5px_0_0_var(--ato-ink)]",
+            // Desktop (node 56:8742): 180px, garis `border/strong`, tanpa bayangan keras.
+            "lg:h-[180px] lg:gap-ato-12 lg:border lg:border-ato-border-strong lg:p-ato-20 lg:shadow-none",
             "focus-within:outline focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ato-lite-accent",
             text ? "border-[0.5px] border-ato-ink" : "border border-ato-ink"
           )}
@@ -105,7 +112,7 @@ export function SituationScreen(props: SituationScreenProps) {
             onChange={(e) => props.onTextChange(e.target.value)}
             aria-describedby={showTooShort ? `${helperId} ${errorId}` : helperId}
             aria-invalid={showTooShort && text.length > 0 ? true : undefined}
-            className="min-h-0 w-full flex-1 resize-none bg-transparent font-ato-ui text-ato-m-body text-ato-text-1 outline-none placeholder:text-[#696969]"
+            className="min-h-0 w-full flex-1 resize-none bg-transparent font-ato-ui text-ato-m-body text-ato-text-1 outline-none placeholder:text-[#696969] lg:text-ato-d-body lg:placeholder:text-ato-text-3"
           />
           {maskedCount > 0 && (
             <span
@@ -130,9 +137,10 @@ export function SituationScreen(props: SituationScreenProps) {
             {copy.tooShort}
           </p>
         )}
+        </LiteMain>
       </div>
 
-      <BottomActionBar glow="#69e5f8">
+      <BottomActionBar glow="#69e5f8" className={LITE_ACTIONS}>
         {/* Keputusan desain mandiri: chip sama dengan S-07 "Agak lama?", melayang di atas bar (tanpa geser layout). */}
         <div aria-live="polite" className="pointer-events-none absolute inset-x-0 bottom-full flex justify-center pb-ato-12">
           {busy && slow && (
@@ -144,7 +152,8 @@ export function SituationScreen(props: SituationScreenProps) {
         <Button
           variant="aqua"
           gradient={FLOW_GRADIENTS.next}
-          className="min-w-px flex-1"
+          desktop="lite"
+          className="min-w-px flex-1 lg:flex-none"
           disabled={!canContinue}
           loading={busy}
           onClick={props.onNext}

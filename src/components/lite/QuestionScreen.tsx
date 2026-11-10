@@ -6,8 +6,10 @@ import { Button, FLOW_GRADIENTS } from "@/components/ui/Button";
 import { ConsoleLabel } from "@/components/ui/ConsoleLabel";
 import { OptionCard } from "@/components/ui/OptionCard";
 import { OtherOption } from "@/components/ui/OtherOption";
-import { FlowTop, LiteScreen } from "@/components/lite/LiteShell";
+import { FlowTop, LITE_ACTIONS, LITE_PANEL_GRID, LiteMain, LitePanel, LiteScreen } from "@/components/lite/LiteShell";
 import { liteCopy } from "@/content/lite";
+import { TABLET_COLUMN } from "@/lib/layout";
+import { cn } from "@/lib/utils";
 import type { Question } from "@/types/api-v1";
 
 const copy = liteCopy.question;
@@ -50,14 +52,18 @@ export function QuestionScreen({ question, message, draft, onDraftChange, onBack
   };
 
   return (
-    <LiteScreen>
-      <div className="relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16">
-        <FlowTop back={{ label: liteCopy.header.back, onClick: onBack }} progress={liteCopy.progress.question(step)} step={step} />
+    <LiteScreen desktopGrid={LITE_PANEL_GRID}>
+      <div className={cn("relative flex w-full flex-1 flex-col gap-ato-20 px-ato-16 pb-ato-24 pt-ato-16", TABLET_COLUMN, "lg:contents")}>
+        <LitePanel>
+        <FlowTop back={{ label: liteCopy.header.back, onClick: onBack }} progress={liteCopy.progress.question(step)} step={step} desktopStep={step} />
 
-        {/* Context card (node 146:5334) */}
+        {/* Context card (node 146:5334); desktop node 56:8973: `bg/2`, tanpa garis dan bayangan. */}
         <section
-          className="relative flex w-full flex-col gap-ato-8 overflow-hidden rounded-ato-lg border-[0.5px] border-ato-ink p-ato-16 backdrop-blur-[12px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),4px_4px_3px_0_rgba(0,0,0,0.25),0_12px_32px_-8px_rgba(13,23,33,0.08)]"
-          style={{ backgroundImage: "linear-gradient(to bottom, #ffffff, #7aff55 99.98%)" }}
+          className={cn(
+            "relative flex w-full flex-col gap-ato-8 overflow-hidden rounded-ato-lg border-[0.5px] border-ato-ink p-ato-16 backdrop-blur-[12px] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.9),4px_4px_3px_0_rgba(0,0,0,0.25),0_12px_32px_-8px_rgba(13,23,33,0.08)]",
+            "[background-image:linear-gradient(to_bottom,#ffffff,#7aff55_99.98%)]",
+            "lg:rounded-ato-md lg:border-0 lg:bg-ato-bg-2 lg:shadow-none lg:backdrop-blur-none lg:[background-image:none]"
+          )}
         >
           <button
             type="button"
@@ -71,20 +77,22 @@ export function QuestionScreen({ question, message, draft, onDraftChange, onBack
               ▾
             </span>
           </button>
-          <p id={messageId} hidden={!messageOpen} className="w-full font-ato-ui text-ato-m-body text-ato-text-2">
+          <p id={messageId} hidden={!messageOpen} className="w-full font-ato-ui text-ato-m-body text-ato-text-2 lg:text-ato-d-body">
             {message}
           </p>
         </section>
+        </LitePanel>
 
+        <LiteMain className="lg:gap-ato-20">
         <div className="flex w-full flex-col gap-ato-8">
           <ConsoleLabel>{copy.modeLabel}</ConsoleLabel>
-          <h1 id={promptId} className="w-full font-ato-ui text-ato-m-h2 text-ato-text-1">
+          <h1 id={promptId} className="w-full font-ato-ui text-ato-m-h2 text-ato-text-1 lg:text-ato-d-h2">
             {question.prompt}
           </h1>
           <p className="font-ato-ui text-ato-caption text-ato-text-3">{copy.hint}</p>
         </div>
 
-        <div role="group" aria-labelledby={promptId} className="flex w-full flex-col gap-ato-8">
+        <div role="group" aria-labelledby={promptId} className="flex w-full flex-col gap-ato-8 lg:gap-ato-12">
           {question.options.map((opt) => {
             const selected = draft.optionIds.includes(opt.id);
             return (
@@ -109,16 +117,18 @@ export function QuestionScreen({ question, message, draft, onDraftChange, onBack
             />
           )}
         </div>
+        </LiteMain>
       </div>
 
-      <BottomActionBar glow="#6be5f8">
-        <Button variant="secondary" className="w-auto shrink-0" onClick={onBack}>
+      <BottomActionBar glow="#6be5f8" className={cn(LITE_ACTIONS, "lg:mt-ato-20 lg:justify-between")}>
+        <Button variant="secondary" desktop="secondary" className="w-auto shrink-0" onClick={onBack}>
           {copy.back}
         </Button>
         <Button
           variant="aqua"
+          desktop="lite"
           gradient={FLOW_GRADIENTS.question}
-          className="min-w-px flex-1"
+          className="min-w-px flex-1 lg:flex-none"
           disabled={!isDraftValid(draft)}
           onClick={onNext}
         >

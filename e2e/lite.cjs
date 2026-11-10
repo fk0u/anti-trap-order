@@ -1,5 +1,5 @@
 // Uji E2E /lite dengan backend Go asli. Screenshot 390px DPR 2 per layar + cek privasi request.
-const { chromium, BASE, OUT: out } = require("./_setup.cjs");
+const { chromium, BASE, OUT: out, VIEWPORT, DESKTOP } = require("./_setup.cjs");
 const assert = require("node:assert/strict");
 const ORIGIN_HDR = { "Access-Control-Allow-Origin": BASE, "Access-Control-Expose-Headers": "Retry-After", "Content-Type": "application/json" };
 
@@ -7,7 +7,7 @@ let pass = 0;
 const ok = (m) => { pass++; console.log("  ✓", m); };
 
 async function newPage(browser) {
-  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+  const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
   const page = await ctx.newPage();
   const bodies = [];
   page.on("request", (r) => { if (r.method() === "POST") bodies.push({ url: r.url(), body: r.postData() }); });
@@ -88,7 +88,7 @@ async function toQ3(page) {
     await page.getByRole("checkbox").nth(0).click();
     await shot(page, "e2e-s06", true);
     await click(page, "Lihat hasil →");
-    await page.getByText("LITE · HASIL").waitFor();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
     const rf = bodies.find((b) => b.url.includes("/reflect"));
     assert.ok(!rf.body.includes("RAHASIA"), "isi Lainnya bocor");
     assert.ok(rf.body.includes('"other_filled":true'));
@@ -98,10 +98,10 @@ async function toQ3(page) {
     await page.getByText("LITE · 3/3").waitFor();
     ok("Back browser dari S-08 → Q3 (S-07 tidak masuk riwayat)");
     await click(page, "Lihat hasil →");
-    await page.getByText("LITE · HASIL").waitFor();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
 
     await click(page, "Lihat Action Card →");
-    await page.getByText("LITE · AKSI").waitFor();
+    await page.getByRole("heading", { name: "Bawa ini bersamamu" }).waitFor();
     assert.equal(await page.getByRole("button", { name: "Simpan gambar" }).count(), 0);
     ok("S-09: tombol 'Simpan gambar' disembunyikan");
     await page.getByRole("checkbox").nth(1).click();
@@ -113,11 +113,13 @@ async function toQ3(page) {
     await shot(page, "e2e-s09-copied", true);
     await page.getByRole("radio", { name: "Tegas" }).click();
     ok("Segmented Santai/Tegas berfungsi");
-    await page.getByRole("button", { name: "Hasil" }).click();
-    await page.getByText("LITE · HASIL").waitFor();
-    ok("tombol 'Hasil' di S-09 kembali ke S-08");
+    // Desktop 06 S-09 tidak punya tombol "Hasil" (hanya mobile) → Back browser.
+    if (DESKTOP) await page.goBack();
+    else await page.getByRole("button", { name: "Hasil" }).click();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
+    ok(DESKTOP ? "Back browser di S-09 kembali ke S-08 (desktop)" : "tombol 'Hasil' di S-09 kembali ke S-08");
     await click(page, "Lihat Action Card →");
-    await page.getByText("LITE · AKSI").waitFor();
+    await page.getByRole("heading", { name: "Bawa ini bersamamu" }).waitFor();
     await click(page, "Coba situasi lain");
     await page.getByText("LITE · 0/3").waitFor();
     assert.equal(await page.locator("textarea").inputValue(), "");
@@ -139,7 +141,7 @@ async function toQ3(page) {
       await click(page, i < 2 ? "Lanjut →" : "Lihat hasil →");
       if (i < 2) await page.getByText(`LITE · ${i + 2}/3`).waitFor();
     }
-    await page.getByText("LITE · HASIL").waitFor();
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor();
 
     // 429 pada reflect
     await toQ3(page);
@@ -165,7 +167,7 @@ async function toQ3(page) {
     await page.getByText("Agak lama? Kami siapkan mode terbatas.").waitFor({ timeout: 3800 });
     ok("chip 'Agak lama?' muncul setelah 3 detik");
     await shot(page, "e2e-s07-slow", false);
-    await page.getByText("LITE · HASIL").waitFor({ timeout: 8000 });
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor({ timeout: 8000 });
     ok("respons lambat tetap ditunggu sampai selesai");
     await page.unroute("**/api/v1/lite/reflect");
 
@@ -182,7 +184,7 @@ async function toQ3(page) {
     await shot(page, "e2e-s07-error", false);
     await page.unroute("**/api/v1/lite/reflect");
     await click(page, "Coba lagi");
-    await page.getByText("LITE · HASIL").waitFor({ timeout: 8000 });
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor({ timeout: 8000 });
     ok("'Coba lagi' mengirim ulang dan berhasil");
     await ctx.close();
   }

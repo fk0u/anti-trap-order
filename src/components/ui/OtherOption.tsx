@@ -41,7 +41,7 @@ export function OtherOption({ label, placeholder, maxLength, expanded, value, on
         <span aria-hidden className="whitespace-nowrap font-ato-console text-ato-console uppercase text-ato-lite-accent">
           {expanded ? "−" : "+"}
         </span>
-        <span className={cn("min-w-px flex-1 font-ato-ui text-ato-m-body", expanded ? "text-ato-text-1" : "text-ato-text-2")}>
+        <span className={cn("min-w-px flex-1 font-ato-ui text-ato-m-body lg:text-ato-d-body", expanded ? "text-ato-text-1" : "text-ato-text-2")}>
           {label}
         </span>
       </button>

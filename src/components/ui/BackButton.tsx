@@ -11,7 +11,9 @@ type BackButtonProps = {
 
 const circleClass =
   "flex size-11 shrink-0 items-center justify-center overflow-hidden rounded-ato-full border-[0.5px] border-ato-text-1 " +
-  "bg-gradient-to-b from-white shadow-[3px_1px_0_0_var(--ato-ink)]";
+  "bg-gradient-to-b from-white shadow-[3px_1px_0_0_var(--ato-ink)] " +
+  // Desktop 06 (node 77:7861): putih, garis 2px `text/1`, bayangan lembut.
+  "lg:border-2 lg:bg-none lg:bg-ato-bg-1 lg:shadow-[0_4px_10px_-2px_rgba(13,38,64,0.12)]";
 
 const toneClass = { lite: "to-[#9edff1]", soul: "to-[#ffb628]" } as const;
 

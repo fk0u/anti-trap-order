@@ -17,6 +17,15 @@ export const liteCopy = {
   },
   disclaimer: "Alat bantu berpikir, bukan deteksi pasti.",
 
+  // Hanya di frame desktop 06 (BROWSER 1440): S-03 node 56:8725, stepper vertikal 56:8724, S-08 rail 56:9246.
+  desktop: {
+    steps: ["Situasi", "Pertanyaan 1", "Pertanyaan 2", "Pertanyaan 3", "Hasil"],
+    situationIntro:
+      "Ceritakan situasimu apa adanya. Kamu akan berpikir seperti pelakunya selama tiga pertanyaan singkat — lalu menemukan celahnya sendiri.",
+    nextLabel: "LANGKAH BERIKUTNYA",
+    nextBody: "Semua langkah dan kalimat peringatan siap dalam satu kartu.",
+  },
+
   // S-03 (node 56:6842 / 56:6933)
   situation: {
     title: "Situasi apa yang kamu hadapi?",

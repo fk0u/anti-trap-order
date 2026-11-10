@@ -1,5 +1,5 @@
 // Verifikasi animasi S-07: titik, tips bergantian, tinggi tetap, reduced motion. + rekaman video.
-const { chromium, BASE, OUT: out } = require("./_setup.cjs");
+const { chromium, BASE, OUT: out, VIEWPORT, DESKTOP } = require("./_setup.cjs");
 const assert = require("node:assert/strict");
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let pass = 0;
@@ -43,7 +43,7 @@ const probe = (page) => page.evaluate(() => {
 
   // ---------- Gerak normal + rekaman ----------
   {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, recordVideo: { dir: out, size: { width: 390, height: 844 } } });
+    const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2, recordVideo: { dir: out, size: VIEWPORT } });
     const page = await ctx.newPage();
     await toLoading(page, 9000);
     await page.getByRole("button", { name: "Lihat hasil →", exact: true }).click();
@@ -84,7 +84,7 @@ const probe = (page) => page.evaluate(() => {
     ok("chip 'Agak lama?' tetap muncul (timer 3 dtk tidak berubah)");
 
     await page.screenshot({ path: `${out}/anim-slow.png` });
-    await page.getByText("LITE · HASIL").waitFor({ timeout: 6000 });
+    await page.getByText("CELAH YANG KAMU TEMUKAN").waitFor({ timeout: 6000 });
     ok("hasil diterima → S-08 seperti biasa");
     await ctx.close();
     console.log("  video:", await page.video().path());
@@ -92,7 +92,7 @@ const probe = (page) => page.evaluate(() => {
 
   // ---------- Screenshot berurutan (3 frame titik + 2 tips) ----------
   {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 });
+    const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2 });
     const page = await ctx.newPage();
     await toLoading(page, 9000);
     await page.getByRole("button", { name: "Lihat hasil →", exact: true }).click();
@@ -107,7 +107,7 @@ const probe = (page) => page.evaluate(() => {
 
   // ---------- Reduced motion ----------
   {
-    const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, reducedMotion: "reduce" });
+    const ctx = await browser.newContext({ viewport: VIEWPORT, deviceScaleFactor: 2, reducedMotion: "reduce" });
     const page = await ctx.newPage();
     await toLoading(page, 9000);
     await page.getByRole("button", { name: "Lihat hasil →", exact: true }).click();

@@ -9,7 +9,8 @@ type OptionCardProps = {
 };
 
 /**
- * OptionCard — gaya 06 (S-04, node 56:7110 / 56:7111). Tampil seperti radio,
+ * OptionCard — gaya 06 (S-04, node 56:7110 / 56:7111; desktop node 56:8984: garis
+ * terpilih 2px aksen). Tampil seperti radio,
  * tetapi pilihan bisa 1–2 sehingga semantiknya checkbox.
  */
 export function OptionCard({ label, selected, disabled = false, onToggle }: OptionCardProps) {
@@ -26,7 +27,7 @@ export function OptionCard({ label, selected, disabled = false, onToggle }: Opti
         "relative flex w-full items-center gap-ato-12 rounded-[28px] px-[20px] py-ato-16 text-left",
         "focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ato-lite-accent",
         selected
-          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-[#c2f7ff] to-[#5fdff2] [filter:drop-shadow(0_8px_9px_rgba(13,89,115,0.28))]"
+          ? "border-[0.5px] border-ato-ink bg-gradient-to-b from-[#c2f7ff] to-[#5fdff2] [filter:drop-shadow(0_8px_9px_rgba(13,89,115,0.28))] lg:border-2 lg:border-ato-lite-accent"
           : "border border-ato-border-subtle bg-ato-bg-1 [filter:drop-shadow(0_6px_8px_rgba(13,38,64,0.1))]",
         disabled && "cursor-not-allowed"
       )}
@@ -43,7 +44,7 @@ export function OptionCard({ label, selected, disabled = false, onToggle }: Opti
         // Kilau atas (node 75:402)
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-x-[3.5px] top-[2.5px] h-[25px] rounded-[24px] bg-gradient-to-b from-[rgba(255,255,255,0.6)] to-[rgba(255,255,255,0)]"
+          className="pointer-events-none absolute inset-x-[3.5px] top-[2.5px] h-[25px] rounded-[24px] lg:inset-x-[2px] lg:top-px bg-gradient-to-b from-[rgba(255,255,255,0.6)] to-[rgba(255,255,255,0)]"
         />
       )}
     </button>
