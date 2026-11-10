@@ -12,22 +12,22 @@ Dibuat 10 Nov 2026 dari audit frontend. Centang `[x]` saat selesai dan terverifi
 ## Fase 0 — Peralatan (blokir semuanya)
 
 - [x] Pasang Node, Go, Rust lewat Homebrew (`~/homebrew`), disetujui Syafar.
-- [ ] `npm ci`, `go test ./...`, `npm run build` hijau di branch ini sebagai garis dasar.
+- [x] `npm ci`, `tsc`, `npm run build` hijau. **Go tidak tersedia** di mesin ini (Homebrew Intel tier 3 tanpa bottle) — `go test` hanya via CI. Node 22 dipasang manual di `~/.local/node-22` (`export PATH=$HOME/.local/node-22/bin:$PATH`). `npm run lint` rusak (`next lint` dihapus di Next 16).
 - [ ] Ambil baseline visual: `e2e/visual.cjs capture` sebelum menyentuh UI.
 
 ## Fase 1 — Mode terbatas (celah terbesar untuk demo)
 
 Tujuan: tombol "Lanjut mode terbatas" (S-07 Error dan S-19) berfungsi dan Lite berjalan penuh tanpa server.
 
-- [ ] `src/lib/offline/` — port TypeScript dari Go, memakai data yang sama (tanpa salinan, tanpa drift):
+- [x] `src/lib/offline/` — port TypeScript dari Go, memakai data yang sama (tanpa salinan, tanpa drift):
   - tokenizer + slang + masking + Naive Bayes dari `internal/ml/` (model: `internal/ml/model.json`)
   - pemilihan skenario dan logika `reflect` dari `internal/lite/reflect.go`
   - kategori, taktik, skenario dari `internal/data/v1/*.json`
-- [ ] Lolos fixture `testdata/fixtures/ml-tokenize.json`, `ml-analyze.json`, `reflect-v1.json` (acuan Go).
-- [ ] `LiteFlow`: setelah "Lanjut mode terbatas", semua panggilan beralih ke mesin lokal; aksi yang gagal diulang otomatis.
-- [ ] Muat lazy (dynamic import) supaya bundel awal tidak membengkak.
-- [ ] Aktifkan tombol di `OfflineActions.tsx`; hapus TODO.
-- [ ] E2E: server diputus lewat route Playwright → "Lanjut mode terbatas" → S-03 sampai S-09 selesai; tidak ada request ke `/analyze`.
+- [x] Lolos fixture `testdata/fixtures/ml-tokenize.json`, `ml-analyze.json`, `reflect-v1.json` (acuan Go).
+- [x] `LiteFlow`: setelah "Lanjut mode terbatas", semua panggilan beralih ke mesin lokal; aksi yang gagal diulang otomatis.
+- [x] Muat lazy (dynamic import) supaya bundel awal tidak membengkak.
+- [x] Aktifkan tombol di `OfflineActions.tsx`; hapus TODO.
+- [x] E2E: server diputus lewat route Playwright → "Lanjut mode terbatas" → S-03 sampai S-09 selesai; tidak ada request ke `/analyze`.
 - [ ] Soul tetap nonaktif (jawaban Syafar no. 12).
 
 ## Fase 2 — Bersihkan sisa versi lama

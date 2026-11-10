@@ -51,6 +51,7 @@ npx -y -p playwright@1.49.1 node e2e/errors.cjs        # S-17/S-18/S-19/S-20, va
 npx -y -p playwright@1.49.1 node e2e/loading-anim.cjs  # animasi S-07 + reduced motion
 npx -y -p playwright@1.49.1 node e2e/soul.cjs          # alur Soul S-10–S-14, aturan nama, privasi, riwayat, error
 npx -y -p playwright@1.49.1 node e2e/info.cjs          # S-15 /tentang dan S-16 /privasi
+npx -y -p playwright@1.49.1 node e2e/offline.cjs       # mode terbatas Lite (semua request API diputus; tanpa backend)
 ```
 
 - `E2E_BASE_URL` (default `http://localhost:3000`) jika frontend di port lain; samakan dengan `CORS_ORIGIN`.
@@ -104,7 +105,7 @@ Error API v1 (`errorScreen()` di `src/lib/api-v1.ts`): jaringan/timeout → S-19
 - **"Lihat di GitHub" (S-15)** disembunyikan — repo `fk0u/anti-trap-order` masih privat (404 untuk publik). Disetujui Syafar (10 Nov 2026); tampilkan lagi saat repo publik. TODO di `src/app/tentang/page.tsx`.
 - **Jawaban FAQ S-01** belum ada di Figma; `answer` di `landing-s01.ts` sengaja kosong (item tidak bisa dibuka). Jangan diisi teks karangan.
 - **Batas waktu S-07 — menunggu keputusan lead (K9).** Sementara: chip "Agak lama?" di detik 3 (`SLOW_HINT_MS`), request tetap ditunggu, batas total 10 detik (`REQUEST_TIMEOUT_MS`) lalu S-07 Error dengan pilihan user. Kedua konstanta di `src/lib/api-v1.ts`.
-- **Mode terbatas (PR 5).** "Lanjut mode terbatas" (S-07 Error, S-19) tampil sesuai Figma tetapi nonaktif — TODO di `src/components/lite/OfflineActions.tsx`. "Coba lagi" berfungsi.
+- **Mode terbatas Lite (selesai).** "Lanjut mode terbatas" (S-07 Error, S-19) aktif: `src/lib/lite/engine.ts` memilih API v1 atau mesin lokal `src/lib/offline/` (port TS dari `internal/ml` dan `internal/lite/reflect.go`, data `internal/data/v1` + `internal/ml/model.json` diimpor langsung, dimuat lewat dynamic import). Tidak pernah beralih sendiri; hanya setelah user menekan tombolnya. Dijaga `npx -y tsx scripts/verify-offline.ts` (fixture Go, harus 51/51) dan `e2e/offline.cjs`. Setelah mengubah model/konten/aturan Go, jalankan keduanya. Tombol aktif membuat state S-07 Error/S-19 berbeda dari baseline visual lama (tombol tidak lagi redup 40%).
 - **Mode terbatas Soul.** S-19 di Soul memakai sheet yang sama dengan Lite; "Lanjut mode terbatas" nonaktif (jawaban Syafar no. 12).
 - **"Lihat cara mainnya" (S-10)** disembunyikan — `/tentang` belum menjelaskan cara main Soul. TODO di `CharacterScreen.tsx` (jawaban no. 6).
 - **Untuk tim konten (Soul) — data API dipakai apa adanya (jawaban no. 2 dan 3):**
