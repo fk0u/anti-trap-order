@@ -4,10 +4,14 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { ROUTES_WITH_TAB_BAR } from "@/lib/routes";
 import { Compass, MessageSquare, Zap, ShieldCheck, BookOpen } from "lucide-react";
 
 export function MobileTabBar() {
   const pathname = usePathname();
+
+  // Hanya route lama yang terdaftar di src/lib/routes.ts yang memakai tab bar.
+  if (!ROUTES_WITH_TAB_BAR.includes(pathname)) return null;
 
   const tabs = [
     { label: "Latihan", href: "/drill", icon: Compass },

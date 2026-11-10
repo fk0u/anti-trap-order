@@ -14,6 +14,77 @@
   --alert-amber: #d97706;
 }
 
+/* ================= ATO TOKENS (Figma "06 | Prototype") =================
+ * Sumber kebenaran: halaman 06 | Prototype, file Figma ZYHNsUzibVBzF0PzCfH3rv.
+ * Hanya variabel yang terbukti dipakai di node 06. Dipetakan ke Tailwind
+ * dengan awalan `ato-` (lihat tailwind.config.ts). Token lama di atas tetap
+ * dipakai halaman lain, jangan dihapus.
+ */
+:root {
+  /* Permukaan & garis */
+  --ato-bg-0: #f6f8fb;
+  --ato-bg-1: #ffffff;
+  --ato-bg-2: #edf1f6;
+  --ato-border-subtle: #d8e0ea;
+  --ato-border-strong: #b5c2d1;
+
+  /* Teks */
+  --ato-text-1: #0e1620;
+  --ato-text-2: #3b4a5c;
+  --ato-text-3: #5b6b7e;
+
+  /* Lite · The Reflex */
+  --ato-lite-accent: #0e7490;
+  --ato-lite-accent-ink: #ffffff;
+  --ato-lite-accent-soft: #d9f3f8;
+
+  /* Soul · The Guardian Arc */
+  --ato-soul-accent: #b45309;
+  --ato-soul-accent-ink: #ffffff;
+  --ato-soul-surface: #fff7ec;
+  --ato-soul-rose: #be123c;
+
+  /* State */
+  --ato-success: #15803d;
+  --ato-warning: #b45309;
+
+  /* Nilai mentah yang dipakai berulang di 06 (bukan Variable di Figma) */
+  --ato-ink: #000000;                       /* border 0.5px & bayangan keras */
+  --ato-cta-lite: #00aad9;                  /* gradien tombol Lite */
+  --ato-cta-soul: #ffda37;                  /* gradien tombol Soul (S-01) */
+  --ato-glow: #97dcf0;                      /* gradien kartu & tombol menu */
+  --ato-bubble: #58ff2a;                    /* gradien gelembung pesan contoh */
+  --ato-sky: rgba(95, 227, 247, 0.95);      /* "Aero sky" latar atas */
+  --ato-footer-glow: #68e4f8;               /* gradien footer */
+
+  /* Spacing (space/*) */
+  --ato-space-0: 0px;
+  --ato-space-4: 4px;
+  --ato-space-8: 8px;
+  --ato-space-12: 12px;
+  --ato-space-16: 16px;
+  --ato-space-20: 20px;
+  --ato-space-24: 24px;
+  --ato-space-32: 32px;
+  --ato-space-40: 40px;
+  --ato-space-56: 56px;
+  --ato-space-80: 80px;
+
+  /* Radius (radius/*) */
+  --ato-radius-sm: 8px;
+  --ato-radius-md: 12px;
+  --ato-radius-lg: 20px;
+  --ato-radius-full: 999px;
+}
+
+/* Teks putih bergaris luar gelap — di Figma 06 berupa text stroke luar
+ * (label tombol CTA, judul hero, judul "Tiga langkah"). paint-order membuat
+ * stroke berada di belakang isi sehingga hanya separuh luarnya yang terlihat. */
+.ato-text-outline {
+  -webkit-text-stroke: var(--ato-outline-width, 2px) var(--ato-ink);
+  paint-order: stroke fill;
+}
+
 html {
   scroll-behavior: smooth;
   color-scheme: light;
